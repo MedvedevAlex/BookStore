@@ -12,26 +12,26 @@ namespace BooksStore.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        BookContext db = new BookContext();
+        BookContext _db = new BookContext();
 
         [HttpGet]
         public IEnumerable<Book> GetBooks()
         {
-            return db.Books;
+            return _db.Books;
         }
 
         [HttpGet]
         public Book GetBook(int id)
         {
-            Book book = db.Books.Find(id);
+            Book book = _db.Books.Find(id);
             return book;
         }
 
         [HttpPost]
         public void CreateBook([FromBody]Book book)
         {
-            db.Books.Add(book);
-            db.SaveChanges();
+            _db.Books.Add(book);
+            _db.SaveChanges();
         }
 
         [HttpPut]
@@ -39,20 +39,20 @@ namespace BooksStore.Controllers
         {
             if (id == book.Id)
             {
-                db.Entry(book).State = EntityState.Modified;
+                _db.Entry(book).State = EntityState.Modified;
 
-                db.SaveChanges();
+                _db.SaveChanges();
             }
         }
 
         [HttpDelete]
         public void DeleteBook(int id)
         {
-            Book book = db.Books.Find(id);
+            Book book = _db.Books.Find(id);
             if (book != null)
             {
-                db.Books.Remove(book);
-                db.SaveChanges();
+                _db.Books.Remove(book);
+                _db.SaveChanges();
             }
         }
     }
