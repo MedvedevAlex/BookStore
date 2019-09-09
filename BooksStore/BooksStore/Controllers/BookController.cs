@@ -20,7 +20,7 @@ namespace BooksStore.Controllers
             return _db.Books;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         public Book GetBookById(int id)
         {
             Book book = _db.Books.Find(id);
@@ -34,7 +34,7 @@ namespace BooksStore.Controllers
             _db.SaveChanges();
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public void EditBook(int id, [FromBody]Book book)
         {
             if (id == book.Id)
@@ -45,7 +45,7 @@ namespace BooksStore.Controllers
             }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public void DeleteBook(int id)
         {
             Book book = _db.Books.Find(id);

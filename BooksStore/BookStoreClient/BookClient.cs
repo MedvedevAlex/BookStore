@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text;
 
 namespace BookStoreClient
 {
@@ -18,17 +19,50 @@ namespace BookStoreClient
 
         public async Task<Book> CreateBook(Book book)
         {
-            throw new NotImplementedException();
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(book), Encoding.UTF8);
+            var response = await _client.PostAsync("/api/book", httpContent);
+
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                return JsonConvert.DeserializeObject<Book>(await response.Content.ReadAsStringAsync());
+            }
+            catch
+            {
+                return new Book();
+            }
         }
 
-        public Task<Book> DeleteBook(int id)
+        public async Task<bool> DeleteBook(int id)
         {
-            throw new NotImplementedException();
+            var response = await _client.DeleteAsync($"/api/book/{id}");
+
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
-        public Task<Book> EditBook(Book book)
+        public async Task<Book> EditBook(Book book)
         {
-            throw new NotImplementedException();
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(book), Encoding.UTF8);
+
+            var response = await _client.PutAsync($"/api/book/{book.Id}", httpContent);
+
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                return JsonConvert.DeserializeObject<Book>(await response.Content.ReadAsStringAsync());
+            }
+            catch
+            {
+                return new Book();
+            }
         }
 
         public async Task<IEnumerable<Book>> GetAllBooks()
@@ -46,7 +80,7 @@ namespace BookStoreClient
             }
         }
 
-        public async Task<Book> GetBook(int id)
+        public async Task<Book> GetBookById(int id)
         {
             var response = await _client.GetAsync($"/api/book/{id}");
 
