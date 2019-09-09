@@ -21,7 +21,7 @@ namespace BooksStore.Controllers
         }
 
         [HttpGet]
-        public Book GetBook(int id)
+        public Book GetBookById(int id)
         {
             Book book = _db.Books.Find(id);
             return book;
