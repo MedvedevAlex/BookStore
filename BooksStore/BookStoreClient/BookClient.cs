@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Text;
 using InterfaceDB.Models;
+using System;
 
 namespace BookStoreClient
 {
@@ -51,7 +52,7 @@ namespace BookStoreClient
         {
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(book), Encoding.UTF8);
 
-            var response = await _client.PutAsync($"/api/book/{book.Id}", httpContent);
+            var response = await _client.PutAsync($"/api/book/{book.BookId}", httpContent);
 
             try
             {
@@ -64,16 +65,15 @@ namespace BookStoreClient
             }
         }
 
-        public async Task<IEnumerable<Book>> GetAllBooks()
-        {
-            var response = await _client.GetAsync("/api/book");
-            
+        public async Task<IEnumerable<Book>> GetAllBooksAsync()
+        {            
             try
             {
+                var response = await _client.GetAsync("/api/book");
                 response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<IEnumerable<Book>>(await response.Content.ReadAsStringAsync());
             }
-            catch
+            catch (Exception ex)
             {
                 return new List<Book>();
             }
