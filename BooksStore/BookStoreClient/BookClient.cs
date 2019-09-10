@@ -1,9 +1,9 @@
-﻿using BooksStore.Models;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Text;
+using InterfaceDB.Models;
 
 namespace BookStoreClient
 {

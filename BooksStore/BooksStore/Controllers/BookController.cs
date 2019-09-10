@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using BooksStore.Models;
+using InterfaceDB.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,26 +9,31 @@ namespace BooksStore.Controllers
     [ApiController]
     public class BookController : ControllerBase
     {
-        BookContext _db = new BookContext();
+        private readonly BookContext _context;
+
+        public BookController(BookContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet]
         public IEnumerable<Book> GetBooks()
         {
-            return _db.Books;
+            return _context.Books;
         }
 
         [HttpGet("{id}")]
         public Book GetBookById(int id)
         {
-            Book book = _db.Books.Find(id);
+            Book book = _context.Books.Find(id);
             return book;
         }
 
         [HttpPost]
         public void CreateBook([FromBody]Book book)
         {
-            _db.Books.Add(book);
-            _db.SaveChanges();
+            _context.Books.Add(book);
+            _context.SaveChanges();
         }
 
         [HttpPut("{id}")]
@@ -36,20 +41,20 @@ namespace BooksStore.Controllers
         {
             if (id == book.Id)
             {
-                _db.Entry(book).State = EntityState.Modified;
+                _context.Entry(book).State = EntityState.Modified;
 
-                _db.SaveChanges();
+                _context.SaveChanges();
             }
         }
 
         [HttpDelete("{id}")]
         public void DeleteBook(int id)
         {
-            Book book = _db.Books.Find(id);
+            Book book = _context.Books.Find(id);
             if (book != null)
             {
-                _db.Books.Remove(book);
-                _db.SaveChanges();
+                _context.Books.Remove(book);
+                _context.SaveChanges();
             }
         }
     }
