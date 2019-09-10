@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BooksStore.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("/api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
     {
@@ -39,7 +39,7 @@ namespace BooksStore.Controllers
         [HttpPut("{id}")]
         public void EditBook(int id, [FromBody]Book book)
         {
-            if (id == book.Id)
+            if (id == book.BookId)
             {
                 _context.Entry(book).State = EntityState.Modified;
 
