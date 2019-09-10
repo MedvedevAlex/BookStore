@@ -1,4 +1,4 @@
-﻿namespace BooksStore.Models
+﻿namespace InterfaceDB.Models
 {
     public class Book
     {

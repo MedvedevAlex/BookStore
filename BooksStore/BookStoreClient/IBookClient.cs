@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using BooksStore.Models;
+using InterfaceDB.Models;
 
 namespace BookStoreClient
 {
