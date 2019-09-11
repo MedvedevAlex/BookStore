@@ -17,7 +17,7 @@ namespace BookStoreClient
             _client = client;
         }
 
-        public async Task<Book> CreateBook(Book book)
+        public async Task<Book> CreateBookAsync(Book book)
         {
             if (book == null)
             {
@@ -38,7 +38,7 @@ namespace BookStoreClient
             }
         }
 
-        public async Task<bool> DeleteBook(int id)
+        public async Task<bool> DeleteBookAsync(int id)
         {
             if (id == 0)
             {
@@ -58,7 +58,7 @@ namespace BookStoreClient
             }
         }
 
-        public async Task<Book> EditBook(Book book)
+        public async Task<Book> EditBookAsync(Book book)
         {
             if (book == null)
             {
@@ -94,7 +94,7 @@ namespace BookStoreClient
             }
         }
 
-        public async Task<Book> GetBookById(int id)
+        public async Task<Book> GetBookByIdAsync(int id)
         {
             if (id == 0)
             {
