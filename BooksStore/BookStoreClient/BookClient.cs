@@ -19,6 +19,11 @@ namespace BookStoreClient
 
         public async Task<Book> CreateBook(Book book)
         {
+            if (book == null)
+            {
+                return new Book();
+            }
+
             HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(book), Encoding.UTF8);
             var response = await _client.PostAsync("/api/book", httpContent);
 
@@ -35,6 +40,11 @@ namespace BookStoreClient
 
         public async Task<bool> DeleteBook(int id)
         {
+            if (id == 0)
+            {
+                return false;
+            }
+
             var response = await _client.DeleteAsync($"/api/book/{id}");
 
             try
@@ -50,8 +60,12 @@ namespace BookStoreClient
 
         public async Task<Book> EditBook(Book book)
         {
-            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(book), Encoding.UTF8);
+            if (book == null)
+            {
+                return new Book();
+            }
 
+            HttpContent httpContent = new StringContent(JsonConvert.SerializeObject(book), Encoding.UTF8);
             var response = await _client.PutAsync($"/api/book/{book.BookId}", httpContent);
 
             try
@@ -66,10 +80,11 @@ namespace BookStoreClient
         }
 
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
-        {            
+        {      
+            var response = await _client.GetAsync("/api/book");
+
             try
             {
-                var response = await _client.GetAsync("/api/book");
                 response.EnsureSuccessStatusCode();
                 return JsonConvert.DeserializeObject<IEnumerable<Book>>(await response.Content.ReadAsStringAsync());
             }
@@ -81,6 +96,11 @@ namespace BookStoreClient
 
         public async Task<Book> GetBookById(int id)
         {
+            if (id == 0)
+            {
+                return new Book();
+            }
+
             var response = await _client.GetAsync($"/api/book/{id}");
 
             try

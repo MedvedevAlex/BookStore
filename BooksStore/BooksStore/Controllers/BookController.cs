@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using InterfaceDB.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -25,15 +26,24 @@ namespace BooksStore.Controllers
         [HttpGet("{id}")]
         public Book GetBookById(int id)
         {
+            if (id == 0)
+            {
+                return new Book();
+            }
             Book book = _context.Books.Find(id);
             return book;
         }
 
         [HttpPost]
-        public void CreateBook([FromBody]Book book)
+        public StatusCodeResult CreateBook([FromBody]Book book)
         {
+            if (book == null)
+            {
+                return BadRequest();
+            }
             _context.Books.Add(book);
             _context.SaveChanges();
+            return Ok();
         }
 
         [HttpPut("{id}")]
@@ -48,13 +58,18 @@ namespace BooksStore.Controllers
         }
 
         [HttpDelete("{id}")]
-        public void DeleteBook(int id)
+        public StatusCodeResult DeleteBook(int id)
         {
             Book book = _context.Books.Find(id);
             if (book != null)
             {
                 _context.Books.Remove(book);
                 _context.SaveChanges();
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
             }
         }
     }
