@@ -5,6 +5,7 @@ using BooksStore;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BookStoreClient.Tests
@@ -23,6 +24,14 @@ namespace BookStoreClient.Tests
             _host = new TestServer(
                 WebHost
                     .CreateDefaultBuilder(args.ToArray())
+                    .ConfigureAppConfiguration((hostingContext, cfg) =>
+                    {
+                        cfg.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+                        if (args != null)
+                        {
+                            cfg.AddCommandLine(args.ToArray());
+                        }
+                    })
                     .UseStartup<Startup>());
 
             _httpClient = _host.CreateClient();

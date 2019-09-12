@@ -6,10 +6,10 @@ namespace BookStoreClient
 {
     public interface IBookClient
     {
-        Task<Book> CreateBook(Book book);
-        Task<bool> DeleteBook(int id);
-        Task<Book> EditBook(Book book);
+        Task<Book> CreateBookAsync(Book book);
+        Task<bool> DeleteBookAsync(int id);
+        Task<Book> EditBookAsync(Book book);
         Task<IEnumerable<Book>> GetAllBooksAsync();
-        Task<Book> GetBookById(int id);
+        Task<Book> GetBookByIdAsync(int id);
     }
 }

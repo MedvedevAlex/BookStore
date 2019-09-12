@@ -17,7 +17,7 @@ namespace BookStoreClient.Tests
             var response = await client.GetAllBooksAsync(); 
 
             //Assert
-            response.Should().BeNull();
+            response.Should().NotBeNull();
 
         }
     }
