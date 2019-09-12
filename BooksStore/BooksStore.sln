@@ -13,8 +13,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreClient.Tests", "Bo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebClient", "WebClient\WebClient.csproj", "{201F646A-3163-4E31-9E89-0ED48BE9723C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebClientBack", "WebClientBack\WebClientBack.csproj", "{3E79DF40-6458-4F83-871A-4463D94C6AA1}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,12 +50,6 @@ Global
 		{201F646A-3163-4E31-9E89-0ED48BE9723C}.package|Any CPU.Build.0 = Debug|Any CPU
 		{201F646A-3163-4E31-9E89-0ED48BE9723C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{201F646A-3163-4E31-9E89-0ED48BE9723C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3E79DF40-6458-4F83-871A-4463D94C6AA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E79DF40-6458-4F83-871A-4463D94C6AA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3E79DF40-6458-4F83-871A-4463D94C6AA1}.package|Any CPU.ActiveCfg = Debug|Any CPU
-		{3E79DF40-6458-4F83-871A-4463D94C6AA1}.package|Any CPU.Build.0 = Debug|Any CPU
-		{3E79DF40-6458-4F83-871A-4463D94C6AA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3E79DF40-6458-4F83-871A-4463D94C6AA1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

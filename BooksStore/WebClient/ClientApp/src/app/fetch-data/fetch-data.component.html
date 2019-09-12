@@ -11,14 +11,12 @@
       <th>Temp. (C)</th>
       <th>Temp. (F)</th>
       <th>Summary</th>
+      <th>Кукусики</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let forecast of forecasts">
-      <td>{{ forecast.dateFormatted }}</td>
-      <td>{{ forecast.temperatureC }}</td>
-      <td>{{ forecast.temperatureF }}</td>
-      <td>{{ forecast.summary }}</td>
+    <tr *ngFor="let t of text">
+      <td>{{ t }}</td>
     </tr>
   </tbody>
 </table>

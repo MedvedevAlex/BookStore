@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookStoreClient;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient.Controllers
@@ -24,6 +25,13 @@ namespace WebClient.Controllers
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             });
+        }
+
+        [HttpGet("[action]")]
+        public string[] GetText()
+        {
+            var str = new string[] { "124", "234234" }; 
+            return str;
         }
 
         public class WeatherForecast
