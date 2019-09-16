@@ -1,4 +1,5 @@
 ﻿using InterfaceDB.Enums;
+using InterfaceDB.JoinTables;
 using System.Collections.Generic;
 
 namespace InterfaceDB.Models
@@ -10,6 +11,6 @@ namespace InterfaceDB.Models
         public byte Age { get; set; }
         public Style Style { get; set; }
 
-        public ICollection<Book> Books { get; set; }//вторичный ключ
+        public ICollection<PainterBook> PainterBooks { get; } = new List<PainterBook>();
     }
 }

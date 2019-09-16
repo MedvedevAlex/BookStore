@@ -16,8 +16,6 @@ namespace InterfaceDB.ModelConfiguration
                 .HasColumnType("tinyint");
             builder.Property(a => a.Style)
                 .HasColumnType("tinyint");
-
-            builder.HasMany<Book>();
         }
     }
 }

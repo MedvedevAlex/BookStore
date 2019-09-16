@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using InterfaceDB.JoinTables;
+using System.Collections.Generic;
 
 namespace InterfaceDB.Models
 {
@@ -8,6 +9,6 @@ namespace InterfaceDB.Models
         public string Name { get; set; }
         public byte Age { get; set; }
 
-        public ICollection<Book> Books { get; set; }//вторичный ключ
+        public ICollection<AuthorBook> AuthorBooks { get; } = new List<AuthorBook>();
     }
 }

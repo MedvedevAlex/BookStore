@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using BookStoreClient;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient.Controllers

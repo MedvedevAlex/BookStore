@@ -17,7 +17,6 @@ namespace InterfaceDB.ModelConfiguration
             builder.Property(a => a.Corporation)
                 .HasColumnType("varchar(20)");
 
-            builder.HasMany<Book>();
         }
     }
 }

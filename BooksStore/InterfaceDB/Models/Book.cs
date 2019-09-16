@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using InterfaceDB.Enums;
+using InterfaceDB.JoinTables;
 
 namespace InterfaceDB.Models
 {
@@ -25,10 +26,10 @@ namespace InterfaceDB.Models
         public int CountCustomers { get; set; }
         public decimal AvgReview { get; set; }//ignore
 
-        public ICollection<Author> Authors { get; set; }
+        public ICollection<AuthorBook> AuthorBooks { get; } = new List<AuthorBook>();
 
         public Publisher Publisher { get; set; }
 
-        public ICollection<Painter> Painters { get; set; }
+        public ICollection<PainterBook> PainterBooks { get; } = new List<PainterBook>();
     }
 }

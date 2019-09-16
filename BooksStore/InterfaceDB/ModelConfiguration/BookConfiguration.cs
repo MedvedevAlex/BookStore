@@ -44,9 +44,7 @@ namespace InterfaceDB.ModelConfiguration
                 .HasColumnType("int");
             builder.Ignore(b => b.AvgReview);
 
-            builder.HasMany<Author>();
             builder.HasOne<Publisher>();
-            builder.HasMany<Painter>();
         }
     }
 }

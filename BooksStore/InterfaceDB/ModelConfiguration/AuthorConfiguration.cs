@@ -14,8 +14,6 @@ namespace InterfaceDB.ModelConfiguration
                 .HasColumnType("varchar(20)");
             builder.Property(a => a.Age)
                 .HasColumnType("tinyint");
-
-            builder.HasMany<Book>();
         }
     }
 }
