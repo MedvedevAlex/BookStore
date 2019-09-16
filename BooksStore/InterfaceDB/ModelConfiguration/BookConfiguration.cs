@@ -13,14 +13,15 @@ namespace InterfaceDB.ModelConfiguration
             builder.Property(b => b.Name)
                 .HasColumnType("varchar(20)");
             builder.Property(t => t.PublishDate)
-                //todo medvedev: .IsRequired()
                 .HasColumnType("Date");
             builder.Property(b => b.Cover)
                 .HasColumnType("tinyint");
-            builder.Property(b => b.Description)
-                .HasColumnType("varchar(200)");
+            builder.Property(b => b.Genre)
+                .HasColumnType("tinyint");
             builder.Property(b => b.Language)
                 .HasColumnType("tinyint");
+            builder.Property(b => b.Description)
+                .HasColumnType("varchar(200)");
             builder.Property(b => b.ISBN_10)
                 .HasColumnType("char(10)");
             builder.Property(b => b.ISBN_13)
@@ -42,11 +43,9 @@ namespace InterfaceDB.ModelConfiguration
             builder.Property(b => b.CountCustomers)
                 .HasColumnType("int");
             builder.Ignore(b => b.AvgReview);
-            builder.Property(b => b.AuthorId)
-                .
+
             builder.HasMany<Author>();
             builder.HasOne<Publisher>();
-            builder.HasMany<Genre>();
             builder.HasMany<Painter>();
         }
     }
