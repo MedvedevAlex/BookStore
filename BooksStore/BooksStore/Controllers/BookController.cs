@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using System.Net;
+using System.Threading.Tasks;
 using InterfaceDB.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -24,53 +24,52 @@ namespace BooksStore.Controllers
         }
 
         [HttpGet("{id}")]
-        public Book GetBookById(int id)
+        public async Task<Book> GetBookByIdAsync(int id)
         {
             if (id == 0)
             {
                 return new Book();
             }
-            Book book = _context.Books.Find(id);
-            return book;
+            return await _context.Books.FindAsync(id);
         }
 
         [HttpPost]
-        public StatusCodeResult CreateBook([FromBody]Book book)
+        public async Task<StatusCodeResult> CreateBookAsync([FromBody]Book book)
         {
             if (book == null)
             {
                 return BadRequest();
             }
-            _context.Books.Add(book);
-            _context.SaveChanges();
+            await _context.Books.AddAsync(book);
+            await _context.SaveChangesAsync();
             return Ok();
         }
 
         [HttpPut("{id}")]
-        public void EditBook(int id, [FromBody]Book book)
+        public async Task<StatusCodeResult> EditBook(int id, [FromBody]Book book)
         {
             if (id == book.BookId)
             {
                 _context.Entry(book).State = EntityState.Modified;
 
-                _context.SaveChanges();
+                await _context.SaveChangesAsync();
+
+                return Ok();
             }
+            return BadRequest();
         }
 
         [HttpDelete("{id}")]
-        public StatusCodeResult DeleteBook(int id)
+        public async Task<StatusCodeResult> DeleteBookAsync(int id)
         {
-            Book book = _context.Books.Find(id);
+            Book book = await _context.Books.FindAsync(id);
             if (book != null)
             {
                 _context.Books.Remove(book);
                 _context.SaveChanges();
                 return Ok();
             }
-            else
-            {
-                return BadRequest();
-            }
+            return BadRequest();
         }
     }
 }
