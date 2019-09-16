@@ -41,8 +41,16 @@ namespace BooksStore.Controllers
                 return BadRequest();
             }
             await _context.Books.AddAsync(book);
-            await _context.SaveChangesAsync();
-            return Ok();
+
+            int countSaveBook = await _context.SaveChangesAsync();
+            if (countSaveBook == 1)
+            {
+                return Ok();
+            }
+            else
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPut("{id}")]
@@ -52,9 +60,15 @@ namespace BooksStore.Controllers
             {
                 _context.Entry(book).State = EntityState.Modified;
 
-                await _context.SaveChangesAsync();
-
-                return Ok();
+                int countSaveBook = await _context.SaveChangesAsync();
+                if (countSaveBook == 1)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             return BadRequest();
         }
@@ -66,8 +80,16 @@ namespace BooksStore.Controllers
             if (book != null)
             {
                 _context.Books.Remove(book);
-                _context.SaveChanges();
-                return Ok();
+
+                int countSaveBook = await _context.SaveChangesAsync();
+                if (countSaveBook == 1)
+                {
+                    return Ok();
+                }
+                else
+                {
+                    return BadRequest();
+                }
             }
             return BadRequest();
         }
