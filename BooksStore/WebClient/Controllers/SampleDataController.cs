@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using InterfaceDB.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebClient.Controllers
@@ -8,6 +9,14 @@ namespace WebClient.Controllers
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
+
+        private readonly BookContext _context;
+
+        public SampleDataController(BookContext context)
+        {
+            _context = context;
+        }
+
         private static string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -23,6 +32,11 @@ namespace WebClient.Controllers
                 TemperatureC = rng.Next(-20, 55),
                 Summary = Summaries[rng.Next(Summaries.Length)]
             });
+        }
+        [HttpGet("[action]")]
+        public IEnumerable<Book> GetBooks()
+        {
+            return _context.Books;
         }
 
         [HttpGet("[action]")]

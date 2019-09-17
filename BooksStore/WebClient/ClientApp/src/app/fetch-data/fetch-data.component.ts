@@ -10,6 +10,8 @@ export class FetchDataComponent {
   public forecasts: WeatherForecast[];
 
   public text: string[];
+  public book: any[];
+
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<WeatherForecast[]>(baseUrl + 'api/SampleData/WeatherForecasts').subscribe(result => {
@@ -19,7 +21,11 @@ export class FetchDataComponent {
     http.get<string[]>(baseUrl + 'api/SampleData/GetText').subscribe(result => {
       this.text = result;
     }, error => console.error(error));
-    console.log('22222222222222', this.text);
+
+    http.get<any[]>(baseUrl + 'api/Book').subscribe(result => {
+      this.book = result;
+    }, error => console.error(error));
+    
   }
 }
 
