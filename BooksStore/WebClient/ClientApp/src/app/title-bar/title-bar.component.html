@@ -1,0 +1,9 @@
+<button mat-button [matMenuTriggerFor]="menu">
+    supervisor
+    <mat-icon>menu_book</mat-icon>
+</button>
+<mat-menu #menu="matMenu" [overlapTrigger]="false">
+    <button mat-menu-item (click)="showAboutWindow()">О программе</button>
+    <button mat-menu-item (click)="settingsHandler()">Настройки</button>
+    <button mat-menu-item (click)="logoutHandler()">Выйти</button>
+</mat-menu>

@@ -1,4 +1,12 @@
 <body>
+    <mat-toolbar class="stk-shadow stk-topbar">
+        <!-- Значок приложения -->
+        <i class="material-icons" style="margin-right: 12px; color:rgb(53, 75, 93)" aria-label="Магазин Книг">menu_book</i>
+        <div style="margin-right: 20px">Магазин Книг</div>
+        <span class="stk-spacer"></span>
+        <app-title-bar></app-title-bar>
+        <!-- Главное меню приложения -->
+      </mat-toolbar>
   <app-nav-menu></app-nav-menu>
   <div class="container">
     <router-outlet></router-outlet>
