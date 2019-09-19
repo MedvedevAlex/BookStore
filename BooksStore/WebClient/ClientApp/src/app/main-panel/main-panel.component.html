@@ -1,0 +1,63 @@
+<nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
+
+    <div fxFlex fxLayout="row" class="container" style="">
+        <mat-menu #menu="matMenu" [overlapTrigger]="false">
+            <button mat-menu-item (click)="showAboutWindow()">О программе</button>
+            <button mat-menu-item (click)="settingsHandler()">Настройки</button>
+            <button mat-menu-item (click)="logoutHandler()">Выйти</button>
+        </mat-menu>
+        <button mat-button [matMenuTriggerFor]="catalog">
+            Каталог
+        </button>
+        <mat-menu #catalog="matMenu">
+            <button mat-menu-item>Учебная литература</button>
+            <button mat-menu-item>Детская литература</button>
+            <button mat-menu-item>Книги для подростков</button>
+            <button mat-menu-item>Художественная литература</button>
+            <button mat-menu-item>Нехудожественная литература</button>
+            <button mat-menu-item>Комиксы. Манга. Артбуки</button>
+            <button mat-menu-item>Бизнес-литература</button>
+            <button mat-menu-item>Государство и право. Юриспруденция</button>
+            <button mat-menu-item>Книги в кожаном переплете</button>
+            <button mat-menu-item>Календари 2020</button>
+            <button mat-menu-item>Книжный развал</button>
+            <button mat-menu-item>Игры и игрушки</button>
+            <button mat-menu-item>Хобби и творчество</button>
+            <button mat-menu-item>Канцтовары</button>
+            <button mat-menu-item>Сувениры. Аксессуары</button>
+            <button mat-menu-item>Аудиокниги</button>
+            <button mat-menu-item>Аудиокниги</button>
+            <button mat-menu-item>Детская литература</button>
+            <button mat-menu-item>Нехудожественная литература</button>
+            <button mat-menu-item>Художественная литература</button>
+        </mat-menu>
+
+        <button mat-button [matMenuTriggerFor]="menu">
+            Скидки и акции
+        </button>
+        <button mat-button [matMenuTriggerFor]="menu">
+            Подарки
+        </button>
+        <button mat-button [matMenuTriggerFor]="menu">
+            Учебная литература
+        </button>
+        <button mat-button [matMenuTriggerFor]="menu">
+            Новинки
+        </button>
+        <button mat-button [matMenuTriggerFor]="menu">
+            Предзаказы
+        </button>
+        <button mat-button [matMenuTriggerFor]="menu">
+            Бестселлеры
+        </button>
+        <button mat-button [matMenuTriggerFor]="menu">
+            Люди и книги
+        </button>
+        <a class="navbar-brand" [routerLink]='["/"]'></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+            aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</nav>

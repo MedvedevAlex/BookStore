@@ -12,6 +12,7 @@ import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialBlockModule } from './shared/material-block-module';
 import { TitleBarComponent } from './title-bar/title-bar.component';
+import { MainPanelComponent } from './main-panel/main-panel-component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { TitleBarComponent } from './title-bar/title-bar.component';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    TitleBarComponent
+    TitleBarComponent,
+    MainPanelComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

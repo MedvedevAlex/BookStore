@@ -1,9 +1,42 @@
-<button mat-button [matMenuTriggerFor]="menu">
-    supervisor
-    <mat-icon>menu_book</mat-icon>
-</button>
-<mat-menu #menu="matMenu" [overlapTrigger]="false">
-    <button mat-menu-item (click)="showAboutWindow()">О программе</button>
-    <button mat-menu-item (click)="settingsHandler()">Настройки</button>
-    <button mat-menu-item (click)="logoutHandler()">Выйти</button>
-</mat-menu>
+<nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3' style="padding: 0px">
+
+                <button mat-button [matMenuTriggerFor]="menu" style="width: 100px;">
+                        Оплата
+                    </button>
+                    <button mat-button [matMenuTriggerFor]="menu" style="width: 100px;">
+                        Доставка
+                    </button>
+                    <button mat-button [matMenuTriggerFor]="menu" style="width: 100px;">
+                        Каталог
+                    </button>
+                    <button mat-button [matMenuTriggerFor]="menu" style="width: 100px;">
+                        Настройки
+                    </button>
+      
+          <div fxFlex class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
+                <mat-menu #menu="matMenu" [overlapTrigger]="false">
+                        <button mat-menu-item (click)="showAboutWindow()">О программе</button>
+                        <button mat-menu-item (click)="settingsHandler()">Настройки</button>
+                        <button mat-menu-item (click)="logoutHandler()">Выйти</button>
+                    </mat-menu>
+                </div>
+                <div fxFlexAlign="end">
+                    <button mat-icon-button [matMenuTriggerFor]="settings" aria-label="Example icon-button with a menu">
+                        <mat-icon>more_vert</mat-icon>
+                    </button>
+                    <mat-menu #settings="matMenu">
+                        <button mat-menu-item>
+                            <mat-icon>dialpad</mat-icon>
+                            <span>Redial</span>
+                        </button>
+                        <button mat-menu-item disabled>
+                            <mat-icon>voicemail</mat-icon>
+                            <span>Check voice mail</span>
+                        </button>
+                        <button mat-menu-item>
+                            <mat-icon>notifications_off</mat-icon>
+                            <span>Disable alerts</span>
+                        </button>
+                    </mat-menu>
+          </div>
+      </nav>
