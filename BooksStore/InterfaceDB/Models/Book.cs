@@ -5,6 +5,7 @@ using InterfaceDB.JoinTables;
 
 namespace InterfaceDB.Models
 {
+    //todo: модель только для базы, распарсить на составляющие MappingExtencion
     public class Book
     {
         public int BookId { get; set; }

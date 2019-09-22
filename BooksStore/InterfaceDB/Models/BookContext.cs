@@ -13,6 +13,7 @@ namespace InterfaceDB.Models
         public DbSet<Author> Authors { get; set; }
         public DbSet<Painter> Painters { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
+        public DbSet<AuthorBook> AuthorBooks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

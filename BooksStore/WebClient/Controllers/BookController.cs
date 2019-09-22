@@ -42,17 +42,18 @@ namespace WebClient.Controllers
             {
                 return BadRequest();
             }
-            await _context.Books.AddAsync(book);
-
-            int countSaveBook = await _context.SaveChangesAsync();
-            if (countSaveBook == 1)
+            
+            try
             {
-                return Ok();
+                await _context.Books.AddAsync(book);
+                await _context.SaveChangesAsync();
             }
-            else
+            catch (Exception e)
             {
-                return BadRequest();
+                throw new Exception("Ошибка при добавлении в базу данных", e);
             }
+            return Ok();
+            //todo: сделать валидацию через TryValidateModel or Fluentvalidation
         }
 
         [HttpPut("{id}")]
@@ -62,15 +63,16 @@ namespace WebClient.Controllers
             {
                 _context.Entry(book).State = EntityState.Modified;
 
-                int countSaveBook = await _context.SaveChangesAsync();
-                if (countSaveBook == 1)
+                try
                 {
-                    return Ok();
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (Exception e)
                 {
-                    return BadRequest();
+                    throw new Exception("Ошибка при сохранении в базу данных", e);
                 }
+                return Ok();
+
             }
             return BadRequest();
         }
@@ -83,17 +85,27 @@ namespace WebClient.Controllers
             {
                 _context.Books.Remove(book);
 
-                int countSaveBook = await _context.SaveChangesAsync();
-                if (countSaveBook == 1)
+                try
                 {
-                    return Ok();
+                    await _context.SaveChangesAsync();
                 }
-                else
+                catch (Exception e)
                 {
-                    return BadRequest();
+                    throw new Exception("Ошибка при сохранении в базу данных", e);
                 }
+                return Ok();
             }
             return BadRequest();
+        }
+
+        [HttpGet("SearchByAuthor")]
+        public async Task<ICollection<Book>> SearchByAuthorAsync([FromQuery]string searchString)
+        {
+            return await (from author in _context.Authors
+                          join authorbook in _context.AuthorBooks on author.AuthorId equals authorbook.AuthorId
+                          join book in _context.Books on authorbook.BookId equals book.BookId
+                          where author.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
+                          select book).ToListAsync();
         }
     }
 }
