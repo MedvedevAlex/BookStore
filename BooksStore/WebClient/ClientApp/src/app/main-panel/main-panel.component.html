@@ -1,4 +1,5 @@
-<nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
+<nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'
+    style="background-color: #E8DB64!important; border-radius: 10px;">
 
     <div fxFlex fxLayout="row" class="container" style="">
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
@@ -6,51 +7,69 @@
             <button mat-menu-item (click)="settingsHandler()">Настройки</button>
             <button mat-menu-item (click)="logoutHandler()">Выйти</button>
         </mat-menu>
-        <button mat-button [matMenuTriggerFor]="catalog">
+        <button class="btn" mat-button [matMenuTriggerFor]="catalog">
             Каталог
         </button>
-        <mat-menu #catalog="matMenu">
-            <button mat-menu-item>Учебная литература</button>
-            <button mat-menu-item>Детская литература</button>
-            <button mat-menu-item>Книги для подростков</button>
-            <button mat-menu-item>Художественная литература</button>
-            <button mat-menu-item>Нехудожественная литература</button>
-            <button mat-menu-item>Комиксы. Манга. Артбуки</button>
-            <button mat-menu-item>Бизнес-литература</button>
-            <button mat-menu-item>Государство и право. Юриспруденция</button>
-            <button mat-menu-item>Книги в кожаном переплете</button>
-            <button mat-menu-item>Календари 2020</button>
-            <button mat-menu-item>Книжный развал</button>
-            <button mat-menu-item>Игры и игрушки</button>
-            <button mat-menu-item>Хобби и творчество</button>
-            <button mat-menu-item>Канцтовары</button>
-            <button mat-menu-item>Сувениры. Аксессуары</button>
-            <button mat-menu-item>Аудиокниги</button>
-            <button mat-menu-item>Аудиокниги</button>
-            <button mat-menu-item>Детская литература</button>
-            <button mat-menu-item>Нехудожественная литература</button>
-            <button mat-menu-item>Художественная литература</button>
+        <mat-menu #catalog="matMenu" [overlapTrigger]="false">
+            <button mat-menu-item style="font-family: 'Kurale', serif;">
+                <link href="https://fonts.googleapis.com/css?family=Kurale&display=swap" rel="stylesheet">
+                Anime
+            </button>
+            <button mat-menu-item style="font-family: 'Anton', sans-serif;">
+                <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet"> Detective
+                story
+            </button>
+            <button mat-menu-item style="font-family: 'Lobster', cursive;">
+                <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+                Спектакли
+            </button>
+            <button mat-menu-item style="font-family: 'Pacifico', cursive;">
+                <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">Сказки
+            </button>
+            <button mat-menu-item style="font-family: 'Play', sans-serif;">
+                <link href="https://fonts.googleapis.com/css?family=Play&display=swap" rel="stylesheet">Романы
+            </button>
+            <button mat-menu-item style="font-family: 'Caveat', cursive;">
+                <link href="https://fonts.googleapis.com/css?family=Caveat&display=swap" rel="stylesheet">
+                Мемуары
+            </button>
+            <button mat-menu-item style="font-family: 'Neucha', cursive;">
+                <link href="https://fonts.googleapis.com/css?family=Neucha&display=swap" rel="stylesheet">
+                Хоррор
+            </button>
+            <button mat-menu-item style="font-family: 'Kelly Slab', cursive;">
+                <link href="https://fonts.googleapis.com/css?family=Kelly+Slab&display=swap" rel="stylesheet">
+                Киберпанк
+            </button>
+            <button mat-menu-item style="font-family: 'Tenor Sans', sans-serif;">
+                <link href="https://fonts.googleapis.com/css?family=Tenor+Sans&display=swap" rel="stylesheet">
+                Фантастика
+            </button>
+            <button mat-menu-item style="font-family: 'Cormorant SC', serif;">
+                <link href="https://fonts.googleapis.com/css?family=Cormorant+SC&display=swap" rel="stylesheet">
+                Бизнес
+            </button>
         </mat-menu>
 
-        <button mat-button [matMenuTriggerFor]="menu">
+        <button class="btn" mat-button [matMenuTriggerFor]="menu" style="min-width: min-content">
             Скидки и акции
         </button>
-        <button mat-button [matMenuTriggerFor]="menu">
+        <button class="btn" mat-button [matMenuTriggerFor]="menu" style="min-width: min-content">
             Подарки
         </button>
-        <button mat-button [matMenuTriggerFor]="menu">
+        <button class="btn" mat-button [matMenuTriggerFor]="menu" style="min-width: min-content">
             Учебная литература
         </button>
-        <button mat-button [matMenuTriggerFor]="menu">
+        <button class="btn" mat-button [matMenuTriggerFor]="menu" style="min-width: min-content">
             Новинки
         </button>
-        <button mat-button [matMenuTriggerFor]="menu">
+        <button class="btn" mat-button [matMenuTriggerFor]="menu" style="min-width: min-content">
             Предзаказы
         </button>
-        <button mat-button [matMenuTriggerFor]="menu">
+        <button class="btn" mat-button [matMenuTriggerFor]="menu" style="min-width: min-content">
             Бестселлеры
         </button>
-        <button mat-button [matMenuTriggerFor]="menu">
+        <button class="btn" mat-button [matMenuTriggerFor]="menu" style="min-width: min-content">
             Люди и книги
         </button>
         <a class="navbar-brand" [routerLink]='["/"]'></a>

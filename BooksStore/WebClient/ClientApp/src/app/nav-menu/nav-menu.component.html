@@ -1,6 +1,6 @@
-<nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
+<nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow' style="height: 100px">
 
-  <div fxFlex fxLayout="row" class="container" style="">
+  <div fxFlex fxLayout="row" class="container" >
     <a class="navbar-brand" [routerLink]='["/"]'>Очень классный магазин книг</a>
 
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
@@ -17,7 +17,7 @@
             <input matInput #search placeholder="" autocomplete="off"
               (change)="filterService.setFilterByText(search.value)">
           </mat-form-field>
-
+          
         <li class="nav-item" [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
           <a class="nav-link text-dark" [routerLink]='["/"]'>Вход</a>
         </li>
