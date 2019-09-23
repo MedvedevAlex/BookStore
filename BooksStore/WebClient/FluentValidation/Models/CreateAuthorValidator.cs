@@ -7,13 +7,13 @@ namespace WebClient.FluentValidation.Models
     {
         public CreateAuthorValidatior()
         {
-            RuleFor(b => b.Name).NotEmpty()
+            RuleFor(a => a.Name).NotEmpty()
                 .WithMessage("Имя не может быть пустым");
-            RuleFor(b => b.Name).MaximumLength(20)
+            RuleFor(a => a.Name).MaximumLength(20)
                 .WithMessage("Название не может превышать 30 символов");
-            RuleFor(b => b.Age).NotEmpty()
+            RuleFor(a => a.Age).NotEmpty()
                 .WithMessage("Возраст не может быть пустым");
-            //RuleFor(b => b.Age).InclusiveBetween(1, 90)
+            //RuleFor(a => a.Age).InclusiveBetween(1, 90)
             //    .WithMessage("Название не может превышать 30 символов")
         }
     }
