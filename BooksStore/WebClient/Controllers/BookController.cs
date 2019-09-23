@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using InterfaceDB.Enums;
 using InterfaceDB.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -42,7 +43,7 @@ namespace WebClient.Controllers
             {
                 return BadRequest();
             }
-            
+
             try
             {
                 await _context.Books.AddAsync(book);
@@ -98,14 +99,63 @@ namespace WebClient.Controllers
             return BadRequest();
         }
 
-        [HttpGet("SearchByAuthor")]
-        public async Task<ICollection<Book>> SearchByAuthorAsync([FromQuery]string searchString)
+        [HttpGet("SearchByAuthors")]
+        public async Task<ICollection<Book>> SearchByAuthorsAsync([FromQuery]string searchString)
         {
             return await (from author in _context.Authors
                           join authorbook in _context.AuthorBooks on author.AuthorId equals authorbook.AuthorId
                           join book in _context.Books on authorbook.BookId equals book.BookId
                           where author.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
                           select book).ToListAsync();
+        }
+
+        [HttpGet("SearchByBooks")]
+        public async Task<ICollection<Book>> SearchByBooksAsync([FromQuery]string searchString)
+        {
+            return await (from book in _context.Books
+                          where book.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
+                          select book).ToListAsync();
+        }
+
+        [HttpGet("SearchByGenre")]
+        public async Task<ICollection<Book>> SearchByGenreAsync([FromQuery]string searchString)
+        {
+            var genreStringSearch = DictionariesSupport.ConvertGenreRus
+                .Where(s => s.Value.StartsWith(searchString, StringComparison.OrdinalIgnoreCase))
+                .Select(s => s.Key);
+
+            if (genreStringSearch.Count() == 0)
+            {
+                return new List<Book>();
+            }
+
+            return await (from book in _context.Books
+                          where book.Genre.Equals(genreStringSearch.FirstOrDefault())
+                          select book).ToListAsync();
+        }
+
+        [HttpGet("SearchByBooksDescription")]
+        public async Task<ICollection<Book>> SearchByBooksDescriptionAsync([FromQuery]string searchString)
+        {
+            return await (from book in _context.Books
+                          where book.Description.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
+                          select book).ToListAsync();
+        }
+
+        [HttpGet("SearchByPainters")]
+        public async Task<ICollection<Painter>> SearchByPaintersAsync([FromQuery]string searchString)
+        {
+            return await (from painter in _context.Painters
+                          where painter.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
+                          select painter).ToListAsync();
+        }
+
+        [HttpGet("SearchByPublishers")]
+        public async Task<ICollection<Publisher>> SearchByPublishersAsync([FromQuery]string searchString)
+        {
+            return await (from publisher in _context.Publishers
+                          where publisher.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
+                          select publisher).ToListAsync();
         }
     }
 }
