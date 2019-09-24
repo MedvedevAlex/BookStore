@@ -23,8 +23,8 @@ namespace WebClient.FluentValidation.Models
                 .WithMessage("Уникальный номер книжного издания старого образца должен содержать 10 цифр");
             RuleFor(b => b.ISBN_13).Matches("[0-9]{13}").MaximumLength(10)
                 .WithMessage("Уникальный номер книжного издания нового образца должен содержать 13 цифр");
-            //RuleFor(b => b.Dimensions).Matches("[0-9]{13}")
-            //                .WithMessage("Уникальный номер книжного издания нового образца должен содержать 13 цифр");
+            RuleFor(b => b.Dimensions).MaximumLength(10)
+                .WithMessage("Размер не может превышать 10 символов");
             RuleFor(b => b.NumbersPages).InclusiveBetween(50, 5000)
                 .WithMessage("Количество страниц имеет диапазон значений от 50 до 5000 символов");
             RuleFor(b => b.Price).ScalePrecision(2, 7)
@@ -33,8 +33,8 @@ namespace WebClient.FluentValidation.Models
                 .WithMessage("Количество на складе имеет диапазон значений от 1 до 10000 символов");
             RuleFor(b => b.Edition).InclusiveBetween(1, 1000000)
                 .WithMessage("Тираж имеет диапазон значений от 1 до 1000000 символов");
-            //RuleFor(b => b.AgeLimit).
-            //    .WithMessage("Тираж имеет диапазон значений от 1 до 1000000 символов");
+            RuleFor(b => b.AgeLimit).InclusiveBetween((byte)1,(byte)30)
+                .WithMessage("Возрастное ограничение имеет диапазон значений от 1 до 30 лет");
             RuleFor(b => b.Weight).ScalePrecision(2, 7)
                 .WithMessage("Вес не может превышать 4 целых и 2 десятичные после запятой");
             RuleFor(b => b.CountCustomers).InclusiveBetween(0, 1000000)
