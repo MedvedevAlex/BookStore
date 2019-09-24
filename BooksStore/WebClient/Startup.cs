@@ -1,3 +1,4 @@
+using FluentValidation.AspNetCore;
 using InterfaceDB.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -6,6 +7,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebClient.FluentValidation;
 
 namespace WebClient
 {
@@ -29,6 +31,10 @@ namespace WebClient
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+            services.AddMvc(opt =>
+            {
+                opt.Filters.Add(typeof(ValidatorActionFilter));
+            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +74,9 @@ namespace WebClient
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+
+
         }
     }
 }
