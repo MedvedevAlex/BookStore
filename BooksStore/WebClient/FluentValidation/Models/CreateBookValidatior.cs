@@ -12,11 +12,11 @@ namespace WebClient.FluentValidation.Models
             RuleFor(b => b.Name).MaximumLength(30)
                 .WithMessage("Название не может превышать 30 символов");
             RuleFor(b => b.Cover).IsInEnum()
-                .WithMessage("Переплет имеет диапазон значений, который не включает данное значение");
+                .WithMessage("Нет такого переплета");
             RuleFor(b => b.Genre).IsInEnum()
-                .WithMessage("Жанр имеет диапазон значений, который не включает данное значение");
+                .WithMessage("Нет такого жанра");
             RuleFor(b => b.Language).IsInEnum()
-                .WithMessage("Выбор языка имеет диапазон значений, который не включает данное значение");
+                .WithMessage("Нет такого языка");
             RuleFor(b => b.Description).MinimumLength(30).MaximumLength(100)
                 .WithMessage("Описание имеет диапазон значений от 30 до 100 симовлов");
             RuleFor(b => b.ISBN_10).Matches("[0-9]{10}").MaximumLength(10)

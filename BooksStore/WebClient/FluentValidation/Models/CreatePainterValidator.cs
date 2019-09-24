@@ -14,7 +14,7 @@ namespace WebClient.FluentValidation.Models
             RuleFor(p => p.Age).InclusiveBetween((byte)1, (byte)90)
                 .WithMessage("Возраст имеет диапазон значений от 1 до 90");
             RuleFor(p => p.Style).IsInEnum()
-                .WithMessage("Стиль имеет диапазон значений, который не включает данное значение");
+                .WithMessage("Нет такого стиля");
         }
     }
 }
