@@ -247,13 +247,14 @@ mat-divider.stk-dialog-divider {
     position: relative;
   
     display: block;
+    padding: 0px 20px 0px 20px;
     margin: 30px auto;
     padding: 0;
   
-    overflow: hidden;
+    /* overflow: hidden; */
   
     border-width: 0;
-    outline: none;
+    /* outline: none; */
     border-radius: 2px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
     
@@ -291,11 +292,11 @@ mat-divider.stk-dialog-divider {
     
     background-color: rgba(236, 240, 241, .3);
     
-    -webkit-transform: translate(-50%, -50%);
+    /* -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
     -o-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
   }
   
   .btn:active:before {
