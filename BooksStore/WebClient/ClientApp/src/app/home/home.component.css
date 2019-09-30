@@ -1,11 +1,19 @@
+.component {
+  position: relative;
+  width: 80%;
+  display: block;
+  margin: 0 auto;
+  padding: 0;
+  text-align: center;
+}
+
 .imageSlider {
-  max-width: 600px;
   height: 320px;
   overflow: hidden;
-  margin: 15px auto;
-  border-radius: 3px;
   background: rgba(199, 201, 211, 0.15);
   position: relative;
+  width: calc(63%);
+  display: inline-block;
 }
 
   .imageSlider button {
@@ -91,3 +99,37 @@
         padding: 6px 15px;
         font-size: 12px;
       }
+
+  .imageSlider .rightDivContent {
+    margin: 15px auto;
+    border-radius: 3px;
+  }
+
+.rightDivContent {
+  width: calc(33%);
+  display: inline-grid;
+  position: absolute;
+  height: inherit;
+}
+
+  .rightDivContent > img {
+    object-fit: cover;
+    width: 100px;
+    height: 100px;
+  }
+
+.posterTop, .posterBottom {
+  margin-left: 20px;
+}
+
+.posterTop {
+  background-color: #f9aaaa;
+  border: 3px dotted #f86565;
+  margin-bottom: 10px;
+}
+
+.posterBottom {
+  background-color: #b1eab1;
+  border: 3px dotted #61bd62;
+  margin-top: 10px;
+}
