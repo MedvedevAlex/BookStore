@@ -8,7 +8,7 @@
 }
 
 .imageSlider {
-  height: 320px;
+  height: 430px;
   overflow: hidden;
   background: rgba(199, 201, 211, 0.15);
   position: relative;
@@ -104,3 +104,5 @@
     margin: 15px auto;
     border-radius: 3px;
   }
+
+  

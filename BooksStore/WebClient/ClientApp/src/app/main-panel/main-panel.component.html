@@ -1,5 +1,5 @@
-<nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom'
-    style="background-color: #E8DB64!important; border-radius: 10px; box-shadow: 0 1px 5px rgba(0, 0, 0, .6);">
+<div 
+    style="    border: outset;background-color: #E8DB64!important; border-radius: 10px; box-shadow: 0 1px 5px rgba(0, 0, 0, .6);">
 
     <div fxFlex fxLayout="row" style="">
         <mat-menu #menu="matMenu" [overlapTrigger]="false">
@@ -73,10 +73,5 @@
             Люди и книги
         </button>
         <a class="navbar-brand" [routerLink]='["/"]'></a>
-
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
-            aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
-            <span class="navbar-toggler-icon"></span>
-        </button>
     </div>
-</nav>
+</div>
