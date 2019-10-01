@@ -104,32 +104,3 @@
     margin: 15px auto;
     border-radius: 3px;
   }
-
-.rightDivContent {
-  width: calc(33%);
-  display: inline-grid;
-  position: absolute;
-  height: inherit;
-}
-
-  .rightDivContent > img {
-    object-fit: cover;
-    width: 100px;
-    height: 100px;
-  }
-
-.posterTop, .posterBottom {
-  margin-left: 20px;
-}
-
-.posterTop {
-  background-color: #f9aaaa;
-  border: 3px dotted #f86565;
-  margin-bottom: 10px;
-}
-
-.posterBottom {
-  background-color: #b1eab1;
-  border: 3px dotted #61bd62;
-  margin-top: 10px;
-}
