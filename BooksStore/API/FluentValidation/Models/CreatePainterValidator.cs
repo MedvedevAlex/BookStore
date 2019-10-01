@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using InterfaceDB.Models;
 
-namespace WebClient.FluentValidation.Models
+namespace API.FluentValidation.Models
 {
     public class CreatePainterValidatior : AbstractValidator<Painter>
     {

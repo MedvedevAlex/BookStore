@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using InterfaceDB.Models;
 
-namespace WebClient.EntityService
+namespace API.EntityService
 {
     public interface IBookRepository
     {

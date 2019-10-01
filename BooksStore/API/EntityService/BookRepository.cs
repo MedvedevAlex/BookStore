@@ -3,7 +3,7 @@ using InterfaceDB.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace WebClient.EntityService
+namespace API.EntityService
 {
     public class BookRepository : IBookRepository
     {
@@ -13,7 +13,7 @@ namespace WebClient.EntityService
         {
             _bookLayer = bookLayer;
         }
-
+        
         public IEnumerable<Book> GetBooks() 
             => _bookLayer.GetBooks();
 

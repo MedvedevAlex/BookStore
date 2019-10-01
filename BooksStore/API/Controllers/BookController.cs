@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Net;
 using System.Threading.Tasks;
+using API.EntityService;
+using API.Filters;
 using InterfaceDB.Models;
 using Microsoft.AspNetCore.Mvc;
-using WebClient.EntityService;
 
-namespace WebClient.Controllers
+namespace API.Controllers
 {
     [Route("/api/[controller]")]
     [ApiController]
@@ -17,6 +19,7 @@ namespace WebClient.Controllers
             _bookRepository = bookRepository;
         }
 
+        
         [HttpGet]
         public IEnumerable<Book> GetBooks()
         {

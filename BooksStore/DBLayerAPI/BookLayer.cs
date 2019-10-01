@@ -36,9 +36,8 @@ namespace DBLayerAPI
             }
             catch (Exception e)
             {
-                throw new Exception("Ошибка при добавлении в базу данных", e);
+                throw new KeyNotFoundException("Ошибка при добавлении в базу данных", e);
             }
-            
         }
 
         public async Task EditBook(int id, Book book)
@@ -50,7 +49,7 @@ namespace DBLayerAPI
             }
             catch (Exception e)
             {
-                throw new Exception("Ошибка при сохранении в базу данных", e);
+                throw new KeyNotFoundException("Ошибка при сохранении в базу данных", e);
             }
         }
 
@@ -64,7 +63,7 @@ namespace DBLayerAPI
             }
             catch (Exception e)
             {
-                throw new Exception("Ошибка при сохранении в базу данных", e);
+                throw new KeyNotFoundException("Ошибка при сохранении в базу данных", e);
             }
         }
 
