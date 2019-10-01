@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DBLayerAPI\DBLayerAPI.csproj" />
     <ProjectReference Include="..\InterfaceDB\InterfaceDB.csproj" />
   </ItemGroup>
 

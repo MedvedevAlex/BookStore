@@ -1,3 +1,4 @@
+using DBLayerAPI;
 using FluentValidation.AspNetCore;
 using InterfaceDB.Models;
 using Microsoft.AspNetCore.Builder;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using WebClient.EntityService;
 using WebClient.FluentValidation;
 
 namespace WebClient
@@ -35,6 +37,10 @@ namespace WebClient
             {
                 opt.Filters.Add(typeof(ValidatorActionFilter));
             }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            services
+                .AddScoped<IBookLayer, BookLayer>()
+                .AddScoped<IBookRepository, BookRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
