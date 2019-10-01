@@ -34,6 +34,9 @@ body {
     background: var(--color-light);
 }
 
+.main-component {
+    place-content: center !important;
+}
 .routed-component-size {
     width: 100%;
     height: calc(100% - var(--header-height));
@@ -247,9 +250,8 @@ mat-divider.stk-dialog-divider {
     position: relative;
   
     display: block;
-    padding: 0px 20px 0px 20px;
-    margin: 30px auto;
-    padding: 0;
+    padding: 0px 20px 0px 20px ;
+    margin: 5px !important;
   
     /* overflow: hidden; */
   
