@@ -1,0 +1,314 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* Переменные */
+:root { 
+    --color-dark: #50719C;
+    --color-light: rgb(239, 233, 241);
+    --color-light-alt: rgb(53, 175, 93);
+    --color-border: rgba(0,0,0,.12);
+    --color-text-light: rgba(0,0,0,.54);   
+    --color-red: rgb(136, 1, 1);
+    --color-green: rgb(1, 100, 1);
+    --header-height: 46px;
+}
+
+.mat-menu-panel {
+    min-height: 78vh;
+    max-height: 78vh;
+}
+/* .border-bottom {
+    border-bottom: 1px solid #070b10!important;
+} */
+
+html, body { 
+    height: 100%;
+    width: 100%;
+    min-width: 760px;
+}
+
+body { 
+    font-family: 'Exo 2', sans-serif !important; 
+    margin: 0;
+    background: var(--color-light);
+}
+
+.main-component {
+    place-content: center !important;
+}
+.routed-component-size {
+    width: 100%;
+    height: calc(100% - var(--header-height));
+    box-sizing: border-box;
+}
+
+.stk-topbar {
+    height: var(--header-height) !important;
+    background:  var(--color-light-alt);
+    padding-right: 2px !important;
+}
+
+.stk-shadow {
+    box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+}
+
+.stk-spacer {
+    flex: 1 1 auto;
+}
+
+.stk-card-title.mat-card-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.stk-card-header {
+    font-size: 20px;
+    padding: 0;
+    margin: 0;
+}
+  
+.stk-card-header-container.stk-card-header {
+    padding-top: 2px;
+    padding-left: 4px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 20px;
+}
+
+.stk-disabled-area { 
+    position: relative;
+}
+  
+.stk-disabled-mask { 
+    position: absolute; 
+    top: 0; 
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: white;
+    opacity: 0.7;
+}
+
+.stk-menu-panel.mat-menu-panel {
+    max-width: 550px;
+    padding: 0;
+}
+
+.skt-selected {
+    background-color: var(--color-light) !important;
+}
+
+tr.stk-hover:not(.skt-selected):hover {
+    background: var(--color-light);
+    cursor: pointer;
+}
+
+.stk-visible-on-hover {
+    opacity: 0;
+}
+
+tr.stk-hover:hover .stk-visible-on-hover {
+    opacity: 100;
+}
+
+.stk-scroll-style::-webkit-scrollbar-track
+{
+	background-color: rgb(236, 236, 236);
+}
+
+.stk-scroll-style::-webkit-scrollbar
+{
+    width: 12px;
+    height: 12px;
+    background-color: rgb(236, 236, 236);
+}
+
+.stk-scroll-style::-webkit-scrollbar-thumb
+{
+    background-color: rgb(206, 206, 206);
+}
+
+.stk-disabled-text {
+    text-decoration: line-through !important;
+    color: gray !important;
+}
+
+.query-deleted-rejected {
+    color: var(--color-red);
+}
+
+.query-accepted {
+    color: var(--color-green);
+}
+
+.query-bg-deleted-rejected {
+    background-color: var(--color-red) !important;
+    color: white !important;
+}
+
+.query-bg-accepted {
+    background-color: var(--color-green) !important;
+    color: white !important;
+}
+
+.stk-text-value {
+    font-size: 20px;
+    line-height: 32px;
+    color: rgb(22, 22, 22) !important;
+    padding-left: 8px;
+}
+
+.stk-text-description {
+    font-size: 20px !important;
+    line-height: 32px;
+    color: rgb(116, 116, 116);
+}
+
+.request-list {
+    display: table;
+    width: 100%;
+    padding-right: 5px;
+    border-spacing: 0;
+    border-collapse: separate;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    background: white;
+}
+
+    thead tr th {
+        font-size: 12px;
+        font-weight: 500;
+        text-align: left;
+        color: var(--color-text-light);
+        background: white;
+        border-bottom: 1px solid var(--color-border);
+        height: 46px;
+        top: 0px;
+        position: sticky;
+        z-index: 100;
+        padding: 0px 5px 0px 10px;
+    }
+
+    tbody tr td {
+        font-size: 13px;
+        height: 40px;
+        border-bottom: 1px solid var(--color-border);
+        padding: 0px 5px 0px 10px;
+    }
+
+    mat-checkbox {
+        margin-left: 5px;
+    }
+
+.stk-dialog-mat-icon {
+    color: rgb(94, 87, 93); 
+    font-size: 70px !important; 
+    margin-left: 10px; 
+    margin-right: 30px; 
+    margin-top: 25px;
+}
+
+button.stk-dialog-button {
+    margin-top: 8px; 
+    margin-bottom: -15px; 
+    margin-right: -5px;
+}
+
+div.stk-dialog-title {
+    background: rgb(206,201,209); 
+    height: 60px; 
+    margin-left: -24px; 
+    margin-right: -24px; 
+    margin-top: -24px;
+}
+  
+h1.stk-mat-dialog-title {
+    color: white; 
+    margin-left: 13px; 
+    padding-top: 13px;
+}
+
+div.stk-dialog-bold-content {
+    font-size: 20px; 
+    font-weight:bold; 
+    margin-top: 40px;
+}
+  
+div.stk-dialog-normal-content {
+    font-size: 16px; 
+}
+
+mat-divider.stk-dialog-divider {
+    margin-left: -24px; 
+    margin-right: -24px; 
+    margin-top: 20px;
+}
+
+
+
+.btn {
+    position: relative;
+  
+    display: block;
+    padding: 0px 20px 0px 20px ;
+    margin: 5px !important;
+  
+    /* overflow: hidden; */
+  
+    border-width: 0;
+    /* outline: none; */
+    border-radius: 2px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+    
+    background-color: #bae864;
+    color: black;
+    
+    transition: background-color .3s;
+  }
+  
+  .btn:hover, .btn:focus {
+    background-color: #9aff6e;
+  }
+  
+  .btn > * {
+    position: relative;
+  }
+  
+  .btn span {
+    display: block;
+    /* padding: 12px 24px; */
+  }
+  
+  .btn:before {
+    content: "";
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    
+    display: block;
+    width: 0;
+    padding-top: 0;
+      
+    border-radius: 100%;
+    
+    background-color: rgba(236, 240, 241, .3);
+    
+    /* -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
+  }
+  
+  .btn:active:before {
+    width: 120%;
+    padding-top: 120%;
+    
+    transition: width .2s ease-out, padding-top .2s ease-out;
+  }
+  
+  /* Styles, not important */
+  *, *:before, *:after {
+    box-sizing: border-box;
+  }

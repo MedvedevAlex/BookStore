@@ -1,32 +1,36 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.Collections.Generic;
+using InterfaceDB.Enums;
+using InterfaceDB.JoinTables;
 
 namespace InterfaceDB.Models
 {
+    //todo: модель только для базы, распарсить на составляющие MappingExtencion
     public class Book
     {
-        [Key]
         public int BookId { get; set; }
-        [MaxLength(100)]
         public string Name { get; set; }
-        [MaxLength(25)]
-        public string Author { get; set; }
-        [DataType(DataType.Date)]
-        public DataType Data { get; set; }
-        [MaxLength(20)]
-        public string Publisher { get; set; }
-        [MaxLength(10)]
-        public string Cover { get; set; }
-        [MaxLength(500)]
+        public DateTime PublishDate { get; set; }
+        public Cover Cover { get; set; }
+        public Genre Genre { get; set; }
+        public Language Language { get; set; }
         public string Description { get; set; }
-        [MaxLength(10)]
-        public string Language { get; set; }
-        [Range(0, 10)]
-        public long ISBN_10 { get; set; }
-        [Range(0, 13)]
-        public long ISBN_13 { get; set; }
-        [MaxLength(10)]
+        public string ISBN_10 { get; set; }
+        public string ISBN_13 { get; set; }
         public string Dimensions { get; set; }
-        public float AvgReview { get; set; }
+        public int NumbersPages { get; set; }
+        public decimal Price { get; set; }
+        public int QuantityStock { get; set; }
+        public int Edition { get; set; }
+        public byte AgeLimit { get; set; }
+        public decimal Weight { get; set; }
         public int CountCustomers { get; set; }
+        public decimal AvgReview { get; set; }//ignore
+
+        public ICollection<AuthorBook> AuthorBooks { get; } = new List<AuthorBook>();
+
+        public Publisher Publisher { get; set; }
+
+        public ICollection<PainterBook> PainterBooks { get; } = new List<PainterBook>();
     }
 }
