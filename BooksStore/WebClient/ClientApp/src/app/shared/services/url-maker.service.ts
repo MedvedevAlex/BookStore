@@ -1,8 +1,6 @@
 export class UrlMakerService {
     public static getFullUrl(baseUrl: string, path: string): string {
-        let result = this.addTrailingSlash(baseUrl);
-        result = result + this.removeLeadingSlash(path);
-        return result;
+        return this.addTrailingSlash(baseUrl) + this.removeLeadingSlash(path);
     }
 
     public static removeLeadingSlash(url: string) {
