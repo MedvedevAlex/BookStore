@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace WebClient.FluentValidation
+namespace API.FluentValidation
 {
     public class ValidatorActionFilter : IActionFilter
     {
