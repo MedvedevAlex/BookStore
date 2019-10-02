@@ -7,10 +7,10 @@ namespace API.FluentValidation
     {
         public void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            //if (!filterContext.ModelState.IsValid)
-            //{
-            //    filterContext.Result = new BadRequestObjectResult(filterContext.ModelState);
-            //}
+            if (!filterContext.ModelState.IsValid)
+            {
+                filterContext.Result = new BadRequestObjectResult(filterContext.ModelState);
+            }
         }
 
         public void OnActionExecuted(ActionExecutedContext filterContext)

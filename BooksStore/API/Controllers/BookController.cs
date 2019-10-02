@@ -59,10 +59,10 @@ namespace API.Controllers
             return await _bookRepository.SearchByAuthorsAsync(searchString);
         }
 
-        [HttpGet("SearchByBooks")]
+        [HttpGet("SearchByBooksName")]
         public async Task<ICollection<Book>> SearchByBooksAsync([FromQuery]string searchString)
         {
-            return await _bookRepository.SearchByBooksAsync(searchString);
+            return await _bookRepository.SearchByBooksNameAsync(searchString);
         }
 
         [HttpGet("SearchByGenre")]

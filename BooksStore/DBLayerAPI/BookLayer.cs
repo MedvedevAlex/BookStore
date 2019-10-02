@@ -76,7 +76,7 @@ namespace DBLayerAPI
                           select book).ToListAsync();
         }
 
-        public async Task<ICollection<Book>> SearchByBooksAsync(string searchString)
+        public async Task<ICollection<Book>> SearchByBooksNameAsync(string searchString)
         {
             return await (from book in _context.Books
                           where book.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
