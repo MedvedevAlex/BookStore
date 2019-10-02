@@ -6,26 +6,24 @@
       alt="Очень классный магазин книг">
   </div>
 
-  <div fxFlex class="nav-search">
-    <mat-form-field style="min-width:200px; height: 45px !important; margin-top: -5px; border: groove; border-radius: 10px; align-items: flex-end;
+  <div fxFlex class="nav-search" >
+    <mat-form-field style="display:flex; min-width:200px; font-size: medium !important; height: 45px !important; margin-top: 14px; border: groove; border-radius: 10px;
           font: menu;">
-      <input matInput #search placeholder="Найдите вашу книгу..." autocomplete="off"
+      <input  matInput #search placeholder="Найдите вашу книгу..." autocomplete="off"
         (change)="filterService.setFilterByText(search.value)">
     </mat-form-field>
   </div>
 
-  <div style="width: 300px;">
-    <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+  <div class="nav-auth" style="width: 300px;">
+    <button class="btn" mat-button [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
+      style="width: 100px; margin: auto 5px auto 5px">
       <a [routerLink]='["/"]'>Вход</a>
-    </li>
+    </button>
+    <button class="btn" mat-button [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
+      style="width: 120px; margin: auto 5px auto 5px">
+      <a [routerLink]='["/counter"]'>Регистрация</a>
+    </button>
 
-    <li class="nav-item" [routerLinkActive]='["link-active"]'>
-      <a class="nav-link text-dark" [routerLink]='["/counter"]'>Регистрация</a>
-    </li>
-
-    <li class="nav-item" [routerLinkActive]='["link-active"]'>
-      <mat-icon>pan_tool</mat-icon>
-    </li>
+    <mat-icon>pan_tool</mat-icon>
   </div>
-
 </div>
