@@ -26,21 +26,12 @@ namespace WebClient
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddDbContext<BookContext>(options =>
-             options.UseSqlServer(Configuration.GetConnectionString("BookStoreDatabase")));
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
-            services.AddMvc(opt =>
-            {
-                opt.Filters.Add(typeof(ValidatorActionFilter));
-            }).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
-
-            services
-                .AddScoped<IBookLayer, BookLayer>()
-                .AddScoped<IBookRepository, BookRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
