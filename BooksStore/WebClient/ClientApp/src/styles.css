@@ -36,7 +36,7 @@ body {
 
 .main-component {
     place-content: center !important;
-    background: #e8db64
+    background: #ebebbb
 }
 .routed-component-size {
     width: 100%;

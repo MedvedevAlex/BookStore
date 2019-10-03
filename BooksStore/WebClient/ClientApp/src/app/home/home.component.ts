@@ -9,6 +9,17 @@ import { Component, OnInit } from '@angular/core';
 
 
 export class HomeComponent implements OnInit {
+  items: Array<any> = [];
+  constructor(){
+    this.items = [
+      {name: 'https://img2.freepng.ru/20180407/xoq/kisspng-arrow-computer-icons-clip-art-right-arrow-5ac90b5b4e9110.5288946415231250833218.jpg'},
+      {name: 'https://img2.freepng.ru/20180407/xoq/kisspng-arrow-computer-icons-clip-art-right-arrow-5ac90b5b4e9110.5288946415231250833218.jpg'},
+      {name: 'https://img2.freepng.ru/20180407/xoq/kisspng-arrow-computer-icons-clip-art-right-arrow-5ac90b5b4e9110.5288946415231250833218.jpg'},
+      {name: 'https://img2.freepng.ru/20180407/xoq/kisspng-arrow-computer-icons-clip-art-right-arrow-5ac90b5b4e9110.5288946415231250833218.jpg'},
+      {name: 'https://img2.freepng.ru/20180407/xoq/kisspng-arrow-computer-icons-clip-art-right-arrow-5ac90b5b4e9110.5288946415231250833218.jpg'},
+      {name: 'https://img2.freepng.ru/20180407/xoq/kisspng-arrow-computer-icons-clip-art-right-arrow-5ac90b5b4e9110.5288946415231250833218.jpg'}
+    ]
+  }
   ngOnInit() {
     this.carusel();
   }

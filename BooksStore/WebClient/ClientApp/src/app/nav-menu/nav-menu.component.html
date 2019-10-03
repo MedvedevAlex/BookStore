@@ -1,20 +1,20 @@
 <div fxFlex fxLayout="row" class="main-component" style="background:white; justify-content: center;height: 100px;">
 
-  <div style="width: 300px;">
+  <div class="nav-logo">
     <img [routerLink]='["/"]' style="width: 200px; height: 80px;"
       src="http://veda.nov.muzkult.ru/media/2018/08/18/1230800882/image_image_4312054.png"
       alt="Очень классный магазин книг">
   </div>
 
   <div fxFlex class="nav-search" >
-    <mat-form-field style="display:flex; min-width:200px; font-size: medium !important; height: 45px !important; margin-top: 14px; border: groove; border-radius: 10px;
+    <mat-form-field fxFlex style="  height: 45px !important;border: groove; border-radius: 10px;
           font: menu;">
-      <input  matInput #search placeholder="Найдите вашу книгу..." autocomplete="off"
+      <input fxFlex  matInput #search placeholder="Найдите вашу книгу..." autocomplete="off"
         (change)="filterService.setFilterByText(search.value)">
     </mat-form-field>
   </div>
 
-  <div class="nav-auth" style="width: 300px;">
+  <div class="nav-auth">
     <button class="btn" mat-button [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
       style="width: 100px; margin: auto 5px auto 5px">
       <a [routerLink]='["/"]'>Вход</a>
@@ -23,7 +23,9 @@
       style="width: 120px; margin: auto 5px auto 5px">
       <a [routerLink]='["/counter"]'>Регистрация</a>
     </button>
-
-    <mat-icon>pan_tool</mat-icon>
   </div>
+  <div style="width:50px; margin-top: 23px;">
+    <mat-icon style="color: #bae864; font-size:48px">menu_book</mat-icon>
+  </div>
+
 </div>

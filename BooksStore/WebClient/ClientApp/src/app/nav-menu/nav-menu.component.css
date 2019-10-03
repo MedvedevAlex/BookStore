@@ -16,9 +16,21 @@ html {
 .box-shadow {
   box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
+.nav-logo {
+  align-self: center;
+  margin: 10px 0 5px 20px;
+  width: 300px;
+}
+
 .nav-search {
   align-self: center;
+  margin-right: 10px;
+  font-size: medium !important;
+  min-width:200px;
 }
 .nav-auth {
   align-self: center;
+  min-width: 240px;
+  min-width: 260px;
+
 }

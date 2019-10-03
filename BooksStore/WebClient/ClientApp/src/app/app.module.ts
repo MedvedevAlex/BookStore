@@ -13,6 +13,8 @@ import { MaterialBlockModule } from './shared/material-block-module';
 import { TitleBarComponent } from './title-bar/title-bar.component';
 import { MainPanelComponent } from './main-panel/main-panel-component';
 import { CategoryComponent } from './category/category.component';
+import { Ng2CarouselamosModule } from 'ng2-carouselamos';
+
 
 @NgModule({
   declarations: [
@@ -32,6 +34,7 @@ import { CategoryComponent } from './category/category.component';
     FlexLayoutModule,
     ReactiveFormsModule,
     HttpClientModule,
+    Ng2CarouselamosModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
