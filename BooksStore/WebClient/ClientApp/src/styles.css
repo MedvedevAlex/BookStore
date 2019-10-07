@@ -36,7 +36,8 @@ body {
 
 .main-component {
     place-content: center !important;
-    background: #ebebbb
+    background: #fdfddf;
+    width: -webkit-fill-available;
 }
 .routed-component-size {
     width: 100%;
@@ -261,7 +262,7 @@ mat-divider.stk-dialog-divider {
     border-radius: 2px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
     
-    background-color: #bae864;
+    background-color: white;
     color: black;
     
     transition: background-color .3s;
