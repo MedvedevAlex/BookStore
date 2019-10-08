@@ -1,0 +1,50 @@
+.main-panel {
+    border: outset;
+    background-color: rgb(255, 251, 217) !important; 
+    border-radius: 5px; 
+    box-shadow: 0 1px 5px rgba(0, 0, 0, .6);
+}
+
+.main-panel-caregories {
+    place-content: center;
+}
+
+.anime-font {
+    font-family: 'Kurale', serif;
+}
+
+.detective-font {
+    font-family: 'Anton', sans-serif;
+}
+
+.play-font {
+    font-family: 'Lobster', cursive;
+}
+
+.story-font {
+    font-family: 'Pacifico', cursive;
+}
+
+.roman-font {
+    font-family: 'Play', sans-serif;
+}
+
+.memoir-font {
+    font-family: 'Caveat', cursive;
+}
+
+.horror-font {
+    font-family: 'Neucha', cursive;
+}
+
+.ciberpunk-font {
+    font-family: 'Kelly Slab', cursive;
+}
+
+.fantasy-font {
+    font-family: 'Tenor Sans', sans-serif;
+}
+
+.buisness-font {
+    font-family: 'Cormorant SC', serif;
+}

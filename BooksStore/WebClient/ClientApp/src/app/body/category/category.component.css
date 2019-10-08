@@ -1,0 +1,26 @@
+.category-filter {
+    width: 200px; 
+    background: white; 
+    margin: 5px; 
+    border-radius: 5px;  
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .6);
+}
+
+.category-main-filter-title {
+    margin-left: 40px;
+}
+
+.category-main-filter-content {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.category-author-filter-title {
+    margin-left: 40px; 
+    margin-top: 10px;
+}
+
+.category-author-filter-content {
+    margin-left: 10px; 
+    margin-top: 10px;
+}

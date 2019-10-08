@@ -1,14 +1,13 @@
 <div fxFlex fxLayout="row" class="main-component" style="background:white; justify-content: center;height: 100px;">
 
   <div class="nav-logo">
-    <img [routerLink]='["/"]' style="width: 200px; height: 80px;"
+    <img [routerLink]='["/"]'
       src="http://veda.nov.muzkult.ru/media/2018/08/18/1230800882/image_image_4312054.png"
       alt="Очень классный магазин книг">
   </div>
 
   <div fxFlex class="nav-search" >
-    <mat-form-field fxFlex style="  height: 45px !important;border: groove; border-radius: 5px;
-          font: menu;">
+    <mat-form-field fxFlex>
       <input fxFlex  matInput #search autocomplete="off"
         (change)="filterService.setFilterByText(search.value)"><mat-icon>search</mat-icon>  Найдите вашу книгу...
     </mat-form-field>
@@ -24,8 +23,7 @@
       <a [routerLink]='["/counter"]'>Регистрация</a>
     </button>
   </div>
-  <div style="width:50px; margin-top: 23px;">
-    <mat-icon style="color: #bae864; font-size:48px">menu_book</mat-icon>
+  <div class="icon-auth">
+    <mat-icon>menu_book</mat-icon>
   </div>
-
 </div>

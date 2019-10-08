@@ -39,6 +39,18 @@ body {
     background: #fdfddf;
     width: -webkit-fill-available;
 }
+
+.min-card {
+    height: 300px; 
+    width:200px; 
+    margin:30px
+}
+
+    .img-min-card {
+        height: 200px; 
+        width:150px;
+    }
+
 .routed-component-size {
     width: 100%;
     height: calc(100% - var(--header-height));
@@ -250,7 +262,7 @@ mat-divider.stk-dialog-divider {
 
 .btn {
     position: relative;
-  
+    min-width: min-content;
     display: block;
     padding: 0px 20px 0px 20px ;
     margin: 5px !important;

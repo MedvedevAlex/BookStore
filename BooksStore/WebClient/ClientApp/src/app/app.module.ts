@@ -5,15 +5,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialBlockModule } from './shared/material-block-module';
-import { TitleBarComponent } from './title-bar/title-bar.component';
-import { MainPanelComponent } from './main-panel/main-panel-component';
-import { CategoryComponent } from './category/category.component';
 import { Ng2CarouselamosModule } from 'ng2-carouselamos';
+import { NavMenuComponent } from './head/nav-menu/nav-menu.component';
+import { HomeComponent } from './body/home/home.component';
+import { CounterComponent } from './body/counter/counter.component';
+import { MainPanelComponent } from './head/main-panel/main-panel-component';
+import { TitleBarComponent } from './head/title-bar/title-bar.component';
+import { CategoryComponent } from './body/category/category.component';
 
 
 @NgModule({
