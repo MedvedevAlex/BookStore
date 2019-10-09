@@ -2,14 +2,14 @@
     <div class="category-filter">
         <div>
             <div class="category-main-filter-title">
-                <b><span>Фильтр</span></b>
+                <b><span>Фильтр по жанру</span></b>
             </div>
             <div class="category-main-filter-content">
-                <mat-checkbox>Категория 1</mat-checkbox>
-                <mat-checkbox>Категория 1</mat-checkbox>
-                <mat-checkbox>Категория 1</mat-checkbox>
-                <mat-checkbox>Категория 1</mat-checkbox>
-                <mat-checkbox>Категория 1</mat-checkbox>
+                <mat-checkbox>Детектив</mat-checkbox>
+                <mat-checkbox>Сказка</mat-checkbox>
+                <mat-checkbox>Роман</mat-checkbox>
+                <mat-checkbox>Аниме</mat-checkbox>
+                <mat-checkbox>Киберпанк</mat-checkbox>
             </div>
 
             <div>
@@ -17,139 +17,136 @@
                     <b><span>Автор</span></b>
                 </div>
                 <div class="category-author-filter-content">
-                    <input matInput placeholder="Favorite food" value="Sushi"
-                        style="margin: 10px; background: floralwhite; border: groove; border-radius: 5px; text-align: center; width: 140px">
+                    <input matInput placeholder="Поиск по автору" class="category-author-input">
                 </div>
-                <div style="margin-left: 10px; margin-top: 10px;">
-                    <mat-checkbox>Категория 1</mat-checkbox>
-                    <mat-checkbox>Категория 1</mat-checkbox>
-                    <mat-checkbox>Категория 1</mat-checkbox>
-                    <mat-checkbox>Категория 1</mat-checkbox>
-                    <mat-checkbox>Категория 1</mat-checkbox>
+                <div class="category-author-filter-content">
+                    <mat-checkbox>Эркюль Пуаро</mat-checkbox>
+                    <mat-checkbox>Дарья Донцова</mat-checkbox>
+                    <mat-checkbox>Юрий Никитин</mat-checkbox>
+                    <mat-checkbox>Братья Стругацкие</mat-checkbox>
+                    <mat-checkbox>Александр Блок</mat-checkbox>
+                    <mat-checkbox>Александр Удар</mat-checkbox>
                 </div>
             </div>
             <div>
-                <div style="margin-left: 40px; margin-top: 10px;">
-                    <b><span>Фильтр</span></b>
+                <div class="category-page-filter-title">
+                    <span><b>Фильтр по количеству страниц</b></span>
                 </div>
-                <mat-select placeholder="Select" style="margin-left: 10px; margin-top: 10px; background: floralwhite; border: groove; border-radius: 5px; text-align: center; width: 180px">
-                    <mat-option value="option">Option</mat-option>
-                    <mat-option value="option">Option</mat-option>
-                    <mat-option value="option">Option</mat-option>
-                    <mat-option value="option">Option</mat-option>
-                    <mat-option value="option">Option</mat-option>
+                <mat-select class="category-page-filter-content" placeholder="Количество страниц">
+                    <mat-option value="option">до 50</mat-option>
+                    <mat-option value="option">50 - 200</mat-option>
+                    <mat-option value="option">200 - 500</mat-option>
+                    <mat-option value="option">500 - 1000</mat-option>
+                    <mat-option value="option">1000 и больше</mat-option>
                 </mat-select>
             </div>
         </div>
 
     </div>
     <div fxFlex="80%">
-        <div fxLayout="column" style="background: white; margin: 5px; border-radius: 5px; box-shadow: 0 3px 5px rgba(0, 0, 0, .6);">
+        <div fxLayout="column" class="main-content">
             <div fxLayout="row">
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Виктор Пелевин
                     </mat-card-title>
                     <mat-card-content>
                         <img src='https://ndc.book24.ru/resize_cache/9658024/82aff9b7004fb1831f626fc857f53daf/iblock/332/332600fc6d027a75a5f2e99a18d5069d.jpg'
                             alt='image' style="height: 200px; width:150px;">
                     </mat-card-content>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Виктор Пелевин
                     </mat-card-title>
                     <img src='https://ndc.book24.ru/resize_cache/9658024/82aff9b7004fb1831f626fc857f53daf/iblock/332/332600fc6d027a75a5f2e99a18d5069d.jpg'
                         alt='image' style="height: 200px; width:150px;">
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Другая правда
                     </mat-card-title>
-                    <img src='https://cdn.book24.ru/v2/ITD000000000994236/COVER/cover3d1__w130.webp' alt='image'
-                        style="height: 200px; width:150px;">
+                    <img src='https://cdn.book24.ru/v2/ITD000000000994236/COVER/cover3d1__w130.webp' alt='image'>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Жажда власти 2
                     </mat-card-title><img src='https://cdn.book24.ru/v2/ASE000000000844497/COVER/cover3d1__w130.webp'
-                        alt='image' style="height: 200px; width:150px;">
+                        alt='image'>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Щегол
                     </mat-card-title><img src='https://cdn.book24.ru/v2/AST000000000155650/COVER/cover3d1__w130.webp'
-                        alt='image' style="height: 200px; width:150px;">
+                        alt='image'>
                 </mat-card>
             </div>
             <div fxLayout="row">
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-content>
                         <mat-card-title>
-                            Simple card
+                            Джо Хилл
                         </mat-card-title>
-                        <img src='https://cdn.book24.ru/v2/ITD000000000995229/COVER/cover3d1__w130.webp' alt='image'
-                            style="height: 200px; width:150px;">
+                        <img src='https://cdn.book24.ru/v2/ITD000000000995229/COVER/cover3d1__w130.webp' alt='image'>
                     </mat-card-content>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        1984
                     </mat-card-title><img src='https://cdn.book24.ru/v2/AST000000000130417/COVER/cover3d1__w130.webp'
-                        alt='image' style="height: 200px; width:150px;">
+                        alt='image'>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
                         Simple card
                     </mat-card-title><img src='https://cdn.book24.ru/v2/ITD000000000985056/COVER/cover3d1__w130.webp'
-                        alt='image' style="height: 200px; width:150px;">
+                        alt='image'>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Жажда власти 2
                     </mat-card-title><img src='https://cdn.book24.ru/v2/ASE000000000844497/COVER/cover3d1__w130.webp'
-                        alt='image' style="height: 200px; width:150px;">
+                        alt='image'>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Щегол
                     </mat-card-title><img src='https://cdn.book24.ru/v2/AST000000000155650/COVER/cover3d1__w130.webp'
-                        alt='image' style="height: 200px; width:150px;">
+                        alt='image'>
                 </mat-card>
             </div>
             <div fxLayout="row">
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-content>
                         <mat-card-title>
-                            Simple card
+                        Жажда власти 2
                         </mat-card-title><img
-                            src='https://cdn.book24.ru/v2/ASE000000000844497/COVER/cover3d1__w130.webp' alt='image'
-                            style="height: 200px; width:150px;">
+                            src='https://cdn.book24.ru/v2/ASE000000000844497/COVER/cover3d1__w130.webp' alt='image'>
                     </mat-card-content>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Жажда власти 2
                     </mat-card-title><img src='https://cdn.book24.ru/v2/ASE000000000844497/COVER/cover3d1__w130.webp'
-                        alt='image' style="height: 200px; width:150px;">
+                        alt='image'>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Щегол
                     </mat-card-title><img src='https://cdn.book24.ru/v2/AST000000000155650/COVER/cover3d1__w130.webp'
-                        alt='image' style="height: 200px; width:150px;">
+                        alt='image'>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Жажда власти 2
                     </mat-card-title><img src='https://cdn.book24.ru/v2/ASE000000000844497/COVER/cover3d1__w130.webp'
-                        alt='image' style="height: 200px; width:150px;">
+                        alt='image'>
                 </mat-card>
-                <mat-card style="height: 300px; width:200px; margin:30px">
+                <mat-card class="min-card">
                     <mat-card-title>
-                        Simple card
+                        Щегол
                     </mat-card-title><img src='https://cdn.book24.ru/v2/AST000000000155650/COVER/cover3d1__w130.webp'
-                        alt='image' style="height: 200px; width:150px;">
+                        alt='image'>
                 </mat-card>
             </div>
         </div>

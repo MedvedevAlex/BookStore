@@ -1,8 +1,8 @@
 .main-panel {
-    border: outset;
     background-color: rgb(255, 251, 217) !important; 
-    border-radius: 5px; 
-    box-shadow: 0 1px 5px rgba(0, 0, 0, .6);
+    border-radius: 5px;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .6);
+    position: relative;
 }
 
 .main-panel-caregories {

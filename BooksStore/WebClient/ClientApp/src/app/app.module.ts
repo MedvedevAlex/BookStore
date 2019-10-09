@@ -14,6 +14,10 @@ import { CounterComponent } from './body/counter/counter.component';
 import { MainPanelComponent } from './head/main-panel/main-panel-component';
 import { TitleBarComponent } from './head/title-bar/title-bar.component';
 import { CategoryComponent } from './body/category/category.component';
+import { AdverstingComponent } from './body/home/advertising/adversting.component';
+import { PopularComponent } from './body/home/popular/popular.component';
+import { RecommendedComponent } from './body/home/recommended/recommended.component';
+import { BestsellersComponent } from './body/home/bestsellers/bestsellers.component';
 
 
 @NgModule({
@@ -24,7 +28,11 @@ import { CategoryComponent } from './body/category/category.component';
     CounterComponent,
     TitleBarComponent,
     MainPanelComponent,
-    CategoryComponent
+    CategoryComponent,
+    AdverstingComponent,
+    PopularComponent,
+    RecommendedComponent,
+    BestsellersComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

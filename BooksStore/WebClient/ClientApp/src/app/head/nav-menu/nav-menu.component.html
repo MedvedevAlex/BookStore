@@ -8,8 +8,8 @@
 
   <div fxFlex class="nav-search" >
     <mat-form-field fxFlex>
-      <input fxFlex  matInput #search autocomplete="off"
-        (change)="filterService.setFilterByText(search.value)"><mat-icon>search</mat-icon>  Найдите вашу книгу...
+      <input fxFlex  matInput #search placeholder="Найдите вашу книгу..." autocomplete="off"
+        (change)="filterService.setFilterByText(search.value)"><mat-icon>search</mat-icon>
     </mat-form-field>
   </div>
 

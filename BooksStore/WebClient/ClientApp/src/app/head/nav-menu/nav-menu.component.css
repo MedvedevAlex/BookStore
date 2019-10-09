@@ -37,7 +37,7 @@ html {
 }
 
   div.nav-search mat-form-field {
-    height: 45px !important;
+    height: 50px !important;
     border: groove; 
     border-radius: 5px;
     font: menu;

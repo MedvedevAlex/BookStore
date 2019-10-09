@@ -24,3 +24,35 @@
     margin-left: 10px; 
     margin-top: 10px;
 }
+
+    .category-author-input {
+        height: 30px;
+        margin: 10px; 
+        background: floralwhite; 
+        border: groove; 
+        border-radius: 5px; 
+        text-align: center; 
+        width: 160px;
+    }
+
+.category-page-filter-title {
+    margin-left: 40px;
+    margin-top: 10px;
+}
+
+.category-page-filter-content {
+    margin-left: 10px; 
+    margin-top: 10px; 
+    background: floralwhite; 
+    border: groove; 
+    border-radius: 5px; 
+    text-align: center; 
+    width: 180px
+}
+
+.main-content {
+    background: white; 
+    margin: 5px; 
+    border-radius: 5px; 
+    box-shadow: 0 3px 5px rgba(0, 0, 0, .6);
+}

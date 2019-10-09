@@ -1,4 +1,4 @@
-<nav class="main-component" style="background: white; border-bottom-style: inset; padding: 0px;;">
+<nav class="main-component" style="background: white; border-bottom-style: inset; padding: 0px;">
 
                 <button class="btn" mat-button [matMenuTriggerFor]="menu" style="width: 100px; margin: auto 5px auto 5px">
                         Оплата
@@ -12,7 +12,7 @@
                         Настройки
                     </button>
       
-          <div fxFlex class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]='{"show": isExpanded}'>
+          <div fxFlex [ngClass]='{"show": isExpanded}'>
                 <mat-menu #menu="matMenu" [overlapTrigger]="false">
                         <button mat-menu-item (click)="showAboutWindow()">О программе</button>
                         <button mat-menu-item (click)="settingsHandler()">Настройки</button>
