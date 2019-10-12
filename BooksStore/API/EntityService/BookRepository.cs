@@ -57,11 +57,6 @@ namespace API.EntityService
             return await _bookLayer.SearchByBooksDescriptionAsync(searchString);
         }
 
-        public async Task<ICollection<Painter>> SearchByPaintersAsync(string searchString)
-        {
-            return await _bookLayer.SearchByPaintersAsync(searchString);
-        }
-
         public async Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString)
         {
             return await _bookLayer.SearchByPublishersAsync(searchString);

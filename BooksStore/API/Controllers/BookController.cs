@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using API.EntityService;
-using API.Filters;
 using InterfaceDB.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -75,12 +73,6 @@ namespace API.Controllers
         public async Task<ICollection<Book>> SearchByBooksDescriptionAsync([FromQuery]string searchString)
         {
             return await _bookRepository.SearchByBooksDescriptionAsync(searchString);
-        }
-
-        [HttpGet("SearchByPainters")]
-        public async Task<ICollection<Painter>> SearchByPaintersAsync([FromQuery]string searchString)
-        {
-            return await _bookRepository.SearchByPaintersAsync(searchString);
         }
 
         [HttpGet("SearchByPublishers")]

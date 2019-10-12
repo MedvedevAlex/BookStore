@@ -15,7 +15,6 @@ namespace DBLayerAPI
         Task<ICollection<Book>> SearchByBooksNameAsync(string searchString);
         Task<ICollection<Book>> SearchByBooksDescriptionAsync(string searchString);
         Task<ICollection<Book>> SearchByGenreAsync(string searchString);
-        Task<ICollection<Painter>> SearchByPaintersAsync(string searchString);
         Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString);
     }
 }

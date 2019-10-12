@@ -1,6 +1,7 @@
 ﻿using API.EntityService;
 using API.Filters;
 using DBLayerAPI;
+using DBLayerAPI.PainterLayers;
 using InterfaceDB.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -36,7 +37,8 @@ namespace API
 
             services
                 .AddScoped<IBookLayer, BookLayer>()
-                .AddScoped<IBookRepository, BookRepository>();
+                .AddScoped<IBookRepository, BookRepository>()
+                .AddScoped<IPainterLayer, PainterLayer>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
