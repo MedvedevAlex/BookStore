@@ -105,12 +105,5 @@ namespace DBLayerAPI
                           where book.Description.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
                           select book).ToListAsync();
         }
-
-        public async Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString)
-        {
-            return await (from publisher in _context.Publishers
-                          where publisher.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select publisher).ToListAsync();
-        }
     }
 }

@@ -74,11 +74,5 @@ namespace API.Controllers
         {
             return await _bookRepository.SearchByBooksDescriptionAsync(searchString);
         }
-
-        [HttpGet("SearchByPublishers")]
-        public async Task<ICollection<Publisher>> SearchByPublishersAsync([FromQuery]string searchString)
-        {
-            return await _bookRepository.SearchByPublishersAsync(searchString);
-        }
     }
 }

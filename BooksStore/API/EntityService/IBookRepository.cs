@@ -15,6 +15,5 @@ namespace API.EntityService
         Task<ICollection<Book>> SearchByBooksNameAsync(string searchString);
         Task<ICollection<Book>> SearchByBooksDescriptionAsync(string searchString);
         Task<ICollection<Book>> SearchByGenreAsync(string searchString);
-        Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString);
     }
 }
