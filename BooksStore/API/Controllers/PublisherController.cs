@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.EntityService.PainterRepos;
 using API.EntityService.PublisherRepos;
 using InterfaceDB.Models;
 using Microsoft.AspNetCore.Mvc;
