@@ -1,4 +1,5 @@
-﻿using InterfaceDB.Models;
+﻿using API.Models;
+using InterfaceDB.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,6 +7,6 @@ namespace API.EntityService.PainterRepos
 {
     public interface IPainterRepository
     {
-        Task<ICollection<Painter>> SearchByPaintersAsync(string searchString);
+        Task<IEnumerable<PainterModel>> SearchByPaintersAsync(string searchString)
     }
 }

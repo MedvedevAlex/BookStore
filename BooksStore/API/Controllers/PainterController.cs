@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.EntityService.PainterRepos;
-using InterfaceDB.Models;
+using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -17,7 +17,7 @@ namespace API.Controllers
         }
 
         [HttpGet("SearchByPainters")]
-        public async Task<ICollection<Painter>> SearchByPaintersAsync([FromQuery]string searchString)
+        public async Task<IEnumerable<PainterModel>> SearchByPaintersAsync([FromQuery]string searchString)
         {
             return await _painterRepository.SearchByPaintersAsync(searchString);
         }

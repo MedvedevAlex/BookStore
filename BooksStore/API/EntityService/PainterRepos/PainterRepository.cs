@@ -2,6 +2,9 @@
 using System.Threading.Tasks;
 using InterfaceDB.Models;
 using DBLayerAPI.PainterLayers;
+using System.Linq;
+using API.Converters;
+using API.Models;
 
 namespace API.EntityService.PainterRepos
 {
@@ -14,9 +17,9 @@ namespace API.EntityService.PainterRepos
             _painerLayer = painerLayer;
         }
 
-        public async Task<ICollection<Painter>> SearchByPaintersAsync(string searchString)
+        public async Task<IEnumerable<PainterModel>> SearchByPaintersAsync(string searchString)
         {
-            return await _painerLayer.SearchByPaintersAsync(searchString);
+            return (await _painerLayer.SearchByPaintersAsync(searchString)).Select(x => x.ToPainterModel());
         }
     }
 }

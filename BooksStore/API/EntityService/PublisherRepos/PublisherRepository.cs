@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using InterfaceDB.Models;
-using DBLayerAPI.PainterLayers;
 using DBLayerAPI.PublisherLayers;
 
 namespace API.EntityService.PublisherRepos
