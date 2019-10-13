@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DBLayerAPI
+namespace ServiceDb.BookRepos
 {
-    public class BookLayer : IBookLayer
+    public class BookRepository : IBookRepository
     {
         private readonly BookContext _context;
 
-        public BookLayer(BookContext context)
+        public BookRepository(BookContext context)
         {
             _context = context;
         }

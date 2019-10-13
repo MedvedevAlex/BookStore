@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace DBLayerAPI.PublisherLayers
+namespace ServiceDb.PublisherRepos
 {
-    public class PublisherLayer : IPublisherLayer
+    public class PublisherRepository : IPublisherRepository
     {
         private readonly BookContext _context;
 
-        public PublisherLayer(BookContext context)
+        public PublisherRepository(BookContext context)
         {
             _context = context;
         }

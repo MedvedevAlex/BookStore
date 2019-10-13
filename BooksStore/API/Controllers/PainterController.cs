@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.EntityService.PainterRepos;
+using API.Infrastructure.WebPainter;
 using API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,17 +9,17 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class PainterController : Controller
     {
-        private readonly IPainterRepository _painterRepository;
+        private readonly IWebPainterScenario  _webPainterScenario;
 
-        public PainterController(IPainterRepository painterRepository)
+        public PainterController(IWebPainterScenario webPainterScenario)
         {
-            _painterRepository = painterRepository;
+            _webPainterScenario = webPainterScenario;
         }
 
         [HttpGet("SearchByPainters")]
         public async Task<IEnumerable<PainterModel>> SearchByPaintersAsync([FromQuery]string searchString)
         {
-            return await _painterRepository.SearchByPaintersAsync(searchString);
+            return await _webPainterScenario.SearchByPaintersAsync(searchString);
         }
     }
 }

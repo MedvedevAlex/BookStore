@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 
-namespace DBLayerAPI.PainterLayers
+namespace ServiceDb.PainterRepos
 {
-    public class PainterLayer : IPainterLayer
+    public class PainterRepository : IPainterRepository
     {
         private readonly BookContext _context;
 
-        public PainterLayer(BookContext context)
+        public PainterRepository(BookContext context)
         {
             _context = context;
         }

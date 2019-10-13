@@ -1,10 +1,7 @@
-﻿using API.EntityService;
-using API.EntityService.PainterRepos;
-using API.EntityService.PublisherRepos;
-using API.Filters;
-using DBLayerAPI;
-using DBLayerAPI.PainterLayers;
-using DBLayerAPI.PublisherLayers;
+﻿using API.Filters;
+using API.Infrastructure.WebBook;
+using API.Infrastructure.WebPainter;
+using API.Infrastructure.WebPublisher;
 using InterfaceDB.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +9,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ServiceDb.BookRepos;
+using ServiceDb.PainterRepos;
+using ServiceDb.PublisherRepos;
 
 namespace API
 {
@@ -39,11 +39,11 @@ namespace API
             //}).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services
-                .AddScoped<IBookLayer, BookLayer>()
+                .AddScoped<IWebBookScenario, WebBookScenario>()
                 .AddScoped<IBookRepository, BookRepository>()
-                .AddScoped<IPainterLayer, PainterLayer>()
+                .AddScoped<IWebPainterScenario, WebPainterScenario>()
                 .AddScoped<IPainterRepository, PainterRepository>()
-                .AddScoped<IPublisherLayer, PublisherLayer>()
+                .AddScoped<IWebPublisherScenario, WebPublisherScenario>()
                 .AddScoped<IPublisherRepository, PublisherRepository>();
         }
 

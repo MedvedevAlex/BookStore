@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DBLayerAPI.PainterLayers
+namespace ServiceDb.PainterRepos
 {
-    public interface IPainterLayer
+    public interface IPainterRepository
     {
         Task<ICollection<Painter>> SearchByPaintersAsync(string searchString);
     }

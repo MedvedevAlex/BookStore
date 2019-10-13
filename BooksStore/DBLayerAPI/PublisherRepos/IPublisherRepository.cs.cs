@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace DBLayerAPI.PublisherLayers
+namespace ServiceDb.PublisherRepos
 {
-    public interface IPublisherLayer
+    public interface IPublisherRepository
     {
         Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString);
     }

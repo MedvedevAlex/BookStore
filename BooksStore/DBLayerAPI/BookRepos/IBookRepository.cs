@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using InterfaceDB.Models;
 
-namespace DBLayerAPI
+namespace ServiceDb.BookRepos
 {
-    public interface IBookLayer
+    public interface IBookRepository
     {
         Task CreateBookAsync(Book book);
         Task DeleteBookAsync(int id);

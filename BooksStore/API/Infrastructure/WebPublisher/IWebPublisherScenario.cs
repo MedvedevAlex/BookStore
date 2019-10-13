@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace API.EntityService.PublisherRepos
+namespace API.Infrastructure.WebPublisher
 {
-    public interface IPublisherRepository
+    public interface IWebPublisherScenario
     {
         Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString);
     }

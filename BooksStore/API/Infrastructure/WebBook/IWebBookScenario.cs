@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using InterfaceDB.Models;
 
-namespace API.EntityService
+namespace API.Infrastructure.WebBook
 {
-    public interface IBookRepository
+    public interface IWebBookScenario
     {
         Task CreateBookAsync(Book book);
         Task DeleteBookAsync(int id);
