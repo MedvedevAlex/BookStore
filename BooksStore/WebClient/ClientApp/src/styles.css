@@ -36,7 +36,21 @@ body {
 
 .main-component {
     place-content: center !important;
+    background: #fdfddf;
+    width: -webkit-fill-available;
 }
+
+.min-card {
+    height: 300px; 
+    width:200px; 
+    margin:30px
+}
+
+    .img-min-card {
+        height: 200px; 
+        width:150px;
+    }
+
 .routed-component-size {
     width: 100%;
     height: calc(100% - var(--header-height));
@@ -248,7 +262,7 @@ mat-divider.stk-dialog-divider {
 
 .btn {
     position: relative;
-  
+    min-width: min-content;
     display: block;
     padding: 0px 20px 0px 20px ;
     margin: 5px !important;
@@ -260,7 +274,7 @@ mat-divider.stk-dialog-divider {
     border-radius: 2px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
     
-    background-color: #bae864;
+    background-color: white;
     color: black;
     
     transition: background-color .3s;

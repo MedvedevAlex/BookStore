@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  selector: 'app-adversting',
+  templateUrl: './adversting.component.html',
+  styleUrls: ['./adversting.component.css']
 })
 
 
 
-export class HomeComponent implements OnInit {
+export class AdverstingComponent implements OnInit {
+  constructor() {
+  }
   ngOnInit() {
     this.carusel();
   }
