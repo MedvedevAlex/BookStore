@@ -1,0 +1,61 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.nav-logo {
+  align-self: center;
+  margin: 10px 0 5px 20px;
+  width: 300px;
+}
+
+  div.nav-logo img {
+    width: 200px; 
+    height: 80px;
+  }
+
+.nav-search {
+  align-self: center;
+  margin-right: 10px;
+  font-size: medium !important;
+  min-width:200px;
+}
+
+  div.nav-search mat-form-field {
+    height: 50px !important;
+    border: groove; 
+    border-radius: 5px;
+    font: menu;
+  }
+
+.nav-auth {
+  align-self: center;
+  min-width: 240px;
+  min-width: 260px;
+}
+
+  .icon-auth {
+    width:50px; 
+    margin-top: 23px;
+  }
+
+    div.icon-auth mat-icon {
+      color: #bae864; 
+      font-size:48px
+    }
+

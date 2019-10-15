@@ -1,0 +1,29 @@
+<div fxFlex fxLayout="row" class="main-component" style="background:white; justify-content: center;height: 100px;">
+
+  <div class="nav-logo">
+    <img [routerLink]='["/"]'
+      src="http://veda.nov.muzkult.ru/media/2018/08/18/1230800882/image_image_4312054.png"
+      alt="Очень классный магазин книг">
+  </div>
+
+  <div fxFlex class="nav-search" >
+    <mat-form-field fxFlex>
+      <input fxFlex  matInput #search placeholder="Найдите вашу книгу..." autocomplete="off"
+        (change)="filterService.setFilterByText(search.value)"><mat-icon>search</mat-icon>
+    </mat-form-field>
+  </div>
+
+  <div class="nav-auth">
+    <button class="btn" mat-button [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
+      style="width: 100px; margin: auto 5px auto 5px">
+      <a [routerLink]='["/"]'>Вход</a>
+    </button>
+    <button class="btn" mat-button [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'
+      style="width: 120px; margin: auto 5px auto 5px">
+      <a [routerLink]='["/counter"]'>Регистрация</a>
+    </button>
+  </div>
+  <div class="icon-auth">
+    <mat-icon>menu_book</mat-icon>
+  </div>
+</div>
