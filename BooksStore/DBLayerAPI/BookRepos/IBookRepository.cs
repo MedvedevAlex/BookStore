@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using InterfaceDB.Models;
 
-namespace DBLayerAPI
+namespace ServiceDb.BookRepos
 {
-    public interface IBookLayer
+    public interface IBookRepository
     {
         Task CreateBookAsync(Book book);
         Task DeleteBookAsync(int id);
@@ -15,7 +15,5 @@ namespace DBLayerAPI
         Task<ICollection<Book>> SearchByBooksNameAsync(string searchString);
         Task<ICollection<Book>> SearchByBooksDescriptionAsync(string searchString);
         Task<ICollection<Book>> SearchByGenreAsync(string searchString);
-        Task<ICollection<Painter>> SearchByPaintersAsync(string searchString);
-        Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString);
     }
 }

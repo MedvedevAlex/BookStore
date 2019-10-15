@@ -6,13 +6,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace DBLayerAPI
+namespace ServiceDb.BookRepos
 {
-    public class BookLayer : IBookLayer
+    public class BookRepository : IBookRepository
     {
         private readonly BookContext _context;
 
-        public BookLayer(BookContext context)
+        public BookRepository(BookContext context)
         {
             _context = context;
         }
@@ -104,20 +104,6 @@ namespace DBLayerAPI
             return await (from book in _context.Books
                           where book.Description.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
                           select book).ToListAsync();
-        }
-
-        public async Task<ICollection<Painter>> SearchByPaintersAsync(string searchString)
-        {
-            return await (from painter in _context.Painters
-                          where painter.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select painter).ToListAsync();
-        }
-
-        public async Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString)
-        {
-            return await (from publisher in _context.Publishers
-                          where publisher.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select publisher).ToListAsync();
         }
     }
 }

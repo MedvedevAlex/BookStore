@@ -2,9 +2,9 @@
 using System.Threading.Tasks;
 using InterfaceDB.Models;
 
-namespace API.EntityService
+namespace API.Infrastructure.WebBook
 {
-    public interface IBookRepository
+    public interface IWebBookScenario
     {
         Task CreateBookAsync(Book book);
         Task DeleteBookAsync(int id);
@@ -15,7 +15,5 @@ namespace API.EntityService
         Task<ICollection<Book>> SearchByBooksNameAsync(string searchString);
         Task<ICollection<Book>> SearchByBooksDescriptionAsync(string searchString);
         Task<ICollection<Book>> SearchByGenreAsync(string searchString);
-        Task<ICollection<Painter>> SearchByPaintersAsync(string searchString);
-        Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString);
     }
 }

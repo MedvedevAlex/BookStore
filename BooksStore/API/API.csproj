@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DBLayerAPI\DBLayerAPI.csproj" />
+    <ProjectReference Include="..\DBLayerAPI\ServiceDb.csproj" />
     <ProjectReference Include="..\InterfaceDB\InterfaceDB.csproj" />
   </ItemGroup>
 
