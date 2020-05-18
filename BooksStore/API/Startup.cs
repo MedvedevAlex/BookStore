@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.OpenApi.Models;
 using ServiceDb.BookRepos;
 using ServiceDb.PainterRepos;
 using ServiceDb.PublisherRepos;
@@ -33,6 +34,15 @@ namespace API
             services.AddDbContext<BookContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BookStoreDatabase")));
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Test API",
+                    Description = "ASP.NET Core Web API"
+                });
+            });
             //services.AddMvc(opt =>
             //{
             //    opt.Filters.Add(typeof(ValidatorActionFilter));
@@ -61,6 +71,12 @@ namespace API
 
             app.UseHttpsRedirection();
             app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test API V1");
+            });
         }
     }
 }
