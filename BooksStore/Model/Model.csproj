@@ -17,4 +17,8 @@
     <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="JoinTables\" />
+  </ItemGroup>
+
 </Project>

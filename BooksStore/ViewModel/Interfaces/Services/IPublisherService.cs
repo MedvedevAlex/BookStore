@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ViewModel.PublisherRepos
+namespace ViewModel.Interfaces.Services
 {
     public interface IPublisherService
     {

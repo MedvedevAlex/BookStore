@@ -1,6 +1,4 @@
-﻿using Model.Models;
-
-namespace Model.JoinTables
+﻿namespace Model.Models
 {
     public class PainterBook
     {

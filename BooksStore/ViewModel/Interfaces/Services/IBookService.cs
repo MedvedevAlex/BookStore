@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ViewModel.BookRepos
+namespace ViewModel.Interfaces.Services
 {
     public interface IBookService
     {

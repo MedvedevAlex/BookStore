@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using InterfaceDB.Models;
 
-namespace API.Infrastructure.WebBook
+namespace ViewModel.Interfaces.Handlers
 {
-    public interface IWebBookScenario
+    public interface IBookHandler
     {
         Task CreateBookAsync(Book book);
         Task DeleteBookAsync(int id);
-        Task EditBookAsync(int id, Book book);
+        Task EditBook(int id, Book book);
         Task<Book> GetBookByIdAsync(int id);
         IEnumerable<Book> GetBooks();
         Task<ICollection<Book>> SearchByAuthorsAsync(string searchString);
-        Task<ICollection<Book>> SearchByBooksNameAsync(string searchString);
         Task<ICollection<Book>> SearchByBooksDescriptionAsync(string searchString);
+        Task<ICollection<Book>> SearchByBooksNameAsync(string searchString);
         Task<ICollection<Book>> SearchByGenreAsync(string searchString);
     }
 }
