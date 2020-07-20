@@ -1,13 +1,11 @@
-﻿using InterfaceDB.JoinTables;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Model.JoinTables;
 
-namespace InterfaceDB.Models
+namespace Model.Models
 {
     public class BookContext : DbContext
     {
-        public BookContext(DbContextOptions<BookContext> options) : base(options)
-        {
-        }
+        public BookContext(DbContextOptions<BookContext> options) : base(options) { }
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
@@ -24,6 +22,8 @@ namespace InterfaceDB.Models
                 .HasKey(b => new { b.BookId, b.PainterId });
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IEntityTypeConfiguration<>).Assembly);
             base.OnModelCreating(modelBuilder);
+
+            // Добавить сидирование данных
         }
     }
 }

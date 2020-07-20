@@ -40,11 +40,11 @@ namespace API
 
             services
                 .AddScoped<IWebBookScenario, WebBookScenario>()
-                .AddScoped<IBookRepository, BookRepository>()
+                .AddScoped<IBookRepository, BookService>()
                 .AddScoped<IWebPainterScenario, WebPainterScenario>()
-                .AddScoped<IPainterRepository, PainterRepository>()
+                .AddScoped<IPainterRepository, PainterService>()
                 .AddScoped<IWebPublisherScenario, WebPublisherScenario>()
-                .AddScoped<IPublisherRepository, PublisherRepository>();
+                .AddScoped<IPublisherRepository, PublisherService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -4,9 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace InterfaceDB.Migrations
+namespace Model.Migrations
 {
     [DbContext(typeof(BookContext))]
     [Migration("20190910075408_setattribute")]

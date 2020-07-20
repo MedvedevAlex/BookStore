@@ -1,17 +1,17 @@
-﻿using InterfaceDB.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Model.Models;
 
-namespace ServiceDb.PublisherRepos
+namespace Service.PublisherRepos
 {
-    public class PublisherRepository : IPublisherRepository
+    public class PublisherService : IPublisherService
     {
         private readonly BookContext _context;
 
-        public PublisherRepository(BookContext context)
+        public PublisherService(BookContext context)
         {
             _context = context;
         }

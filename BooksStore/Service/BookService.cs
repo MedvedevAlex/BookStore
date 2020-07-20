@@ -1,18 +1,18 @@
-﻿using InterfaceDB.Enums;
-using InterfaceDB.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ViewModel.Enums;
 
-namespace ServiceDb.BookRepos
+namespace Service.BookRepos
 {
-    public class BookRepository : IBookRepository
+    public class BookService : IBookService
     {
         private readonly BookContext _context;
 
-        public BookRepository(BookContext context)
+        public BookService(BookContext context)
         {
             _context = context;
         }

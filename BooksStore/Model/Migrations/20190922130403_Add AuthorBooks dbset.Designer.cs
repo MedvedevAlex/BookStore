@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace InterfaceDB.Migrations
+namespace Model.Migrations
 {
     [DbContext(typeof(BookContext))]
     [Migration("20190922130403_Add AuthorBooks dbset")]

@@ -1,17 +1,17 @@
-﻿using InterfaceDB.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Model.Models;
 
-namespace ServiceDb.PainterRepos
+namespace Service.PainterRepos
 {
-    public class PainterRepository : IPainterRepository
+    public class PainterService : IPainterService
     {
         private readonly BookContext _context;
 
-        public PainterRepository(BookContext context)
+        public PainterService(BookContext context)
         {
             _context = context;
         }

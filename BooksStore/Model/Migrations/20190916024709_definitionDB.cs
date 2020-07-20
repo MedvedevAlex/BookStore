@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace InterfaceDB.Migrations
+namespace Model.Migrations
 {
     public partial class definitionDB : Migration
     {

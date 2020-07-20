@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using InterfaceDB.Models;
 
-namespace ServiceDb.BookRepos
+namespace ViewModel.BookRepos
 {
-    public interface IBookRepository
+    public interface IBookService
     {
         Task CreateBookAsync(Book book);
         Task DeleteBookAsync(int id);
@@ -12,8 +11,8 @@ namespace ServiceDb.BookRepos
         Task<Book> GetBookByIdAsync(int id);
         IEnumerable<Book> GetBooks();
         Task<ICollection<Book>> SearchByAuthorsAsync(string searchString);
-        Task<ICollection<Book>> SearchByBooksNameAsync(string searchString);
         Task<ICollection<Book>> SearchByBooksDescriptionAsync(string searchString);
+        Task<ICollection<Book>> SearchByBooksNameAsync(string searchString);
         Task<ICollection<Book>> SearchByGenreAsync(string searchString);
     }
 }

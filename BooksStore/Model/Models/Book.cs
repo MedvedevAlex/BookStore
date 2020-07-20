@@ -1,11 +1,10 @@
-﻿using System;
+﻿using Model.JoinTables;
+using System;
 using System.Collections.Generic;
-using InterfaceDB.Enums;
-using InterfaceDB.JoinTables;
+using ViewModel.Enums;
 
-namespace InterfaceDB.Models
+namespace Model.Models
 {
-    //todo: модель только для базы, распарсить на составляющие MappingExtencion
     public class Book
     {
         public int BookId { get; set; }
@@ -27,10 +26,10 @@ namespace InterfaceDB.Models
         public int CountCustomers { get; set; }
         public decimal AvgReview { get; set; }//ignore
 
-        public ICollection<AuthorBook> AuthorBooks { get; } = new List<AuthorBook>();
-
         public Publisher Publisher { get; set; }
 
-        public ICollection<PainterBook> PainterBooks { get; } = new List<PainterBook>();
+        public virtual ICollection<AuthorBook> AuthorBooks { get; set; };
+
+        public virtual ICollection<PainterBook> PainterBooks { get; set; };
     }
 }

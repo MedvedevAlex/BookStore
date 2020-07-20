@@ -1,9 +1,6 @@
-﻿using InterfaceDB.Models;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Model.Models;
 
-namespace InterfaceDB.JoinTables
+namespace Model.JoinTables
 {
     public class PainterBook
     {

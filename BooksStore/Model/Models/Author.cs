@@ -1,7 +1,7 @@
-﻿using InterfaceDB.JoinTables;
+﻿using Model.JoinTables;
 using System.Collections.Generic;
 
-namespace InterfaceDB.Models
+namespace Model.Models
 {
     public class Author
     {
@@ -9,6 +9,6 @@ namespace InterfaceDB.Models
         public string Name { get; set; }
         public byte Age { get; set; }
 
-        public ICollection<AuthorBook> AuthorBooks { get; } = new List<AuthorBook>();
+        public virtual ICollection<AuthorBook> AuthorBooks { get; set; };
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace InterfaceDB.Models
+namespace Model.Models
 {
     public class Publisher
     {
@@ -9,6 +9,6 @@ namespace InterfaceDB.Models
         public string ShortName { get; set; }
         public string Corporation { get; set; }
 
-        public ICollection<Book> Books { get; set; }
+        public virtual ICollection<Book> Books { get; set; }
     }
 }

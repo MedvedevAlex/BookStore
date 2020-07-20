@@ -1,6 +1,6 @@
-﻿using InterfaceDB.Models;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Model.Models;
 
 namespace InterfaceDB.ModelConfiguration
 {
