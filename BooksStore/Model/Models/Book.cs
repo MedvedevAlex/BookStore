@@ -28,8 +28,8 @@ namespace Model.Models
 
         public Publisher Publisher { get; set; }
 
-        public virtual ICollection<AuthorBook> AuthorBooks { get; set; };
+        public virtual ICollection<AuthorBook> AuthorBooks { get; set; }
 
-        public virtual ICollection<PainterBook> PainterBooks { get; set; };
+        public virtual ICollection<PainterBook> PainterBooks { get; set; }
     }
 }

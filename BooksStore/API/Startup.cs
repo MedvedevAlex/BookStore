@@ -1,17 +1,21 @@
 ﻿using API.Filters;
-using API.Infrastructure.WebBook;
-using API.Infrastructure.WebPainter;
-using API.Infrastructure.WebPublisher;
-using InterfaceDB.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceDb.BookRepos;
-using ServiceDb.PainterRepos;
-using ServiceDb.PublisherRepos;
+using Model.Handlers;
+using Model.Models;
+using Service;
+using Service.BookRepos;
+using Service.PainterRepos;
+using Service.PublisherRepos;
+using System.Reflection;
+using ViewModel.Handlers;
+using ViewModel.Interfaces.Handlers;
+using ViewModel.Interfaces.Services;
 
 namespace API
 {
@@ -29,7 +33,7 @@ namespace API
             services.AddMvc(config =>
             {
                 config.Filters.Add(typeof(CustomException));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            }).SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddDbContext<BookContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BookStoreDatabase")));
 
@@ -39,12 +43,17 @@ namespace API
             //}).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services
-                .AddScoped<IWebBookScenario, WebBookScenario>()
-                .AddScoped<IBookRepository, BookService>()
-                .AddScoped<IWebPainterScenario, WebPainterScenario>()
-                .AddScoped<IPainterRepository, PainterService>()
-                .AddScoped<IWebPublisherScenario, WebPublisherScenario>()
-                .AddScoped<IPublisherRepository, PublisherService>();
+                .AddScoped<IBookHandler, BookHandler>()
+                .AddScoped<IPainterHandler, PainterHandler>()
+                .AddScoped<IPublisherHandler, PublisherHandler>()
+                .AddScoped<IBookService, BookService>()
+                .AddScoped<IPainterService, PainterService>()
+                .AddScoped<IPublisherService, PublisherService>();
+
+            services.AddTransient<IMapper, Mapper>(ctx => new Mapper(new MapperConfiguration(cfg =>
+            {
+                cfg.AddMaps(Assembly.GetAssembly(typeof(MappingProfile)));
+            })));
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

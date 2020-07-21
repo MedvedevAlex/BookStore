@@ -1,5 +1,4 @@
-﻿using Model.JoinTables;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Model.Models
 {
@@ -9,6 +8,6 @@ namespace Model.Models
         public string Name { get; set; }
         public byte Age { get; set; }
 
-        public virtual ICollection<AuthorBook> AuthorBooks { get; set; };
+        public virtual ICollection<AuthorBook> AuthorBooks { get; set; }
     }
 }

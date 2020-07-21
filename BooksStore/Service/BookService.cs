@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ViewModel.Enums;
+using ViewModel.Interfaces.Services;
 
 namespace Service.BookRepos
 {

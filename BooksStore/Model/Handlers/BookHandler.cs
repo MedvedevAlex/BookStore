@@ -1,38 +1,74 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Model.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ViewModel.Enums;
-using ViewModel.Interfaces.Handlers;
+using ViewModel.Handlers;
+using ViewModel.Models;
 
 namespace Model.Handlers
 {
+    /// <summary>
+    /// Хэндлер Книги
+    /// </summary>
     public class BookHandler : IBookHandler
     {
         private readonly BookContext _context;
+        private readonly IMapper _mapper;
 
-        public BookHandler(BookContext context)
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="mapper"></param>
+        public BookHandler(
+            BookContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
-        public IEnumerable<Book> GetBooks()
+
+        /// <summary>
+        /// Пагинация для получения книг
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Коллекция книг</returns>
+        public IEnumerable<BookModel> GetBooks(int takeCount, int skipCount)
         {
-            return _context.Books;
+            return _context.Books
+                .Skip(skipCount)
+                .Take(takeCount)
+                .Select(s => _mapper.Map<BookModel>(s));
         }
 
-        public async Task<Book> GetBookByIdAsync(int id)
+        /// <summary>
+        /// Получить книгу по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель книги</returns>
+        public async Task<BookModel> GetBookByIdAsync(int id)
         {
-            return await _context.Books.FindAsync(id);
+            var bookEntity = await _context.Books
+                .FirstOrDefaultAsync(b => b.BookId == id);
+            return _mapper.Map<BookModel>(bookEntity);
         }
 
-        public async Task CreateBookAsync(Book book)
+        /// <summary>
+        /// Добавить книгу
+        /// </summary>
+        /// <param name="book">Модель книги</param>
+        /// <returns></returns>
+        public async Task AddBookAsync(BookModel book)
         {
+            var bookEntity = _mapper.Map<Book>(book);
             try
             {
-                await _context.Books.AddAsync(book);
+                await _context.Books.AddAsync(bookEntity);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
@@ -41,11 +77,21 @@ namespace Model.Handlers
             }
         }
 
-        public async Task EditBook(int id, Book book)
+        /// <summary>
+        /// Обновить книгу
+        /// </summary>
+        /// <param name="book">Модель книги</param>
+        /// <returns></returns>
+        public async Task UpdateBookAsync(BookModel book)
         {
             try
             {
-                _context.Entry(book).State = EntityState.Modified;
+                var bookEntity = await _context.Books
+                    .FirstOrDefaultAsync(b => b.BookId == book.BookId);
+                if (bookEntity == null)
+                    throw new KeyNotFoundException("Ошибка: Не удалось найти обновляему книгу");
+                bookEntity = _mapper.Map<Book>(book);
+                _context.Entry(bookEntity).State = EntityState.Modified;
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
@@ -54,12 +100,18 @@ namespace Model.Handlers
             }
         }
 
+        /// <summary>
+        /// Удалить книгу
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns></returns>
         public async Task DeleteBookAsync(int id)
         {
             try
             {
-                Book book = await _context.Books.FindAsync(id);
-                _context.Books.Remove(book);
+                var bookEntity = await _context.Books
+                    .FirstOrDefaultAsync(b => b.BookId == id);
+                _context.Books.Remove(bookEntity);
                 await _context.SaveChangesAsync();
             }
             catch (Exception e)
@@ -68,43 +120,55 @@ namespace Model.Handlers
             }
         }
 
-        public async Task<ICollection<Book>> SearchByAuthorsAsync(string searchString)
+        /// <summary>
+        /// Поиск книг по автору
+        /// </summary>
+        /// <param name="searchString">Имя автора</param>
+        /// <returns>Колекция книг</returns>
+        public IEnumerable<BookModel> SearchBooksByAuthor(string searchString)
         {
-            return await (from author in _context.Authors
-                          join authorbook in _context.AuthorBooks on author.AuthorId equals authorbook.AuthorId
-                          join book in _context.Books on authorbook.BookId equals book.BookId
-                          where author.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select book).ToListAsync();
+            var booksEntities = from author in _context.Authors
+                                join authorbook in _context.AuthorBooks on author.AuthorId equals authorbook.AuthorId
+                                join book in _context.Books on authorbook.BookId equals book.BookId
+                                where author.Name.Contains(searchString)
+                                select book;
+            return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
         }
 
-        public async Task<ICollection<Book>> SearchByBooksNameAsync(string searchString)
+        /// <summary>
+        /// Поиск книг по названию
+        /// </summary>
+        /// <param name="searchString">Название книги</param>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns></returns>
+        public IEnumerable<BookModel> SearchBooksByName(string searchString, int takeCount, int skipCount)
         {
-            return await (from book in _context.Books
-                          where book.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select book).ToListAsync();
+            var booksEntities = _context.Books
+                .Where(b => b.Name.Contains(searchString))
+                .Skip(skipCount)
+                .Take(takeCount);
+            return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
         }
 
-        public async Task<ICollection<Book>> SearchByGenreAsync(string searchString)
+        /// <summary>
+        /// Поиск книг по жанру
+        /// </summary>
+        /// <param name="searchString">Название жанра</param>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Колекция книг</returns>
+        public IEnumerable<BookModel> SearchByGenreAsync(string searchString, int takeCount, int skipCount)
         {
             var genreStringSearch = DictionariesSupport.ConvertGenreRus
-                .Where(s => s.Value.StartsWith(searchString, StringComparison.OrdinalIgnoreCase))
-                .Select(s => s.Key);
+                .FirstOrDefault(g => g.Value.Contains(searchString));
+            // проверить если не нашел жанры
 
-            if (genreStringSearch.Count() == 0)
-            {
-                return new List<Book>();
-            }
-
-            return await (from book in _context.Books
-                          where book.Genre.Equals(genreStringSearch.FirstOrDefault())
-                          select book).ToListAsync();
-        }
-
-        public async Task<ICollection<Book>> SearchByBooksDescriptionAsync(string searchString)
-        {
-            return await (from book in _context.Books
-                          where book.Description.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select book).ToListAsync();
+            var booksEntities = _context.Books
+                .Where(b => b.Genre == genreStringSearch.Key)
+                .Skip(skipCount)
+                .Take(takeCount);
+            return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
         }
     }
 }

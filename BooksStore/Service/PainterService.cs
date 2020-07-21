@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Model.Models;
+using ViewModel.Interfaces.Services;
 
 namespace Service.PainterRepos
 {
