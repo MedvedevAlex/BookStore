@@ -1,78 +1,123 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using API.Infrastructure.WebBook;
-using InterfaceDB.Models;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using ViewModel.Interfaces.Services;
+using ViewModel.Models;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// Контроллер Книги
+    /// </summary>
     [Route("/api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
     {
-        private readonly IWebBookScenario _webBookScenario;
+        private readonly IBookService _bookService;
 
-        public BookController(IWebBookScenario webBookScenario)
+        public BookController(IBookService bookService)
         {
-            _webBookScenario = webBookScenario;
+            _bookService = bookService;
         }
 
-        
-        [HttpGet]
-        public IEnumerable<Book> GetBooks()
+        /// <summary>
+        /// Пагинация для получения книг
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Коллекция книг</returns>
+        [HttpGet("getbooks/take/{takeCount}/skip/{skipCount}")]
+        public IActionResult GetBooks([FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            return _webBookScenario.GetBooks();
+            var result = _bookService.Get(takeCount, skipCount);
+            return Ok(result);
         }
 
+        /// <summary>
+        /// Получить книгу по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель книги</returns>
         [HttpGet("{id}")]
-        public async Task<Book> GetBookByIdAsync(int id)
+        public async Task<IActionResult> GetBookByIdAsync([FromRoute] int id)
         {
-            return await _webBookScenario.GetBookByIdAsync(id);
+            var result = await _bookService.GetByIdAsync(id);
+            return Ok(result);
         }
 
+        /// <summary>
+        /// Добавить книгу
+        /// </summary>
+        /// <param name="book">Модель книги</param>
+        /// <returns></returns>
         [HttpPost]
-        public async Task<StatusCodeResult> CreateBookAsync([FromBody]Book book)
+        public IActionResult Add([FromBody] BookModel book)
         {
-            await _webBookScenario.CreateBookAsync(book);
+            _bookService.Add(book);
             return Ok();
         }
 
-        [HttpPut("{id}")]
-        public async Task<StatusCodeResult> EditBookAsync(int id, [FromBody]Book book)
+        /// <summary>
+        /// Обновить книгу
+        /// </summary>
+        /// <param name="book">Модель книги</param>
+        /// <returns></returns>
+        [HttpPut]
+        public IActionResult Update([FromBody] BookModel book)
         {
-            await _webBookScenario.EditBookAsync(id, book);
+            _bookService.Update(book);
             return Ok();
         }
 
+        /// <summary>
+        /// Удалить книгу
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
-        public async Task<StatusCodeResult> DeleteBookAsync(int id)
+        public IActionResult Delete([FromRoute] int id)
         {
-            await _webBookScenario.DeleteBookAsync(id);
+            _bookService.Delete(id);
             return Ok();
         }
 
-        [HttpGet("SearchByAuthors")]
-        public async Task<ICollection<Book>> SearchByAuthorsAsync([FromQuery]string searchString)
+        /// <summary>
+        /// Поиск книг по автору
+        /// </summary>
+        /// <param name="searchString">Имя автора</param>
+        /// <returns>Колекция книг</returns>
+        [HttpGet("SearchByAuthor/{searchString}")]
+        public IActionResult SearchByAuthor([FromRoute] string searchString)
         {
-            return await _webBookScenario.SearchByAuthorsAsync(searchString);
+            var result = _bookService.SearchByAuthor(searchString);
+            return Ok(result);
         }
 
-        [HttpGet("SearchByBooksName")]
-        public async Task<ICollection<Book>> SearchByBooksAsync([FromQuery]string searchString)
+        /// <summary>
+        /// Поиск книг по названию
+        /// </summary>
+        /// <param name="searchString">Название книги</param>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns></returns>
+        [HttpGet("SearchByName/{searchString}/take/{takeCount}/skip/{skipCount}")]
+        public IActionResult SearchByName([FromRoute] string searchString, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            return await _webBookScenario.SearchByBooksNameAsync(searchString);
+            var result = _bookService.SearchByName(searchString, takeCount, skipCount);
+            return Ok(result);
         }
 
-        [HttpGet("SearchByGenre")]
-        public async Task<ICollection<Book>> SearchByGenreAsync([FromQuery]string searchString)
+        /// <summary>
+        /// Поиск книг по жанру
+        /// </summary>
+        /// <param name="searchString">Название жанра</param>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Колекция книг</returns>
+        [HttpGet("SearchByGenre/{searchString}/take/{takeCount}/skip/{skipCount}")]
+        public IActionResult SearchByGenre([FromRoute] string searchString, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            return await _webBookScenario.SearchByGenreAsync(searchString);
-        }
-
-        [HttpGet("SearchByBooksDescription")]
-        public async Task<ICollection<Book>> SearchByBooksDescriptionAsync([FromQuery]string searchString)
-        {
-            return await _webBookScenario.SearchByBooksDescriptionAsync(searchString);
+            var result = _bookService.SearchByGenre(searchString, takeCount, skipCount);
+            return Ok(result);
         }
     }
 }

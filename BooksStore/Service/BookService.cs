@@ -15,27 +15,27 @@ namespace Service.BookRepos
             _bookHandler = bookHandler;
         }
 
-        public IEnumerable<BookModel> GetBooks(int takeCount, int skipCount)
+        public IEnumerable<BookModel> Get(int takeCount, int skipCount)
         {
             return _bookHandler.Get(takeCount, skipCount);
         }
 
-        public async Task<BookModel> GetBookByIdAsync(int id)
+        public async Task<BookModel> GetByIdAsync(int id)
         {
             return await _bookHandler.GetByIdAsync(id);
         }
 
-        public Task AddBook(BookModel book)
+        public Task Add(BookModel book)
         {
             return _bookHandler.AddAsync(book);
         }
 
-        public Task UpdateBook(BookModel book)
+        public Task Update(BookModel book)
         {
             return _bookHandler.UpdateAsync(book);
         }
 
-        public Task DeleteBookAsync(int id)
+        public Task Delete(int id)
         {
             return _bookHandler.DeleteAsync(id);
         }
