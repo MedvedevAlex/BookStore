@@ -8,6 +8,6 @@ namespace ViewModel.Models
         public string Name { get; set; }
         public byte Age { get; set; }
 
-        public ICollection<AuthorBookModel> AuthorBooks { get; set; };
+        public ICollection<AuthorBookModel> AuthorBooks { get; set; }
     }
 }

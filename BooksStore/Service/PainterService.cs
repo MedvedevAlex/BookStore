@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Model.Models;
+﻿using System.Collections.Generic;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Handlers;
+using ViewModel.Models;
 
 namespace Service.PainterRepos
 {
     public class PainterService : IPainterService
     {
-        private readonly BookContext _context;
+        private readonly IPainterHandler _painterHandler;
 
-        public PainterService(BookContext context)
+        public PainterService(IPainterHandler painterHandler)
         {
-            _context = context;
+            _painterHandler = painterHandler;
         }
 
-        public async Task<ICollection<Painter>> SearchByPaintersAsync(string searchString)
+        public IEnumerable<PainterModel> SearchByName(string painterName, int takeCount, int skipCount)
         {
-            return await (from painter in _context.Painters
-                          where painter.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select painter).ToListAsync();
+            return _painterHandler.SearchByName(painterName, takeCount, skipCount);
         }
     }
 }

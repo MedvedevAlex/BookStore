@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using ViewModel.Models;
 
 namespace ViewModel.Interfaces.Handlers
 {
     public interface IPainterHandler
     {
-        Task<ICollection<Painter>> SearchByPaintersAsync(string searchString);
+        IEnumerable<PainterModel> SearchByName(string painterName, int takeCount, int skipCount);
     }
 }
