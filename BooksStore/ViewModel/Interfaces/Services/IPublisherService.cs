@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+using ViewModel.Models;
 
 namespace ViewModel.Interfaces.Services
 {
     public interface IPublisherService
     {
-        Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString);
+        IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount);
     }
 }

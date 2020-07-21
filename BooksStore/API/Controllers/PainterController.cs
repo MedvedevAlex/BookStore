@@ -1,7 +1,5 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ViewModel.Interfaces.Services;
-using ViewModel.Models;
 
 namespace API.Controllers
 {
@@ -28,12 +26,13 @@ namespace API.Controllers
         /// <param name="painterName">Имя художника</param>
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
-        /// <returns></returns>
+        /// <returns>Коллекция художников</returns>
         [HttpGet("SearchByName/{painterName}/take/{takeCount}/skip/{skipCount}")]
-        public IEnumerable<PainterModel> SearchByName(
+        public IActionResult SearchByName(
             [FromRoute] string painterName, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            return _painterService.SearchByName(painterName, takeCount, skipCount);
+            var result = _painterService.SearchByName(painterName, takeCount, skipCount);
+            return Ok(result);
         }
     }
 }

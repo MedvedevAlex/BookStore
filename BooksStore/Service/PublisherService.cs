@@ -1,27 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-using Model.Models;
+﻿using System.Collections.Generic;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Handlers;
+using ViewModel.Models;
 
 namespace Service.PublisherRepos
 {
     public class PublisherService : IPublisherService
     {
-        private readonly BookContext _context;
+        private readonly IPublisherHandler _publisherHandler;
 
-        public PublisherService(BookContext context)
+        public PublisherService(IPublisherHandler publisherHandler)
         {
-            _context = context;
+            _publisherHandler = publisherHandler;
         }
 
-        public async Task<ICollection<Publisher>> SearchByPublishersAsync(string searchString)
+        public IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount)
         {
-            return await (from publisher in _context.Publishers
-                          where publisher.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select publisher).ToListAsync();
+            return _publisherHandler.SearchByName(publisherName, takeCount, skipCount);
         }
     }
 }

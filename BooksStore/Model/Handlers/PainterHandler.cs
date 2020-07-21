@@ -33,7 +33,7 @@ namespace Service.PainterRepos
         /// <param name="painterName">Имя художника</param>
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
-        /// <returns></returns>
+        /// <returns>Коллекция художников</returns>
         public IEnumerable<PainterModel> SearchByName(string painterName, int takeCount, int skipCount)
         {
             return _context.Painters
