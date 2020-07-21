@@ -1,17 +1,20 @@
 ﻿using API.Filters;
-using API.Infrastructure.WebBook;
-using API.Infrastructure.WebPainter;
-using API.Infrastructure.WebPublisher;
-using InterfaceDB.Models;
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceDb.BookRepos;
-using ServiceDb.PainterRepos;
-using ServiceDb.PublisherRepos;
+using Model.Handlers;
+using Model.Models;
+using Service;
+using Service.BookRepos;
+using Service.PainterRepos;
+using Service.PublisherRepos;
+using System.Reflection;
+using ViewModel.Handlers;
+using ViewModel.Interfaces.Handlers;
+using ViewModel.Interfaces.Services;
 
 namespace API
 {
@@ -29,38 +32,50 @@ namespace API
             services.AddMvc(config =>
             {
                 config.Filters.Add(typeof(CustomException));
-            }).SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            }).SetCompatibilityVersion(CompatibilityVersion.Latest);
             services.AddDbContext<BookContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BookStoreDatabase")));
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Version = "v1",
+                    Title = "Test API",
+                    Description = "ASP.NET Core Web API"
+                });
+            });
             //services.AddMvc(opt =>
             //{
             //    opt.Filters.Add(typeof(ValidatorActionFilter));
             //}).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
 
             services
-                .AddScoped<IWebBookScenario, WebBookScenario>()
-                .AddScoped<IBookRepository, BookRepository>()
-                .AddScoped<IWebPainterScenario, WebPainterScenario>()
-                .AddScoped<IPainterRepository, PainterRepository>()
-                .AddScoped<IWebPublisherScenario, WebPublisherScenario>()
-                .AddScoped<IPublisherRepository, PublisherRepository>();
+                .AddScoped<IBookHandler, BookHandler>()
+                .AddScoped<IPainterHandler, PainterHandler>()
+                .AddScoped<IPublisherHandler, PublisherHandler>()
+                .AddScoped<IBookService, BookService>()
+                .AddScoped<IPainterService, PainterService>()
+                .AddScoped<IPublisherService, PublisherService>();
+
+            services.AddTransient<IMapper, Mapper>(ctx => new Mapper(new MapperConfiguration(cfg =>
+            {
+                cfg.AddMaps(Assembly.GetAssembly(typeof(MappingProfile)));
+            })));
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseStatusCodePages();
-                app.UseHsts();
-            }
+            app.UseStatusCodePages();
+            app.UseHsts();
 
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Test API V1");
+            });
         }
     }
 }
