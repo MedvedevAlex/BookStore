@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Model.JoinTables;
 
 namespace Model.Models
 {

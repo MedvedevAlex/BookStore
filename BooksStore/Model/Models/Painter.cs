@@ -1,5 +1,4 @@
-﻿using Model.JoinTables;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using ViewModel.Enums;
 
 namespace Model.Models

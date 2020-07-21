@@ -1,7 +1,6 @@
 ﻿using API.Filters;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -56,20 +55,12 @@ namespace API
             })));
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseStatusCodePages();
-                app.UseHsts();
-            }
+            app.UseStatusCodePages();
+            app.UseHsts();
 
             app.UseHttpsRedirection();
-            app.UseMvc();
         }
     }
 }
