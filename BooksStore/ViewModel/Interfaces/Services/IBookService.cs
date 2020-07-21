@@ -1,18 +1,18 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using ViewModel.Models;
 
 namespace ViewModel.Interfaces.Services
 {
     public interface IBookService
     {
-        Task CreateBookAsync(Book book);
+        Task AddBook(BookModel book);
         Task DeleteBookAsync(int id);
-        Task EditBook(int id, Book book);
-        Task<Book> GetBookByIdAsync(int id);
-        IEnumerable<Book> GetBooks();
-        Task<ICollection<Book>> SearchByAuthorsAsync(string searchString);
-        Task<ICollection<Book>> SearchByBooksDescriptionAsync(string searchString);
-        Task<ICollection<Book>> SearchByBooksNameAsync(string searchString);
-        Task<ICollection<Book>> SearchByGenreAsync(string searchString);
+        Task<BookModel> GetBookByIdAsync(int id);
+        IEnumerable<BookModel> GetBooks(int takeCount, int skipCount);
+        IEnumerable<BookModel> SearchByAuthor(string searchString);
+        IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount);
+        IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount);
+        Task UpdateBook(BookModel book);
     }
 }

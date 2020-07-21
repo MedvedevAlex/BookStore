@@ -1,110 +1,58 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Model.Models;
-using System;
+﻿using Model.Handlers;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using ViewModel.Enums;
 using ViewModel.Interfaces.Services;
+using ViewModel.Models;
 
 namespace Service.BookRepos
 {
     public class BookService : IBookService
     {
-        private readonly BookContext _context;
+        private readonly BookHandler _bookHandler;
 
-        public BookService(BookContext context)
+        public BookService(BookHandler bookHandler)
         {
-            _context = context;
+            _bookHandler = bookHandler;
         }
 
-        public IEnumerable<Book> GetBooks()
+        public IEnumerable<BookModel> GetBooks(int takeCount, int skipCount)
         {
-            return _context.Books;
+            return _bookHandler.Get(takeCount, skipCount);
         }
 
-        public async Task<Book> GetBookByIdAsync(int id)
+        public async Task<BookModel> GetBookByIdAsync(int id)
         {
-            return await _context.Books.FindAsync(id);
+            return await _bookHandler.GetByIdAsync(id);
         }
 
-        public async Task CreateBookAsync(Book book)
+        public Task AddBook(BookModel book)
         {
-            try
-            {
-                await _context.Books.AddAsync(book);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                throw new KeyNotFoundException("Ошибка при добавлении в базу данных", e);
-            }
+            return _bookHandler.AddAsync(book);
         }
 
-        public async Task EditBook(int id, Book book)
+        public Task UpdateBook(BookModel book)
         {
-            try
-            {
-                _context.Entry(book).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                throw new KeyNotFoundException("Ошибка при сохранении в базу данных", e);
-            }
+            return _bookHandler.UpdateAsync(book);
         }
 
-        public async Task DeleteBookAsync(int id)
+        public Task DeleteBookAsync(int id)
         {
-            try
-            {
-                Book book = await _context.Books.FindAsync(id);
-                _context.Books.Remove(book);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                throw new KeyNotFoundException("Ошибка при сохранении в базу данных", e);
-            }
+            return _bookHandler.DeleteAsync(id);
         }
 
-        public async Task<ICollection<Book>> SearchByAuthorsAsync(string searchString)
+        public IEnumerable<BookModel> SearchByAuthor(string searchString)
         {
-            return await (from author in _context.Authors
-                          join authorbook in _context.AuthorBooks on author.AuthorId equals authorbook.AuthorId
-                          join book in _context.Books on authorbook.BookId equals book.BookId
-                          where author.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select book).ToListAsync();
+            return _bookHandler.SearchByAuthor(searchString);
         }
 
-        public async Task<ICollection<Book>> SearchByBooksNameAsync(string searchString)
+        public IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount)
         {
-            return await (from book in _context.Books
-                          where book.Name.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select book).ToListAsync();
+            return _bookHandler.SearchByName(searchString, takeCount, skipCount);
         }
 
-        public async Task<ICollection<Book>> SearchByGenreAsync(string searchString)
+        public IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount)
         {
-            var genreStringSearch = DictionariesSupport.ConvertGenreRus
-                .Where(s => s.Value.StartsWith(searchString, StringComparison.OrdinalIgnoreCase))
-                .Select(s => s.Key);
-
-            if (genreStringSearch.Count() == 0)
-            {
-                return new List<Book>();
-            }
-
-            return await (from book in _context.Books
-                          where book.Genre.Equals(genreStringSearch.FirstOrDefault())
-                          select book).ToListAsync();
-        }
-
-        public async Task<ICollection<Book>> SearchByBooksDescriptionAsync(string searchString)
-        {
-            return await (from book in _context.Books
-                          where book.Description.StartsWith(searchString, StringComparison.OrdinalIgnoreCase)
-                          select book).ToListAsync();
+            return _bookHandler.SearchByGenre(searchString, takeCount, skipCount);
         }
     }
 }

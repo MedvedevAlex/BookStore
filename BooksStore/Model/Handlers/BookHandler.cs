@@ -31,14 +31,13 @@ namespace Model.Handlers
             _mapper = mapper;
         }
 
-
         /// <summary>
         /// Пагинация для получения книг
         /// </summary>
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Коллекция книг</returns>
-        public IEnumerable<BookModel> GetBooks(int takeCount, int skipCount)
+        public IEnumerable<BookModel> Get(int takeCount, int skipCount)
         {
             return _context.Books
                 .Skip(skipCount)
@@ -51,7 +50,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Модель книги</returns>
-        public async Task<BookModel> GetBookByIdAsync(int id)
+        public async Task<BookModel> GetByIdAsync(int id)
         {
             var bookEntity = await _context.Books
                 .FirstOrDefaultAsync(b => b.BookId == id);
@@ -63,7 +62,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
-        public async Task AddBookAsync(BookModel book)
+        public async Task AddAsync(BookModel book)
         {
             var bookEntity = _mapper.Map<Book>(book);
             try
@@ -82,7 +81,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
-        public async Task UpdateBookAsync(BookModel book)
+        public async Task UpdateAsync(BookModel book)
         {
             try
             {
@@ -105,7 +104,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns></returns>
-        public async Task DeleteBookAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             try
             {
@@ -125,7 +124,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="searchString">Имя автора</param>
         /// <returns>Колекция книг</returns>
-        public IEnumerable<BookModel> SearchBooksByAuthor(string searchString)
+        public IEnumerable<BookModel> SearchByAuthor(string searchString)
         {
             var booksEntities = from author in _context.Authors
                                 join authorbook in _context.AuthorBooks on author.AuthorId equals authorbook.AuthorId
@@ -142,7 +141,7 @@ namespace Model.Handlers
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns></returns>
-        public IEnumerable<BookModel> SearchBooksByName(string searchString, int takeCount, int skipCount)
+        public IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount)
         {
             var booksEntities = _context.Books
                 .Where(b => b.Name.Contains(searchString))
@@ -158,7 +157,7 @@ namespace Model.Handlers
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Колекция книг</returns>
-        public IEnumerable<BookModel> SearchByGenreAsync(string searchString, int takeCount, int skipCount)
+        public IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount)
         {
             var genreStringSearch = DictionariesSupport.ConvertGenreRus
                 .FirstOrDefault(g => g.Value.Contains(searchString));
