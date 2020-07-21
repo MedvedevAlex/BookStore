@@ -1,5 +1,5 @@
 ﻿using FluentValidation;
-using InterfaceDB.Models;
+using Model.Models;
 
 namespace API.FluentValidation.Models
 {
