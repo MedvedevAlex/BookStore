@@ -1,18 +1,19 @@
-﻿using ViewModel.Enums;
+﻿using Model.Entities;
+using System.Collections.Generic;
 
 namespace ViewModel.Models
 {
     /// <summary>
-    /// Художник
+    /// Модель Художник
     /// </summary>
     public class PainterModel
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
-        public int PainterId { get; set; }
+        public int Id { get; set; }
         /// <summary>
-        /// Имя
+        /// Имя художника
         /// </summary>
         public string Name { get; set; }
         /// <summary>
@@ -20,8 +21,15 @@ namespace ViewModel.Models
         /// </summary>
         public byte Age { get; set; }
         /// <summary>
-        /// Стиль рисования
+        /// Краткое описание
         /// </summary>
-        public Style Style { get; set; }
+        public string Description { get; set; }
+        /// <summary>/// <summary>
+        /// Идентификатор художественного стиля
+        /// </summary>
+        public PainterStyleModel Style { get; set; }
+        /// Коллекция книг
+        /// </summary>
+        public ICollection<PainterBookModel> PainterBooks { get; set; }
     }
 }

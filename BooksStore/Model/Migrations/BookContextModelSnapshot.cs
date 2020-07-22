@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Model.Models;
+using Model;
 
 namespace Model.Migrations
 {
@@ -19,7 +19,7 @@ namespace Model.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Model.Models.Author", b =>
+            modelBuilder.Entity("Model.Entities.Author", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,7 +39,7 @@ namespace Model.Migrations
                     b.ToTable("Authors");
                 });
 
-            modelBuilder.Entity("Model.Models.AuthorBook", b =>
+            modelBuilder.Entity("Model.Entities.AuthorBook", b =>
                 {
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
@@ -54,7 +54,7 @@ namespace Model.Migrations
                     b.ToTable("AuthorBooks");
                 });
 
-            modelBuilder.Entity("Model.Models.Book", b =>
+            modelBuilder.Entity("Model.Entities.Book", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -112,9 +112,9 @@ namespace Model.Migrations
                     b.ToTable("Books");
                 });
 
-            modelBuilder.Entity("Model.Models.Painter", b =>
+            modelBuilder.Entity("Model.Entities.Painter", b =>
                 {
-                    b.Property<int>("PainterId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -122,38 +122,55 @@ namespace Model.Migrations
                     b.Property<byte>("Age")
                         .HasColumnType("tinyint");
 
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Style")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("StyleId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.HasKey("PainterId");
+                    b.HasKey("Id");
+
+                    b.HasIndex("StyleId");
 
                     b.ToTable("Painters");
                 });
 
-            modelBuilder.Entity("Model.Models.PainterBook", b =>
+            modelBuilder.Entity("Model.Entities.PainterBook", b =>
                 {
-                    b.Property<int>("BookId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PainterId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("BookId1")
+                    b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("PainterId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int?>("PainterId1")
+                        .HasColumnType("int");
 
                     b.HasKey("BookId", "PainterId");
 
-                    b.HasIndex("BookId1");
-
-                    b.HasIndex("PainterId");
+                    b.HasIndex("PainterId1");
 
                     b.ToTable("PainterBook");
                 });
 
-            modelBuilder.Entity("Model.Models.Publisher", b =>
+            modelBuilder.Entity("Model.Entities.PainterStyle", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PainterStyles");
+                });
+
+            modelBuilder.Entity("Model.Entities.Publisher", b =>
                 {
                     b.Property<int>("PublisherId")
                         .ValueGeneratedOnAdd()
@@ -174,39 +191,46 @@ namespace Model.Migrations
                     b.ToTable("Publishers");
                 });
 
-            modelBuilder.Entity("Model.Models.AuthorBook", b =>
+            modelBuilder.Entity("Model.Entities.AuthorBook", b =>
                 {
-                    b.HasOne("Model.Models.Author", "Author")
+                    b.HasOne("Model.Entities.Author", "Author")
                         .WithMany("AuthorBooks")
                         .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Model.Models.Book", "Book")
+                    b.HasOne("Model.Entities.Book", "Book")
                         .WithMany("AuthorBooks")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Model.Models.Book", b =>
+            modelBuilder.Entity("Model.Entities.Book", b =>
                 {
-                    b.HasOne("Model.Models.Publisher", "Publisher")
+                    b.HasOne("Model.Entities.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherId");
                 });
 
-            modelBuilder.Entity("Model.Models.PainterBook", b =>
+            modelBuilder.Entity("Model.Entities.Painter", b =>
                 {
-                    b.HasOne("Model.Models.Book", "Book")
-                        .WithMany("PainterBooks")
-                        .HasForeignKey("BookId1");
+                    b.HasOne("Model.Entities.PainterStyle", "Style")
+                        .WithMany()
+                        .HasForeignKey("StyleId");
+                });
 
-                    b.HasOne("Model.Models.Painter", "Painter")
+            modelBuilder.Entity("Model.Entities.PainterBook", b =>
+                {
+                    b.HasOne("Model.Entities.Book", "Book")
                         .WithMany("PainterBooks")
-                        .HasForeignKey("PainterId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("Model.Entities.Painter", "Painter")
+                        .WithMany("PainterBooks")
+                        .HasForeignKey("PainterId1");
                 });
 #pragma warning restore 612, 618
         }

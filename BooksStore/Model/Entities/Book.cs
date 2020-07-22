@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Model.Models
+namespace Model.Entities
 {
     /// <summary>
     /// Сущность книга

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Model.Models
+namespace Model.Entities
 {
     public class Publisher
     {

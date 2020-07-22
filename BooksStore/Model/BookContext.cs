@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Model.Models;
+using Model.Entities;
 
 namespace Model
 {
@@ -10,6 +10,7 @@ namespace Model
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Painter> Painters { get; set; }
+        public DbSet<PainterStyle> PainterStyles { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<AuthorBook> AuthorBooks { get; set; }
 
@@ -19,6 +20,8 @@ namespace Model
                 .HasKey(b => new { b.BookId, b.AuthorId });
             modelBuilder.Entity<PainterBook>()
                 .HasKey(b => new { b.BookId, b.PainterId });
+            modelBuilder.Entity<Painter>()
+                .HasOne(p => p.Style);
             // использование Fluent API с использованием рефлексии
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IEntityTypeConfiguration<>).Assembly);
             base.OnModelCreating(modelBuilder);

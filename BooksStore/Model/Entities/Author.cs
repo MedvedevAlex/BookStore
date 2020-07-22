@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Model.Models
+namespace Model.Entities
 {
     /// <summary>
     /// Сущность Автор
@@ -21,7 +21,7 @@ namespace Model.Models
         /// </summary>
         public byte Age { get; set; }
         /// <summary>
-        /// Краткая биография автора
+        /// Краткое описание
         /// </summary>
         public string Description { get; set; }
         /// <summary>

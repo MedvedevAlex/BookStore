@@ -1,23 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ViewModel.Models
+namespace Model.Entities
 {
     /// <summary>
-    /// Модель Автор
+    /// Сущность Художник
     /// </summary>
-    public class AuthorModel
+    public class Painter
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         /// <summary>
-        /// Имя автора
+        /// Имя художника
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Возраст автора
+        /// Возраст
         /// </summary>
         public byte Age { get; set; }
         /// <summary>
@@ -25,8 +25,12 @@ namespace ViewModel.Models
         /// </summary>
         public string Description { get; set; }
         /// <summary>
-        /// Колекция книг
+        /// Идентификатор художественного стиля
         /// </summary>
-        public ICollection<AuthorBookModel> AuthorBooks { get; set; }
+        public PainterStyle Style { get; set; }
+        /// <summary>
+        /// Коллекция книг
+        /// </summary>
+        public virtual ICollection<PainterBook> PainterBooks { get; set; }
     }
 }

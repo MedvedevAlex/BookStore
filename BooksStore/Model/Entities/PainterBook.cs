@@ -1,11 +1,13 @@
-﻿namespace Model.Models
+﻿using System;
+
+namespace Model.Entities
 {
     public class PainterBook
     {
-        public int BookId { get; set; }
+        public Guid BookId { get; set; }
         public Book Book { get; set; }
 
-        public int PainterId { get; set; }
+        public Guid PainterId { get; set; }
         public Painter Painter { get; set; }
     }
 }

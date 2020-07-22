@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Model.Models
+namespace Model.Entities
 {
     public class AuthorBook
     {

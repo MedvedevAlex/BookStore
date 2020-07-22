@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using Model.Models;
+using Model.Entities;
 using ViewModel.Models;
 
 namespace Service
@@ -9,11 +9,15 @@ namespace Service
         public MappingProfile()
         {
             CreateMap<Book, BookModel>().ReverseMap();
+
             CreateMap<Author, AuthorModel>().ReverseMap();
-            CreateMap<Painter, PainterModel>().ReverseMap();
-            CreateMap<Publisher, PublisherModel>().ReverseMap();
             CreateMap<AuthorBook, AuthorBookModel>().ReverseMap();
+            
+            CreateMap<Publisher, PublisherModel>().ReverseMap();
+            
+            CreateMap<Painter, PainterModel>().ReverseMap();
             CreateMap<PainterBook, PainterBookModel>().ReverseMap();
+            CreateMap<PainterStyle, PainterStyleModel>().ReverseMap();
         }
     }
 }
