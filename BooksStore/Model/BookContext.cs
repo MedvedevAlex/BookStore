@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Model.Models;
 
-namespace Model.Models
+namespace Model
 {
     public class BookContext : DbContext
     {
