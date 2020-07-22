@@ -1,14 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Model.Entities
 {
+    /// <summary>
+    /// Сущность Издатель
+    /// </summary>
     public class Publisher
     {
-        public int PublisherId { get; set; }
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public Guid Id { get; set; }
+        /// <summary>
+        /// Наименование
+        /// </summary>
         public string Name { get; set; }
-        public string ShortName { get; set; }
-        public string Corporation { get; set; }
-
+        /// <summary>
+        /// Выпущенные книг
+        /// </summary>
         public virtual ICollection<Book> Books { get; set; }
     }
 }
