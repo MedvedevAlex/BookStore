@@ -50,10 +50,10 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Модель книги</returns>
-        public async Task<BookModel> GetByIdAsync(int id)
+        public async Task<BookModel> GetByIdAsync(Guid id)
         {
             var bookEntity = await _context.Books
-                .FirstOrDefaultAsync(b => b.BookId == id);
+                .FirstOrDefaultAsync(b => b.Id == id);
             return _mapper.Map<BookModel>(bookEntity);
         }
 
@@ -86,7 +86,7 @@ namespace Model.Handlers
             try
             {
                 var bookEntity = await _context.Books
-                    .FirstOrDefaultAsync(b => b.BookId == book.BookId);
+                    .FirstOrDefaultAsync(b => b.Id == book.Id);
                 if (bookEntity == null)
                     throw new KeyNotFoundException("Ошибка: Не удалось найти обновляему книгу");
                 bookEntity = _mapper.Map<Book>(book);
@@ -104,12 +104,12 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns></returns>
-        public async Task DeleteAsync(int id)
+        public async Task DeleteAsync(Guid id)
         {
             try
             {
                 var bookEntity = await _context.Books
-                    .FirstOrDefaultAsync(b => b.BookId == id);
+                    .FirstOrDefaultAsync(b => b.Id == id);
                 _context.Books.Remove(bookEntity);
                 await _context.SaveChangesAsync();
             }
@@ -128,7 +128,7 @@ namespace Model.Handlers
         {
             var booksEntities = from author in _context.Authors
                                 join authorbook in _context.AuthorBooks on author.AuthorId equals authorbook.AuthorId
-                                join book in _context.Books on authorbook.BookId equals book.BookId
+                                join book in _context.Books on authorbook.BookId equals book.Id
                                 where author.Name.Contains(searchString)
                                 select book;
             return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
@@ -150,24 +150,24 @@ namespace Model.Handlers
             return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
         }
 
-        /// <summary>
-        /// Поиск книг по жанру
-        /// </summary>
-        /// <param name="searchString">Название жанра</param>
-        /// <param name="takeCount">Количество получаемых</param>
-        /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns>Колекция книг</returns>
-        public IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount)
-        {
-            var genreStringSearch = DictionariesSupport.ConvertGenreRus
-                .FirstOrDefault(g => g.Value.Contains(searchString));
-            // проверить если не нашел жанры
+        ///// <summary>
+        ///// Поиск книг по жанру
+        ///// </summary>
+        ///// <param name="searchString">Название жанра</param>
+        ///// <param name="takeCount">Количество получаемых</param>
+        ///// <param name="skipCount">Количество пропущенных</param>
+        ///// <returns>Колекция книг</returns>
+        //public IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount)
+        //{
+        //    var genreStringSearch = DictionariesSupport.ConvertGenreRus
+        //        .FirstOrDefault(g => g.Value.Contains(searchString));
+        //    // проверить если не нашел жанры
 
-            var booksEntities = _context.Books
-                .Where(b => b.Genre == genreStringSearch.Key)
-                .Skip(skipCount)
-                .Take(takeCount);
-            return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
-        }
+        //    var booksEntities = _context.Books
+        //        .Where(b => b.GenreId == genreStringSearch.Key)
+        //        .Skip(skipCount)
+        //        .Take(takeCount);
+        //    return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
+        //}
     }
 }

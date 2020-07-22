@@ -1,8 +1,10 @@
-﻿namespace Model.Models
+﻿using System;
+
+namespace Model.Models
 {
     public class AuthorBook
     {
-        public int BookId { get; set; }
+        public Guid BookId { get; set; }
         public Book Book { get; set; }
 
         public int AuthorId { get; set; }

@@ -1,4 +1,5 @@
 ﻿using Model.Handlers;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Services;
@@ -20,7 +21,7 @@ namespace Service.BookRepos
             return _bookHandler.Get(takeCount, skipCount);
         }
 
-        public async Task<BookModel> GetByIdAsync(int id)
+        public async Task<BookModel> GetByIdAsync(Guid id)
         {
             return await _bookHandler.GetByIdAsync(id);
         }
@@ -35,7 +36,7 @@ namespace Service.BookRepos
             return _bookHandler.UpdateAsync(book);
         }
 
-        public Task Delete(int id)
+        public Task Delete(Guid id)
         {
             return _bookHandler.DeleteAsync(id);
         }
@@ -50,9 +51,9 @@ namespace Service.BookRepos
             return _bookHandler.SearchByName(searchString, takeCount, skipCount);
         }
 
-        public IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount)
-        {
-            return _bookHandler.SearchByGenre(searchString, takeCount, skipCount);
-        }
+        //public IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount)
+        //{
+        //    return _bookHandler.SearchByGenre(searchString, takeCount, skipCount);
+        //}
     }
 }

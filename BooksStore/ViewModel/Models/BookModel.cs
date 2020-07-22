@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using ViewModel.Enums;
 
 namespace ViewModel.Models
 {
@@ -12,75 +11,63 @@ namespace ViewModel.Models
         /// <summary>
         /// Идентификатор
         /// </summary>
-        public int BookId { get; set; }
+        public Guid Id { get; set; }
         /// <summary>
-        /// Название
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Дата опубликования
+        /// Дата публикации
         /// </summary>
         public DateTime PublishDate { get; set; }
         /// <summary>
-        /// Переплет
+        /// Идентификатор типа переплета
         /// </summary>
-        public Cover Cover { get; set; }
+        public Guid TypeCoverId { get; set; }
         /// <summary>
-        /// Жанр
+        /// Идентификатор жанра
         /// </summary>
-        public Genre Genre { get; set; }
+        public Guid GenreId { get; set; }
         /// <summary>
-        /// Язык
+        /// Идентификатор языка
         /// </summary>
-        public Language Language { get; set; }
+        public Guid LanguageId { get; set; }
         /// <summary>
         /// Описание
         /// </summary>
         public string Description { get; set; }
         /// <summary>
-        /// Уникальный 10-ти значный номер 
+        /// Уникальный 10-ти значный номер
         /// </summary>
         public string ISBN_10 { get; set; }
         /// <summary>
-        /// Уникальный 13-ти значный номер 
+        /// Уникальный 13-ти значный номер
         /// </summary>
         public string ISBN_13 { get; set; }
         /// <summary>
-        /// Размер
+        /// Формат
         /// </summary>
-        public string Dimensions { get; set; }
+        public string Format { get; set; }
         /// <summary>
         /// Количество страниц
         /// </summary>
-        public int NumbersPages { get; set; } // countpage
+        public int CountPage { get; set; }
         /// <summary>
         /// Цена
         /// </summary>
         public decimal Price { get; set; }
         /// <summary>
-        /// Количество на складе
-        /// </summary>
-        public int QuantityStock { get; set; } // countstorage
-        /// <summary>
-        /// Количество выпущеных
-        /// </summary>
-        public int Edition { get; set; }
-        /// <summary>
-        /// Возрастное ограничение
-        /// </summary>
-        public byte AgeLimit { get; set; }
-        /// <summary>
         /// Вес
         /// </summary>
         public decimal Weight { get; set; }
         /// <summary>
-        /// Количество купивших
+        /// Тираж
         /// </summary>
-        public int CountCustomers { get; set; }
+        public int Duplicate { get; set; }
         /// <summary>
-        /// Средняя оценка
+        /// Возрастное ограничение
         /// </summary>
-        public decimal AvgReview { get; set; }//ignore
+        public byte AgeLimit { get; set; }
         /// <summary>
         /// Издатель
         /// </summary>
