@@ -1,6 +1,10 @@
 ﻿using AutoMapper;
 using Model.Entities;
+using Model.Entities.JoinTables;
+using Model.Entities.References;
 using ViewModel.Models;
+using ViewModel.Models.JoinTables;
+using ViewModel.Models.References;
 
 namespace Service
 {
@@ -18,6 +22,8 @@ namespace Service
             CreateMap<Painter, PainterModel>().ReverseMap();
             CreateMap<PainterBook, PainterBookModel>().ReverseMap();
             CreateMap<PainterStyle, PainterStyleModel>().ReverseMap();
+
+            CreateMap<Language, LanguageModel>().ReverseMap();
         }
     }
 }

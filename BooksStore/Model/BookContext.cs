@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Model.Entities;
+using Model.Entities.JoinTables;
+using Model.Entities.References;
 
 namespace Model
 {
@@ -7,12 +9,20 @@ namespace Model
     {
         public BookContext(DbContextOptions<BookContext> options) : base(options) { }
 
+        #region Основные сущности
         public DbSet<Book> Books { get; set; }
         public DbSet<Author> Authors { get; set; }
         public DbSet<Painter> Painters { get; set; }
-        public DbSet<PainterStyle> PainterStyles { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
+        #endregion
+        #region Свзящующие таблицы
         public DbSet<AuthorBook> AuthorBooks { get; set; }
+        public DbSet<PainterBook> PainterBooks { get; set; }
+        #endregion
+        #region Справочники
+        public DbSet<PainterStyle> PainterStyles { get; set; }
+        public DbSet<Language> Languages{ get; set; }
+        #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,8 +30,6 @@ namespace Model
                 .HasKey(b => new { b.BookId, b.AuthorId });
             modelBuilder.Entity<PainterBook>()
                 .HasKey(b => new { b.BookId, b.PainterId });
-            modelBuilder.Entity<Painter>()
-                .HasOne(p => p.Style);
             // использование Fluent API с использованием рефлексии
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IEntityTypeConfiguration<>).Assembly);
             base.OnModelCreating(modelBuilder);

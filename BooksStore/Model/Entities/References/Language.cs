@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Model.Entities
+namespace Model.Entities.References
 {
     /// <summary>
-    /// Сущность Стиль художника
+    /// Сущность(cправочник) Язык
     /// </summary>
-    public class PainterStyle
+    public class Language
     {
         /// <summary>
         /// Идентификатор

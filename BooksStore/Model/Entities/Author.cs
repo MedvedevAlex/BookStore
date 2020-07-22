@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Model.Entities.JoinTables;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities

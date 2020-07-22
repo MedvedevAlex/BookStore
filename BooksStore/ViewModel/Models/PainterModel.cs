@@ -1,5 +1,6 @@
-﻿using Model.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ViewModel.Models.JoinTables;
+using ViewModel.Models.References;
 
 namespace ViewModel.Models
 {

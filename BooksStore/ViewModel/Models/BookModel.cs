@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using ViewModel.Models.JoinTables;
+using ViewModel.Models.References;
 
 namespace ViewModel.Models
 {
@@ -29,9 +31,9 @@ namespace ViewModel.Models
         /// </summary>
         public Guid GenreId { get; set; }
         /// <summary>
-        /// Идентификатор языка
+        /// Язык
         /// </summary>
-        public Guid LanguageId { get; set; }
+        public LanguageModel Language { get; set; }
         /// <summary>
         /// Описание
         /// </summary>

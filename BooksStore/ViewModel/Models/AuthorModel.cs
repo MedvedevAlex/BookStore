@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ViewModel.Models.JoinTables;
 
 namespace ViewModel.Models
 {

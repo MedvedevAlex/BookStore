@@ -15,10 +15,8 @@ namespace Model.ModelConfiguration
             builder.Property(t => t.PublishDate)
                 .HasColumnType("Date");
             builder.Property(b => b.TypeCoverId)
-                .HasColumnType("tinyint");
-            builder.Property(b => b.GenreId)
                 .HasColumnType("uniqueidentifier");
-            builder.Property(b => b.LanguageId)
+            builder.Property(b => b.GenreId)
                 .HasColumnType("uniqueidentifier");
             builder.Property(b => b.Description)
                 .HasColumnType("varchar(200)");
@@ -39,7 +37,8 @@ namespace Model.ModelConfiguration
             builder.Property(b => b.Weight)
                 .HasColumnType("numeric(5,2)");
 
-            builder.HasOne<Publisher>();
+            builder.HasOne(p => p.Publisher);
+            builder.HasOne(l => l.Language);
 
             //builder.HasData(new Book()
             //{

@@ -16,6 +16,8 @@ namespace InterfaceDB.ModelConfiguration
                 .HasColumnType("tinyint");
             builder.Property(a => a.Description)
                 .HasColumnType("varchar(255)");
+
+            builder.HasOne(s => s.Style);
         }
     }
 }

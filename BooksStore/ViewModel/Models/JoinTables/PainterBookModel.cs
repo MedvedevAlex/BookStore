@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ViewModel.Models
+namespace ViewModel.Models.JoinTables
 {
     /// <summary>
     /// Связующая таблица книги и художника

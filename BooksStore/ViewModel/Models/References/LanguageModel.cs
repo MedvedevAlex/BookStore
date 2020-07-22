@@ -1,11 +1,11 @@
 ﻿using System;
 
-namespace Model.Entities
+namespace ViewModel.Models.References
 {
     /// <summary>
-    /// Модель Стиль художника
+    /// Модель Язык
     /// </summary>
-    public class PainterStyleModel
+    public class LanguageModel
     {
         /// <summary>
         /// Идентификатор

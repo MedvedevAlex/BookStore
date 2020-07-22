@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Model.Entities.JoinTables;
+using Model.Entities.References;
+using System;
 using System.Collections.Generic;
 
 namespace Model.Entities
@@ -29,9 +31,9 @@ namespace Model.Entities
         /// </summary>
         public Guid GenreId { get; set; }
         /// <summary>
-        /// Идентификатор языка
+        /// Язык
         /// </summary>
-        public Guid LanguageId { get; set; }
+        public Language Language { get; set; }
         /// <summary>
         /// Описание
         /// </summary>
@@ -68,11 +70,17 @@ namespace Model.Entities
         /// Возрастное ограничение
         /// </summary>
         public byte AgeLimit { get; set; }
-
+        /// <summary>
+        /// Издатель
+        /// </summary>
         public Publisher Publisher { get; set; }
-
+        /// <summary>
+        /// Коллекция авторов
+        /// </summary>
         public virtual ICollection<AuthorBook> AuthorBooks { get; set; }
-
+        /// <summary>
+        /// Коллекция художников
+        /// </summary>
         public virtual ICollection<PainterBook> PainterBooks { get; set; }
     }
 }
