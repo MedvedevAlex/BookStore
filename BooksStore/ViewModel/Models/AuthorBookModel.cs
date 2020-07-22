@@ -1,11 +1,13 @@
-﻿namespace ViewModel.Models
+﻿using System;
+
+namespace ViewModel.Models
 {
     public class AuthorBookModel
     {
-        public int BookId { get; set; }
+        public Guid BookId { get; set; }
         public BookModel Book { get; set; }
 
-        public int AuthorId { get; set; }
+        public Guid AuthorId { get; set; }
         public AuthorModel Author { get; set; }
     }
 }

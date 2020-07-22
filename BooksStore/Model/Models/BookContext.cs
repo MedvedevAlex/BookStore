@@ -14,11 +14,11 @@ namespace Model.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // использование Fluent API с использованием рефлексии
             modelBuilder.Entity<AuthorBook>()
                 .HasKey(b => new { b.BookId, b.AuthorId });
             modelBuilder.Entity<PainterBook>()
                 .HasKey(b => new { b.BookId, b.PainterId });
+            // использование Fluent API с использованием рефлексии
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IEntityTypeConfiguration<>).Assembly);
             base.OnModelCreating(modelBuilder);
 

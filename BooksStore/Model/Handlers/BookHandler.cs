@@ -127,7 +127,7 @@ namespace Model.Handlers
         public IEnumerable<BookModel> SearchByAuthor(string searchString)
         {
             var booksEntities = from author in _context.Authors
-                                join authorbook in _context.AuthorBooks on author.AuthorId equals authorbook.AuthorId
+                                join authorbook in _context.AuthorBooks on author.Id equals authorbook.AuthorId
                                 join book in _context.Books on authorbook.BookId equals book.Id
                                 where author.Name.Contains(searchString)
                                 select book;

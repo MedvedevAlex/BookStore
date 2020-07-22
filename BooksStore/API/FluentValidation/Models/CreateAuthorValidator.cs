@@ -11,8 +11,10 @@ namespace API.FluentValidation.Models
                 .WithMessage("Имя не может быть пустым");
             RuleFor(a => a.Name).MaximumLength(20)
                 .WithMessage("Название не может превышать 30 символов");
-            RuleFor(a => a.Age).InclusiveBetween((byte)1, (byte)90)
-                .WithMessage("Возраст имеет диапазон значений от 1 до 90");
+            RuleFor(a => a.Age).InclusiveBetween((byte)1, (byte)120)
+                .WithMessage("Возраст имеет диапазон значений от 1 до 120");
+            RuleFor(a => a.Description).MaximumLength(255)
+                .WithMessage("Краткое описание не может превышать 255 символов");
         }
     }
 }
