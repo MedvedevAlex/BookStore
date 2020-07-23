@@ -23,6 +23,9 @@ namespace Service
             CreateMap<PainterBook, PainterBookModel>().ReverseMap();
             CreateMap<PainterStyle, PainterStyleModel>().ReverseMap();
 
+            CreateMap<Interpreter, InterpreterModel>().ReverseMap();
+            CreateMap<InterpreterBook, InterpreterBookModel>().ReverseMap();
+
             CreateMap<Language, LanguageModel>().ReverseMap();
         }
     }

@@ -1,21 +1,20 @@
 ﻿using Model.Entities.JoinTables;
-using Model.Entities.References;
 using System;
 using System.Collections.Generic;
 
 namespace Model.Entities
 {
     /// <summary>
-    /// Сущность Художник
+    /// Сущность Переводчик
     /// </summary>
-    public class Painter
+    public class Interpreter
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Имя художника
+        /// Имя переводчика
         /// </summary>
         public string Name { get; set; }
         /// <summary>
@@ -27,12 +26,8 @@ namespace Model.Entities
         /// </summary>
         public string Description { get; set; }
         /// <summary>
-        /// Идентификатор художественного стиля
-        /// </summary>
-        public PainterStyle Style { get; set; }
-        /// <summary>
         /// Коллекция книг
         /// </summary>
-        public virtual ICollection<PainterBook> PainterBooks { get; set; }
+        public virtual ICollection<InterpreterBook> InterpeterBooks { get; set; }
     }
 }
