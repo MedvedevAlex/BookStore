@@ -10,16 +10,16 @@ namespace ViewModel.Enums
         [Description("Понедельник")]
         Monday = 1,
         [Description("Вторник")]
-        Tuesday = 1,
+        Tuesday = 2,
         [Description("Среда")]
-        Wednesday = 1,
+        Wednesday = 3,
         [Description("Четверг")]
-        Thursday = 1,
+        Thursday = 4,
         [Description("Пятница")]
-        Friday = 1,
+        Friday = 5,
         [Description("Суббота")]
-        Saturday = 1,
+        Saturday = 6,
         [Description("Воскресенье")]
-        Sunday = 1
+        Sunday = 7
     }
 }

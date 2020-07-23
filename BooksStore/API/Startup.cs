@@ -37,6 +37,17 @@ namespace API
             services.AddDbContext<BookContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("BookStoreDatabase")));
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigins",
+                    b =>
+                    {
+                        b.AllowAnyOrigin()
+                         .AllowAnyHeader()
+                         .AllowAnyMethod();
+                    });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo

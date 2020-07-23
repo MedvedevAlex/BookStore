@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Model.Entities;
 
-namespace InterfaceDB.ModelConfiguration
+namespace Model.ModelConfiguration
 {
     class PublisherConfiguration : IEntityTypeConfiguration<Publisher>
     {

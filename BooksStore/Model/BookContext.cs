@@ -2,6 +2,7 @@
 using Model.Entities;
 using Model.Entities.JoinTables;
 using Model.Entities.References;
+using System.Reflection;
 
 namespace Model
 {
@@ -42,8 +43,8 @@ namespace Model
                 .HasMany(ws => ws.WorkShedule)
                 .WithOne(s => s.Shop);
             // использование Fluent API с использованием рефлексии
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IEntityTypeConfiguration<>).Assembly);
             base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             // Добавить сидирование данных
         }
