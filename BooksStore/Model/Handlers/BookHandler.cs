@@ -38,10 +38,21 @@ namespace Model.Handlers
         /// <returns>Коллекция книг</returns>
         public IEnumerable<BookModel> Get(int takeCount, int skipCount)
         {
-            return _context.Books
+            var a = _context.Books
+                .Include(c => c.CoverType)
+                .Include(g => g.Genre)
+                .Include(l => l.Language)
+                .Include(p => p.Publisher)
+                .Include(ab => ab.AuthorBooks)
+                    .ThenInclude(ar => ar.Author)
+                .Include(ib => ib.InterpreterBooks)
+                    .ThenInclude(ir => ir.Interpreter)
+                .Include(pb => pb.PainterBooks)
+                    .ThenInclude(pr => pr.Painter)
                 .Skip(skipCount)
                 .Take(takeCount)
                 .Select(s => _mapper.Map<BookModel>(s));
+            return a;
         }
 
         /// <summary>

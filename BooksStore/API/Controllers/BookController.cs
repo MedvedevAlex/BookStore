@@ -9,6 +9,7 @@ namespace API.Controllers
     /// <summary>
     /// Контроллер Книги
     /// </summary>
+    [Produces("application/json")]
     [Route("/api/[controller]")]
     [ApiController]
     public class BookController : ControllerBase
@@ -48,6 +49,10 @@ namespace API.Controllers
         /// <summary>
         /// Добавить книгу
         /// </summary>
+        /// <remarks>
+        /// Простой запрос:
+        ///     Тут будет модель
+        /// </remarks>
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
         [HttpPost]

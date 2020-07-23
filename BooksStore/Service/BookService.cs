@@ -1,7 +1,7 @@
-﻿using Model.Handlers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models;
 
@@ -9,9 +9,9 @@ namespace Service.BookRepos
 {
     public class BookService : IBookService
     {
-        private readonly BookHandler _bookHandler;
+        private readonly IBookHandler _bookHandler;
 
-        public BookService(BookHandler bookHandler)
+        public BookService(IBookHandler bookHandler)
         {
             _bookHandler = bookHandler;
         }

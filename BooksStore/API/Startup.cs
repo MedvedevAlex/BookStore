@@ -1,10 +1,12 @@
 ﻿using API.Filters;
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Model;
 using Model.Handlers;
@@ -12,6 +14,8 @@ using Service;
 using Service.BookRepos;
 using Service.PainterRepos;
 using Service.PublisherRepos;
+using System;
+using System.IO;
 using System.Reflection;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Handlers;
@@ -56,6 +60,10 @@ namespace API
                     Title = "Test API",
                     Description = "ASP.NET Core Web API"
                 });
+
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                c.IncludeXmlComments(xmlPath);
             });
             //services.AddMvc(opt =>
             //{
@@ -74,14 +82,28 @@ namespace API
             {
                 cfg.AddMaps(Assembly.GetAssembly(typeof(MappingProfile)));
             })));
+
+            services.AddControllersWithViews()
+                .AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseStatusCodePages();
-            app.UseHsts();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
 
             app.UseHttpsRedirection();
+
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

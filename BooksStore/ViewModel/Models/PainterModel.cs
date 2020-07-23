@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ViewModel.Models.JoinTables;
 using ViewModel.Models.References;
 
@@ -12,7 +13,7 @@ namespace ViewModel.Models
         /// <summary>
         /// Идентификатор
         /// </summary>
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         /// <summary>
         /// Имя художника
         /// </summary>

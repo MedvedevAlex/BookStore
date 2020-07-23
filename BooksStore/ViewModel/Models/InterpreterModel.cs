@@ -5,7 +5,7 @@ using ViewModel.Models.JoinTables;
 namespace ViewModel.Models
 {
     /// <summary>
-    /// Сущность Переводчик
+    /// Модель Переводчик
     /// </summary>
     public class InterpreterModel
     {
@@ -28,6 +28,6 @@ namespace ViewModel.Models
         /// <summary>
         /// Коллекция книг
         /// </summary>
-        public virtual ICollection<InterpreterBookModel> InterpeterBooks { get; set; }
+        public virtual ICollection<InterpreterBookModel> InterpreterBooks { get; set; }
     }
 }
