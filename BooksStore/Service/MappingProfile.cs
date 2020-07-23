@@ -28,6 +28,7 @@ namespace Service
 
             CreateMap<Language, LanguageModel>().ReverseMap();
             CreateMap<Genre, GenreModel>().ReverseMap();
+            CreateMap<CoverType, CoverTypeModel>().ReverseMap();
         }
     }
 }

@@ -23,9 +23,9 @@ namespace ViewModel.Models
         /// </summary>
         public DateTime PublishDate { get; set; }
         /// <summary>
-        /// Идентификатор типа переплета
+        /// Типа переплета
         /// </summary>
-        public Guid TypeCoverId { get; set; }
+        public CoverTypeModel CoverType { get; set; }
         /// <summary>
         /// Жанр
         /// </summary>

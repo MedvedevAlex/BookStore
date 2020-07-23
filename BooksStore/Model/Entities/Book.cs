@@ -23,9 +23,9 @@ namespace Model.Entities
         /// </summary>
         public DateTime PublishDate { get; set; }
         /// <summary>
-        /// Идентификатор типа переплета
+        /// Cущность Тип переплета
         /// </summary>
-        public Guid TypeCoverId { get; set; }
+        public CoverType CoverType { get; set; }
         /// <summary>
         /// Сущность Жанр
         /// </summary>

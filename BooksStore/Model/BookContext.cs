@@ -25,6 +25,7 @@ namespace Model
         public DbSet<PainterStyle> PainterStyles { get; set; }
         public DbSet<Language> Languages{ get; set; }
         public DbSet<Genre> Genres { get; set; }
+        public DbSet<CoverType> CoverTypes { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
