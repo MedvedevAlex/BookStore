@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Model.Models;
 using ViewModel.Interfaces.Handlers;
 using AutoMapper;
 using ViewModel.Models;
+using Model;
 
 namespace Service.PainterRepos
 {

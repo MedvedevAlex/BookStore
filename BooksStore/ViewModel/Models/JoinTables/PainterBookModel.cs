@@ -1,4 +1,6 @@
-﻿namespace ViewModel.Models
+﻿using System;
+
+namespace ViewModel.Models.JoinTables
 {
     /// <summary>
     /// Связующая таблица книги и художника
@@ -8,7 +10,7 @@
         /// <summary>
         /// Идентификатор книги
         /// </summary>
-        public int BookId { get; set; }
+        public Guid BookId { get; set; }
         /// <summary>
         /// Книга
         /// </summary>
@@ -16,7 +18,7 @@
         /// <summary>
         /// Идентификатор художника
         /// </summary>
-        public int PainterId { get; set; }
+        public Guid PainterId { get; set; }
         /// <summary>
         /// Художник
         /// </summary>
