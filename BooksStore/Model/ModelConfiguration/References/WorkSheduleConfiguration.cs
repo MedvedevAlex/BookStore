@@ -4,7 +4,7 @@ using Model.Entities.References;
 using System;
 using ViewModel.Enums;
 
-namespace Model.ModelConfiguration
+namespace Model.ModelConfiguration.References
 {
     class WorkSheduleConfiguration : IEntityTypeConfiguration<WorkShedule>
     {

@@ -82,5 +82,9 @@ namespace ViewModel.Models
         /// Художники
         /// </summary>
         public ICollection<PainterBookModel> PainterBooks { get; set; }
+        /// <summary>
+        /// Переводчики
+        /// </summary>
+        public ICollection<InterpreterModel> InterpreterBooks { get; set; }
     }
 }

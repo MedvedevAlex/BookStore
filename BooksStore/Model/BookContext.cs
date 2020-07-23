@@ -33,45 +33,6 @@ namespace Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AuthorBook>()
-                .HasKey(b => new { b.BookId, b.AuthorId });
-            modelBuilder.Entity<AuthorBook>()
-                .HasOne(b => b.Book)
-                .WithMany(ab => ab.AuthorBooks)
-                .HasForeignKey(b => b.BookId)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<AuthorBook>()
-                .HasOne(a => a.Author)
-                .WithMany(ab => ab.AuthorBooks)
-                .HasForeignKey(a => a.AuthorId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<PainterBook>()
-                .HasKey(b => new { b.BookId, b.PainterId });
-            modelBuilder.Entity<PainterBook>()
-                .HasOne(b => b.Book)
-                .WithMany(pb => pb.PainterBooks)
-                .HasForeignKey(b => b.BookId)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<PainterBook>()
-                .HasOne(p => p.Painter)
-                .WithMany(pb => pb.PainterBooks)
-                .HasForeignKey(p => p.PainterId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<InterpreterBook>()
-                .HasKey(b => new { b.BookId, b.InterpreterId});
-            modelBuilder.Entity<InterpreterBook>()
-                .HasOne(b => b.Book)
-                .WithMany(ib => ib.InterpreterBooks)
-                .HasForeignKey(b => b.BookId)
-                .OnDelete(DeleteBehavior.Cascade);
-            modelBuilder.Entity<InterpreterBook>()
-                .HasOne(p => p.Interpreter)
-                .WithMany(ib => ib.InterpreterBooks)
-                .HasForeignKey(p => p.InterpreterId)
-                .OnDelete(DeleteBehavior.Cascade);
-
             base.OnModelCreating(modelBuilder);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
