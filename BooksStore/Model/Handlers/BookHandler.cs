@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
-using ViewModel.Models;
+using ViewModel.Models.Book;
 
 namespace Model.Handlers
 {
@@ -36,7 +36,7 @@ namespace Model.Handlers
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Коллекция книг</returns>
-        public IEnumerable<BookModel> Get(int takeCount, int skipCount)
+        public IEnumerable<BookViewModel> Get(int takeCount, int skipCount)
         {
             var a = _context.Books
                 .Include(c => c.CoverType)
@@ -51,7 +51,7 @@ namespace Model.Handlers
                     .ThenInclude(pr => pr.Painter)
                 .Skip(skipCount)
                 .Take(takeCount)
-                .Select(s => _mapper.Map<BookModel>(s));
+                .Select(s => _mapper.Map<BookViewModel>(s));
             return a;
         }
 

@@ -4,6 +4,7 @@ using ViewModel.Interfaces.Handlers;
 using ViewModel.Models;
 using AutoMapper;
 using Model;
+using ViewModel.Models.Publisher;
 
 namespace Service.PublisherRepos
 {

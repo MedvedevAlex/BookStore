@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using ViewModel.Models.JoinTables;
+using ViewModel.Models.Publisher;
 using ViewModel.Models.References;
 
-namespace ViewModel.Models
+namespace ViewModel.Models.Book
 {
     /// <summary>
     /// Книга
@@ -23,7 +24,7 @@ namespace ViewModel.Models
         /// </summary>
         public DateTime PublishDate { get; set; }
         /// <summary>
-        /// Типа переплета
+        /// Тип переплета
         /// </summary>
         public CoverTypeModel CoverType { get; set; }
         /// <summary>

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ViewModel.Models;
+using ViewModel.Models.Book;
 
 namespace ViewModel.Interfaces.Services
 {
@@ -10,7 +10,7 @@ namespace ViewModel.Interfaces.Services
         Task Add(BookModel book);
         Task Delete(Guid id);
         Task<BookModel> GetByIdAsync(Guid id);
-        IEnumerable<BookModel> Get(int takeCount, int skipCount);
+        IEnumerable<BookViewModel> Get(int takeCount, int skipCount);
         IEnumerable<BookModel> SearchByAuthor(string searchString);
         //IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount);
         IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount);

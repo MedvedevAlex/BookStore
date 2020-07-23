@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models;
+using ViewModel.Models.Book;
 
 namespace Service.BookRepos
 {
@@ -16,7 +17,7 @@ namespace Service.BookRepos
             _bookHandler = bookHandler;
         }
 
-        public IEnumerable<BookModel> Get(int takeCount, int skipCount)
+        public IEnumerable<BookViewModel> Get(int takeCount, int skipCount)
         {
             return _bookHandler.Get(takeCount, skipCount);
         }

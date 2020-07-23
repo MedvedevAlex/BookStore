@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ViewModel.Models;
+using ViewModel.Models.Book;
 
 namespace ViewModel.Handlers
 {
@@ -10,7 +10,7 @@ namespace ViewModel.Handlers
         Task AddAsync(BookModel book);
         Task DeleteAsync(Guid id);
         Task UpdateAsync(BookModel book);
-        IEnumerable<BookModel> Get(int takeCount, int skipCount);
+        IEnumerable<BookViewModel> Get(int takeCount, int skipCount);
         Task<BookModel> GetByIdAsync(Guid id);
         IEnumerable<BookModel> SearchByAuthor(string searchString);
         IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount);

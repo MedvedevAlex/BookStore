@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using ViewModel.Models.Book;
 
-namespace ViewModel.Models
+namespace ViewModel.Models.Publisher
 {
     /// <summary>
     /// Модель Издатель
