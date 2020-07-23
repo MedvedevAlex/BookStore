@@ -2,6 +2,7 @@
 using Model.Entities;
 using Model.Entities.JoinTables;
 using Model.Entities.References;
+using System.Reflection;
 
 namespace Model
 {
@@ -32,20 +33,8 @@ namespace Model
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AuthorBook>()
-                .HasKey(b => new { b.BookId, b.AuthorId });
-            modelBuilder.Entity<PainterBook>()
-                .HasKey(b => new { b.BookId, b.PainterId });
-            modelBuilder.Entity<InterpreterBook>()
-                .HasKey(b => new { b.BookId, b.IntepreterId });
-            modelBuilder.Entity<Shop>()
-                .HasMany(ws => ws.WorkShedule)
-                .WithOne(s => s.Shop);
-            // использование Fluent API с использованием рефлексии
-            modelBuilder.ApplyConfigurationsFromAssembly(typeof(IEntityTypeConfiguration<>).Assembly);
             base.OnModelCreating(modelBuilder);
-
-            // Добавить сидирование данных
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }
 }

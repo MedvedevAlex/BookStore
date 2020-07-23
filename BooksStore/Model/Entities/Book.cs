@@ -39,10 +39,6 @@ namespace Model.Entities
         /// </summary>
         public string Description { get; set; }
         /// <summary>
-        /// Уникальный 10-ти значный номер
-        /// </summary>
-        public string ISBN_10 { get; set; }
-        /// <summary>
         /// Уникальный 13-ти значный номер
         /// </summary>
         public string ISBN_13 { get; set; }
@@ -53,15 +49,15 @@ namespace Model.Entities
         /// <summary>
         /// Количество страниц
         /// </summary>
-        public int CountPage { get; set; }
+        public short CountPage { get; set; }
         /// <summary>
         /// Цена
         /// </summary>
         public decimal Price { get; set; }
         /// <summary>
-        /// Вес
+        /// Вес в граммах
         /// </summary>
-        public decimal Weight { get; set; }
+        public short Weight { get; set; }
         /// <summary>
         /// Тираж
         /// </summary>
@@ -82,5 +78,9 @@ namespace Model.Entities
         /// Коллекция художников
         /// </summary>
         public virtual ICollection<PainterBook> PainterBooks { get; set; }
+        /// <summary>
+        /// Коллекция переводчиков
+        /// </summary>
+        public virtual ICollection<InterpreterBook> InterpreterBooks { get; set; }
     }
 }
