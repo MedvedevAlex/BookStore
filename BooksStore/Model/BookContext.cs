@@ -15,6 +15,7 @@ namespace Model
         public DbSet<Painter> Painters { get; set; }
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Interpreter> Interpreters { get; set; }
+        public DbSet<Shop> Shops { get; set; }
         #endregion
         #region Свзящующие таблицы
         public DbSet<AuthorBook> AuthorBooks { get; set; }
@@ -26,6 +27,7 @@ namespace Model
         public DbSet<Language> Languages{ get; set; }
         public DbSet<Genre> Genres { get; set; }
         public DbSet<CoverType> CoverTypes { get; set; }
+        public DbSet<WorkShedule> WorkShedules { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -36,6 +38,9 @@ namespace Model
                 .HasKey(b => new { b.BookId, b.PainterId });
             modelBuilder.Entity<InterpreterBook>()
                 .HasKey(b => new { b.BookId, b.IntepreterId });
+            modelBuilder.Entity<Shop>()
+                .HasMany(ws => ws.WorkShedule)
+                .WithOne(s => s.Shop);
             // использование Fluent API с использованием рефлексии
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(IEntityTypeConfiguration<>).Assembly);
             base.OnModelCreating(modelBuilder);

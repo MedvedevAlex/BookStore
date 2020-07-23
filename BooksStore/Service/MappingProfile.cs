@@ -13,6 +13,9 @@ namespace Service
         public MappingProfile()
         {
             CreateMap<Book, BookModel>().ReverseMap();
+            CreateMap<Language, LanguageModel>().ReverseMap();
+            CreateMap<Genre, GenreModel>().ReverseMap();
+            CreateMap<CoverType, CoverTypeModel>().ReverseMap();
 
             CreateMap<Author, AuthorModel>().ReverseMap();
             CreateMap<AuthorBook, AuthorBookModel>().ReverseMap();
@@ -26,9 +29,8 @@ namespace Service
             CreateMap<Interpreter, InterpreterModel>().ReverseMap();
             CreateMap<InterpreterBook, InterpreterBookModel>().ReverseMap();
 
-            CreateMap<Language, LanguageModel>().ReverseMap();
-            CreateMap<Genre, GenreModel>().ReverseMap();
-            CreateMap<CoverType, CoverTypeModel>().ReverseMap();
+            CreateMap<Shop, ShopModel>().ReverseMap();
+            CreateMap<WorkShedule, WorkSheduleModel>().ReverseMap();
         }
     }
 }
