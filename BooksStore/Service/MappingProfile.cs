@@ -27,6 +27,7 @@ namespace Service
             CreateMap<InterpreterBook, InterpreterBookModel>().ReverseMap();
 
             CreateMap<Language, LanguageModel>().ReverseMap();
+            CreateMap<Genre, GenreModel>().ReverseMap();
         }
     }
 }

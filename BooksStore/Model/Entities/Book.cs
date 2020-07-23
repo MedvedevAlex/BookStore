@@ -27,11 +27,11 @@ namespace Model.Entities
         /// </summary>
         public Guid TypeCoverId { get; set; }
         /// <summary>
-        /// Идентификатор жанра
+        /// Сущность Жанр
         /// </summary>
-        public Guid GenreId { get; set; }
+        public Genre Genre { get; set; }
         /// <summary>
-        /// Язык
+        /// Сущность Язык
         /// </summary>
         public Language Language { get; set; }
         /// <summary>

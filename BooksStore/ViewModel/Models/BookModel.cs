@@ -27,9 +27,9 @@ namespace ViewModel.Models
         /// </summary>
         public Guid TypeCoverId { get; set; }
         /// <summary>
-        /// Идентификатор жанра
+        /// Жанр
         /// </summary>
-        public Guid GenreId { get; set; }
+        public GenreModel Genre { get; set; }
         /// <summary>
         /// Язык
         /// </summary>

@@ -16,8 +16,6 @@ namespace Model.ModelConfiguration
                 .HasColumnType("Date");
             builder.Property(b => b.TypeCoverId)
                 .HasColumnType("uniqueidentifier");
-            builder.Property(b => b.GenreId)
-                .HasColumnType("uniqueidentifier");
             builder.Property(b => b.Description)
                 .HasColumnType("varchar(200)");
             builder.Property(b => b.ISBN_10)
@@ -39,6 +37,7 @@ namespace Model.ModelConfiguration
 
             builder.HasOne(p => p.Publisher);
             builder.HasOne(l => l.Language);
+            builder.HasOne(g => g.Genre);
 
             //builder.HasData(new Book()
             //{
