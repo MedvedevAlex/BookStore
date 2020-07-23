@@ -10,7 +10,7 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20200723054031_Initial")]
+    [Migration("20200723064319_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -44,7 +44,6 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.Book", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<byte>("AgeLimit")
@@ -86,9 +85,6 @@ namespace Model.Migrations
                     b.Property<DateTime>("PublishDate")
                         .HasColumnType("Date");
 
-                    b.Property<Guid?>("PublisherId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<decimal>("Weight")
                         .HasColumnType("numeric(5,2)");
 
@@ -99,8 +95,6 @@ namespace Model.Migrations
                     b.HasIndex("GenreId");
 
                     b.HasIndex("LanguageId");
-
-                    b.HasIndex("PublisherId");
 
                     b.ToTable("Books");
                 });
@@ -145,13 +139,10 @@ namespace Model.Migrations
                     b.Property<Guid>("BookId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("IntepreterId")
+                    b.Property<Guid>("InterpreterId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("InterpreterId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("BookId", "IntepreterId");
+                    b.HasKey("BookId", "InterpreterId");
 
                     b.HasIndex("InterpreterId");
 
@@ -496,13 +487,15 @@ namespace Model.Migrations
                         .WithMany()
                         .HasForeignKey("GenreId");
 
+                    b.HasOne("Model.Entities.Publisher", "Publisher")
+                        .WithMany("Books")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Model.Entities.References.Language", "Language")
                         .WithMany()
                         .HasForeignKey("LanguageId");
-
-                    b.HasOne("Model.Entities.Publisher", "Publisher")
-                        .WithMany("Books")
-                        .HasForeignKey("PublisherId");
                 });
 
             modelBuilder.Entity("Model.Entities.JoinTables.AuthorBook", b =>
@@ -523,14 +516,16 @@ namespace Model.Migrations
             modelBuilder.Entity("Model.Entities.JoinTables.InterpreterBook", b =>
                 {
                     b.HasOne("Model.Entities.Book", "Book")
-                        .WithMany()
+                        .WithMany("InterpreterBooks")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Model.Entities.Interpreter", "Interpreter")
-                        .WithMany("InterpeterBooks")
-                        .HasForeignKey("InterpreterId");
+                        .WithMany("InterpreterBooks")
+                        .HasForeignKey("InterpreterId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Model.Entities.JoinTables.PainterBook", b =>

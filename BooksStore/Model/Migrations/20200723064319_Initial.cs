@@ -147,8 +147,7 @@ namespace Model.Migrations
                     Price = table.Column<decimal>(type: "numeric(8,2)", nullable: false),
                     Weight = table.Column<decimal>(type: "numeric(5,2)", nullable: false),
                     Duplicate = table.Column<int>(type: "int", nullable: false),
-                    AgeLimit = table.Column<byte>(type: "tinyint", nullable: false),
-                    PublisherId = table.Column<Guid>(nullable: true)
+                    AgeLimit = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -166,15 +165,15 @@ namespace Model.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
+                        name: "FK_Books_Publishers_Id",
+                        column: x => x.Id,
+                        principalTable: "Publishers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Books_Languages_LanguageId",
                         column: x => x.LanguageId,
                         principalTable: "Languages",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Books_Publishers_PublisherId",
-                        column: x => x.PublisherId,
-                        principalTable: "Publishers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -229,12 +228,11 @@ namespace Model.Migrations
                 columns: table => new
                 {
                     BookId = table.Column<Guid>(nullable: false),
-                    IntepreterId = table.Column<Guid>(nullable: false),
-                    InterpreterId = table.Column<Guid>(nullable: true)
+                    InterpreterId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_InterpreterBooks", x => new { x.BookId, x.IntepreterId });
+                    table.PrimaryKey("PK_InterpreterBooks", x => new { x.BookId, x.InterpreterId });
                     table.ForeignKey(
                         name: "FK_InterpreterBooks_Books_BookId",
                         column: x => x.BookId,
@@ -246,7 +244,7 @@ namespace Model.Migrations
                         column: x => x.InterpreterId,
                         principalTable: "Interpreters",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -331,11 +329,6 @@ namespace Model.Migrations
                 column: "LanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_PublisherId",
-                table: "Books",
-                column: "PublisherId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_InterpreterBooks_InterpreterId",
                 table: "InterpreterBooks",
                 column: "InterpreterId");
@@ -392,10 +385,10 @@ namespace Model.Migrations
                 name: "Genres");
 
             migrationBuilder.DropTable(
-                name: "Languages");
+                name: "Publishers");
 
             migrationBuilder.DropTable(
-                name: "Publishers");
+                name: "Languages");
 
             migrationBuilder.DropTable(
                 name: "PainterStyles");

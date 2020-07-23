@@ -82,5 +82,9 @@ namespace Model.Entities
         /// Коллекция художников
         /// </summary>
         public virtual ICollection<PainterBook> PainterBooks { get; set; }
+        /// <summary>
+        /// Коллекция переводчиков
+        /// </summary>
+        public virtual ICollection<InterpreterBook> InterpreterBooks { get; set; }
     }
 }

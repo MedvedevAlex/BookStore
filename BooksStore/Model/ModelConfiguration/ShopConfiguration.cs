@@ -16,6 +16,10 @@ namespace Model.ModelConfiguration
             builder.Property(s => s.Address)
                 .HasColumnType("varchar(40)");
 
+            builder
+                .HasMany(ws => ws.WorkShedule)
+                .WithOne(s => s.Shop);
+
             builder.HasData(
                 new { Id = Guid.Parse("cab1c429-3a2d-4e30-b8a4-f9281b71ed7e"), Name = "Книжная штучка", Address = "Советская 65" },
                 new { Id = Guid.Parse("c99eca84-3aa1-4a38-abe2-6b551571246d"), Name = "Большая закладка", Address = "Мира 22" },

@@ -33,8 +33,12 @@ namespace Model.ModelConfiguration
             builder.Property(b => b.Weight)
                 .HasColumnType("numeric(5,2)");
 
-            builder.HasOne(p => p.Publisher);
-            builder.HasOne(l => l.Language);
+            builder
+                .HasOne(b => b.Publisher)
+                .WithMany(p => p.Books)
+                .HasForeignKey(b => b.Id)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.HasOne(b => b.Language);
             builder.HasOne(g => g.Genre);
             builder.HasOne(ct => ct.CoverType);
 

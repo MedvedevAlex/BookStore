@@ -28,6 +28,6 @@ namespace Model.Entities
         /// <summary>
         /// Коллекция книг
         /// </summary>
-        public virtual ICollection<InterpreterBook> InterpeterBooks { get; set; }
+        public virtual ICollection<InterpreterBook> InterpreterBooks { get; set; }
     }
 }

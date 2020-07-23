@@ -18,7 +18,7 @@ namespace Model.Entities.JoinTables
         /// <summary>
         /// Идентификатор переводчика
         /// </summary>
-        public Guid IntepreterId { get; set; }
+        public Guid InterpreterId { get; set; }
         /// <summary>
         /// Сущность Переводчик
         /// </summary>
