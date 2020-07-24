@@ -38,8 +38,6 @@ namespace API
             {
                 config.Filters.Add(typeof(CustomException));
             }).SetCompatibilityVersion(CompatibilityVersion.Latest);
-            services.AddDbContext<BookContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("BookStoreDatabase")));
 
             services.AddCors(options =>
             {
