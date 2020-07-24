@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ViewModel.Models.JoinTables;
+using ViewModel.Models.Authors;
 using ViewModel.Models.Publishers;
 
 namespace ViewModel.Models.Books
@@ -73,7 +73,7 @@ namespace ViewModel.Models.Books
         /// <summary>
         /// Авторы
         /// </summary>
-        public ICollection<AuthorBookModel> AuthorBooks { get; set; }
+        public ICollection<AuthorShortModel> Authors { get; set; }
         /// <summary>
         /// Художники
         /// </summary>

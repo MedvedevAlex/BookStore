@@ -2,6 +2,7 @@
 using Model.Entities;
 using Model.Entities.JoinTables;
 using Model.Entities.References;
+using System.Linq;
 using ViewModel.Models;
 using ViewModel.Models.Authors;
 using ViewModel.Models.Books;
@@ -19,17 +20,18 @@ namespace Service
             CreateMap<Book, BookViewModel>()
                 .ForMember(ct => ct.CoverType, ct => ct.MapFrom(cvt => cvt.CoverType.Name))
                 .ForMember(l => l.Language, l => l.MapFrom(lg => lg.Language.Name))
-                .ForMember(g => g.Genre, g => g.MapFrom(gr => gr.Genre.Name));
+                .ForMember(g => g.Genre, g => g.MapFrom(gr => gr.Genre.Name))
+                .ForMember(a => a.Authors, a => a.MapFrom(ar => ar.AuthorBooks.Select(s => new AuthorShortModel() { Id = s.Author.Id, Name = s.Author.Name })));
             CreateMap<Language, LanguageModel>().ReverseMap();
             CreateMap<Genre, GenreModel>().ReverseMap();
             CreateMap<CoverType, CoverTypeModel>().ReverseMap();
 
             CreateMap<Author, AuthorModel>().ReverseMap();
             CreateMap<AuthorBook, AuthorBookModel>().ReverseMap();
-            
+
             CreateMap<Publisher, PublisherModel>().ReverseMap();
             CreateMap<Publisher, PublisherShortModel>().ReverseMap();
-            
+
             CreateMap<Painter, PainterModel>().ReverseMap();
             CreateMap<PainterBook, PainterBookModel>().ReverseMap();
             CreateMap<PainterStyle, PainterStyleModel>().ReverseMap();
