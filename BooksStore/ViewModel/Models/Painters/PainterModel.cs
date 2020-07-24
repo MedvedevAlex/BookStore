@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using ViewModel.Models.JoinTables;
 using ViewModel.Models.References;
 
-namespace ViewModel.Models
+namespace ViewModel.Models.Painters
 {
     /// <summary>
     /// Модель Художник

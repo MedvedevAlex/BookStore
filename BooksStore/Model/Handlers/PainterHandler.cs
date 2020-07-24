@@ -2,8 +2,8 @@
 using System.Linq;
 using ViewModel.Interfaces.Handlers;
 using AutoMapper;
-using ViewModel.Models;
 using Model;
+using ViewModel.Models.Painters;
 
 namespace Service.PainterRepos
 {
