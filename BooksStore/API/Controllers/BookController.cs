@@ -92,9 +92,9 @@ namespace API.Controllers
         /// <param name="searchString">Имя автора</param>
         /// <returns>Колекция книг</returns>
         [HttpGet("SearchByAuthor/{searchString}")]
-        public IActionResult SearchByAuthor([FromRoute] string searchString)
+        public async Task<IActionResult> SearchByAuthor([FromRoute] string searchString)
         {
-            var result = _bookService.SearchByAuthor(searchString);
+            var result = await _bookService.SearchByAuthorAsync(searchString);
             return Ok(result);
         }
 
@@ -106,24 +106,24 @@ namespace API.Controllers
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns></returns>
         [HttpGet("SearchByName/{searchString}/take/{takeCount}/skip/{skipCount}")]
-        public IActionResult SearchByName([FromRoute] string searchString, [FromRoute] int takeCount, [FromRoute] int skipCount)
+        public async Task<IActionResult> SearchByName([FromRoute] string searchString, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = _bookService.SearchByName(searchString, takeCount, skipCount);
+            var result = await _bookService.SearchByNameAsync(searchString, takeCount, skipCount);
             return Ok(result);
         }
 
-        ///// <summary>
-        ///// Поиск книг по жанру
-        ///// </summary>
-        ///// <param name="searchString">Название жанра</param>
-        ///// <param name="takeCount">Количество получаемых</param>
-        ///// <param name="skipCount">Количество пропущенных</param>
-        ///// <returns>Колекция книг</returns>
-        //[HttpGet("SearchByGenre/{searchString}/take/{takeCount}/skip/{skipCount}")]
-        //public IActionResult SearchByGenre([FromRoute] string searchString, [FromRoute] int takeCount, [FromRoute] int skipCount)
-        //{
-        //    var result = _bookService.SearchByGenre(searchString, takeCount, skipCount);
-        //    return Ok(result);
-        //}
+        /// <summary>
+        /// Поиск книг по жанру
+        /// </summary>
+        /// <param name="searchString">Название жанра</param>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Колекция книг</returns>
+        [HttpGet("SearchByGenre/{searchString}/take/{takeCount}/skip/{skipCount}")]
+        public async Task<IActionResult> SearchByGenre([FromRoute] string searchString, [FromRoute] int takeCount, [FromRoute] int skipCount)
+        {
+            var result = await _bookService.SearchByGenreAsync(searchString, takeCount, skipCount);
+            return Ok(result);
+        }
     }
 }

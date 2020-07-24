@@ -60,17 +60,17 @@ namespace Model.Handlers
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var bookEntity = await context.Books
-                .Include(c => c.CoverType)
-                .Include(g => g.Genre)
-                .Include(l => l.Language)
-                .Include(p => p.Publisher)
-                .Include(ab => ab.AuthorBooks)
-                    .ThenInclude(ar => ar.Author)
-                .Include(ib => ib.InterpreterBooks)
-                    .ThenInclude(ir => ir.Interpreter)
-                .Include(pb => pb.PainterBooks)
-                    .ThenInclude(pr => pr.Painter)
-                .FirstOrDefaultAsync(b => b.Id == id);
+                    .Include(c => c.CoverType)
+                    .Include(g => g.Genre)
+                    .Include(l => l.Language)
+                    .Include(p => p.Publisher)
+                    .Include(ab => ab.AuthorBooks)
+                        .ThenInclude(ar => ar.Author)
+                    .Include(ib => ib.InterpreterBooks)
+                        .ThenInclude(ir => ir.Interpreter)
+                    .Include(pb => pb.PainterBooks)
+                        .ThenInclude(pr => pr.Painter)
+                    .FirstOrDefaultAsync(b => b.Id == id);
                 return _mapper.Map<BookViewModel>(bookEntity);
             }
         }
@@ -231,16 +231,17 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="searchString">Имя автора</param>
         /// <returns>Колекция книг</returns>
-        public IEnumerable<BookModel> SearchByAuthor(string searchString)
+        public async Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                var booksEntities = from author in context.Authors
+                return await (from author in context.Authors
                                     join authorbook in context.AuthorBooks on author.Id equals authorbook.AuthorId
                                     join book in context.Books on authorbook.BookId equals book.Id
-                                    where author.Name.Contains(searchString)
-                                    select book;
-                return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
+                                    where author.Name.Contains(searchString.Trim())
+                                    select book)
+                                    .Select(s => _mapper.Map<BookPreviewModel>(s))
+                                    .ToListAsync();
             }
         }
 
@@ -251,36 +252,46 @@ namespace Model.Handlers
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns></returns>
-        public IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount)
+        public async Task<List<BookPreviewModel>> SearchByNameAsync(string searchString, int takeCount, int skipCount)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                var booksEntities = context.Books
-                .Where(b => b.Name.Contains(searchString))
-                .Skip(skipCount)
-                .Take(takeCount);
-                return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
+                return await context.Books
+                    .Where(b => b.Name.Contains(searchString.Trim()))
+                    .Include(ab => ab.AuthorBooks)
+                            .ThenInclude(ar => ar.Author)
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Select(s => _mapper.Map<BookPreviewModel>(s))
+                    .ToListAsync();
             }
         }
 
-        ///// <summary>
-        ///// Поиск книг по жанру
-        ///// </summary>
-        ///// <param name="searchString">Название жанра</param>
-        ///// <param name="takeCount">Количество получаемых</param>
-        ///// <param name="skipCount">Количество пропущенных</param>
-        ///// <returns>Колекция книг</returns>
-        //public IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount)
-        //{
-        //    var genreStringSearch = DictionariesSupport.ConvertGenreRus
-        //        .FirstOrDefault(g => g.Value.Contains(searchString));
-        //    // проверить если не нашел жанры
+        /// <summary>
+        /// Поиск книг по жанру
+        /// </summary>
+        /// <param name="searchString">Название жанра</param>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Колекция книг</returns>
+        public async Task<List<BookPreviewModel>> SearchByGenreAsync(string searchString, int takeCount, int skipCount)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var genresEntities = await context.Genres
+                    .Where(g => g.Name.Contains(searchString.Trim()))
+                    .Select(s => s.Name)
+                    .ToListAsync();
 
-        //    var booksEntities = _context.Books
-        //        .Where(b => b.GenreId == genreStringSearch.Key)
-        //        .Skip(skipCount)
-        //        .Take(takeCount);
-        //    return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
-        //}
+                return await context.Books
+                    .Where(b => genresEntities.Contains(b.Genre.Name))
+                    .Include(ab => ab.AuthorBooks)
+                        .ThenInclude(ar => ar.Author)
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Select(s => _mapper.Map<BookPreviewModel>(s))
+                    .ToListAsync();
+            }
+        }
     }
 }

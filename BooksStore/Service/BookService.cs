@@ -41,19 +41,19 @@ namespace Service.BookRepos
             return _bookHandler.DeleteAsync(id);
         }
 
-        public IEnumerable<BookModel> SearchByAuthor(string searchString)
+        public async Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString)
         {
-            return _bookHandler.SearchByAuthor(searchString);
+            return await _bookHandler.SearchByAuthorAsync(searchString);
         }
 
-        public IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount)
+        public async Task<List<BookPreviewModel>> SearchByNameAsync(string searchString, int takeCount, int skipCount)
         {
-            return _bookHandler.SearchByName(searchString, takeCount, skipCount);
+            return await _bookHandler.SearchByNameAsync(searchString, takeCount, skipCount);
         }
 
-        //public IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount)
-        //{
-        //    return _bookHandler.SearchByGenre(searchString, takeCount, skipCount);
-        //}
+        public async Task<List<BookPreviewModel>> SearchByGenreAsync(string searchString, int takeCount, int skipCount)
+        {
+            return await _bookHandler.SearchByGenreAsync(searchString, takeCount, skipCount);
+        }
     }
 }
