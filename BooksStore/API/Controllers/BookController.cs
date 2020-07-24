@@ -68,7 +68,7 @@ namespace API.Controllers
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
         [HttpPut]
-        public IActionResult Update([FromBody] BookModel book)
+        public IActionResult Update([FromBody] BookCreateModel book)
         {
             _bookService.Update(book);
             return Ok();

@@ -9,7 +9,7 @@ namespace ViewModel.Handlers
     {
         Task AddAsync(BookCreateModel book);
         Task DeleteAsync(Guid id);
-        Task UpdateAsync(BookModel book);
+        Task UpdateAsync(BookCreateModel book);
         Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount);
         Task<BookViewModel> GetByIdAsync(Guid id);
         IEnumerable<BookModel> SearchByAuthor(string searchString);

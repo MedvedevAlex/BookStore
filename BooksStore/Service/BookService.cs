@@ -31,7 +31,7 @@ namespace Service.BookRepos
             return _bookHandler.AddAsync(book);
         }
 
-        public Task Update(BookModel book)
+        public Task Update(BookCreateModel book)
         {
             return _bookHandler.UpdateAsync(book);
         }

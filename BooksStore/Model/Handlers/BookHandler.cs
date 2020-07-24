@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using Model.Entities.JoinTables;
+using Model.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -86,34 +87,34 @@ namespace Model.Handlers
             {
                 try
                 {
-                    var coverType = context.CoverTypes
-                        .FirstOrDefault(ct => ct.Id == book.CoverTypeId);
-                    var genre = context.Genres
-                        .FirstOrDefault(g => g.Id == book.GenreId);
-                    var language = context.Languages
-                        .FirstOrDefault(l => l.Id == book.LanguageId);
-                    var publisher = context.Publishers
-                        .FirstOrDefault(p => p.Id == book.PublisherId);
+                    var coverType = await context.CoverTypes
+                        .FirstOrDefaultAsync(ct => ct.Id == book.CoverTypeId);
+                    var genre = await context.Genres
+                        .FirstOrDefaultAsync(g => g.Id == book.GenreId);
+                    var language = await context.Languages
+                        .FirstOrDefaultAsync(l => l.Id == book.LanguageId);
+                    var publisher = await context.Publishers
+                        .FirstOrDefaultAsync(p => p.Id == book.PublisherId);
                     bookEntity.CoverType = coverType ?? throw new KeyNotFoundException("Ошибка: не удалось найти тип переплета");
                     bookEntity.Genre = genre ?? throw new KeyNotFoundException("Ошибка: не удалось найти жанр");
                     bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: не удалось найти язык");
                     bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: не удалось найти издателя");
 
-                    var authorsEntities = context.Authors
+                    var newAuthorsEntities = context.Authors
                         .Where(a => book.AuthorsIds.Contains(a.Id))
                         .Select(a => new AuthorBook() { Book = bookEntity, Author = a })
                         .ToList();
-                    var paintersEntities = context.Painters
+                    var newPaintersEntities = context.Painters
                         .Where(p => book.PaintersIds.Contains(p.Id))
                         .Select(p => new PainterBook() { Book = bookEntity, Painter = p })
                         .ToList();
-                    var interpretersEntities = context.Interpreters
+                    var newInterpretersEntities = context.Interpreters
                         .Where(i => book.InterpretersIds.Contains(i.Id))
                         .Select(i => new InterpreterBook() { Book = bookEntity, Interpreter = i })
                         .ToList();
-                    bookEntity.AuthorBooks = authorsEntities;
-                    bookEntity.PainterBooks = paintersEntities;
-                    bookEntity.InterpreterBooks = interpretersEntities;
+                    bookEntity.AuthorBooks = newAuthorsEntities;
+                    bookEntity.PainterBooks = newPaintersEntities;
+                    bookEntity.InterpreterBooks = newInterpretersEntities;
 
                     await context.Books.AddAsync(bookEntity);
                     await context.SaveChangesAsync();
@@ -130,18 +131,67 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
-        public async Task UpdateAsync(BookModel book)
+        public async Task UpdateAsync(BookCreateModel book)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 try
                 {
                     var bookEntity = await context.Books
+                        .Include(ab => ab.AuthorBooks)
+                            .ThenInclude(ar => ar.Author)
+                        .Include(ib => ib.InterpreterBooks)
+                            .ThenInclude(ir => ir.Interpreter)
+                        .Include(pb => pb.PainterBooks)
+                            .ThenInclude(pr => pr.Painter)
                         .FirstOrDefaultAsync(b => b.Id == book.Id);
                     if (bookEntity == null)
-                        throw new KeyNotFoundException("Ошибка: Не удалось найти обновляему книгу");
-                    bookEntity = _mapper.Map<Book>(book);
-                    context.Entry(bookEntity).State = EntityState.Modified;
+                        throw new KeyNotFoundException("Ошибка: Не удалось найти книгу");
+
+                    context.Entry(bookEntity).CurrentValues.SetValues(book);
+
+                    var coverType = await context.CoverTypes
+                        .FirstOrDefaultAsync(ct => ct.Id == book.CoverTypeId);
+                    var genre = await context.Genres
+                        .FirstOrDefaultAsync(g => g.Id == book.GenreId);
+                    var language = await context.Languages
+                        .FirstOrDefaultAsync(l => l.Id == book.LanguageId);
+                    var publisher = await context.Publishers
+                        .FirstOrDefaultAsync(p => p.Id == book.PublisherId);
+                    bookEntity.CoverType = coverType ?? throw new KeyNotFoundException("Ошибка: не удалось найти тип переплета");
+                    bookEntity.Genre = genre ?? throw new KeyNotFoundException("Ошибка: не удалось найти жанр");
+                    bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: не удалось найти язык");
+                    bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: не удалось найти издателя");
+
+                    var newAuthorsEntities = context.Authors
+                        .Where(a => book.AuthorsIds.Contains(a.Id));
+                    var newPaintersEntities = context.Painters
+                        .Where(p => book.PaintersIds.Contains(p.Id));
+                    var newInterpretersEntities = context.Interpreters
+                        .Where(i => book.InterpretersIds.Contains(i.Id));
+
+                    context.TryUpdateManyToMany(bookEntity.AuthorBooks, newAuthorsEntities
+                        .Select(s => new AuthorBook
+                        {
+                            BookId = bookEntity.Id,
+                            AuthorId = s.Id
+                        }), s => s.AuthorId);
+
+                    context.TryUpdateManyToMany(bookEntity.PainterBooks, newPaintersEntities
+                        .Select(p => new PainterBook
+                        {
+                            BookId = bookEntity.Id,
+                            PainterId = p.Id
+                        }), p => p.PainterId);
+
+                    context.TryUpdateManyToMany(bookEntity.InterpreterBooks, newInterpretersEntities
+                        .Select(i => new InterpreterBook
+                        {
+                            BookId = bookEntity.Id,
+                            InterpreterId = i.Id
+                        }), i => i.InterpreterId);
+
+                    context.Books.Update(bookEntity);
                     await context.SaveChangesAsync();
                 }
                 catch (Exception e)
