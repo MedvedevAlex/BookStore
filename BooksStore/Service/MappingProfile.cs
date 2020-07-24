@@ -3,9 +3,10 @@ using Model.Entities;
 using Model.Entities.JoinTables;
 using Model.Entities.References;
 using ViewModel.Models;
-using ViewModel.Models.Book;
+using ViewModel.Models.Authors;
+using ViewModel.Models.Books;
 using ViewModel.Models.JoinTables;
-using ViewModel.Models.Publisher;
+using ViewModel.Models.Publishers;
 using ViewModel.Models.References;
 
 namespace Service

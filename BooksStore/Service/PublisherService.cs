@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Handlers;
-using ViewModel.Models.Publisher;
+using ViewModel.Models.Publishers;
 
 namespace Service.PublisherRepos
 {

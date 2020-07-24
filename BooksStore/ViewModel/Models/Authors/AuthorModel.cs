@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ViewModel.Models.JoinTables;
 
-namespace ViewModel.Models
+namespace ViewModel.Models.Authors
 {
     /// <summary>
     /// Модель Автор

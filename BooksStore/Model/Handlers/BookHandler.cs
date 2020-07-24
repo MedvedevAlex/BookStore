@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
-using ViewModel.Models.Book;
+using ViewModel.Models.Books;
 
 namespace Model.Handlers
 {

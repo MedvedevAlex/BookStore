@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using ViewModel.Models.JoinTables;
-using ViewModel.Models.Publisher;
+using ViewModel.Models.Publishers;
 using ViewModel.Models.References;
 
-namespace ViewModel.Models.Book
+namespace ViewModel.Models.Books
 {
     /// <summary>
     /// Книга

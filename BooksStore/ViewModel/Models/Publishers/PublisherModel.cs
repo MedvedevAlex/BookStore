@@ -1,11 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using ViewModel.Models.Books;
 
-namespace ViewModel.Models.Publisher
+namespace ViewModel.Models.Publishers
 {
     /// <summary>
     /// Модель Издатель
     /// </summary>
-    public class PublisherShortModel
+    public class PublisherModel
     {
         /// <summary>
         /// Идентификатор
@@ -15,5 +17,9 @@ namespace ViewModel.Models.Publisher
         /// Название
         /// </summary>
         public string Name { get; set; }
+        /// <summary>
+        /// Выпущенные книги
+        /// </summary>
+        public ICollection<BookModel> Books { get; set; }
     }
 }

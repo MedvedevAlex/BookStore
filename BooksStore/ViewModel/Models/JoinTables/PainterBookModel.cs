@@ -1,5 +1,5 @@
 ﻿using System;
-using ViewModel.Models.Book;
+using ViewModel.Models.Books;
 
 namespace ViewModel.Models.JoinTables
 {

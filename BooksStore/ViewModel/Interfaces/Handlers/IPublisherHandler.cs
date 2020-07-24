@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using ViewModel.Models;
-using ViewModel.Models.Publisher;
+using ViewModel.Models.Publishers;
 
 namespace ViewModel.Interfaces.Handlers
 {

@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
-using ViewModel.Models;
-using ViewModel.Models.Book;
+using ViewModel.Models.Books;
 
 namespace Service.BookRepos
 {

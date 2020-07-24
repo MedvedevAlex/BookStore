@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel.Interfaces.Services;
-using ViewModel.Models.Book;
+using ViewModel.Models.Books;
 
 namespace API.Controllers
 {

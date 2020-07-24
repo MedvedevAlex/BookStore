@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using ViewModel.Models.JoinTables;
-using ViewModel.Models.Publisher;
+using ViewModel.Models.Publishers;
 
-namespace ViewModel.Models.Book
+namespace ViewModel.Models.Books
 {
     /// <summary>
     /// Книга
@@ -77,10 +77,10 @@ namespace ViewModel.Models.Book
         /// <summary>
         /// Художники
         /// </summary>
-        public ICollection<PainterBookModel> PainterBooks { get; set; }
+        //public ICollection<PainterBookModel> PainterBooks { get; set; }
         /// <summary>
         /// Переводчики
         /// </summary>
-        public ICollection<InterpreterBookModel> InterpreterBooks { get; set; }
+        //public ICollection<InterpreterBookModel> InterpreterBooks { get; set; }
     }
 }

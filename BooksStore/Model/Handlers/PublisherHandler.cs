@@ -1,10 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using ViewModel.Interfaces.Handlers;
-using ViewModel.Models;
 using AutoMapper;
 using Model;
-using ViewModel.Models.Publisher;
+using ViewModel.Models.Publishers;
 
 namespace Service.PublisherRepos
 {
