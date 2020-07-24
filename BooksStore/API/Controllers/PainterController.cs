@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 using ViewModel.Interfaces.Services;
 
 namespace API.Controllers
@@ -21,6 +23,31 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Получить художника по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель художника</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromRoute] Guid id)
+        {
+            var result = await _painterService.GetAsync(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Пагинация для получения художников
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Коллекция художников</returns>
+        [HttpGet("GetPainters/take/{takeCount}/skip/{skipCount}")]
+        public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
+        {
+            var result = await _painterService.GetAsync(takeCount, skipCount);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Поиск по имени художника
         /// </summary>
         /// <param name="painterName">Имя художника</param>
@@ -28,10 +55,9 @@ namespace API.Controllers
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция художников</returns>
         [HttpGet("SearchByName/{painterName}/take/{takeCount}/skip/{skipCount}")]
-        public IActionResult SearchByName(
-            [FromRoute] string painterName, [FromRoute] int takeCount, [FromRoute] int skipCount)
+        public async Task<IActionResult> SearchByName([FromRoute] string painterName, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = _painterService.SearchByName(painterName, takeCount, skipCount);
+            var result = await _painterService.SearchByNameAsync(painterName, takeCount, skipCount);
             return Ok(result);
         }
     }

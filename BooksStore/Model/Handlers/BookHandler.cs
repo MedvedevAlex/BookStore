@@ -100,18 +100,18 @@ namespace Model.Handlers
                     bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: не удалось найти язык");
                     bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: не удалось найти издателя");
 
-                    var newAuthorsEntities = context.Authors
+                    var newAuthorsEntities = await context.Authors
                         .Where(a => book.AuthorsIds.Contains(a.Id))
                         .Select(a => new AuthorBook() { Book = bookEntity, Author = a })
-                        .ToList();
-                    var newPaintersEntities = context.Painters
+                        .ToListAsync();
+                    var newPaintersEntities = await context.Painters
                         .Where(p => book.PaintersIds.Contains(p.Id))
                         .Select(p => new PainterBook() { Book = bookEntity, Painter = p })
-                        .ToList();
-                    var newInterpretersEntities = context.Interpreters
+                        .ToListAsync();
+                    var newInterpretersEntities = await context.Interpreters
                         .Where(i => book.InterpretersIds.Contains(i.Id))
                         .Select(i => new InterpreterBook() { Book = bookEntity, Interpreter = i })
-                        .ToList();
+                        .ToListAsync();
                     bookEntity.AuthorBooks = newAuthorsEntities;
                     bookEntity.PainterBooks = newPaintersEntities;
                     bookEntity.InterpreterBooks = newInterpretersEntities;

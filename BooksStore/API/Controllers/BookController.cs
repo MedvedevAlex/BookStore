@@ -28,7 +28,7 @@ namespace API.Controllers
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Коллекция книг</returns>
         [HttpGet("getbooks/take/{takeCount}/skip/{skipCount}")]
-        public async Task<IActionResult> GetBooks([FromRoute] int takeCount, [FromRoute] int skipCount)
+        public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
         {
             var result = await _bookService.GetAsync(takeCount, skipCount);
             return Ok(result);

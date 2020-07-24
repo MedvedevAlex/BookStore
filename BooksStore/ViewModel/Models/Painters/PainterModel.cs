@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ViewModel.Models.JoinTables;
+using ViewModel.Models.Books;
 using ViewModel.Models.References;
 
 namespace ViewModel.Models.Painters
@@ -26,12 +26,12 @@ namespace ViewModel.Models.Painters
         /// Краткое описание
         /// </summary>
         public string Description { get; set; }
-        /// <summary>/// <summary>
-        /// Идентификатор художественного стиля
+        /// <summary>
+        /// Наименование стиля
         /// </summary>
-        public PainterStyleModel Style { get; set; }
+        public string Style { get; set; }
         /// Коллекция книг
         /// </summary>
-        public ICollection<PainterBookModel> PainterBooks { get; set; }
+        public ICollection<BookPreviewModel> Books { get; set; }
     }
 }
