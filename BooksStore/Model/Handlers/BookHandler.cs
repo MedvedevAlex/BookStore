@@ -231,7 +231,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="searchString">Имя автора</param>
         /// <returns>Колекция книг</returns>
-        public async Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString)
+        public async Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString, int takeCount, int skipCount)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -240,6 +240,8 @@ namespace Model.Handlers
                                     join book in context.Books on authorbook.BookId equals book.Id
                                     where author.Name.Contains(searchString.Trim())
                                     select book)
+                                    .Take(takeCount)
+                                    .Skip(skipCount)
                                     .Select(s => _mapper.Map<BookPreviewModel>(s))
                                     .ToListAsync();
             }

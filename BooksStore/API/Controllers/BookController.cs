@@ -90,11 +90,13 @@ namespace API.Controllers
         /// Поиск книг по автору
         /// </summary>
         /// <param name="searchString">Имя автора</param>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Колекция книг</returns>
         [HttpGet("SearchByAuthor/{searchString}")]
-        public async Task<IActionResult> SearchByAuthor([FromRoute] string searchString)
+        public async Task<IActionResult> SearchByAuthor([FromRoute] string searchString, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = await _bookService.SearchByAuthorAsync(searchString);
+            var result = await _bookService.SearchByAuthorAsync(searchString, takeCount, skipCount);
             return Ok(result);
         }
 

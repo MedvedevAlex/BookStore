@@ -41,9 +41,9 @@ namespace Service.BookRepos
             return _bookHandler.DeleteAsync(id);
         }
 
-        public async Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString)
+        public async Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString, int takeCount, int skipCount)
         {
-            return await _bookHandler.SearchByAuthorAsync(searchString);
+            return await _bookHandler.SearchByAuthorAsync(searchString, takeCount, skipCount);
         }
 
         public async Task<List<BookPreviewModel>> SearchByNameAsync(string searchString, int takeCount, int skipCount)
