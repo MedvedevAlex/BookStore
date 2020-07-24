@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using ViewModel.Models.Authors;
+using ViewModel.Models.Interpreters;
 using ViewModel.Models.Painters;
 using ViewModel.Models.Publishers;
 
@@ -82,6 +83,6 @@ namespace ViewModel.Models.Books
         /// <summary>
         /// Переводчики
         /// </summary>
-        //public ICollection<InterpreterBookModel> InterpreterBooks { get; set; }
+        public ICollection<InterpreterShortModel> Interpreters { get; set; }
     }
 }

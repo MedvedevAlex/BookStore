@@ -6,6 +6,7 @@ using System.Linq;
 using ViewModel.Models;
 using ViewModel.Models.Authors;
 using ViewModel.Models.Books;
+using ViewModel.Models.Interpreters;
 using ViewModel.Models.JoinTables;
 using ViewModel.Models.Painters;
 using ViewModel.Models.Publishers;
@@ -23,7 +24,8 @@ namespace Service
                 .ForMember(l => l.Language, l => l.MapFrom(lg => lg.Language.Name))
                 .ForMember(g => g.Genre, g => g.MapFrom(gr => gr.Genre.Name))
                 .ForMember(a => a.Authors, a => a.MapFrom(ar => ar.AuthorBooks.Select(s => s.Author)))
-                .ForMember(a => a.Painters, a => a.MapFrom(ar => ar.PainterBooks.Select(s => s.Painter)));
+                .ForMember(p => p.Painters, p => p.MapFrom(pr => pr.PainterBooks.Select(s => s.Painter)))
+                .ForMember(i => i.Interpreters, i => i.MapFrom(ir => ir.InterpreterBooks.Select(s => s.Interpreter)));
             CreateMap<Language, LanguageModel>().ReverseMap();
             CreateMap<Genre, GenreModel>().ReverseMap();
             CreateMap<CoverType, CoverTypeModel>().ReverseMap();
@@ -41,6 +43,7 @@ namespace Service
             CreateMap<PainterStyle, PainterStyleModel>().ReverseMap();
 
             CreateMap<Interpreter, InterpreterModel>().ReverseMap();
+            CreateMap<Interpreter, InterpreterShortModel>();
             CreateMap<InterpreterBook, InterpreterBookModel>().ReverseMap();
 
             CreateMap<Shop, ShopModel>().ReverseMap();
