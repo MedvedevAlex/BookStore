@@ -16,12 +16,12 @@ namespace Service.BookRepos
             _bookHandler = bookHandler;
         }
 
-        public IEnumerable<BookViewModel> Get(int takeCount, int skipCount)
+        public IEnumerable<BookPreviewModel> Get(int takeCount, int skipCount)
         {
             return _bookHandler.Get(takeCount, skipCount);
         }
 
-        public async Task<BookModel> GetByIdAsync(Guid id)
+        public async Task<BookViewModel> GetByIdAsync(Guid id)
         {
             return await _bookHandler.GetByIdAsync(id);
         }

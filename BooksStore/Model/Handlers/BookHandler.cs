@@ -35,10 +35,26 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns>Коллекция книг</returns>
-        public IEnumerable<BookViewModel> Get(int takeCount, int skipCount)
+        /// <returns>Коллекция превью книг</returns>
+        public IEnumerable<BookPreviewModel> Get(int takeCount, int skipCount)
         {
             var a = _context.Books
+                .Include(ab => ab.AuthorBooks)
+                    .ThenInclude(ar => ar.Author)
+                .Skip(skipCount)
+                .Take(takeCount)
+                .Select(s => _mapper.Map<BookPreviewModel>(s));
+            return a;
+        }
+
+        /// <summary>
+        /// Получить книгу по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель книги</returns>
+        public async Task<BookViewModel> GetByIdAsync(Guid id)
+        {
+            return await _context.Books
                 .Include(c => c.CoverType)
                 .Include(g => g.Genre)
                 .Include(l => l.Language)
@@ -49,22 +65,8 @@ namespace Model.Handlers
                     .ThenInclude(ir => ir.Interpreter)
                 .Include(pb => pb.PainterBooks)
                     .ThenInclude(pr => pr.Painter)
-                .Skip(skipCount)
-                .Take(takeCount)
-                .Select(s => _mapper.Map<BookViewModel>(s));
-            return a;
-        }
-
-        /// <summary>
-        /// Получить книгу по идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns>Модель книги</returns>
-        public async Task<BookModel> GetByIdAsync(Guid id)
-        {
-            var bookEntity = await _context.Books
+                .Select(s => _mapper.Map<BookViewModel>(s))
                 .FirstOrDefaultAsync(b => b.Id == id);
-            return _mapper.Map<BookModel>(bookEntity);
         }
 
         /// <summary>

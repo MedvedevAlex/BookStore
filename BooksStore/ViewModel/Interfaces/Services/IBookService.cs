@@ -9,8 +9,8 @@ namespace ViewModel.Interfaces.Services
     {
         Task Add(BookModel book);
         Task Delete(Guid id);
-        Task<BookModel> GetByIdAsync(Guid id);
-        IEnumerable<BookViewModel> Get(int takeCount, int skipCount);
+        Task<BookViewModel> GetByIdAsync(Guid id);
+        IEnumerable<BookPreviewModel> Get(int takeCount, int skipCount);
         IEnumerable<BookModel> SearchByAuthor(string searchString);
         //IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount);
         IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount);

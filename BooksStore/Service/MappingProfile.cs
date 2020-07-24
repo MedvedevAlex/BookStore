@@ -26,6 +26,9 @@ namespace Service
                 .ForMember(a => a.Authors, a => a.MapFrom(ar => ar.AuthorBooks.Select(s => s.Author)))
                 .ForMember(p => p.Painters, p => p.MapFrom(pr => pr.PainterBooks.Select(s => s.Painter)))
                 .ForMember(i => i.Interpreters, i => i.MapFrom(ir => ir.InterpreterBooks.Select(s => s.Interpreter)));
+            CreateMap<Book, BookPreviewModel>()
+                .ForMember(a => a.Authors, a => a.MapFrom(ar => ar.AuthorBooks.Select(s => s.Author)));
+
             CreateMap<Language, LanguageModel>().ReverseMap();
             CreateMap<Genre, GenreModel>().ReverseMap();
             CreateMap<CoverType, CoverTypeModel>().ReverseMap();
