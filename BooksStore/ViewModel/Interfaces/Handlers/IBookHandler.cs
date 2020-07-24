@@ -7,10 +7,10 @@ namespace ViewModel.Handlers
 {
     public interface IBookHandler
     {
-        Task AddAsync(BookModel book);
+        Task AddAsync(BookCreateModel book);
         Task DeleteAsync(Guid id);
         Task UpdateAsync(BookModel book);
-        IEnumerable<BookPreviewModel> Get(int takeCount, int skipCount);
+        Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount);
         Task<BookViewModel> GetByIdAsync(Guid id);
         IEnumerable<BookModel> SearchByAuthor(string searchString);
         IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount);

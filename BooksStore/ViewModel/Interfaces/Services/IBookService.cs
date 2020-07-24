@@ -7,10 +7,10 @@ namespace ViewModel.Interfaces.Services
 {
     public interface IBookService
     {
-        Task Add(BookModel book);
+        Task Add(BookCreateModel book);
         Task Delete(Guid id);
         Task<BookViewModel> GetByIdAsync(Guid id);
-        IEnumerable<BookPreviewModel> Get(int takeCount, int skipCount);
+        Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount);
         IEnumerable<BookModel> SearchByAuthor(string searchString);
         //IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount);
         IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount);

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
+using Model.Entities.JoinTables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,18 +16,16 @@ namespace Model.Handlers
     /// </summary>
     public class BookHandler : IBookHandler
     {
-        private readonly BookContext _context;
+        private readonly BookContextFactory _contextFactory;
         private readonly IMapper _mapper;
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        /// <param name="context"></param>
-        /// <param name="mapper"></param>
-        public BookHandler(
-            BookContext context, IMapper mapper)
+        /// <param name="mapper">Маппер</param>
+        public BookHandler(IMapper mapper)
         {
-            _context = context;
+            _contextFactory = new BookContextFactory();
             _mapper = mapper;
         }
 
@@ -36,15 +35,18 @@ namespace Model.Handlers
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Коллекция превью книг</returns>
-        public IEnumerable<BookPreviewModel> Get(int takeCount, int skipCount)
+        public async Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount)
         {
-            var a = _context.Books
-                .Include(ab => ab.AuthorBooks)
-                    .ThenInclude(ar => ar.Author)
-                .Skip(skipCount)
-                .Take(takeCount)
-                .Select(s => _mapper.Map<BookPreviewModel>(s));
-            return a;
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.Books
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Include(ab => ab.AuthorBooks)
+                        .ThenInclude(ar => ar.Author)
+                    .Select(s => _mapper.Map<BookPreviewModel>(s))
+                    .ToListAsync();
+            }
         }
 
         /// <summary>
@@ -54,7 +56,9 @@ namespace Model.Handlers
         /// <returns>Модель книги</returns>
         public async Task<BookViewModel> GetByIdAsync(Guid id)
         {
-            return await _context.Books
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var bookEntity = await context.Books
                 .Include(c => c.CoverType)
                 .Include(g => g.Genre)
                 .Include(l => l.Language)
@@ -65,8 +69,9 @@ namespace Model.Handlers
                     .ThenInclude(ir => ir.Interpreter)
                 .Include(pb => pb.PainterBooks)
                     .ThenInclude(pr => pr.Painter)
-                .Select(s => _mapper.Map<BookViewModel>(s))
                 .FirstOrDefaultAsync(b => b.Id == id);
+                return _mapper.Map<BookViewModel>(bookEntity);
+            }
         }
 
         /// <summary>
@@ -74,17 +79,49 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
-        public async Task AddAsync(BookModel book)
+        public async Task AddAsync(BookCreateModel book)
         {
             var bookEntity = _mapper.Map<Book>(book);
-            try
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                await _context.Books.AddAsync(bookEntity);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                throw new KeyNotFoundException("Ошибка при добавлении в базу данных", e);
+                try
+                {
+                    var coverType = context.CoverTypes
+                        .FirstOrDefault(ct => ct.Id == book.CoverTypeId);
+                    var genre = context.Genres
+                        .FirstOrDefault(g => g.Id == book.GenreId);
+                    var language = context.Languages
+                        .FirstOrDefault(l => l.Id == book.LanguageId);
+                    var publisher = context.Publishers
+                        .FirstOrDefault(p => p.Id == book.PublisherId);
+                    bookEntity.CoverType = coverType ?? throw new KeyNotFoundException("Ошибка: не удалось найти тип переплета");
+                    bookEntity.Genre = genre ?? throw new KeyNotFoundException("Ошибка: не удалось найти жанр");
+                    bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: не удалось найти язык");
+                    bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: не удалось найти издателя");
+
+                    var authorsEntities = context.Authors
+                        .Where(a => book.AuthorsIds.Contains(a.Id))
+                        .Select(a => new AuthorBook() { Book = bookEntity, Author = a })
+                        .ToList();
+                    var paintersEntities = context.Painters
+                        .Where(p => book.PaintersIds.Contains(p.Id))
+                        .Select(p => new PainterBook() { Book = bookEntity, Painter = p })
+                        .ToList();
+                    var interpretersEntities = context.Interpreters
+                        .Where(i => book.InterpretersIds.Contains(i.Id))
+                        .Select(i => new InterpreterBook() { Book = bookEntity, Interpreter = i })
+                        .ToList();
+                    bookEntity.AuthorBooks = authorsEntities;
+                    bookEntity.PainterBooks = paintersEntities;
+                    bookEntity.InterpreterBooks = interpretersEntities;
+
+                    await context.Books.AddAsync(bookEntity);
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    throw new KeyNotFoundException("Ошибка при добавлении в базу данных", e);
+                }
             }
         }
 
@@ -95,19 +132,22 @@ namespace Model.Handlers
         /// <returns></returns>
         public async Task UpdateAsync(BookModel book)
         {
-            try
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                var bookEntity = await _context.Books
-                    .FirstOrDefaultAsync(b => b.Id == book.Id);
-                if (bookEntity == null)
-                    throw new KeyNotFoundException("Ошибка: Не удалось найти обновляему книгу");
-                bookEntity = _mapper.Map<Book>(book);
-                _context.Entry(bookEntity).State = EntityState.Modified;
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                throw new KeyNotFoundException("Ошибка при сохранении в базу данных", e);
+                try
+                {
+                    var bookEntity = await context.Books
+                        .FirstOrDefaultAsync(b => b.Id == book.Id);
+                    if (bookEntity == null)
+                        throw new KeyNotFoundException("Ошибка: Не удалось найти обновляему книгу");
+                    bookEntity = _mapper.Map<Book>(book);
+                    context.Entry(bookEntity).State = EntityState.Modified;
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    throw new KeyNotFoundException("Ошибка при сохранении в базу данных", e);
+                }
             }
         }
 
@@ -118,16 +158,19 @@ namespace Model.Handlers
         /// <returns></returns>
         public async Task DeleteAsync(Guid id)
         {
-            try
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                var bookEntity = await _context.Books
-                    .FirstOrDefaultAsync(b => b.Id == id);
-                _context.Books.Remove(bookEntity);
-                await _context.SaveChangesAsync();
-            }
-            catch (Exception e)
-            {
-                throw new KeyNotFoundException("Ошибка при сохранении в базу данных", e);
+                try
+                {
+                    var bookEntity = await context.Books
+                        .FirstOrDefaultAsync(b => b.Id == id);
+                    context.Books.Remove(bookEntity);
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception e)
+                {
+                    throw new KeyNotFoundException("Ошибка при сохранении в базу данных", e);
+                }
             }
         }
 
@@ -138,12 +181,15 @@ namespace Model.Handlers
         /// <returns>Колекция книг</returns>
         public IEnumerable<BookModel> SearchByAuthor(string searchString)
         {
-            var booksEntities = from author in _context.Authors
-                                join authorbook in _context.AuthorBooks on author.Id equals authorbook.AuthorId
-                                join book in _context.Books on authorbook.BookId equals book.Id
-                                where author.Name.Contains(searchString)
-                                select book;
-            return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var booksEntities = from author in context.Authors
+                                    join authorbook in context.AuthorBooks on author.Id equals authorbook.AuthorId
+                                    join book in context.Books on authorbook.BookId equals book.Id
+                                    where author.Name.Contains(searchString)
+                                    select book;
+                return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
+            }
         }
 
         /// <summary>
@@ -155,11 +201,14 @@ namespace Model.Handlers
         /// <returns></returns>
         public IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount)
         {
-            var booksEntities = _context.Books
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var booksEntities = context.Books
                 .Where(b => b.Name.Contains(searchString))
                 .Skip(skipCount)
                 .Take(takeCount);
-            return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
+                return _mapper.Map<IEnumerable<BookModel>>(booksEntities);
+            }
         }
 
         ///// <summary>

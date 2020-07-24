@@ -12,18 +12,16 @@ namespace Service.PainterRepos
     /// </summary>
     public class PainterHandler : IPainterHandler
     {
-        private readonly BookContext _context;
+        private readonly BookContextFactory _contextFactory;
         private readonly IMapper _mapper;
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        /// <param name="context">Подключение к базе данных</param>
         /// <param name="mapper">Маппер</param>
-        public PainterHandler(
-            BookContext context, IMapper mapper)
+        public PainterHandler(IMapper mapper)
         {
-            _context = context;
+            _contextFactory = new BookContextFactory();
             _mapper = mapper;
         }
 
@@ -36,11 +34,14 @@ namespace Service.PainterRepos
         /// <returns>Коллекция художников</returns>
         public IEnumerable<PainterModel> SearchByName(string painterName, int takeCount, int skipCount)
         {
-            return _context.Painters
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return context.Painters
                 .Where(p => p.Name.Contains(painterName))
                 .Take(takeCount)
                 .Skip(skipCount)
                 .Select(s => _mapper.Map<PainterModel>(s));
+            }
         }
     }
 }

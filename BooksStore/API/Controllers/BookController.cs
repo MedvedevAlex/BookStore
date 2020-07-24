@@ -28,9 +28,9 @@ namespace API.Controllers
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Коллекция книг</returns>
         [HttpGet("getbooks/take/{takeCount}/skip/{skipCount}")]
-        public IActionResult GetBooks([FromRoute] int takeCount, [FromRoute] int skipCount)
+        public async Task<IActionResult> GetBooks([FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = _bookService.Get(takeCount, skipCount);
+            var result = await _bookService.GetAsync(takeCount, skipCount);
             return Ok(result);
         }
 
@@ -56,7 +56,7 @@ namespace API.Controllers
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Add([FromBody] BookModel book)
+        public IActionResult Add([FromBody] BookCreateModel book)
         {
             _bookService.Add(book);
             return Ok();

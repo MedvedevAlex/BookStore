@@ -12,17 +12,16 @@ namespace Service.PublisherRepos
     /// </summary>
     public class PublisherHandler : IPublisherHandler
     {
-        private readonly BookContext _context;
+        private readonly BookContextFactory _contextFactory;
         private readonly IMapper _mapper;
 
         /// <summary>
         /// Конструктор
         /// </summary>
-        /// <param name="context">Подключение к бд</param>
         /// <param name="mapper">Маппер</param>
-        public PublisherHandler(BookContext context, IMapper mapper)
+        public PublisherHandler(IMapper mapper)
         {
-            _context = context;
+            _contextFactory = new BookContextFactory(); ;
             _mapper = mapper;
         }
 
@@ -35,11 +34,14 @@ namespace Service.PublisherRepos
         /// <returns>Коллекция издателей</returns>
         public IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount)
         {
-            return _context.Publishers
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return context.Publishers
                 .Where(p => p.Name.Contains(publisherName))
                 .Skip(skipCount)
                 .Take(takeCount)
                 .Select(s => _mapper.Map<PublisherModel>(s));
+            }
         }
     }
 }

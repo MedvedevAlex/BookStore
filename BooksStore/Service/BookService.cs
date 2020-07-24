@@ -16,9 +16,9 @@ namespace Service.BookRepos
             _bookHandler = bookHandler;
         }
 
-        public IEnumerable<BookPreviewModel> Get(int takeCount, int skipCount)
+        public async Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount)
         {
-            return _bookHandler.Get(takeCount, skipCount);
+            return await _bookHandler.GetAsync(takeCount, skipCount);
         }
 
         public async Task<BookViewModel> GetByIdAsync(Guid id)
@@ -26,7 +26,7 @@ namespace Service.BookRepos
             return await _bookHandler.GetByIdAsync(id);
         }
 
-        public Task Add(BookModel book)
+        public Task Add(BookCreateModel book)
         {
             return _bookHandler.AddAsync(book);
         }
