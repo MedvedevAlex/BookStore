@@ -40,9 +40,9 @@ namespace API.Controllers
         /// <param name="id">Идентификатор</param>
         /// <returns>Модель книги</returns>
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetBookByIdAsync([FromRoute] Guid id)
+        public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var result = await _bookService.GetByIdAsync(id);
+            var result = await _bookService.GetAsync(id);
             return Ok(result);
         }
 
@@ -56,10 +56,10 @@ namespace API.Controllers
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Add([FromBody] BookCreateModel book)
+        public async Task<IActionResult> Add([FromBody] BookCreateModel book)
         {
-            _bookService.Add(book);
-            return Ok();
+            var result = await _bookService.AddAsync(book);
+            return Ok(result);
         }
 
         /// <summary>
@@ -68,10 +68,10 @@ namespace API.Controllers
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
         [HttpPut]
-        public IActionResult Update([FromBody] BookCreateModel book)
+        public async Task<IActionResult> Update([FromBody] BookCreateModel book)
         {
-            _bookService.Update(book);
-            return Ok();
+            var result = await _bookService.UpdateAsync(book);
+            return Ok(result);
         }
 
         /// <summary>

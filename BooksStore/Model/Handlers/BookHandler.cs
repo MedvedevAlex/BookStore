@@ -55,7 +55,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Модель книги</returns>
-        public async Task<BookViewModel> GetByIdAsync(Guid id)
+        public async Task<BookViewModel> GetAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -79,8 +79,8 @@ namespace Model.Handlers
         /// Добавить книгу
         /// </summary>
         /// <param name="book">Модель книги</param>
-        /// <returns></returns>
-        public async Task AddAsync(BookCreateModel book)
+        /// <returns>Модель книги</returns>
+        public async Task<BookViewModel> AddAsync(BookCreateModel book)
         {
             var bookEntity = _mapper.Map<Book>(book);
             using (var context = _contextFactory.CreateDbContext(new string[0]))
@@ -124,6 +124,7 @@ namespace Model.Handlers
                     throw new KeyNotFoundException("Ошибка при добавлении в базу данных", e);
                 }
             }
+            return await GetAsync(book.Id);
         }
 
         /// <summary>
@@ -131,7 +132,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
-        public async Task UpdateAsync(BookCreateModel book)
+        public async Task<BookViewModel> UpdateAsync(BookCreateModel book)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -199,6 +200,7 @@ namespace Model.Handlers
                     throw new KeyNotFoundException("Ошибка при сохранении в базу данных", e);
                 }
             }
+            return await GetAsync(book.Id);
         }
 
         /// <summary>

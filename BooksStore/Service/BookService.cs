@@ -21,19 +21,19 @@ namespace Service.BookRepos
             return await _bookHandler.GetAsync(takeCount, skipCount);
         }
 
-        public async Task<BookViewModel> GetByIdAsync(Guid id)
+        public async Task<BookViewModel> GetAsync(Guid id)
         {
-            return await _bookHandler.GetByIdAsync(id);
+            return await _bookHandler.GetAsync(id);
         }
 
-        public Task Add(BookCreateModel book)
+        public async Task<BookViewModel> AddAsync(BookCreateModel book)
         {
-            return _bookHandler.AddAsync(book);
+            return await _bookHandler.AddAsync(book);
         }
 
-        public Task Update(BookCreateModel book)
+        public async Task<BookViewModel> UpdateAsync(BookCreateModel book)
         {
-            return _bookHandler.UpdateAsync(book);
+            return await _bookHandler.UpdateAsync(book);
         }
 
         public Task Delete(Guid id)
