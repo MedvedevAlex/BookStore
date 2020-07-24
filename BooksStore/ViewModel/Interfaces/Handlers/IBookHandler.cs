@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ViewModel.Models;
+using ViewModel.Models.Books;
 
 namespace ViewModel.Handlers
 {
     public interface IBookHandler
     {
-        Task AddAsync(BookModel book);
+        Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount);
+        Task<BookViewModel> GetAsync(Guid id);
+        Task<BookViewModel> AddAsync(BookCreateModel book);
         Task DeleteAsync(Guid id);
-        Task UpdateAsync(BookModel book);
-        IEnumerable<BookModel> Get(int takeCount, int skipCount);
-        Task<BookModel> GetByIdAsync(Guid id);
-        IEnumerable<BookModel> SearchByAuthor(string searchString);
-        IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount);
-        //IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount);
+        Task<BookViewModel> UpdateAsync(BookCreateModel book);
+        Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString, int takeCount, int skipCount);
+        Task<List<BookPreviewModel>> SearchByNameAsync(string searchString, int takeCount, int skipCount);
+        Task<List<BookPreviewModel>> SearchByGenreAsync(string searchString, int takeCount, int skipCount);
     }
 }

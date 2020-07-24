@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ViewModel.Models;
+using ViewModel.Models.Books;
 
 namespace ViewModel.Interfaces.Services
 {
     public interface IBookService
     {
-        Task Add(BookModel book);
+        Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount);
+        Task<BookViewModel> GetAsync(Guid id);
+        Task<BookViewModel> AddAsync(BookCreateModel book);
+        Task<BookViewModel> UpdateAsync(BookCreateModel book);
         Task Delete(Guid id);
-        Task<BookModel> GetByIdAsync(Guid id);
-        IEnumerable<BookModel> Get(int takeCount, int skipCount);
-        IEnumerable<BookModel> SearchByAuthor(string searchString);
-        //IEnumerable<BookModel> SearchByGenre(string searchString, int takeCount, int skipCount);
-        IEnumerable<BookModel> SearchByName(string searchString, int takeCount, int skipCount);
-        Task Update(BookModel book);
+        Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString, int takeCount, int skipCount);
+        Task<List<BookPreviewModel>> SearchByGenreAsync(string searchString, int takeCount, int skipCount);
+        Task<List<BookPreviewModel>> SearchByNameAsync(string searchString, int takeCount, int skipCount);
     }
 }

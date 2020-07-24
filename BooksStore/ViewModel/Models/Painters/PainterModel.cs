@@ -1,33 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using ViewModel.Models.JoinTables;
+using ViewModel.Models.References;
 
-namespace ViewModel.Models
+namespace ViewModel.Models.Painters
 {
     /// <summary>
-    /// Модель Автор
+    /// Модель Художник
     /// </summary>
-    public class AuthorModel
+    public class PainterModel
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Имя автора
+        /// Имя художника
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Возраст автора
+        /// Возраст
         /// </summary>
         public byte Age { get; set; }
         /// <summary>
         /// Краткое описание
         /// </summary>
         public string Description { get; set; }
-        /// <summary>
-        /// Колекция книг
+        /// <summary>/// <summary>
+        /// Идентификатор художественного стиля
         /// </summary>
-        public ICollection<AuthorBookModel> AuthorBooks { get; set; }
+        public PainterStyleModel Style { get; set; }
+        /// Коллекция книг
+        /// </summary>
+        public ICollection<PainterBookModel> PainterBooks { get; set; }
     }
 }

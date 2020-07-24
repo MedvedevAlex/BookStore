@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using ViewModel.Models.JoinTables;
+using ViewModel.Models.Publishers;
 using ViewModel.Models.References;
 
-namespace ViewModel.Models
+namespace ViewModel.Models.Books
 {
     /// <summary>
     /// Книга
@@ -23,7 +24,7 @@ namespace ViewModel.Models
         /// </summary>
         public DateTime PublishDate { get; set; }
         /// <summary>
-        /// Типа переплета
+        /// Тип переплета
         /// </summary>
         public CoverTypeModel CoverType { get; set; }
         /// <summary>
@@ -39,10 +40,6 @@ namespace ViewModel.Models
         /// </summary>
         public string Description { get; set; }
         /// <summary>
-        /// Уникальный 10-ти значный номер
-        /// </summary>
-        public string ISBN_10 { get; set; }
-        /// <summary>
         /// Уникальный 13-ти значный номер
         /// </summary>
         public string ISBN_13 { get; set; }
@@ -53,7 +50,7 @@ namespace ViewModel.Models
         /// <summary>
         /// Количество страниц
         /// </summary>
-        public int CountPage { get; set; }
+        public short CountPage { get; set; }
         /// <summary>
         /// Цена
         /// </summary>
@@ -61,7 +58,7 @@ namespace ViewModel.Models
         /// <summary>
         /// Вес
         /// </summary>
-        public decimal Weight { get; set; }
+        public short Weight { get; set; }
         /// <summary>
         /// Тираж
         /// </summary>
@@ -85,6 +82,6 @@ namespace ViewModel.Models
         /// <summary>
         /// Переводчики
         /// </summary>
-        public ICollection<InterpreterModel> InterpreterBooks { get; set; }
+        public ICollection<InterpreterBookModel> InterpreterBooks { get; set; }
     }
 }

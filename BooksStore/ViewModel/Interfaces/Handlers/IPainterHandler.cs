@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using ViewModel.Models;
+using ViewModel.Models.Painters;
 
 namespace ViewModel.Interfaces.Handlers
 {
