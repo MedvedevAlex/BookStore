@@ -7,8 +7,8 @@ namespace ViewModel.Interfaces.Services
 {
     public interface IBookService
     {
-        Task<BookViewModel> AddAsync(BookCreateModel book);
-        Task<BookViewModel> UpdateAsync(BookCreateModel book);
+        Task<BookViewModel> AddAsync(BookModifyModel book);
+        Task<BookViewModel> UpdateAsync(BookModifyModel book);
         Task Delete(Guid id);
         Task<BookViewModel> GetAsync(Guid id);
         Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount);

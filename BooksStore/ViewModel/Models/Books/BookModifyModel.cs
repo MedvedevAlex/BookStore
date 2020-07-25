@@ -6,7 +6,7 @@ namespace ViewModel.Models.Books
     /// <summary>
     /// Модель для создания или обновления книги
     /// </summary>
-    public class BookCreateModel
+    public class BookModifyModel
     {
         /// <summary>
         /// Идентификатор

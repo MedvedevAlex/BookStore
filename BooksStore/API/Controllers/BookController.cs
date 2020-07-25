@@ -27,7 +27,7 @@ namespace API.Controllers
         /// <param name="book">Модель книги</param>
         /// <returns>Модель книги</returns>
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] BookCreateModel book)
+        public async Task<IActionResult> Add([FromBody] BookModifyModel book)
         {
             var result = await _bookService.AddAsync(book);
             return Ok(result);
@@ -39,7 +39,7 @@ namespace API.Controllers
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] BookCreateModel book)
+        public async Task<IActionResult> Update([FromBody] BookModifyModel book)
         {
             var result = await _bookService.UpdateAsync(book);
             return Ok(result);
@@ -75,7 +75,7 @@ namespace API.Controllers
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Коллекция книг</returns>
-        [HttpGet("getbooks/take/{takeCount}/skip/{skipCount}")]
+        [HttpGet("GetBooks/take/{takeCount}/skip/{skipCount}")]
         public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
         {
             var result = await _bookService.GetAsync(takeCount, skipCount);

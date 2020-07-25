@@ -16,12 +16,12 @@ namespace Service.BookRepos
             _bookHandler = bookHandler;
         }
 
-        public async Task<BookViewModel> AddAsync(BookCreateModel book)
+        public async Task<BookViewModel> AddAsync(BookModifyModel book)
         {
             return await _bookHandler.AddAsync(book);
         }
 
-        public async Task<BookViewModel> UpdateAsync(BookCreateModel book)
+        public async Task<BookViewModel> UpdateAsync(BookModifyModel book)
         {
             return await _bookHandler.UpdateAsync(book);
         }

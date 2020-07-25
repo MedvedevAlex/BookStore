@@ -35,7 +35,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="book">Модель книги</param>
         /// <returns>Модель книги</returns>
-        public async Task<BookViewModel> AddAsync(BookCreateModel book)
+        public async Task<BookViewModel> AddAsync(BookModifyModel book)
         {
             var bookEntity = _mapper.Map<Book>(book);
             using (var context = _contextFactory.CreateDbContext(new string[0]))
@@ -87,7 +87,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
-        public async Task<BookViewModel> UpdateAsync(BookCreateModel book)
+        public async Task<BookViewModel> UpdateAsync(BookModifyModel book)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {

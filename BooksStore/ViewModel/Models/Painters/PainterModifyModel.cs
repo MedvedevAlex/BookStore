@@ -6,7 +6,7 @@ namespace ViewModel.Models.Painters
     /// <summary>
     /// Модель для создания или обновления художника
     /// </summary>
-    public class PainterCreateModel
+    public class PainterModifyModel
     {
         /// <summary>
         /// Идентификатор

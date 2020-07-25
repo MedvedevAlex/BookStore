@@ -35,7 +35,7 @@ namespace Service.PainterRepos
         /// </summary>
         /// <param name="painter">Модель художника</param>
         /// <returns>Модель художника</returns>
-        public async Task<PainterViewModel> AddAsync(PainterCreateModel painter)
+        public async Task<PainterViewModel> AddAsync(PainterModifyModel painter)
         {
             var painterEntity = _mapper.Map<Painter>(painter);
             using (var context = _contextFactory.CreateDbContext(new string[0]))

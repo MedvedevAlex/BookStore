@@ -29,7 +29,7 @@ namespace API.Controllers
         /// <param name="painter">Модель художника</param>
         /// <returns>Модель художника</returns>
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] PainterCreateModel painter)
+        public async Task<IActionResult> Add([FromBody] PainterModifyModel painter)
         {
             var result = await _painterService.AddAsync(painter);
             return Ok(result);

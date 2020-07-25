@@ -7,8 +7,8 @@ namespace ViewModel.Handlers
 {
     public interface IBookHandler
     {
-        Task<BookViewModel> AddAsync(BookCreateModel book);
-        Task<BookViewModel> UpdateAsync(BookCreateModel book);
+        Task<BookViewModel> AddAsync(BookModifyModel book);
+        Task<BookViewModel> UpdateAsync(BookModifyModel book);
         Task DeleteAsync(Guid id);
         Task<BookViewModel> GetAsync(Guid id);
         Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount);

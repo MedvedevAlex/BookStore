@@ -16,7 +16,7 @@ namespace Service.PainterRepos
             _painterHandler = painterHandler;
         }
 
-        public async Task<PainterViewModel> AddAsync(PainterCreateModel painter)
+        public async Task<PainterViewModel> AddAsync(PainterModifyModel painter)
         {
             return await _painterHandler.AddAsync(painter);
         }
