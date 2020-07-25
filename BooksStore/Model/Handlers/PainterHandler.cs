@@ -130,22 +130,20 @@ namespace Service.PainterRepos
         }
 
         /// <summary>
-        /// Получить художников
+        /// Пагинация художников
         /// </summary>
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Коллекция художников</returns>
-        public async Task<List<PainterViewModel>> GetAsync(int takeCount, int skipCount)
+        public async Task<List<PainterPreviewModel>> GetAsync(int takeCount, int skipCount)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 return await context.Painters
                     .Include(p => p.Style)
-                    .Include(p => p.PainterBooks)
-                        .ThenInclude(pb => pb.Book)
                     .Take(takeCount)
                     .Skip(skipCount)
-                    .Select(s => _mapper.Map<PainterViewModel>(s))
+                    .Select(s => _mapper.Map<PainterPreviewModel>(s))
                     .ToListAsync();
             }
         }
@@ -157,18 +155,41 @@ namespace Service.PainterRepos
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция художников</returns>
-        public async Task<List<PainterViewModel>> SearchByNameAsync(string painterName, int takeCount, int skipCount)
+        public async Task<List<PainterPreviewModel>> SearchByNameAsync(string painterName, int takeCount, int skipCount)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 return await context.Painters
                     .Include(p => p.Style)
-                    .Include(p => p.PainterBooks)
-                        .ThenInclude(pb => pb.Book)
-                    .Where(p => p.Name.Contains(painterName))
+                    .Where(p => p.Name.Contains(painterName.Trim()))
                     .Take(takeCount)
                     .Skip(skipCount)
-                    .Select(s => _mapper.Map<PainterViewModel>(s))
+                    .Select(s => _mapper.Map<PainterPreviewModel>(s))
+                    .ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// Поиск по стилю художника
+        /// </summary>
+        /// <param name="styleName">Наименоваине стиля</param>
+        /// <param name="takeCount">Количество получаемых записей</param>
+        /// <param name="skipCount">Количество пропущенных записей</param>
+        /// <returns>Коллекция художников</returns>
+        public async Task<List<PainterPreviewModel>> SearchBySyleAsync(string styleName, int takeCount, int skipCount)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var stylesEntities = context.PainterStyles
+                    .Where(g => g.Name.Contains(styleName.Trim()))
+                    .Select(s => s.Name);
+
+                return await context.Painters
+                    .Where(p => stylesEntities.Contains(p.Style.Name))
+                    .Include(p => p.Style)
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Select(s => _mapper.Map<PainterPreviewModel>(s))
                     .ToListAsync();
             }
         }

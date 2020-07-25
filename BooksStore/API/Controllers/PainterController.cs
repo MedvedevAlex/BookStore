@@ -97,5 +97,19 @@ namespace API.Controllers
             var result = await _painterService.SearchByNameAsync(painterName, takeCount, skipCount);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Поиск по стилю художника
+        /// </summary>
+        /// <param name="styleName">Наименоваине стиля</param>
+        /// <param name="takeCount">Количество получаемых записей</param>
+        /// <param name="skipCount">Количество пропущенных записей</param>
+        /// <returns>Коллекция художников</returns>
+        [HttpGet("SearchByStyle/{styleName}/take/{takeCount}/skip/{skipCount}")]
+        public async Task<IActionResult> SearchByStyle([FromRoute] string styleName, [FromRoute] int takeCount, [FromRoute] int skipCount)
+        {
+            var result = await _painterService.SearchBySyleAsync(styleName, takeCount, skipCount);
+            return Ok(result);
+        }
     }
 }

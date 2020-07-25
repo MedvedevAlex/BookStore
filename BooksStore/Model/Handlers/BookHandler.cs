@@ -279,10 +279,9 @@ namespace Model.Handlers
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                var genresEntities = await context.Genres
+                var genresEntities = context.Genres
                     .Where(g => g.Name.Contains(searchString.Trim()))
-                    .Select(s => s.Name)
-                    .ToListAsync();
+                    .Select(s => s.Name);
 
                 return await context.Books
                     .Where(b => genresEntities.Contains(b.Genre.Name))
