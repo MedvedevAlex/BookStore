@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace ViewModel.Models.Books
 {
     /// <summary>
-    /// Модель для создания книги
+    /// Модель для создания или обновления книги
     /// </summary>
     public class BookCreateModel
     {

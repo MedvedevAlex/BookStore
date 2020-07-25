@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Services;
+using ViewModel.Models.Painters;
 
 namespace API.Controllers
 {
@@ -44,6 +45,18 @@ namespace API.Controllers
         public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
         {
             var result = await _painterService.GetAsync(takeCount, skipCount);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Добавить художника
+        /// </summary>
+        /// <param name="painter">Модель художника</param>
+        /// <returns>Модель художника</returns>
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] PainterCreateModel painter)
+        {
+            var result = await _painterService.AddAsync(painter);
             return Ok(result);
         }
 

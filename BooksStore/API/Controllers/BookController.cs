@@ -49,12 +49,8 @@ namespace API.Controllers
         /// <summary>
         /// Добавить книгу
         /// </summary>
-        /// <remarks>
-        /// Простой запрос:
-        ///     Тут будет модель
-        /// </remarks>
         /// <param name="book">Модель книги</param>
-        /// <returns></returns>
+        /// <returns>Модель книги</returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] BookCreateModel book)
         {

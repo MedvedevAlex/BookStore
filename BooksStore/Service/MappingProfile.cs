@@ -41,10 +41,12 @@ namespace Service
             CreateMap<Publisher, PublisherModel>().ReverseMap();
             CreateMap<Publisher, PublisherShortModel>().ReverseMap();
 
-            CreateMap<Painter, PainterModel>()
+            CreateMap<Painter, PainterModel>().ReverseMap();
+            CreateMap<Painter, PainterViewModel>()
                 .ForMember(pm => pm.Style, pm => pm.MapFrom(p => p.Style.Name))
                 .ForMember(pm => pm.Books, pm => pm.MapFrom(p => p.PainterBooks.Select(s => s.Book)));
             CreateMap<Painter, PainterShortModel>();
+            CreateMap<PainterCreateModel, Painter>();
             CreateMap<PainterBook, PainterBookModel>().ReverseMap();
             CreateMap<PainterStyle, PainterStyleModel>().ReverseMap();
 

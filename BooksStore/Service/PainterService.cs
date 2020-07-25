@@ -16,17 +16,22 @@ namespace Service.PainterRepos
             _painterHandler = painterHandler;
         }
 
-        public async Task<PainterModel> GetAsync(Guid id)
+        public async Task<PainterViewModel> GetAsync(Guid id)
         {
             return await _painterHandler.GetAsync(id);
         }
 
-        public async Task<List<PainterModel>> GetAsync(int takeCount, int skipCount)
+        public async Task<List<PainterViewModel>> GetAsync(int takeCount, int skipCount)
         {
             return await _painterHandler.GetAsync(takeCount, skipCount);
         }
 
-        public async Task<List<PainterModel>> SearchByNameAsync(string painterName, int takeCount, int skipCount)
+        public async Task<PainterViewModel> AddAsync(PainterCreateModel painter)
+        {
+            return await _painterHandler.AddAsync(painter);
+        }
+
+        public async Task<List<PainterViewModel>> SearchByNameAsync(string painterName, int takeCount, int skipCount)
         {
             return await _painterHandler.SearchByNameAsync(painterName, takeCount, skipCount);
         }
