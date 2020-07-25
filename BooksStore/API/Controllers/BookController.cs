@@ -22,41 +22,12 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Пагинация для получения книг
-        /// </summary>
-        /// <param name="takeCount">Количество получаемых</param>
-        /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns>Коллекция книг</returns>
-        [HttpGet("getbooks/take/{takeCount}/skip/{skipCount}")]
-        public async Task<IActionResult> GetBooks([FromRoute] int takeCount, [FromRoute] int skipCount)
-        {
-            var result = await _bookService.GetAsync(takeCount, skipCount);
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Получить книгу по идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns>Модель книги</returns>
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromRoute] Guid id)
-        {
-            var result = await _bookService.GetAsync(id);
-            return Ok(result);
-        }
-
-        /// <summary>
         /// Добавить книгу
         /// </summary>
-        /// <remarks>
-        /// Простой запрос:
-        ///     Тут будет модель
-        /// </remarks>
         /// <param name="book">Модель книги</param>
-        /// <returns></returns>
+        /// <returns>Модель книги</returns>
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] BookCreateModel book)
+        public async Task<IActionResult> Add([FromBody] BookModifyModel book)
         {
             var result = await _bookService.AddAsync(book);
             return Ok(result);
@@ -68,7 +39,7 @@ namespace API.Controllers
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] BookCreateModel book)
+        public async Task<IActionResult> Update([FromBody] BookModifyModel book)
         {
             var result = await _bookService.UpdateAsync(book);
             return Ok(result);
@@ -84,6 +55,31 @@ namespace API.Controllers
         {
             _bookService.Delete(id);
             return Ok();
+        }
+
+        /// <summary>
+        /// Получить книгу по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель книги</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromRoute] Guid id)
+        {
+            var result = await _bookService.GetAsync(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Пагинация для получения книг
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Коллекция книг</returns>
+        [HttpGet("GetBooks/take/{takeCount}/skip/{skipCount}")]
+        public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
+        {
+            var result = await _bookService.GetAsync(takeCount, skipCount);
+            return Ok(result);
         }
 
         /// <summary>

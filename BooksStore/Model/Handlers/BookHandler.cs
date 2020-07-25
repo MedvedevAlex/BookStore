@@ -31,56 +31,11 @@ namespace Model.Handlers
         }
 
         /// <summary>
-        /// Пагинация для получения книг
-        /// </summary>
-        /// <param name="takeCount">Количество получаемых</param>
-        /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns>Коллекция превью книг</returns>
-        public async Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount)
-        {
-            using (var context = _contextFactory.CreateDbContext(new string[0]))
-            {
-                return await context.Books
-                    .Take(takeCount)
-                    .Skip(skipCount)
-                    .Include(ab => ab.AuthorBooks)
-                        .ThenInclude(ar => ar.Author)
-                    .Select(s => _mapper.Map<BookPreviewModel>(s))
-                    .ToListAsync();
-            }
-        }
-
-        /// <summary>
-        /// Получить книгу по идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns>Модель книги</returns>
-        public async Task<BookViewModel> GetAsync(Guid id)
-        {
-            using (var context = _contextFactory.CreateDbContext(new string[0]))
-            {
-                var bookEntity = await context.Books
-                    .Include(c => c.CoverType)
-                    .Include(g => g.Genre)
-                    .Include(l => l.Language)
-                    .Include(p => p.Publisher)
-                    .Include(ab => ab.AuthorBooks)
-                        .ThenInclude(ar => ar.Author)
-                    .Include(ib => ib.InterpreterBooks)
-                        .ThenInclude(ir => ir.Interpreter)
-                    .Include(pb => pb.PainterBooks)
-                        .ThenInclude(pr => pr.Painter)
-                    .FirstOrDefaultAsync(b => b.Id == id);
-                return _mapper.Map<BookViewModel>(bookEntity);
-            }
-        }
-
-        /// <summary>
         /// Добавить книгу
         /// </summary>
         /// <param name="book">Модель книги</param>
         /// <returns>Модель книги</returns>
-        public async Task<BookViewModel> AddAsync(BookCreateModel book)
+        public async Task<BookViewModel> AddAsync(BookModifyModel book)
         {
             var bookEntity = _mapper.Map<Book>(book);
             using (var context = _contextFactory.CreateDbContext(new string[0]))
@@ -100,18 +55,18 @@ namespace Model.Handlers
                     bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: не удалось найти язык");
                     bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: не удалось найти издателя");
 
-                    var newAuthorsEntities = context.Authors
+                    var newAuthorsEntities = await context.Authors
                         .Where(a => book.AuthorsIds.Contains(a.Id))
                         .Select(a => new AuthorBook() { Book = bookEntity, Author = a })
-                        .ToList();
-                    var newPaintersEntities = context.Painters
+                        .ToListAsync();
+                    var newPaintersEntities = await context.Painters
                         .Where(p => book.PaintersIds.Contains(p.Id))
                         .Select(p => new PainterBook() { Book = bookEntity, Painter = p })
-                        .ToList();
-                    var newInterpretersEntities = context.Interpreters
+                        .ToListAsync();
+                    var newInterpretersEntities = await context.Interpreters
                         .Where(i => book.InterpretersIds.Contains(i.Id))
                         .Select(i => new InterpreterBook() { Book = bookEntity, Interpreter = i })
-                        .ToList();
+                        .ToListAsync();
                     bookEntity.AuthorBooks = newAuthorsEntities;
                     bookEntity.PainterBooks = newPaintersEntities;
                     bookEntity.InterpreterBooks = newInterpretersEntities;
@@ -132,7 +87,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="book">Модель книги</param>
         /// <returns></returns>
-        public async Task<BookViewModel> UpdateAsync(BookCreateModel book)
+        public async Task<BookViewModel> UpdateAsync(BookModifyModel book)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -146,8 +101,7 @@ namespace Model.Handlers
                         .Include(pb => pb.PainterBooks)
                             .ThenInclude(pr => pr.Painter)
                         .FirstOrDefaultAsync(b => b.Id == book.Id);
-                    if (bookEntity == null)
-                        throw new KeyNotFoundException("Ошибка: Не удалось найти книгу");
+                    if (bookEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти книгу");
 
                     context.Entry(bookEntity).CurrentValues.SetValues(book);
 
@@ -227,6 +181,51 @@ namespace Model.Handlers
         }
 
         /// <summary>
+        /// Получить книгу по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель книги</returns>
+        public async Task<BookViewModel> GetAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var bookEntity = await context.Books
+                    .Include(c => c.CoverType)
+                    .Include(g => g.Genre)
+                    .Include(l => l.Language)
+                    .Include(p => p.Publisher)
+                    .Include(ab => ab.AuthorBooks)
+                        .ThenInclude(ar => ar.Author)
+                    .Include(ib => ib.InterpreterBooks)
+                        .ThenInclude(ir => ir.Interpreter)
+                    .Include(pb => pb.PainterBooks)
+                        .ThenInclude(pr => pr.Painter)
+                    .FirstOrDefaultAsync(b => b.Id == id);
+                return _mapper.Map<BookViewModel>(bookEntity);
+            }
+        }
+
+        /// <summary>
+        /// Пагинация для получения книг
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Коллекция превью книг</returns>
+        public async Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.Books
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Include(ab => ab.AuthorBooks)
+                        .ThenInclude(ar => ar.Author)
+                    .Select(s => _mapper.Map<BookPreviewModel>(s))
+                    .ToListAsync();
+            }
+        }
+
+        /// <summary>
         /// Поиск книг по автору
         /// </summary>
         /// <param name="searchString">Имя автора</param>
@@ -280,10 +279,9 @@ namespace Model.Handlers
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                var genresEntities = await context.Genres
+                var genresEntities = context.Genres
                     .Where(g => g.Name.Contains(searchString.Trim()))
-                    .Select(s => s.Name)
-                    .ToListAsync();
+                    .Select(s => s.Name);
 
                 return await context.Books
                     .Where(b => genresEntities.Contains(b.Genre.Name))

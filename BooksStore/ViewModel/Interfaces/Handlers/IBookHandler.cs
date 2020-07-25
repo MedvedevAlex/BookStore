@@ -7,11 +7,11 @@ namespace ViewModel.Handlers
 {
     public interface IBookHandler
     {
-        Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount);
-        Task<BookViewModel> GetAsync(Guid id);
-        Task<BookViewModel> AddAsync(BookCreateModel book);
+        Task<BookViewModel> AddAsync(BookModifyModel book);
+        Task<BookViewModel> UpdateAsync(BookModifyModel book);
         Task DeleteAsync(Guid id);
-        Task<BookViewModel> UpdateAsync(BookCreateModel book);
+        Task<BookViewModel> GetAsync(Guid id);
+        Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount);
         Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString, int takeCount, int skipCount);
         Task<List<BookPreviewModel>> SearchByNameAsync(string searchString, int takeCount, int skipCount);
         Task<List<BookPreviewModel>> SearchByGenreAsync(string searchString, int takeCount, int skipCount);

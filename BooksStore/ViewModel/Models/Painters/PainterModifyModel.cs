@@ -1,14 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using ViewModel.Models.JoinTables;
-using ViewModel.Models.References;
 
 namespace ViewModel.Models.Painters
 {
     /// <summary>
-    /// Модель Художник
+    /// Модель для создания или обновления художника
     /// </summary>
-    public class PainterModel
+    public class PainterModifyModel
     {
         /// <summary>
         /// Идентификатор
@@ -27,11 +25,11 @@ namespace ViewModel.Models.Painters
         /// </summary>
         public string Description { get; set; }
         /// <summary>
-        /// Стиль
+        /// Идентификатор стиля
         /// </summary>
-        public PainterStyleModel Style { get; set; }
+        public Guid StyleId { get; set; }
         /// Коллекция книг
         /// </summary>
-        public ICollection<PainterBookModel> PainterBooks { get; set; }
+        public ICollection<Guid> BooksIds { get; set; }
     }
 }

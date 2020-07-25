@@ -16,22 +16,12 @@ namespace Service.BookRepos
             _bookHandler = bookHandler;
         }
 
-        public async Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount)
-        {
-            return await _bookHandler.GetAsync(takeCount, skipCount);
-        }
-
-        public async Task<BookViewModel> GetAsync(Guid id)
-        {
-            return await _bookHandler.GetAsync(id);
-        }
-
-        public async Task<BookViewModel> AddAsync(BookCreateModel book)
+        public async Task<BookViewModel> AddAsync(BookModifyModel book)
         {
             return await _bookHandler.AddAsync(book);
         }
 
-        public async Task<BookViewModel> UpdateAsync(BookCreateModel book)
+        public async Task<BookViewModel> UpdateAsync(BookModifyModel book)
         {
             return await _bookHandler.UpdateAsync(book);
         }
@@ -39,6 +29,15 @@ namespace Service.BookRepos
         public Task Delete(Guid id)
         {
             return _bookHandler.DeleteAsync(id);
+        }
+        public async Task<BookViewModel> GetAsync(Guid id)
+        {
+            return await _bookHandler.GetAsync(id);
+        }
+
+        public async Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount)
+        {
+            return await _bookHandler.GetAsync(takeCount, skipCount);
         }
 
         public async Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString, int takeCount, int skipCount)

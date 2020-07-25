@@ -2,6 +2,8 @@
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Models.Painters;
+using System.Threading.Tasks;
+using System;
 
 namespace Service.PainterRepos
 {
@@ -14,9 +16,39 @@ namespace Service.PainterRepos
             _painterHandler = painterHandler;
         }
 
-        public IEnumerable<PainterModel> SearchByName(string painterName, int takeCount, int skipCount)
+        public async Task<PainterViewModel> AddAsync(PainterModifyModel painter)
         {
-            return _painterHandler.SearchByName(painterName, takeCount, skipCount);
+            return await _painterHandler.AddAsync(painter);
+        }
+
+        public async Task<PainterViewModel> UpdateAsync(PainterModifyModel painter)
+        {
+            return await _painterHandler.UpdateAsync(painter);
+        }
+
+        public void DeleteAsync(Guid id)
+        {
+            _painterHandler.DeleteAsync(id);
+        }
+
+        public async Task<PainterViewModel> GetAsync(Guid id)
+        {
+            return await _painterHandler.GetAsync(id);
+        }
+
+        public async Task<List<PainterPreviewModel>> GetAsync(int takeCount, int skipCount)
+        {
+            return await _painterHandler.GetAsync(takeCount, skipCount);
+        }
+
+        public async Task<List<PainterPreviewModel>> SearchByNameAsync(string painterName, int takeCount, int skipCount)
+        {
+            return await _painterHandler.SearchByNameAsync(painterName, takeCount, skipCount);
+        }
+
+        public async Task<List<PainterPreviewModel>> SearchBySyleAsync(string styleName, int takeCount, int skipCount)
+        {
+            return await _painterHandler.SearchBySyleAsync(styleName, takeCount, skipCount);
         }
     }
 }
