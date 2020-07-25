@@ -31,6 +31,32 @@ namespace Service.PainterRepos
         }
 
         /// <summary>
+        /// Добавить художника
+        /// </summary>
+        /// <param name="painter">Модель художника</param>
+        /// <returns>Модель художника</returns>
+        public async Task<PainterViewModel> AddAsync(PainterCreateModel painter)
+        {
+            var painterEntity = _mapper.Map<Painter>(painter);
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var styleEntity = await context.PainterStyles
+                    .FirstOrDefaultAsync(ps => ps.Id == painter.StyleId);
+                painterEntity.Style = styleEntity ?? throw new KeyNotFoundException("Ошибка: не удалось найти стиль");
+
+                var booksEntities = await context.Books
+                    .Where(b => painter.Books.Contains(b.Id))
+                    .Select(b => new PainterBook() { Painter = painterEntity, Book = b })
+                    .ToListAsync();
+                painterEntity.PainterBooks = booksEntities;
+
+                await context.AddAsync(painterEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(painter.Id);
+        }
+
+        /// <summary>
         /// Получить художника по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>
@@ -67,32 +93,6 @@ namespace Service.PainterRepos
                     .Select(s => _mapper.Map<PainterViewModel>(s))
                     .ToListAsync();
             }
-        }
-
-        /// <summary>
-        /// Добавить художника
-        /// </summary>
-        /// <param name="painter">Модель художника</param>
-        /// <returns>Модель художника</returns>
-        public async Task<PainterViewModel> AddAsync(PainterCreateModel painter)
-        {
-            var painterEntity = _mapper.Map<Painter>(painter);
-            using (var context = _contextFactory.CreateDbContext(new string[0]))
-            {
-                var styleEntity = await context.PainterStyles
-                    .FirstOrDefaultAsync(ps => ps.Id == painter.StyleId);
-                painterEntity.Style = styleEntity ?? throw new KeyNotFoundException("Ошибка: не удалось найти стиль");
-
-                var booksEntities = await context.Books
-                    .Where(b => painter.Books.Contains(b.Id))
-                    .Select(b => new PainterBook() { Painter = painterEntity, Book = b })
-                    .ToListAsync();
-                painterEntity.PainterBooks = booksEntities;
-
-                await context.AddAsync(painterEntity);
-                await context.SaveChangesAsync();
-            }
-            return await GetAsync(painter.Id);
         }
 
         /// <summary>

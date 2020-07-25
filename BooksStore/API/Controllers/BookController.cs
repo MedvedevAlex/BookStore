@@ -22,31 +22,6 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Пагинация для получения книг
-        /// </summary>
-        /// <param name="takeCount">Количество получаемых</param>
-        /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns>Коллекция книг</returns>
-        [HttpGet("getbooks/take/{takeCount}/skip/{skipCount}")]
-        public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
-        {
-            var result = await _bookService.GetAsync(takeCount, skipCount);
-            return Ok(result);
-        }
-
-        /// <summary>
-        /// Получить книгу по идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns>Модель книги</returns>
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get([FromRoute] Guid id)
-        {
-            var result = await _bookService.GetAsync(id);
-            return Ok(result);
-        }
-
-        /// <summary>
         /// Добавить книгу
         /// </summary>
         /// <param name="book">Модель книги</param>
@@ -80,6 +55,31 @@ namespace API.Controllers
         {
             _bookService.Delete(id);
             return Ok();
+        }
+
+        /// <summary>
+        /// Получить книгу по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель книги</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromRoute] Guid id)
+        {
+            var result = await _bookService.GetAsync(id);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Пагинация для получения книг
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Коллекция книг</returns>
+        [HttpGet("getbooks/take/{takeCount}/skip/{skipCount}")]
+        public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
+        {
+            var result = await _bookService.GetAsync(takeCount, skipCount);
+            return Ok(result);
         }
 
         /// <summary>

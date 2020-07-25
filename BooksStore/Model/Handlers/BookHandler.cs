@@ -31,51 +31,6 @@ namespace Model.Handlers
         }
 
         /// <summary>
-        /// Пагинация для получения книг
-        /// </summary>
-        /// <param name="takeCount">Количество получаемых</param>
-        /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns>Коллекция превью книг</returns>
-        public async Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount)
-        {
-            using (var context = _contextFactory.CreateDbContext(new string[0]))
-            {
-                return await context.Books
-                    .Take(takeCount)
-                    .Skip(skipCount)
-                    .Include(ab => ab.AuthorBooks)
-                        .ThenInclude(ar => ar.Author)
-                    .Select(s => _mapper.Map<BookPreviewModel>(s))
-                    .ToListAsync();
-            }
-        }
-
-        /// <summary>
-        /// Получить книгу по идентификатору
-        /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns>Модель книги</returns>
-        public async Task<BookViewModel> GetAsync(Guid id)
-        {
-            using (var context = _contextFactory.CreateDbContext(new string[0]))
-            {
-                var bookEntity = await context.Books
-                    .Include(c => c.CoverType)
-                    .Include(g => g.Genre)
-                    .Include(l => l.Language)
-                    .Include(p => p.Publisher)
-                    .Include(ab => ab.AuthorBooks)
-                        .ThenInclude(ar => ar.Author)
-                    .Include(ib => ib.InterpreterBooks)
-                        .ThenInclude(ir => ir.Interpreter)
-                    .Include(pb => pb.PainterBooks)
-                        .ThenInclude(pr => pr.Painter)
-                    .FirstOrDefaultAsync(b => b.Id == id);
-                return _mapper.Map<BookViewModel>(bookEntity);
-            }
-        }
-
-        /// <summary>
         /// Добавить книгу
         /// </summary>
         /// <param name="book">Модель книги</param>
@@ -223,6 +178,51 @@ namespace Model.Handlers
                 {
                     throw new KeyNotFoundException("Ошибка при сохранении в базу данных", e);
                 }
+            }
+        }
+
+        /// <summary>
+        /// Получить книгу по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель книги</returns>
+        public async Task<BookViewModel> GetAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var bookEntity = await context.Books
+                    .Include(c => c.CoverType)
+                    .Include(g => g.Genre)
+                    .Include(l => l.Language)
+                    .Include(p => p.Publisher)
+                    .Include(ab => ab.AuthorBooks)
+                        .ThenInclude(ar => ar.Author)
+                    .Include(ib => ib.InterpreterBooks)
+                        .ThenInclude(ir => ir.Interpreter)
+                    .Include(pb => pb.PainterBooks)
+                        .ThenInclude(pr => pr.Painter)
+                    .FirstOrDefaultAsync(b => b.Id == id);
+                return _mapper.Map<BookViewModel>(bookEntity);
+            }
+        }
+
+        /// <summary>
+        /// Пагинация для получения книг
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Коллекция превью книг</returns>
+        public async Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.Books
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Include(ab => ab.AuthorBooks)
+                        .ThenInclude(ar => ar.Author)
+                    .Select(s => _mapper.Map<BookPreviewModel>(s))
+                    .ToListAsync();
             }
         }
 
