@@ -21,6 +21,11 @@ namespace Service.PainterRepos
             return await _painterHandler.AddAsync(painter);
         }
 
+        public async Task<PainterViewModel> UpdateAsync(PainterModifyModel painter)
+        {
+            return await _painterHandler.UpdateAsync(painter);
+        }
+
         public async Task<PainterViewModel> GetAsync(Guid id)
         {
             return await _painterHandler.GetAsync(id);

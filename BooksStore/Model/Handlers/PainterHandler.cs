@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System;
 using Model.Entities;
 using Model.Entities.JoinTables;
+using Model.Extensions;
 
 namespace Service.PainterRepos
 {
@@ -45,12 +46,48 @@ namespace Service.PainterRepos
                 painterEntity.Style = styleEntity ?? throw new KeyNotFoundException("Ошибка: не удалось найти стиль");
 
                 var booksEntities = await context.Books
-                    .Where(b => painter.Books.Contains(b.Id))
+                    .Where(b => painter.BooksIds.Contains(b.Id))
                     .Select(b => new PainterBook() { Painter = painterEntity, Book = b })
                     .ToListAsync();
                 painterEntity.PainterBooks = booksEntities;
 
                 await context.AddAsync(painterEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(painter.Id);
+        }
+
+        /// <summary>
+        /// Обновить художника
+        /// </summary>
+        /// <param name="painter">Модель художника</param>
+        /// <returns>Модель художника</returns>
+        public async Task<PainterViewModel> UpdateAsync(PainterModifyModel painter)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var painterEntity = await context.Painters
+                    .Include(p => p.Style)
+                    .Include(p => p.PainterBooks)
+                        .ThenInclude(pb => pb.Book)
+                    .FirstOrDefaultAsync(p => p.Id == painter.Id);
+                if (painterEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти художника");
+
+                context.Entry(painterEntity).CurrentValues.SetValues(painter);
+
+                var styleEntity = await context.PainterStyles
+                    .FirstOrDefaultAsync(ps => ps.Id == painter.StyleId);
+                painterEntity.Style = styleEntity;
+
+                var newBooksEntities = context.PainterBooks
+                    .Where(pb => painter.BooksIds.Contains(pb.BookId));
+                context.TryUpdateManyToMany(painterEntity.PainterBooks, newBooksEntities
+                    .Select(pb => new PainterBook
+                    {
+                        PainterId = painterEntity.Id,
+                        BookId = pb.BookId
+                    }), b => b.BookId);
+                context.Painters.Update(painterEntity);
                 await context.SaveChangesAsync();
             }
             return await GetAsync(painter.Id);

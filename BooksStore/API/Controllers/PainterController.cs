@@ -36,6 +36,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Обновить художника
+        /// </summary>
+        /// <param name="painter">Модель художника</param>
+        /// <returns>Модель художника</returns>
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] PainterModifyModel painter)
+        {
+            var result = await _painterService.UpdateAsync(painter);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Получить художника по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>

@@ -101,8 +101,7 @@ namespace Model.Handlers
                         .Include(pb => pb.PainterBooks)
                             .ThenInclude(pr => pr.Painter)
                         .FirstOrDefaultAsync(b => b.Id == book.Id);
-                    if (bookEntity == null)
-                        throw new KeyNotFoundException("Ошибка: Не удалось найти книгу");
+                    if (bookEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти книгу");
 
                     context.Entry(bookEntity).CurrentValues.SetValues(book);
 

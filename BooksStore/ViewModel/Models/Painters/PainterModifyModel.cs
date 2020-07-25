@@ -30,6 +30,6 @@ namespace ViewModel.Models.Painters
         public Guid StyleId { get; set; }
         /// Коллекция книг
         /// </summary>
-        public ICollection<Guid> Books { get; set; }
+        public ICollection<Guid> BooksIds { get; set; }
     }
 }

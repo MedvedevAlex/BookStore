@@ -7,9 +7,10 @@ namespace ViewModel.Interfaces.Services
 {
     public interface IPainterService
     {
+        Task<PainterViewModel> AddAsync(PainterModifyModel painter);
+        Task<PainterViewModel> UpdateAsync(PainterModifyModel painter);
         Task<PainterViewModel> GetAsync(Guid id);
         Task<List<PainterViewModel>> GetAsync(int takeCount, int skipCount);
-        Task<PainterViewModel> AddAsync(PainterModifyModel painter);
         Task<List<PainterViewModel>> SearchByNameAsync(string painterName, int takeCount, int skipCount);
     }
 }
