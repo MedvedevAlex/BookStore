@@ -48,6 +48,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Удалить художника
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            _painterService.DeleteAsync(id);
+            return Ok();
+        }
+
+        /// <summary>
         /// Получить художника по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>

@@ -87,10 +87,28 @@ namespace Service.PainterRepos
                         PainterId = painterEntity.Id,
                         BookId = pb.BookId
                     }), b => b.BookId);
+
                 context.Painters.Update(painterEntity);
                 await context.SaveChangesAsync();
             }
             return await GetAsync(painter.Id);
+        }
+
+        /// <summary>
+        /// Удалить художника
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        public async void DeleteAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var painterEntity = await context.Painters
+                    .FirstOrDefaultAsync(p => p.Id == id);
+                if (painterEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти художника");
+
+                context.Painters.Remove(painterEntity);
+                await context.SaveChangesAsync();
+            }
         }
 
         /// <summary>

@@ -26,6 +26,11 @@ namespace Service.PainterRepos
             return await _painterHandler.UpdateAsync(painter);
         }
 
+        public void DeleteAsync(Guid id)
+        {
+            _painterHandler.DeleteAsync(id);
+        }
+
         public async Task<PainterViewModel> GetAsync(Guid id)
         {
             return await _painterHandler.GetAsync(id);
