@@ -4,6 +4,10 @@ using ViewModel.Interfaces.Handlers;
 using AutoMapper;
 using Model;
 using ViewModel.Models.Publishers;
+using System;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using Model.Entities;
 
 namespace Service.PublisherRepos
 {
@@ -26,21 +30,125 @@ namespace Service.PublisherRepos
         }
 
         /// <summary>
+        /// Добавить издателя
+        /// </summary>
+        /// <param name="publisher">Модель издатель</param>
+        /// <returns>Модель издатель</returns>
+        public async Task<PublisherViewModel> AddAsync(PublisherModifyModel publisher)
+        {
+            var publisherEntity = _mapper.Map<Publisher>(publisher);
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var booksEntities = await context.Books
+                    .Where(b => publisher.BooksIds.Contains(b.Id))
+                    .ToListAsync();
+                publisherEntity.Books = booksEntities;
+
+                await context.AddAsync(publisherEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(publisher.Id);
+        }
+
+        /// <summary>
+        /// Обновить издателя
+        /// </summary>
+        /// <param name="publisher">Модель издатель</param>
+        /// <returns>Модель издатель</returns>
+        public async Task<PublisherViewModel> UpdateAsync(PublisherModifyModel publisher)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var publisherEntity = await context.Publishers
+                    .Include(p => p.Books)
+                    .FirstOrDefaultAsync(p => p.Id == publisher.Id);
+                if (publisherEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти издателя");
+
+                context.Entry(publisherEntity).CurrentValues.SetValues(publisher);
+
+                var booksEntities = await context.Books
+                    .Where(b => publisher.BooksIds.Contains(b.Id))
+                    .ToListAsync();
+                publisherEntity.Books = booksEntities;
+
+                context.Publishers.Update(publisherEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(publisher.Id);
+        }
+
+        /// <summary>
+        /// Удалить издателя
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        public async void DeleteAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var publisherEntity = await context.Publishers
+                    .Include(p => p.Books)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+                if (publisherEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти издателя");
+
+                context.Publishers.Remove(publisherEntity);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
+        /// Получить издателя
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель издатель</returns>
+        public async Task<PublisherViewModel> GetAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var publisherEntity =  await context.Publishers
+                    .Include(p => p.Books)
+                        .ThenInclude(b => b.AuthorBooks)
+                            .ThenInclude(ab => ab.Author)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+                return _mapper.Map<PublisherViewModel>(publisherEntity);
+                
+            }
+        }
+
+        /// <summary>
+        /// Пагинация издателей
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Коллекция издателей</returns>
+        public async Task<List<PublisherPreviewModel>> GetAsync(int takeCount, int skipCount)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.Publishers
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Select(s => _mapper.Map<PublisherPreviewModel>(s))
+                    .ToListAsync();
+            }
+        }
+
+        /// <summary>
         /// Поиск по имени издателя
         /// </summary>
         /// <param name="publisherName">Имя издателя</param>
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция издателей</returns>
-        public IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount)
+        public async Task<List<PublisherPreviewModel>> SearchByNameAsync(string publisherName, int takeCount, int skipCount)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return context.Publishers
+                return await context.Publishers
                 .Where(p => p.Name.Contains(publisherName))
                 .Skip(skipCount)
                 .Take(takeCount)
-                .Select(s => _mapper.Map<PublisherModel>(s));
+                .Select(s => _mapper.Map<PublisherPreviewModel>(s))
+                .ToListAsync();
             }
         }
     }

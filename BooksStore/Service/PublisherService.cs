@@ -2,6 +2,8 @@
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Models.Publishers;
+using System;
+using System.Threading.Tasks;
 
 namespace Service.PublisherRepos
 {
@@ -14,9 +16,34 @@ namespace Service.PublisherRepos
             _publisherHandler = publisherHandler;
         }
 
-        public IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount)
+        public async Task<PublisherViewModel> AddAsync(PublisherModifyModel publisher)
         {
-            return _publisherHandler.SearchByName(publisherName, takeCount, skipCount);
+            return await _publisherHandler.AddAsync(publisher);
+        }
+
+        public async Task<PublisherViewModel> UpdateAsync(PublisherModifyModel publisher)
+        {
+            return await _publisherHandler.UpdateAsync(publisher);
+        }
+
+        public void DeleteAsync(Guid id)
+        {
+            _publisherHandler.DeleteAsync(id);
+        }
+
+        public async Task<PublisherViewModel> GetAsync(Guid id)
+        {
+            return await _publisherHandler.GetAsync(id);
+        }
+
+        public async Task<List<PublisherPreviewModel>> GetAsync(int takeCount, int skipCount)
+        {
+            return await _publisherHandler.GetAsync(takeCount, skipCount);
+        }
+
+        public async Task<List<PublisherPreviewModel>> SearchByNameAsync(string publisherName, int takeCount, int skipCount)
+        {
+            return await _publisherHandler.SearchByNameAsync(publisherName, takeCount, skipCount);
         }
     }
 }
