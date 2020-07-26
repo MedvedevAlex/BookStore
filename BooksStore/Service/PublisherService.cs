@@ -21,6 +21,11 @@ namespace Service.PublisherRepos
             return await _publisherHandler.AddAsync(publisher);
         }
 
+        public void DeleteAsync(Guid id)
+        {
+            _publisherHandler.DeleteAsync(id);
+        }
+
         public async Task<PublisherViewModel> GetAsync(Guid id)
         {
             return await _publisherHandler.GetAsync(id);

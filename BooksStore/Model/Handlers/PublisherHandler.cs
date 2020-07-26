@@ -71,10 +71,28 @@ namespace Service.PublisherRepos
                     .ToListAsync();
                 publisherEntity.Books = booksEntities;
 
-                context.Update(publisherEntity);
+                context.Publishers.Update(publisherEntity);
                 await context.SaveChangesAsync();
             }
             return await GetAsync(publisher.Id);
+        }
+
+        /// <summary>
+        /// Удалить издателя
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        public async void DeleteAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var publisherEntity = await context.Publishers
+                    .Include(p => p.Books)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+                if (publisherEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти издателя");
+
+                context.Publishers.Remove(publisherEntity);
+                await context.SaveChangesAsync();
+            }
         }
 
         /// <summary>

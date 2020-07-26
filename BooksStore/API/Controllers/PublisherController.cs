@@ -48,6 +48,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Удалить издателя
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            _publisherService.DeleteAsync(id);
+            return Ok();
+        }
+
+        /// <summary>
         /// Получить издателя по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>
