@@ -36,6 +36,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Обновить издателя
+        /// </summary>
+        /// <param name="publisher">Модель издатель</param>
+        /// <returns>Модель издатель</returns>
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] PublisherModifyModel publisher)
+        {
+            var result = await _publisherService.UpdateAsync(publisher);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Получить издателя по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>

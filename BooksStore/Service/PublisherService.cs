@@ -26,6 +26,10 @@ namespace Service.PublisherRepos
             return await _publisherHandler.GetAsync(id);
         }
 
+        public async Task<PublisherViewModel> UpdateAsync(PublisherModifyModel publisher)
+        {
+            return await _publisherHandler.UpdateAsync(publisher);
+        }
 
         public IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount)
         {

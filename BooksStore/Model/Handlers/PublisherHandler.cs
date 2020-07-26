@@ -51,6 +51,33 @@ namespace Service.PublisherRepos
         }
 
         /// <summary>
+        /// Обновить издателя
+        /// </summary>
+        /// <param name="publisher">Модель издатель</param>
+        /// <returns>Модель издатель</returns>
+        public async Task<PublisherViewModel> UpdateAsync(PublisherModifyModel publisher)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var publisherEntity = await context.Publishers
+                    .Include(p => p.Books)
+                    .FirstOrDefaultAsync(p => p.Id == publisher.Id);
+                if (publisherEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти издателя");
+
+                context.Entry(publisherEntity).CurrentValues.SetValues(publisher);
+
+                var booksEntities = await context.Books
+                    .Where(b => publisher.BooksIds.Contains(b.Id))
+                    .ToListAsync();
+                publisherEntity.Books = booksEntities;
+
+                context.Update(publisherEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(publisher.Id);
+        }
+
+        /// <summary>
         /// Получить издателя
         /// </summary>
         /// <param name="id">Идентификатор</param>

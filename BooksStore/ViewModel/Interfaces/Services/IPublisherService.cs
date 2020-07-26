@@ -7,6 +7,7 @@ namespace ViewModel.Interfaces.Services
 {
     public interface IPublisherService
     {
+        Task<PublisherViewModel> UpdateAsync(PublisherModifyModel publisher);
         Task<PublisherViewModel> AddAsync(PublisherModifyModel publisher);
         Task<PublisherViewModel> GetAsync(Guid id);
         IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount);
