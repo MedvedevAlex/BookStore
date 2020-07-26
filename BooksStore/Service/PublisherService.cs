@@ -41,11 +41,9 @@ namespace Service.PublisherRepos
             return await _publisherHandler.GetAsync(takeCount, skipCount);
         }
 
-        public IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount)
+        public async Task<List<PublisherPreviewModel>> SearchByNameAsync(string publisherName, int takeCount, int skipCount)
         {
-            return _publisherHandler.SearchByName(publisherName, takeCount, skipCount);
+            return await _publisherHandler.SearchByNameAsync(publisherName, takeCount, skipCount);
         }
-
-
     }
 }

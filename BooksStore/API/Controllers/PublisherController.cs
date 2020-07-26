@@ -92,9 +92,9 @@ namespace API.Controllers
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция издателей</returns>
         [HttpGet("SearchByName/{publisherName}/take/{takeCount}/skip/{skipCount}")]
-        public IActionResult SearchByName([FromRoute] string publisherName, [FromRoute] int takeCount, [FromRoute] int skipCount)
+        public async Task<IActionResult> SearchByName([FromRoute] string publisherName, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = _publisherService.SearchByName(publisherName, takeCount, skipCount);
+            var result = await _publisherService.SearchByNameAsync(publisherName, takeCount, skipCount);
             return Ok(result);
         }
     }

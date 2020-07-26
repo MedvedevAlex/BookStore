@@ -12,6 +12,6 @@ namespace ViewModel.Interfaces.Services
         void DeleteAsync(Guid id);
         Task<PublisherViewModel> GetAsync(Guid id);
         Task<List<PublisherPreviewModel>> GetAsync(int takeCount, int skipCount);
-        IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount);
+        Task<List<PublisherPreviewModel>> SearchByNameAsync(string publisherName, int takeCount, int skipCount);
     }
 }
