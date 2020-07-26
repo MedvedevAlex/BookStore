@@ -4,6 +4,9 @@ using ViewModel.Interfaces.Handlers;
 using AutoMapper;
 using Model;
 using ViewModel.Models.Publishers;
+using System;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Service.PublisherRepos
 {
@@ -23,6 +26,25 @@ namespace Service.PublisherRepos
         {
             _contextFactory = new BookContextFactory(); ;
             _mapper = mapper;
+        }
+
+        /// <summary>
+        /// Получить издателя
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель издатель</returns>
+        public async Task<PublisherViewModel> GetAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var publisherEntity =  await context.Publishers
+                    .Include(p => p.Books)
+                        .ThenInclude(b => b.AuthorBooks)
+                            .ThenInclude(ab => ab.Author)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+                return _mapper.Map<PublisherViewModel>(publisherEntity);
+                
+            }
         }
 
         /// <summary>

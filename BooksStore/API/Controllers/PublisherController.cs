@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 using ViewModel.Interfaces.Services;
 
 namespace API.Controllers
@@ -18,6 +20,18 @@ namespace API.Controllers
         public PublisherController(IPublisherService publisherService)
         {
             _publisherService = publisherService;
+        }
+
+        /// <summary>
+        /// Получить издателя по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель издатель</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(Guid id)
+        {
+            var result = await _publisherService.GetAsync(id);
+            return Ok(result);
         }
 
         /// <summary>

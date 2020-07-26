@@ -39,7 +39,8 @@ namespace Service
             CreateMap<AuthorBook, AuthorBookModel>().ReverseMap();
 
             CreateMap<Publisher, PublisherModel>().ReverseMap();
-            CreateMap<Publisher, PublisherShortModel>().ReverseMap();
+            CreateMap<Publisher, PublisherViewModel>();
+            CreateMap<Publisher, PublisherShortModel>();
 
             CreateMap<Painter, PainterModel>().ReverseMap();
             CreateMap<Painter, PainterViewModel>()

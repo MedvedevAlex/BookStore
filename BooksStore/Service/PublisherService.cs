@@ -2,6 +2,8 @@
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Models.Publishers;
+using System;
+using System.Threading.Tasks;
 
 namespace Service.PublisherRepos
 {
@@ -13,6 +15,12 @@ namespace Service.PublisherRepos
         {
             _publisherHandler = publisherHandler;
         }
+
+        public async Task<PublisherViewModel> GetAsync(Guid id)
+        {
+            return await _publisherHandler.GetAsync(id);
+        }
+
 
         public IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount)
         {
