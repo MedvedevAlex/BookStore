@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Services;
+using ViewModel.Models.Publishers;
 
 namespace API.Controllers
 {
@@ -20,6 +21,18 @@ namespace API.Controllers
         public PublisherController(IPublisherService publisherService)
         {
             _publisherService = publisherService;
+        }
+
+        /// <summary>
+        /// Добавить издателя
+        /// </summary>
+        /// <param name="publisher">Модель издатель</param>
+        /// <returns>Модель издатель</returns>
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] PublisherModifyModel publisher)
+        {
+            var result = await _publisherService.AddAsync(publisher);
+            return Ok(result);
         }
 
         /// <summary>

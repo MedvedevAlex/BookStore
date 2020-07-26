@@ -16,6 +16,11 @@ namespace Service.PublisherRepos
             _publisherHandler = publisherHandler;
         }
 
+        public async Task<PublisherViewModel> AddAsync(PublisherModifyModel publisher)
+        {
+            return await _publisherHandler.AddAsync(publisher);
+        }
+
         public async Task<PublisherViewModel> GetAsync(Guid id)
         {
             return await _publisherHandler.GetAsync(id);

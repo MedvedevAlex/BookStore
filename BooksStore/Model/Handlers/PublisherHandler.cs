@@ -7,6 +7,7 @@ using ViewModel.Models.Publishers;
 using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using Model.Entities;
 
 namespace Service.PublisherRepos
 {
@@ -26,6 +27,27 @@ namespace Service.PublisherRepos
         {
             _contextFactory = new BookContextFactory(); ;
             _mapper = mapper;
+        }
+
+        /// <summary>
+        /// Добавить издателя
+        /// </summary>
+        /// <param name="publisher">Модель издатель</param>
+        /// <returns>Модель издатель</returns>
+        public async Task<PublisherViewModel> AddAsync(PublisherModifyModel publisher)
+        {
+            var publisherEntity = _mapper.Map<Publisher>(publisher);
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var booksEntities = await context.Books
+                    .Where(b => publisher.BooksIds.Contains(b.Id))
+                    .ToListAsync();
+                publisherEntity.Books = booksEntities;
+
+                await context.AddAsync(publisherEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(publisher.Id);
         }
 
         /// <summary>
