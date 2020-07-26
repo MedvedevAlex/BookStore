@@ -11,6 +11,7 @@ namespace ViewModel.Interfaces.Services
         Task<PublisherViewModel> UpdateAsync(PublisherModifyModel publisher);
         void DeleteAsync(Guid id);
         Task<PublisherViewModel> GetAsync(Guid id);
+        Task<List<PublisherPreviewModel>> GetAsync(int takeCount, int skipCount);
         IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount);
     }
 }

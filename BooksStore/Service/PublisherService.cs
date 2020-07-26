@@ -21,6 +21,11 @@ namespace Service.PublisherRepos
             return await _publisherHandler.AddAsync(publisher);
         }
 
+        public async Task<PublisherViewModel> UpdateAsync(PublisherModifyModel publisher)
+        {
+            return await _publisherHandler.UpdateAsync(publisher);
+        }
+
         public void DeleteAsync(Guid id)
         {
             _publisherHandler.DeleteAsync(id);
@@ -31,14 +36,16 @@ namespace Service.PublisherRepos
             return await _publisherHandler.GetAsync(id);
         }
 
-        public async Task<PublisherViewModel> UpdateAsync(PublisherModifyModel publisher)
+        public async Task<List<PublisherPreviewModel>> GetAsync(int takeCount, int skipCount)
         {
-            return await _publisherHandler.UpdateAsync(publisher);
+            return await _publisherHandler.GetAsync(takeCount, skipCount);
         }
 
         public IEnumerable<PublisherModel> SearchByName(string publisherName, int takeCount, int skipCount)
         {
             return _publisherHandler.SearchByName(publisherName, takeCount, skipCount);
         }
+
+
     }
 }

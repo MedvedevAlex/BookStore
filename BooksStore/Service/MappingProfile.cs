@@ -40,6 +40,7 @@ namespace Service
 
             CreateMap<Publisher, PublisherModel>().ReverseMap();
             CreateMap<Publisher, PublisherViewModel>();
+            CreateMap<Publisher, PublisherPreviewModel>();
             CreateMap<Publisher, PublisherModifyModel>().ReverseMap();
             CreateMap<Publisher, PublisherShortModel>();
 

@@ -72,6 +72,19 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Пагинация издателей
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Коллекция издателей</returns>
+        [HttpGet("GetPublishers/take/{takeCount}/skip/{skipCount}")]
+        public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
+        {
+            var result = await _publisherService.GetAsync(takeCount, skipCount);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Поиск по имени издателя
         /// </summary>
         /// <param name="publisherName">Имя издателя</param>

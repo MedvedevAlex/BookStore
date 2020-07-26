@@ -115,6 +115,24 @@ namespace Service.PublisherRepos
         }
 
         /// <summary>
+        /// Пагинация издателей
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых</param>
+        /// <param name="skipCount">Количество пропущенных</param>
+        /// <returns>Коллекция издателей</returns>
+        public async Task<List<PublisherPreviewModel>> GetAsync(int takeCount, int skipCount)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.Publishers
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Select(s => _mapper.Map<PublisherPreviewModel>(s))
+                    .ToListAsync();
+            }
+        }
+
+        /// <summary>
         /// Поиск по имени издателя
         /// </summary>
         /// <param name="publisherName">Имя издателя</param>
