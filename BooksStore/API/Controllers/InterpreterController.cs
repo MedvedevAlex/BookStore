@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Interpreters;
@@ -31,6 +32,18 @@ namespace API.Controllers
         public async Task<IActionResult> Add([FromBody] InterpreterModifyModel interpreter)
         {
             var result = await _interpreterService.AddAsync(interpreter);
+            return Ok(result);
+        }
+
+        /// <summary>
+        /// Получить переводчика
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель переводчик</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromRoute] Guid id)
+        {
+            var result = await _interpreterService.GetAsync(id);
             return Ok(result);
         }
     }

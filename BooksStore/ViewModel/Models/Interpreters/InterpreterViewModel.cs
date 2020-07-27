@@ -28,6 +28,6 @@ namespace ViewModel.Models.Interpreters
         /// <summary>
         /// Коллекция книг
         /// </summary>
-        public virtual ICollection<BookPreviewModel> Books { get; set; }
+        public ICollection<BookPreviewModel> Books { get; set; }
     }
 }

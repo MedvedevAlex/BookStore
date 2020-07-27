@@ -7,6 +7,7 @@ using Model.Entities;
 using ViewModel.Models.Interpreters;
 using Model.Entities.JoinTables;
 using ViewModel.Handlers;
+using System;
 
 namespace Service.PublisherRepos
 {
@@ -29,7 +30,7 @@ namespace Service.PublisherRepos
         }
 
         /// <summary>
-        /// Добавить Переводчика
+        /// Добавить переводчика
         /// </summary>
         /// <param name="interpreter">Модель переводчик</param>
         /// <returns>Модель переводчик</returns>
@@ -47,7 +48,26 @@ namespace Service.PublisherRepos
                 await context.Interpreters.AddAsync(interpreterEntity);
                 await context.SaveChangesAsync();
             }
-            return new InterpreterViewModel();
+            return await GetAsync(interpreter.Id);
+        }
+
+        /// <summary>
+        /// Получить переводчика
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель переводчик</returns>
+        public async Task<InterpreterViewModel> GetAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var interpreterEntity = await context.Interpreters
+                    .Include(i => i.InterpreterBooks)
+                        .ThenInclude(ib => ib.Book)
+                            .ThenInclude(b => b.AuthorBooks)
+                                .ThenInclude(ab => ab.Author)
+                    .FirstOrDefaultAsync(i => i.Id == id);
+                return _mapper.Map<InterpreterViewModel>(interpreterEntity);
+            }
         }
     }
 }

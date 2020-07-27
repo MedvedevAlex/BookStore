@@ -56,7 +56,8 @@ namespace Service
             CreateMap<PainterStyle, PainterStyleModel>().ReverseMap();
 
             CreateMap<Interpreter, InterpreterModel>().ReverseMap();
-            CreateMap<Interpreter, InterpreterViewModel>();
+            CreateMap<Interpreter, InterpreterViewModel>()
+                .ForMember(im => im.Books, im => im.MapFrom(i => i.InterpreterBooks.Select(s => s.Book)));
             CreateMap<Interpreter, InterpreterModifyModel>().ReverseMap();
             CreateMap<Interpreter, InterpreterShortModel>();
             CreateMap<InterpreterBook, InterpreterBookModel>().ReverseMap();

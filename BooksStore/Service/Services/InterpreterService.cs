@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Interpreters;
@@ -17,6 +18,11 @@ namespace Service.Services
         public async Task<InterpreterViewModel> AddAsync(InterpreterModifyModel interpreter)
         {
             return await _interpreterHandler.AddAsync(interpreter);
+        }
+
+        public async Task<InterpreterViewModel> GetAsync(Guid id)
+        {
+            return await _interpreterHandler.GetAsync(id);
         }
     }
 }

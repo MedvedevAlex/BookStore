@@ -70,9 +70,11 @@ namespace API
                 .AddScoped<IBookHandler, BookHandler>()
                 .AddScoped<IPainterHandler, PainterHandler>()
                 .AddScoped<IPublisherHandler, PublisherHandler>()
+                .AddScoped<IInterpreterHandler, InterpreterHandler>()
                 .AddScoped<IBookService, BookService>()
                 .AddScoped<IPainterService, PainterService>()
-                .AddScoped<IPublisherService, PublisherService>();
+                .AddScoped<IPublisherService, PublisherService>()
+                .AddScoped<IInterpreterService, InterpreterService>();
 
             services.AddTransient<IMapper, Mapper>(ctx => new Mapper(new MapperConfiguration(cfg =>
             {
