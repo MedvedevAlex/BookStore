@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Model.Entities.References;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Models.References;
@@ -106,6 +107,20 @@ namespace Model.Handlers
                 var painterStyleEnity = await context.PainterStyles
                     .FirstOrDefaultAsync(ps => ps.Id == id);
                 return _mapper.Map<PainterStyleModel>(painterStyleEnity);
+            }
+        }
+
+        /// <summary>
+        /// Получить стили художника
+        /// </summary>
+        /// <returns>Коллекция стилей художника</returns>
+        public async Task<List<PainterStyleModel>> GetAsync()
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.PainterStyles
+                    .Select(ps => _mapper.Map<PainterStyleModel>(ps))
+                    .ToListAsync();
             }
         }
     }

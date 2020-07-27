@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Interfaces.Services.References;
@@ -34,5 +35,9 @@ namespace Service.References
             return await _painterStyleHandler.GetAsync(id);
         }
 
+        public async Task<List<PainterStyleModel>> GetAsync()
+        {
+            return await _painterStyleHandler.GetAsync();
+        }
     }
 }

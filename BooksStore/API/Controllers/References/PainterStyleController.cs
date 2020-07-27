@@ -68,5 +68,16 @@ namespace API.Controllers
             var result = await _painterStyleService.GetAsync(id);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Получить стили художника
+        /// </summary>
+        /// <returns>Коллекция стилей художника</returns>
+        [HttpGet("GetPainterStyles")]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _painterStyleService.GetAsync();
+            return Ok(result);
+        }
     }
 }
