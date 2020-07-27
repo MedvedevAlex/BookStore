@@ -2,11 +2,12 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel.Interfaces.Services.References;
+using ViewModel.Models.References;
 
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Тип переплета
+    /// Контроллер Стиль художника
     /// </summary>
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -18,6 +19,18 @@ namespace API.Controllers
         public PainterStyleController(IPainterStyleService painterStyleService)
         {
             _painterStyleService = painterStyleService;
+        }
+
+        /// <summary>
+        /// Добавить стиль художника
+        /// </summary>
+        /// <param name="painterStyle">Модель стиль художника</param>
+        /// <returns>Модель стиль художника</returns>
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] PainterStyleModel painterStyle)
+        {
+            var result = await _painterStyleService.AddAsync(painterStyle);
+            return Ok(result);
         }
 
         /// <summary>

@@ -15,6 +15,11 @@ namespace Service.References
             _painterStyleHandler = painterStyleHandler;
         }
 
+        public async Task<PainterStyleModel> AddAsync(PainterStyleModel painterStyle)
+        {
+            return await _painterStyleHandler.AddAsync(painterStyle);
+        }
+
         public async Task<PainterStyleModel> GetAsync(Guid id)
         {
             return await _painterStyleHandler.GetAsync(id);
