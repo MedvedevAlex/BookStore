@@ -79,6 +79,23 @@ namespace Model.Handlers
         }
 
         /// <summary>
+        /// Удалить тип переплета
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        public async void DeleteAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var coverTypeEntity = await context.CoverTypes
+                    .FirstOrDefaultAsync(ct => ct.Id == id);
+                if (coverTypeEntity == null) throw new KeyNotFoundException("Ошибка: Тип переплета не найден");
+
+                context.CoverTypes.Remove(coverTypeEntity);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
         /// Получить тип переплета
         /// </summary>
         /// <param name="id">Идентификатор</param>

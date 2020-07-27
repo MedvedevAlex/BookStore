@@ -46,6 +46,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Удалить тип переплета
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            _coverTypeService.Delete(id);
+            return Ok();
+        }
+
+        /// <summary>
         /// Получить тип переплета по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>

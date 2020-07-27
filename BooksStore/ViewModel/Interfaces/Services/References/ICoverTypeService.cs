@@ -8,6 +8,7 @@ namespace ViewModel.Interfaces.Services.References
     {
         Task<CoverTypeModel> AddAsync(CoverTypeModel coverType);
         Task<CoverTypeModel> UpdateAsync(CoverTypeModel coverType);
+        void Delete(Guid id);
         Task<CoverTypeModel> GetAsync(Guid id);
     }
 }

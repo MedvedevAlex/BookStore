@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
+using System;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Interfaces.Services.References;
@@ -23,6 +24,11 @@ namespace Service.References
         public async Task<CoverTypeModel> UpdateAsync(CoverTypeModel coverType)
         {
             return await _coverTypeHandler.UpdateAsync(coverType);
+        }
+
+        public void Delete(Guid id)
+        {
+            _coverTypeHandler.DeleteAsync(id);
         }
 
         public async Task<CoverTypeModel> GetAsync(Guid id)
