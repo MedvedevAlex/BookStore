@@ -8,6 +8,7 @@ namespace ViewModel.Interfaces.Handlers.References
     {
         Task<PainterStyleModel> AddAsync(PainterStyleModel painterStyle);
         Task<PainterStyleModel> UpdateAsync(PainterStyleModel painterStyle);
+        void DeleteAsync(Guid id);
         Task<PainterStyleModel> GetAsync(Guid id);
     }
 }

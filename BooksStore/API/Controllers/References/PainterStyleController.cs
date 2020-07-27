@@ -46,6 +46,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Удалить стиль художника
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            _painterStyleService.Delete(id);
+            return Ok();
+        }
+
+        /// <summary>
         /// Получить стиль художника по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>

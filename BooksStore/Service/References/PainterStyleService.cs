@@ -24,10 +24,15 @@ namespace Service.References
         {
             return await _painterStyleHandler.UpdateAsync(painterStyle);
         }
+        public void Delete(Guid id)
+        {
+            _painterStyleHandler.DeleteAsync(id);
+        }
 
         public async Task<PainterStyleModel> GetAsync(Guid id)
         {
             return await _painterStyleHandler.GetAsync(id);
         }
+
     }
 }

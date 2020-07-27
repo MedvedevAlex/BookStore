@@ -64,17 +64,34 @@ namespace Model.Handlers
             {
                 var painterStyleEnity = await context.PainterStyles
                     .FirstOrDefaultAsync(ps => ps.Id == painterStyle.Id);
-                if (painterStyleEnity == null) throw new KeyNotFoundException("Ошибка: Тип переплета не найден");
+                if (painterStyleEnity == null) throw new KeyNotFoundException("Ошибка: Стиль художника не найден");
 
-                var painterStyleEnityName = await context.CoverTypes
+                var painterStyleEnityName = await context.PainterStyles
                     .FirstOrDefaultAsync(ps => ps.Name.Trim().ToLower() == painterStyle.Name.Trim().ToLower());
-                if (painterStyleEnityName != null) throw new KeyNotFoundException("Ошибка: Тип переплета с такими именем уже существует");
+                if (painterStyleEnityName != null) throw new KeyNotFoundException("Ошибка: Стиль художника с такими именем уже существует");
 
                 context.Entry(painterStyleEnity).CurrentValues.SetValues(painterStyle);
 
                 await context.SaveChangesAsync();
             }
             return await GetAsync(painterStyle.Id);
+        }
+
+        /// <summary>
+        /// Удалить стиль художника
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        public async void DeleteAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var painterStyleEnity = await context.PainterStyles
+                    .FirstOrDefaultAsync(ps => ps.Id == id);
+                if (painterStyleEnity == null) throw new KeyNotFoundException("Ошибка: Стиль художника не найден");
+
+                context.PainterStyles.Remove(painterStyleEnity);
+                await context.SaveChangesAsync();
+            }
         }
 
         /// <summary>
