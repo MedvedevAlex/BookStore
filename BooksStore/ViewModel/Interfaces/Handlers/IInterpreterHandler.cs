@@ -8,6 +8,7 @@ namespace ViewModel.Handlers
     {
         Task<InterpreterViewModel> AddAsync(InterpreterModifyModel interpreter);
         Task<InterpreterViewModel> UpdateAsync(InterpreterModifyModel interpreter);
+        void DeleteAsync(Guid id);
         Task<InterpreterViewModel> GetAsync(Guid id);
     }
 }

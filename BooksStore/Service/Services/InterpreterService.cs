@@ -25,9 +25,16 @@ namespace Service.Services
             return await _interpreterHandler.UpdateAsync(interpreter);
         }
 
+        public void Delete(Guid id)
+        {
+            _interpreterHandler.DeleteAsync(id);
+        }
+        
         public async Task<InterpreterViewModel> GetAsync(Guid id)
         {
             return await _interpreterHandler.GetAsync(id);
         }
+
+
     }
 }

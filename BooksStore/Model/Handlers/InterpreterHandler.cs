@@ -87,6 +87,23 @@ namespace Service.PublisherRepos
         }
 
         /// <summary>
+        /// Удалить переводчика
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        public async void DeleteAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var interpreterEntity = await context.Interpreters
+                    .FirstOrDefaultAsync(i => i.Id == id);
+                if (interpreterEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти переводчика");
+
+                context.Interpreters.Remove(interpreterEntity);
+                await context.SaveChangesAsync();
+            }
+        }
+
+        /// <summary>
         /// Получить переводчика
         /// </summary>
         /// <param name="id">Идентификатор</param>

@@ -8,6 +8,7 @@ namespace ViewModel.Interfaces.Services
     {
         Task<InterpreterViewModel> AddAsync(InterpreterModifyModel interpreter);
         Task<InterpreterViewModel> UpdateAsync(InterpreterModifyModel interpreter);
+        void Delete(Guid id);
         Task<InterpreterViewModel> GetAsync(Guid id);
     }
 }

@@ -48,7 +48,19 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Получить переводчика
+        /// Удалить переводчика
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            _interpreterService.Delete(id);
+            return Ok();
+        }
+
+        /// <summary>
+        /// Получить переводчика по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Модель переводчик</returns>
