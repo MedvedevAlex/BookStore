@@ -7,6 +7,7 @@ namespace ViewModel.Interfaces.Handlers.References
     public interface ICoverTypeHandler
     {
         Task<CoverTypeModel> AddAsync(CoverTypeModel coverType);
+        Task<CoverTypeModel> UpdateAsync(CoverTypeModel coverType);
         Task<CoverTypeModel> GetAsync(Guid id);
     }
 }

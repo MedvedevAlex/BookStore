@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Model.Entities.References;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,30 @@ namespace Model.Handlers
                 coverTypeEntity = _mapper.Map<CoverType>(coverType);
 
                 await context.CoverTypes.AddAsync(coverTypeEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(coverType.Id);
+        }
+
+        /// <summary>
+        /// Обновить тип переплета
+        /// </summary>
+        /// <param name="coverType">Модель тип переплета</param>
+        /// <returns>Модель тип переплета</returns>
+        public async Task<CoverTypeModel> UpdateAsync(CoverTypeModel coverType)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var coverTypeEntity = await context.CoverTypes
+                    .FirstOrDefaultAsync(ct => ct.Id == coverType.Id);
+                if (coverTypeEntity == null) throw new KeyNotFoundException("Ошибка: Тип переплета не найден");
+
+                var coverTypeEntityName = await context.CoverTypes
+                    .FirstOrDefaultAsync(ct => ct.Name.Trim().ToLower() == coverType.Name.Trim().ToLower());
+                if (coverTypeEntityName != null) throw new KeyNotFoundException("Ошибка: Тип переплета с такими именем уже существует");
+
+                context.Entry(coverTypeEntity).CurrentValues.SetValues(coverType);
+
                 await context.SaveChangesAsync();
             }
             return await GetAsync(coverType.Id);

@@ -34,6 +34,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Обновить тип переплета
+        /// </summary>
+        /// <param name="coverType">Модель тип переплета</param>
+        /// <returns>Модель тип переплета</returns>
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] CoverTypeModel coverType)
+        {
+            var result = await _coverTypeService.UpdateAsync(coverType);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Получить тип переплета по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>

@@ -20,6 +20,11 @@ namespace Service.References
             return await _coverTypeHandler.AddAsync(coverType);
         }
 
+        public async Task<CoverTypeModel> UpdateAsync(CoverTypeModel coverType)
+        {
+            return await _coverTypeHandler.UpdateAsync(coverType);
+        }
+
         public async Task<CoverTypeModel> GetAsync(Guid id)
         {
             return await _coverTypeHandler.GetAsync(id);
