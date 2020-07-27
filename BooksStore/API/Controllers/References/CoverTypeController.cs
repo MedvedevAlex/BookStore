@@ -68,5 +68,16 @@ namespace API.Controllers
             var result = await _coverTypeService.GetAsync(id);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Получить типы переплета
+        /// </summary>
+        /// <returns>Коллекция типов переплета</returns>
+        [HttpGet("GetCoverTypes")]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _coverTypeService.GetAsync();
+            return Ok(result);
+        }
     }
 }

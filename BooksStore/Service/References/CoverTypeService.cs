@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Interfaces.Services.References;
@@ -34,6 +35,11 @@ namespace Service.References
         public async Task<CoverTypeModel> GetAsync(Guid id)
         {
             return await _coverTypeHandler.GetAsync(id);
+        }
+
+        public async Task<List<CoverTypeModel>> GetAsync()
+        {
+            return await _coverTypeHandler.GetAsync();
         }
     }
 }

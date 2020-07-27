@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using Model.Entities.References;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Models.References;
@@ -38,9 +39,9 @@ namespace Model.Handlers
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var coverTypeEntity = await context.CoverTypes
-                    .FirstOrDefaultAsync(ct => ct.Id == coverType.Id 
+                    .FirstOrDefaultAsync(ct => ct.Id == coverType.Id
                     || ct.Name.Trim().ToLower() == coverType.Name.Trim().ToLower());
-                if (coverTypeEntity != null ) 
+                if (coverTypeEntity != null)
                     if (coverTypeEntity.Id == coverType.Id)
                         throw new KeyNotFoundException("Ошибка: Тип переплета с таким идентификатором уже сущетсвует");
                     else if (coverTypeEntity.Name.Trim().ToLower() == coverType.Name.Trim().ToLower())
@@ -110,5 +111,18 @@ namespace Model.Handlers
             }
         }
 
+        /// <summary>
+        /// Получить типы переплета
+        /// </summary>
+        /// <returns>Коллекция типов переплета</returns>
+        public async Task<List<CoverTypeModel>> GetAsync()
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.CoverTypes
+                    .Select(ct => _mapper.Map<CoverTypeModel>(ct))
+                    .ToListAsync();
+            }
+        }
     }
 }
