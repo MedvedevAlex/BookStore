@@ -5,7 +5,7 @@ using ViewModel.Models.Painters;
 using System.Threading.Tasks;
 using System;
 
-namespace Service.PainterRepos
+namespace Service.Services
 {
     public class PainterService : IPainterService
     {

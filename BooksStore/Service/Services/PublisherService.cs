@@ -5,7 +5,7 @@ using ViewModel.Models.Publishers;
 using System;
 using System.Threading.Tasks;
 
-namespace Service.PublisherRepos
+namespace Service.Services
 {
     public class PublisherService : IPublisherService
     {
