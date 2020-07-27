@@ -124,5 +124,21 @@ namespace Model.Handlers
                     .ToListAsync();
             }
         }
+
+        /// <summary>
+        /// Поиск по наименованию 
+        /// </summary>
+        /// <param name="coverTypeName">Наименование типа переплета</param>
+        /// <returns>Коллекция типов переплета</returns>
+        public async Task<List<CoverTypeModel>> SearchByNameAsync(string coverTypeName)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.CoverTypes
+                    .Where(ct => ct.Name.Contains(coverTypeName))
+                    .Select(ct => _mapper.Map<CoverTypeModel>(ct))
+                    .ToListAsync();
+            }
+        }
     }
 }

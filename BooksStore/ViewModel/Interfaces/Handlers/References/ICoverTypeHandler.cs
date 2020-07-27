@@ -12,5 +12,6 @@ namespace ViewModel.Interfaces.Handlers.References
         void DeleteAsync(Guid id);
         Task<CoverTypeModel> GetAsync(Guid id);
         Task<List<CoverTypeModel>> GetAsync();
+        Task<List<CoverTypeModel>> SearchByNameAsync(string coverTypeName);
     }
 }

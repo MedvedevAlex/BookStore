@@ -79,5 +79,17 @@ namespace API.Controllers
             var result = await _coverTypeService.GetAsync();
             return Ok(result);
         }
+
+        /// <summary>
+        /// Поиск по наименованию
+        /// </summary>
+        /// <param name="coverTypeName">Намиенование переплета</param>
+        /// <returns>Коллекция типов переплета</returns>
+        [HttpGet("SearchByName/{coverTypeName}")]
+        public async Task<IActionResult> SearchByName([FromRoute] string coverTypeName)
+        {
+            var result = await _coverTypeService.SearchByNameAsync(coverTypeName);
+            return Ok(result);
+        }
     }
 }
