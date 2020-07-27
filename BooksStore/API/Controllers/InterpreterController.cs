@@ -70,5 +70,18 @@ namespace API.Controllers
             var result = await _interpreterService.GetAsync(id);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Пагинация переводчиков
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых записей</param>
+        /// <param name="skipCount">Количество пропущенных записей</param>
+        /// <returns>Коллекция переводчиков</returns>
+        [HttpGet("GetInterpreters/take/{takeCount}/skip/{skipCount}")]
+        public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
+        {
+            var result = await _interpreterService.GetAsync(takeCount, skipCount);
+            return Ok(result);
+        }
     }
 }

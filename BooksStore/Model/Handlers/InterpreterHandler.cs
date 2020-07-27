@@ -121,5 +121,23 @@ namespace Service.PublisherRepos
                 return _mapper.Map<InterpreterViewModel>(interpreterEntity);
             }
         }
+
+        /// <summary>
+        /// Пагинация переводчиков
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых записей</param>
+        /// <param name="skipCount">Количество пропущенных записей</param>
+        /// <returns>Коллекция переводчиков</returns>
+        public async Task<List<InterpreterPreviewModel>> GetAsync(int takeCount, int skipCount)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.Interpreters
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Select(s => _mapper.Map<InterpreterPreviewModel>(s))
+                    .ToListAsync();
+            }
+        }
     }
 }

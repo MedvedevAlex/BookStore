@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
@@ -35,6 +36,9 @@ namespace Service.Services
             return await _interpreterHandler.GetAsync(id);
         }
 
-
+        public async Task<List<InterpreterPreviewModel>> GetAsync(int takeCount, int skipCount)
+        {
+            return await _interpreterHandler.GetAsync(takeCount, skipCount);
+        }
     }
 }
