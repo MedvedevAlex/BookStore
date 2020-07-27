@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel.Interfaces.Services.References;
+using ViewModel.Models.References;
 
 namespace API.Controllers
 {
@@ -18,6 +19,18 @@ namespace API.Controllers
         public CoverTypeController(ICoverTypeService coverTypeService)
         {
             _coverTypeService = coverTypeService;
+        }
+
+        /// <summary>
+        /// Добавить тип переплета
+        /// </summary>
+        /// <param name="coverType">Тип переплета</param>
+        /// <returns>Тип переплета</returns>
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] CoverTypeModel coverType)
+        {
+            var result = await _coverTypeService.AddAsync(coverType);
+            return Ok(result);
         }
 
         /// <summary>
