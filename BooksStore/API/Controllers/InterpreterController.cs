@@ -83,5 +83,19 @@ namespace API.Controllers
             var result = await _interpreterService.GetAsync(takeCount, skipCount);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Пагинация переводчиков
+        /// </summary>
+        /// <param name="interpreterName">Имя художника</param>
+        /// <param name="takeCount">Количество получаемых записей</param>
+        /// <param name="skipCount">Количество пропущенных записей</param>
+        /// <returns>Коллекция переводчиков</returns>
+        [HttpGet("SearchByName/{interpreterName}/take/{takeCount}/skip/{skipCount}")]
+        public async Task<IActionResult> SearchByName([FromRoute] string interpreterName, [FromRoute] int takeCount, [FromRoute] int skipCount)
+        {
+            var result = await _interpreterService.SearchByNameAsync(interpreterName, takeCount, skipCount);
+            return Ok(result);
+        }
     }
 }

@@ -139,5 +139,25 @@ namespace Service.PublisherRepos
                     .ToListAsync();
             }
         }
+
+        /// <summary>
+        /// Поиск по имени
+        /// </summary>
+        /// <param name="interpreterName">Имя переводчика</param>
+        /// <param name="takeCount">Количество получаемых записей</param>
+        /// <param name="skipCount">Количество пропущенных записей</param>
+        /// <returns>Коллекция переводчиков</returns>
+        public async Task<List<InterpreterPreviewModel>> SearchByNameAsync(string interpreterName, int takeCount, int skipCount)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.Interpreters
+                    .Where(i => i.Name.Contains(interpreterName))
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Select(s => _mapper.Map<InterpreterPreviewModel>(s))
+                    .ToListAsync();
+            }
+        }
     }
 }

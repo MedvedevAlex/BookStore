@@ -12,5 +12,6 @@ namespace ViewModel.Handlers
         void DeleteAsync(Guid id);
         Task<InterpreterViewModel> GetAsync(Guid id);
         Task<List<InterpreterPreviewModel>> GetAsync(int takeCount, int skipCount);
+        Task<List<InterpreterPreviewModel>> SearchByNameAsync(string interpreterName, int takeCount, int skipCount);
     }
 }

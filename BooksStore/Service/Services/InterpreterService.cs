@@ -40,5 +40,10 @@ namespace Service.Services
         {
             return await _interpreterHandler.GetAsync(takeCount, skipCount);
         }
+
+        public async Task<List<InterpreterPreviewModel>> SearchByNameAsync(string interpreterName, int takeCount, int skipCount)
+        {
+            return await _interpreterHandler.SearchByNameAsync(interpreterName, takeCount, skipCount);
+        }
     }
 }
