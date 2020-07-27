@@ -77,9 +77,11 @@ namespace API
                 .AddScoped<IPainterService, PainterService>()
                 .AddScoped<IPublisherService, PublisherService>()
                 .AddScoped<IInterpreterService, InterpreterService>()
-                
+
                 .AddScoped<ICoverTypeHandler, CoverTypeHandler>()
-                .AddScoped<ICoverTypeService, CoverTypeService>();
+                .AddScoped<IPainterStyleHandler, PainterStyleHandler>()
+                .AddScoped<ICoverTypeService, CoverTypeService>()
+                .AddScoped<IPainterStyleService, PainterStyleService>();
 
             services.AddTransient<IMapper, Mapper>(ctx => new Mapper(new MapperConfiguration(cfg =>
             {
