@@ -39,13 +39,12 @@ namespace API
 
             services.AddCors(options =>
             {
-                options.AddPolicy("AllowAllOrigins",
-                    b =>
-                    {
-                        b.AllowAnyOrigin()
-                         .AllowAnyHeader()
-                         .AllowAnyMethod();
-                    });
+                options.AddDefaultPolicy(b =>
+                   {
+                       b.AllowAnyOrigin()
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                   });
             });
 
             services.AddSwaggerGen(c =>
@@ -95,6 +94,8 @@ namespace API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors();
 
             app.UseRouting();
 
