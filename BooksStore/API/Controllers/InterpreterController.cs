@@ -36,6 +36,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Обновить переводчика
+        /// </summary>
+        /// <param name="interpreter">Модель переводчик</param>
+        /// <returns>Модель перводчик</returns>
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] InterpreterModifyModel interpreter)
+        {
+            var result = await _interpreterService.UpdateAsync(interpreter);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Получить переводчика
         /// </summary>
         /// <param name="id">Идентификатор</param>

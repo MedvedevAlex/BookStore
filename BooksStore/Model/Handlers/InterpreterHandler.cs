@@ -8,6 +8,8 @@ using ViewModel.Models.Interpreters;
 using Model.Entities.JoinTables;
 using ViewModel.Handlers;
 using System;
+using System.Collections.Generic;
+using Model.Extensions;
 
 namespace Service.PublisherRepos
 {
@@ -46,6 +48,39 @@ namespace Service.PublisherRepos
                 interpreterEntity.InterpreterBooks = newBooksEntitites;
 
                 await context.Interpreters.AddAsync(interpreterEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(interpreter.Id);
+        }
+
+        /// <summary>
+        /// Обновить переводчика
+        /// </summary>
+        /// <param name="interpreter">Модель переводчик</param>
+        /// <returns>Модель переводчик</returns>
+        public async Task<InterpreterViewModel> UpdateAsync(InterpreterModifyModel interpreter)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var interpreterEntity = await context.Interpreters
+                    .Include(i => i.InterpreterBooks)
+                            .ThenInclude(ib => ib.Book)
+                    .FirstOrDefaultAsync(i => i.Id == interpreter.Id);
+                if (interpreterEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти переводчика");
+
+                context.Entry(interpreterEntity).CurrentValues.SetValues(interpreter);
+
+                var newBooksEntities = context.Books
+                        .Where(b => interpreter.BooksIds.Contains(b.Id));
+
+                context.TryUpdateManyToMany(interpreterEntity.InterpreterBooks, newBooksEntities
+                    .Select(s => new InterpreterBook
+                    {
+                        InterpreterId = interpreterEntity.Id,
+                        BookId = s.Id
+                    }), s => s.BookId);
+
+                context.Interpreters.Update(interpreterEntity);
                 await context.SaveChangesAsync();
             }
             return await GetAsync(interpreter.Id);

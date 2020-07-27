@@ -20,6 +20,11 @@ namespace Service.Services
             return await _interpreterHandler.AddAsync(interpreter);
         }
 
+        public async Task<InterpreterViewModel> UpdateAsync(InterpreterModifyModel interpreter)
+        {
+            return await _interpreterHandler.UpdateAsync(interpreter);
+        }
+
         public async Task<InterpreterViewModel> GetAsync(Guid id)
         {
             return await _interpreterHandler.GetAsync(id);

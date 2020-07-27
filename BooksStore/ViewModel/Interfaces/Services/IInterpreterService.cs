@@ -7,6 +7,7 @@ namespace ViewModel.Interfaces.Services
     public interface IInterpreterService
     {
         Task<InterpreterViewModel> AddAsync(InterpreterModifyModel interpreter);
+        Task<InterpreterViewModel> UpdateAsync(InterpreterModifyModel interpreter);
         Task<InterpreterViewModel> GetAsync(Guid id);
     }
 }
