@@ -54,6 +54,30 @@ namespace Model.Handlers
         }
 
         /// <summary>
+        /// Обновить стиль художника
+        /// </summary>
+        /// <param name="painterStyle">Модель стиль художника</param>
+        /// <returns>Модель стиль художника</returns>
+        public async Task<PainterStyleModel> UpdateAsync(PainterStyleModel painterStyle)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var painterStyleEnity = await context.PainterStyles
+                    .FirstOrDefaultAsync(ps => ps.Id == painterStyle.Id);
+                if (painterStyleEnity == null) throw new KeyNotFoundException("Ошибка: Тип переплета не найден");
+
+                var painterStyleEnityName = await context.CoverTypes
+                    .FirstOrDefaultAsync(ps => ps.Name.Trim().ToLower() == painterStyle.Name.Trim().ToLower());
+                if (painterStyleEnityName != null) throw new KeyNotFoundException("Ошибка: Тип переплета с такими именем уже существует");
+
+                context.Entry(painterStyleEnity).CurrentValues.SetValues(painterStyle);
+
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(painterStyle.Id);
+        }
+
+        /// <summary>
         /// Получить стиль художника
         /// </summary>
         /// <param name="id">Идентификатор</param>

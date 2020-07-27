@@ -34,6 +34,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Обновить стиль художника
+        /// </summary>
+        /// <param name="painterStyle">Модель стиль художника</param>
+        /// <returns>Модель стиль художника</returns>
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] PainterStyleModel painterStyle)
+        {
+            var result = await _painterStyleService.UpdateAsync(painterStyle);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Получить стиль художника по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>

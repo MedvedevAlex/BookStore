@@ -7,6 +7,7 @@ namespace ViewModel.Interfaces.Handlers.References
     public interface IPainterStyleHandler
     {
         Task<PainterStyleModel> AddAsync(PainterStyleModel painterStyle);
+        Task<PainterStyleModel> UpdateAsync(PainterStyleModel painterStyle);
         Task<PainterStyleModel> GetAsync(Guid id);
     }
 }
