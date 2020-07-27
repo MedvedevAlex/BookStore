@@ -12,5 +12,6 @@ namespace ViewModel.Interfaces.Handlers.References
         void DeleteAsync(Guid id);
         Task<PainterStyleModel> GetAsync(Guid id);
         Task<List<PainterStyleModel>> GetAsync();
+        Task<List<PainterStyleModel>> SearchByNameAsync(string painterStyleName);
     }
 }

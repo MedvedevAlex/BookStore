@@ -123,5 +123,21 @@ namespace Model.Handlers
                     .ToListAsync();
             }
         }
+
+        /// <summary>
+        /// Поиск по наименованию 
+        /// </summary>
+        /// <param name="painterStyleName">Наименование стиля художника</param>
+        /// <returns>Коллекция стилей художника</returns>
+        public async Task<List<PainterStyleModel>> SearchByNameAsync(string painterStyleName)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.PainterStyles
+                    .Where(ct => ct.Name.Contains(painterStyleName))
+                    .Select(ct => _mapper.Map<PainterStyleModel>(ct))
+                    .ToListAsync();
+            }
+        }
     }
 }

@@ -79,5 +79,17 @@ namespace API.Controllers
             var result = await _painterStyleService.GetAsync();
             return Ok(result);
         }
+
+        /// <summary>
+        /// Поиск по наименованию
+        /// </summary>
+        /// <param name="painterStyleName">Намиенование стиля художника</param>
+        /// <returns>Коллекция стилей художника</returns>
+        [HttpGet("SearchByName/{painterStyleName}")]
+        public async Task<IActionResult> SearchByName([FromRoute] string painterStyleName)
+        {
+            var result = await _painterStyleService.SearchByNameAsync(painterStyleName);
+            return Ok(result);
+        }
     }
 }

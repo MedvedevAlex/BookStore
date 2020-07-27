@@ -39,5 +39,10 @@ namespace Service.References
         {
             return await _painterStyleHandler.GetAsync();
         }
+
+        public async Task<List<PainterStyleModel>> SearchByNameAsync(string painterStyleName)
+        {
+            return await _painterStyleHandler.SearchByNameAsync(painterStyleName);
+        }
     }
 }
