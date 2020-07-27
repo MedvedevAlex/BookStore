@@ -50,12 +50,16 @@ namespace Service
                 .ForMember(pm => pm.Books, pm => pm.MapFrom(p => p.PainterBooks.Select(s => s.Book)));
             CreateMap<Painter, PainterPreviewModel>()
                 .ForMember(pm => pm.Style, pm => pm.MapFrom(p => p.Style.Name));
-            CreateMap<Painter, PainterShortModel>();
             CreateMap<Painter, PainterModifyModel>().ReverseMap();
+            CreateMap<Painter, PainterShortModel>();
             CreateMap<PainterBook, PainterBookModel>().ReverseMap();
             CreateMap<PainterStyle, PainterStyleModel>().ReverseMap();
 
             CreateMap<Interpreter, InterpreterModel>().ReverseMap();
+            CreateMap<Interpreter, InterpreterViewModel>()
+                .ForMember(im => im.Books, im => im.MapFrom(i => i.InterpreterBooks.Select(s => s.Book)));
+            CreateMap<Interpreter, InterpreterPreviewModel>();
+            CreateMap<Interpreter, InterpreterModifyModel>().ReverseMap();
             CreateMap<Interpreter, InterpreterShortModel>();
             CreateMap<InterpreterBook, InterpreterBookModel>().ReverseMap();
 

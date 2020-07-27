@@ -9,9 +9,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Model.Handlers;
 using Service;
-using Service.BookRepos;
 using Service.PainterRepos;
 using Service.PublisherRepos;
+using Service.Services;
 using System;
 using System.IO;
 using System.Reflection;
@@ -70,9 +70,11 @@ namespace API
                 .AddScoped<IBookHandler, BookHandler>()
                 .AddScoped<IPainterHandler, PainterHandler>()
                 .AddScoped<IPublisherHandler, PublisherHandler>()
+                .AddScoped<IInterpreterHandler, InterpreterHandler>()
                 .AddScoped<IBookService, BookService>()
                 .AddScoped<IPainterService, PainterService>()
-                .AddScoped<IPublisherService, PublisherService>();
+                .AddScoped<IPublisherService, PublisherService>()
+                .AddScoped<IInterpreterService, InterpreterService>();
 
             services.AddTransient<IMapper, Mapper>(ctx => new Mapper(new MapperConfiguration(cfg =>
             {

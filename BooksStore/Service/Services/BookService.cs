@@ -5,7 +5,7 @@ using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Books;
 
-namespace Service.BookRepos
+namespace Service.Services
 {
     public class BookService : IBookService
     {
