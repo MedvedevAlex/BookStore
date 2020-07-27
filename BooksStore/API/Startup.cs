@@ -11,13 +11,16 @@ using Model.Handlers;
 using Service;
 using Service.PainterRepos;
 using Service.PublisherRepos;
+using Service.References;
 using Service.Services;
 using System;
 using System.IO;
 using System.Reflection;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Handlers;
+using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Interfaces.Services;
+using ViewModel.Interfaces.Services.References;
 
 namespace API
 {
@@ -73,7 +76,10 @@ namespace API
                 .AddScoped<IBookService, BookService>()
                 .AddScoped<IPainterService, PainterService>()
                 .AddScoped<IPublisherService, PublisherService>()
-                .AddScoped<IInterpreterService, InterpreterService>();
+                .AddScoped<IInterpreterService, InterpreterService>()
+                
+                .AddScoped<ICoverTypeHandler, CoverTypeHandler>()
+                .AddScoped<ICoverTypeService, CoverTypeService>();
 
             services.AddTransient<IMapper, Mapper>(ctx => new Mapper(new MapperConfiguration(cfg =>
             {
