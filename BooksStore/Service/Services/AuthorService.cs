@@ -39,5 +39,10 @@ namespace Service.Services
         {
             return await _authorHandler.GetAsync(takeCount, skipCount);
         }
+
+        public async Task<List<AuthorPreviewModel>> SearchByNameAsync(string authorName, int takeCount, int skipCount)
+        {
+            return await _authorHandler.SearchByNameAsync(authorName, takeCount, skipCount);
+        }
     }
 }

@@ -85,6 +85,10 @@ namespace Model.Handlers
             return await GetAsync(author.Id);
         }
 
+        /// <summary>
+        /// Удалить автора
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
         public async void DeleteAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
@@ -126,6 +130,26 @@ namespace Model.Handlers
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 return await context.Authors
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Select(a => _mapper.Map<AuthorPreviewModel>(a))
+                    .ToListAsync();
+            }
+        }
+
+        /// <summary>
+        /// Поиск по имени
+        /// </summary>
+        /// <param name="authorName">Имя художника</param>
+        /// <param name="takeCount">Количество получаемых записей</param>
+        /// <param name="skipCount">Количество пропущенных записей</param>
+        /// <returns>Коллекция авторов</returns>
+        public async Task<List<AuthorPreviewModel>> SearchByNameAsync(string authorName, int takeCount, int skipCount)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                return await context.Authors
+                    .Where(a => a.Name.Contains(authorName))
                     .Take(takeCount)
                     .Skip(skipCount)
                     .Select(a => _mapper.Map<AuthorPreviewModel>(a))
