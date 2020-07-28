@@ -22,4 +22,10 @@
     <ProjectReference Include="..\ViewModel\ViewModel.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Update="client_secret.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

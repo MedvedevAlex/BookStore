@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Model;
 using Model.Handlers;
 using Service;
 using Service.PainterRepos;
@@ -67,18 +68,18 @@ namespace API
             //}).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
             services
             #region Обработчики данных(Handlers)
-                .AddScoped<IBookHandler, BookHandler>()
-                .AddScoped<IPainterHandler, PainterHandler>()
-                .AddScoped<IPublisherHandler, PublisherHandler>()
-                .AddScoped<IInterpreterHandler, InterpreterHandler>()
-                .AddScoped<IAuthorHandler, AuthorHandler>()
+                .AddSingleton<IBookHandler, BookHandler>()
+                .AddSingleton<IPainterHandler, PainterHandler>()
+                .AddSingleton<IPublisherHandler, PublisherHandler>()
+                .AddSingleton<IInterpreterHandler, InterpreterHandler>()
+                .AddSingleton<IAuthorHandler, AuthorHandler>()
             #endregion
             #region Бизнес слой(Services)
-                .AddScoped<IBookService, BookService>()
-                .AddScoped<IPainterService, PainterService>()
-                .AddScoped<IPublisherService, PublisherService>()
-                .AddScoped<IInterpreterService, InterpreterService>()
-                .AddScoped<IAuthorService, AuthorService>()
+                .AddSingleton<IBookService, BookService>()
+                .AddSingleton<IPainterService, PainterService>()
+                .AddSingleton<IPublisherService, PublisherService>()
+                .AddSingleton<IInterpreterService, InterpreterService>()
+                .AddSingleton<IAuthorService, AuthorService>()
             #endregion
             #region Справочники (Handlers and Services)
                 .AddScoped<ICoverTypeHandler, CoverTypeHandler>()
@@ -86,6 +87,7 @@ namespace API
                 .AddScoped<ICoverTypeService, CoverTypeService>()
                 .AddScoped<IPainterStyleService, PainterStyleService>();
             #endregion
+            services.AddSingleton<GoogleDriveApi>();
 
             services.AddTransient<IMapper, Mapper>(ctx => new Mapper(new MapperConfiguration(cfg =>
             {
