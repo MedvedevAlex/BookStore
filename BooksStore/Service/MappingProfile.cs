@@ -42,6 +42,7 @@ namespace Service
             CreateMap<Author, AuthorModel>().ReverseMap();
             CreateMap<Author, AuthorViewModel>()
                 .ForMember(avm => avm.Books, mce => mce.MapFrom(a => a.AuthorBooks.Select(ab => ab.Book)));
+            CreateMap<Author, AuthorPreviewModel>();
             CreateMap<Author, AuthorShortModel>();
             CreateMap<AuthorBook, AuthorBookModel>().ReverseMap();
             #endregion

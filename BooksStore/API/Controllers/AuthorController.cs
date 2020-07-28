@@ -31,5 +31,18 @@ namespace API.Controllers
             var result = await _authorService.GetAsync(id);
             return Ok(result);
         }
+
+        /// <summary>
+        /// Пагинация авторов
+        /// </summary>
+        /// <param name="takeCount">Количество получаемых записей</param>
+        /// <param name="skipCount">Количество пропущенных записей</param>
+        /// <returns>Коллекция авторов</returns>
+        [HttpGet("GetAuthors/take/{takeCount}/skip/{skipCount}")]
+        public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
+        {
+            var result = await _authorService.GetAsync(takeCount, skipCount);
+            return Ok(result);
+        }
     }
 }
