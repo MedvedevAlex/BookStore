@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Models.Painters;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Painters;
 
 namespace ViewModel.Interfaces.Handlers
 {
@@ -9,10 +11,10 @@ namespace ViewModel.Interfaces.Handlers
     {
         Task<PainterViewModel> AddAsync(PainterModifyModel painter);
         Task<PainterViewModel> UpdateAsync(PainterModifyModel painter);
-        void DeleteAsync(Guid id);
+        Task<BaseResponse> DeleteAsync(Guid id);
         Task<PainterViewModel> GetAsync(Guid id);
-        Task<List<PainterPreviewModel>> GetAsync(int takeCount, int skipCount);
-        Task<List<PainterPreviewModel>> SearchByNameAsync(string painterName, int takeCount, int skipCount);
-        Task<List<PainterPreviewModel>> SearchBySyleAsync(string styleName, int takeCount, int skipCount);
+        Task<PainterPreviewResponse> GetAsync(int takeCount, int skipCount);
+        Task<PainterPreviewResponse> SearchByNameAsync(string painterName, int takeCount, int skipCount);
+        Task<PainterPreviewResponse> SearchBySyleAsync(string styleName, int takeCount, int skipCount);
     }
 }

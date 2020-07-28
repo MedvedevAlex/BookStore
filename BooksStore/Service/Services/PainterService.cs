@@ -1,9 +1,10 @@
-﻿using System.Collections.Generic;
-using ViewModel.Interfaces.Services;
+﻿using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Models.Painters;
 using System.Threading.Tasks;
 using System;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Painters;
 
 namespace Service.Services
 {
@@ -16,39 +17,97 @@ namespace Service.Services
             _painterHandler = painterHandler;
         }
 
-        public async Task<PainterViewModel> AddAsync(PainterModifyModel painter)
+        public async Task<PainterViewResponse> AddAsync(PainterModifyModel painter)
         {
-            return await _painterHandler.AddAsync(painter);
+            try
+            {
+                return new PainterViewResponse()
+                {
+                    Painter = await _painterHandler.AddAsync(painter)
+                };
+            }
+            catch (Exception e)
+            {
+                return new PainterViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<PainterViewModel> UpdateAsync(PainterModifyModel painter)
+        public async Task<PainterViewResponse> UpdateAsync(PainterModifyModel painter)
         {
-            return await _painterHandler.UpdateAsync(painter);
+            try
+            {
+                return new PainterViewResponse()
+                {
+                    Painter = await _painterHandler.UpdateAsync(painter)
+                };
+            }
+            catch (Exception e)
+            {
+                return new PainterViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public void DeleteAsync(Guid id)
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
-            _painterHandler.DeleteAsync(id);
+            try
+            {
+                return await _painterHandler.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<PainterViewModel> GetAsync(Guid id)
+        public async Task<PainterViewResponse> GetAsync(Guid id)
         {
-            return await _painterHandler.GetAsync(id);
+            try
+            {
+                return new PainterViewResponse()
+                {
+                    Painter = await _painterHandler.GetAsync(id)
+                };
+            }
+            catch (Exception e)
+            {
+                return new PainterViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<PainterPreviewModel>> GetAsync(int takeCount, int skipCount)
+        public async Task<PainterPreviewResponse> GetAsync(int takeCount, int skipCount)
         {
-            return await _painterHandler.GetAsync(takeCount, skipCount);
+            try
+            {
+                return await _painterHandler.GetAsync(takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new PainterPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<PainterPreviewModel>> SearchByNameAsync(string painterName, int takeCount, int skipCount)
+        public async Task<PainterPreviewResponse> SearchByNameAsync(string painterName, int takeCount, int skipCount)
         {
-            return await _painterHandler.SearchByNameAsync(painterName, takeCount, skipCount);
+            try
+            {
+                return await _painterHandler.SearchByNameAsync(painterName ,takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new PainterPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<PainterPreviewModel>> SearchBySyleAsync(string styleName, int takeCount, int skipCount)
+        public async Task<PainterPreviewResponse> SearchBySyleAsync(string styleName, int takeCount, int skipCount)
         {
-            return await _painterHandler.SearchBySyleAsync(styleName, takeCount, skipCount);
+            try
+            {
+                return await _painterHandler.SearchBySyleAsync(styleName, takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new PainterPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
     }
 }
