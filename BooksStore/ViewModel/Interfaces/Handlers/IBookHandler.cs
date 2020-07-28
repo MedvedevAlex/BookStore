@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Models.Books;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Books;
 
 namespace ViewModel.Handlers
 {
@@ -9,11 +10,11 @@ namespace ViewModel.Handlers
     {
         Task<BookViewModel> AddAsync(BookModifyModel book);
         Task<BookViewModel> UpdateAsync(BookModifyModel book);
-        Task DeleteAsync(Guid id);
+        Task<BaseResponse> DeleteAsync(Guid id);
         Task<BookViewModel> GetAsync(Guid id);
-        Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount);
-        Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString, int takeCount, int skipCount);
-        Task<List<BookPreviewModel>> SearchByNameAsync(string searchString, int takeCount, int skipCount);
-        Task<List<BookPreviewModel>> SearchByGenreAsync(string searchString, int takeCount, int skipCount);
+        Task<BookPreviewResponse> GetAsync(int takeCount, int skipCount);
+        Task<BookPreviewResponse> SearchByAuthorAsync(string searchString, int takeCount, int skipCount);
+        Task<BookPreviewResponse> SearchByNameAsync(string searchString, int takeCount, int skipCount);
+        Task<BookPreviewResponse> SearchByGenreAsync(string searchString, int takeCount, int skipCount);
     }
 }

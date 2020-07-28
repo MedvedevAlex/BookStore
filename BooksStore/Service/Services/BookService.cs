@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Books;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Books;
 
 namespace Service.Services
 {
@@ -16,43 +17,109 @@ namespace Service.Services
             _bookHandler = bookHandler;
         }
 
-        public async Task<BookViewModel> AddAsync(BookModifyModel book)
+        public async Task<BookViewResponse> AddAsync(BookModifyModel book)
         {
-            return await _bookHandler.AddAsync(book);
+            try
+            {
+                return new BookViewResponse()
+                {
+                    Book = await _bookHandler.AddAsync(book)
+                };
+            }
+            catch (Exception e)
+            {
+                return new BookViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<BookViewModel> UpdateAsync(BookModifyModel book)
+        public async Task<BookViewResponse> UpdateAsync(BookModifyModel book)
         {
-            return await _bookHandler.UpdateAsync(book);
+            try
+            {
+                return new BookViewResponse()
+                {
+                    Book = await _bookHandler.UpdateAsync(book)
+                };
+            }
+            catch (Exception e)
+            {
+                return new BookViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public Task Delete(Guid id)
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
-            return _bookHandler.DeleteAsync(id);
-        }
-        public async Task<BookViewModel> GetAsync(Guid id)
-        {
-            return await _bookHandler.GetAsync(id);
-        }
-
-        public async Task<List<BookPreviewModel>> GetAsync(int takeCount, int skipCount)
-        {
-            return await _bookHandler.GetAsync(takeCount, skipCount);
+            try
+            {
+                return await _bookHandler.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<BookPreviewModel>> SearchByAuthorAsync(string searchString, int takeCount, int skipCount)
+        public async Task<BookViewResponse> GetAsync(Guid id)
         {
-            return await _bookHandler.SearchByAuthorAsync(searchString, takeCount, skipCount);
+            try
+            {
+                return new BookViewResponse()
+                {
+                    Book = await _bookHandler.GetAsync(id)
+                };
+            }
+            catch (Exception e)
+            {
+                return new BookViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<BookPreviewModel>> SearchByNameAsync(string searchString, int takeCount, int skipCount)
+        public async Task<BookPreviewResponse> GetAsync(int takeCount, int skipCount)
         {
-            return await _bookHandler.SearchByNameAsync(searchString, takeCount, skipCount);
+            try
+            {
+                return await _bookHandler.GetAsync(takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new BookPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<BookPreviewModel>> SearchByGenreAsync(string searchString, int takeCount, int skipCount)
+        public async Task<BookPreviewResponse> SearchByAuthorAsync(string searchString, int takeCount, int skipCount)
         {
-            return await _bookHandler.SearchByGenreAsync(searchString, takeCount, skipCount);
+            try
+            {
+                return await _bookHandler.SearchByAuthorAsync(searchString, takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new BookPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
+        public async Task<BookPreviewResponse> SearchByNameAsync(string searchString, int takeCount, int skipCount)
+        {
+            try
+            {
+                return await _bookHandler.SearchByNameAsync(searchString, takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new BookPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
+        public async Task<BookPreviewResponse> SearchByGenreAsync(string searchString, int takeCount, int skipCount)
+        {
+            try
+            {
+                return await _bookHandler.SearchByGenreAsync(searchString, takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new BookPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
     }
 }
