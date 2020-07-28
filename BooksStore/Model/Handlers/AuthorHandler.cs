@@ -9,6 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
 using ViewModel.Models.Authors;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Authors;
 
 namespace Model.Handlers
 {
@@ -89,7 +91,7 @@ namespace Model.Handlers
         /// Удалить автора
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        public async void DeleteAsync(Guid id)
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -100,6 +102,7 @@ namespace Model.Handlers
                 context.Authors.Remove(authorEntity);
                 await context.SaveChangesAsync();
             }
+            return new BaseResponse();
         }
 
         /// <summary>
@@ -125,16 +128,20 @@ namespace Model.Handlers
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция авторов</returns>
-        public async Task<List<AuthorPreviewModel>> GetAsync(int takeCount, int skipCount)
+        public async Task<AuthorPreviewResponse> GetAsync(int takeCount, int skipCount)
         {
+            var result = new AuthorPreviewResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.Authors
+                var query = context.Authors;
+                result.PreviewAuthors = await query
                     .Take(takeCount)
                     .Skip(skipCount)
                     .Select(a => _mapper.Map<AuthorPreviewModel>(a))
                     .ToListAsync();
+                result.Count = await query.CountAsync();
             }
+            return result;
         }
 
         /// <summary>
@@ -144,17 +151,21 @@ namespace Model.Handlers
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция авторов</returns>
-        public async Task<List<AuthorPreviewModel>> SearchByNameAsync(string authorName, int takeCount, int skipCount)
+        public async Task<AuthorPreviewResponse> SearchByNameAsync(string authorName, int takeCount, int skipCount)
         {
+            var result = new AuthorPreviewResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.Authors
-                    .Where(a => a.Name.Contains(authorName))
+                var query = context.Authors
+                    .Where(a => a.Name.Contains(authorName));
+                result.PreviewAuthors = await query
                     .Take(takeCount)
                     .Skip(skipCount)
                     .Select(a => _mapper.Map<AuthorPreviewModel>(a))
                     .ToListAsync();
+                result.Count = await query.CountAsync();
             }
+            return result;
         }
     }
 }
