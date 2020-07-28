@@ -10,6 +10,8 @@ using ViewModel.Handlers;
 using System;
 using System.Collections.Generic;
 using Model.Extensions;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Interpreters;
 
 namespace Service.PublisherRepos
 {
@@ -90,7 +92,7 @@ namespace Service.PublisherRepos
         /// Удалить переводчика
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        public async void DeleteAsync(Guid id)
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -101,6 +103,7 @@ namespace Service.PublisherRepos
                 context.Interpreters.Remove(interpreterEntity);
                 await context.SaveChangesAsync();
             }
+            return new BaseResponse();
         }
 
         /// <summary>
@@ -128,16 +131,20 @@ namespace Service.PublisherRepos
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция переводчиков</returns>
-        public async Task<List<InterpreterPreviewModel>> GetAsync(int takeCount, int skipCount)
+        public async Task<InterpreterPreviewResponse> GetAsync(int takeCount, int skipCount)
         {
+            var result = new InterpreterPreviewResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.Interpreters
+                var query = context.Interpreters;
+                result.PreviewInterpreters = await query
                     .Take(takeCount)
                     .Skip(skipCount)
-                    .Select(s => _mapper.Map<InterpreterPreviewModel>(s))
+                    .Select(a => _mapper.Map<InterpreterPreviewModel>(a))
                     .ToListAsync();
+                result.Count = await query.CountAsync();
             }
+            return result;
         }
 
         /// <summary>
@@ -147,17 +154,21 @@ namespace Service.PublisherRepos
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция переводчиков</returns>
-        public async Task<List<InterpreterPreviewModel>> SearchByNameAsync(string interpreterName, int takeCount, int skipCount)
+        public async Task<InterpreterPreviewResponse> SearchByNameAsync(string interpreterName, int takeCount, int skipCount)
         {
+            var result = new InterpreterPreviewResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.Interpreters
-                    .Where(i => i.Name.Contains(interpreterName))
+                var query = context.Interpreters
+                    .Where(i => i.Name.Contains(interpreterName));
+                result.PreviewInterpreters = await query
                     .Take(takeCount)
                     .Skip(skipCount)
-                    .Select(s => _mapper.Map<InterpreterPreviewModel>(s))
+                    .Select(a => _mapper.Map<InterpreterPreviewModel>(a))
                     .ToListAsync();
+                result.Count = await query.CountAsync();
             }
+            return result;
         }
     }
 }

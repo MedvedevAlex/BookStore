@@ -10,6 +10,8 @@ using System;
 using Model.Entities;
 using Model.Entities.JoinTables;
 using Model.Extensions;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Painters;
 
 namespace Service.PainterRepos
 {
@@ -98,7 +100,7 @@ namespace Service.PainterRepos
         /// Удалить художника
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        public async void DeleteAsync(Guid id)
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -109,6 +111,7 @@ namespace Service.PainterRepos
                 context.Painters.Remove(painterEntity);
                 await context.SaveChangesAsync();
             }
+            return new BaseResponse();
         }
 
         /// <summary>
@@ -135,17 +138,21 @@ namespace Service.PainterRepos
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Коллекция художников</returns>
-        public async Task<List<PainterPreviewModel>> GetAsync(int takeCount, int skipCount)
+        public async Task<PainterPreviewResponse> GetAsync(int takeCount, int skipCount)
         {
+            var result = new PainterPreviewResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.Painters
+                var query = context.Painters;
+                result.PreviewPainters = await query
                     .Include(p => p.Style)
                     .Take(takeCount)
                     .Skip(skipCount)
                     .Select(s => _mapper.Map<PainterPreviewModel>(s))
                     .ToListAsync();
+                result.Count = await query.CountAsync();
             }
+            return result;
         }
 
         /// <summary>
@@ -155,18 +162,23 @@ namespace Service.PainterRepos
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция художников</returns>
-        public async Task<List<PainterPreviewModel>> SearchByNameAsync(string painterName, int takeCount, int skipCount)
+        public async Task<PainterPreviewResponse> SearchByNameAsync(string painterName, int takeCount, int skipCount)
         {
+            var result = new PainterPreviewResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.Painters
+                var query = context.Painters
+                    .Where(p => p.Name.Contains(painterName.Trim()));
+
+                result.PreviewPainters = await query
                     .Include(p => p.Style)
-                    .Where(p => p.Name.Contains(painterName.Trim()))
                     .Take(takeCount)
                     .Skip(skipCount)
                     .Select(s => _mapper.Map<PainterPreviewModel>(s))
                     .ToListAsync();
+                result.Count = await query.CountAsync();
             }
+            return result;
         }
 
         /// <summary>
@@ -176,22 +188,26 @@ namespace Service.PainterRepos
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция художников</returns>
-        public async Task<List<PainterPreviewModel>> SearchBySyleAsync(string styleName, int takeCount, int skipCount)
+        public async Task<PainterPreviewResponse> SearchBySyleAsync(string styleName, int takeCount, int skipCount)
         {
+            var result = new PainterPreviewResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var stylesEntities = context.PainterStyles
                     .Where(g => g.Name.Contains(styleName.Trim()))
                     .Select(s => s.Name);
+                var query = context.Painters
+                    .Where(p => stylesEntities.Contains(p.Style.Name));
 
-                return await context.Painters
-                    .Where(p => stylesEntities.Contains(p.Style.Name))
+                result.PreviewPainters = await query
                     .Include(p => p.Style)
                     .Take(takeCount)
                     .Skip(skipCount)
                     .Select(s => _mapper.Map<PainterPreviewModel>(s))
                     .ToListAsync();
+                result.Count = await query.CountAsync();
             }
+            return result;
         }
     }
 }

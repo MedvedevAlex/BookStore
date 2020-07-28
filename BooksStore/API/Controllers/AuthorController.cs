@@ -16,6 +16,10 @@ namespace API.Controllers
     {
         private readonly IAuthorService _authorService;
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="authorService">Сервис автор</param>
         public AuthorController(IAuthorService authorService)
         {
             _authorService = authorService;
@@ -51,10 +55,10 @@ namespace API.Controllers
         /// <param name="id">Идентификатор</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            _authorService.Delete(id);
-            return Ok();
+            var result = await _authorService.DeleteAsync(id);
+            return Ok(result);
         }
 
         /// <summary>

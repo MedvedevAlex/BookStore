@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Authors;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Authors;
 
 namespace Service.Services
 {
@@ -16,33 +17,85 @@ namespace Service.Services
             _authorHandler = authorHandler;
         }
 
-        public async Task<AuthorViewModel> AddAsync(AuthorModifyModel author)
+        public async Task<AuthorViewResponse> AddAsync(AuthorModifyModel author)
         {
-            return await _authorHandler.AddAsync(author);
+            try
+            {
+                return new AuthorViewResponse()
+                {
+                    Author = await _authorHandler.AddAsync(author)
+                };
+            }
+            catch (Exception e)
+            {
+                return new AuthorViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<AuthorViewModel> GetAsync(Guid id)
+        public async Task<AuthorViewResponse> UpdateAsync(AuthorModifyModel author)
         {
-            return await _authorHandler.GetAsync(id);
+            try
+            {
+                return new AuthorViewResponse()
+                {
+                    Author = await _authorHandler.UpdateAsync(author)
+                };
+            }
+            catch (Exception e)
+            {
+                return new AuthorViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<AuthorViewModel> UpdateAsync(AuthorModifyModel author)
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
-            return await _authorHandler.UpdateAsync(author);
-        }
-        public void Delete(Guid id)
-        {
-            _authorHandler.DeleteAsync(id);
-        }
-
-        public async Task<List<AuthorPreviewModel>> GetAsync(int takeCount, int skipCount)
-        {
-            return await _authorHandler.GetAsync(takeCount, skipCount);
+            try
+            {
+                return await _authorHandler.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<AuthorPreviewModel>> SearchByNameAsync(string authorName, int takeCount, int skipCount)
+        public async Task<AuthorViewResponse> GetAsync(Guid id)
         {
-            return await _authorHandler.SearchByNameAsync(authorName, takeCount, skipCount);
+            try
+            {
+                return new AuthorViewResponse()
+                {
+                    Author = await _authorHandler.GetAsync(id)
+                };
+            }
+            catch (Exception e)
+            {
+                return new AuthorViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
+        public async Task<AuthorPreviewResponse> GetAsync(int takeCount, int skipCount)
+        {
+            try
+            {
+                return await _authorHandler.GetAsync(takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new AuthorPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
+        public async Task<AuthorPreviewResponse> SearchByNameAsync(string authorName, int takeCount, int skipCount)
+        {
+            try
+            {
+                return await _authorHandler.SearchByNameAsync(authorName, takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new AuthorPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
     }
 }

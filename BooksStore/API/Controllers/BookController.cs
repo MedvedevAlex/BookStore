@@ -7,7 +7,7 @@ using ViewModel.Models.Books;
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Книги
+    /// Контроллер Книга
     /// </summary>
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -16,6 +16,10 @@ namespace API.Controllers
     {
         private readonly IBookService _bookService;
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="bookService">Сервис Книга</param>
         public BookController(IBookService bookService)
         {
             _bookService = bookService;

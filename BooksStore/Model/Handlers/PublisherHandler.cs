@@ -8,6 +8,8 @@ using System;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Publishers;
 
 namespace Service.PublisherRepos
 {
@@ -81,7 +83,7 @@ namespace Service.PublisherRepos
         /// Удалить издателя
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        public async void DeleteAsync(Guid id)
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -93,6 +95,7 @@ namespace Service.PublisherRepos
                 context.Publishers.Remove(publisherEntity);
                 await context.SaveChangesAsync();
             }
+            return new BaseResponse();
         }
 
         /// <summary>
@@ -120,16 +123,20 @@ namespace Service.PublisherRepos
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
         /// <returns>Коллекция издателей</returns>
-        public async Task<List<PublisherPreviewModel>> GetAsync(int takeCount, int skipCount)
+        public async Task<PublisherPreviewResponse> GetAsync(int takeCount, int skipCount)
         {
+            var result = new PublisherPreviewResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.Publishers
+                var query = context.Publishers;
+                result.PreviewPublishers = await query
                     .Take(takeCount)
                     .Skip(skipCount)
                     .Select(s => _mapper.Map<PublisherPreviewModel>(s))
                     .ToListAsync();
+                result.Count = await query.CountAsync();
             }
+            return result;
         }
 
         /// <summary>
@@ -139,17 +146,21 @@ namespace Service.PublisherRepos
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Коллекция издателей</returns>
-        public async Task<List<PublisherPreviewModel>> SearchByNameAsync(string publisherName, int takeCount, int skipCount)
+        public async Task<PublisherPreviewResponse> SearchByNameAsync(string publisherName, int takeCount, int skipCount)
         {
+            var result = new PublisherPreviewResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.Publishers
-                .Where(p => p.Name.Contains(publisherName))
-                .Skip(skipCount)
-                .Take(takeCount)
-                .Select(s => _mapper.Map<PublisherPreviewModel>(s))
-                .ToListAsync();
+                var query = context.Publishers
+                    .Where(p => p.Name.Contains(publisherName));
+                result.PreviewPublishers = await query
+                    .Take(takeCount)
+                    .Skip(skipCount)
+                    .Select(s => _mapper.Map<PublisherPreviewModel>(s))
+                    .ToListAsync();
+                result.Count = await query.CountAsync();
             }
+            return result;
         }
     }
 }

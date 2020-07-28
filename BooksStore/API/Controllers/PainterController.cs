@@ -53,10 +53,10 @@ namespace API.Controllers
         /// <param name="id">Идентификатор</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
-        public IActionResult Delete([FromRoute] Guid id)
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            _painterService.DeleteAsync(id);
-            return Ok();
+            var result = await _painterService.DeleteAsync(id);
+            return Ok(result);
         }
 
         /// <summary>
