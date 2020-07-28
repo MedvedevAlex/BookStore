@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Models.Interpreters;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Interpreters;
 
 namespace ViewModel.Handlers
 {
@@ -9,9 +10,9 @@ namespace ViewModel.Handlers
     {
         Task<InterpreterViewModel> AddAsync(InterpreterModifyModel interpreter);
         Task<InterpreterViewModel> UpdateAsync(InterpreterModifyModel interpreter);
-        void DeleteAsync(Guid id);
+        Task<BaseResponse> DeleteAsync(Guid id);
         Task<InterpreterViewModel> GetAsync(Guid id);
-        Task<List<InterpreterPreviewModel>> GetAsync(int takeCount, int skipCount);
-        Task<List<InterpreterPreviewModel>> SearchByNameAsync(string interpreterName, int takeCount, int skipCount);
+        Task<InterpreterPreviewResponse> GetAsync(int takeCount, int skipCount);
+        Task<InterpreterPreviewResponse> SearchByNameAsync(string interpreterName, int takeCount, int skipCount);
     }
 }

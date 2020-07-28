@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Interpreters;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Interpreters;
 
 namespace Service.Services
 {
@@ -16,34 +18,85 @@ namespace Service.Services
             _interpreterHandler = interpreterHandler;
         }
 
-        public async Task<InterpreterViewModel> AddAsync(InterpreterModifyModel interpreter)
+        public async Task<InterpreterViewResponse> AddAsync(InterpreterModifyModel interpreter)
         {
-            return await _interpreterHandler.AddAsync(interpreter);
+            try
+            {
+                return new InterpreterViewResponse()
+                {
+                    Interpreter = await _interpreterHandler.AddAsync(interpreter)
+                };
+            }
+            catch (Exception e)
+            {
+                return new InterpreterViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<InterpreterViewModel> UpdateAsync(InterpreterModifyModel interpreter)
+        public async Task<InterpreterViewResponse> UpdateAsync(InterpreterModifyModel interpreter)
         {
-            return await _interpreterHandler.UpdateAsync(interpreter);
+            try
+            {
+                return new InterpreterViewResponse()
+                {
+                    Interpreter = await _interpreterHandler.UpdateAsync(interpreter)
+                };
+            }
+            catch (Exception e)
+            {
+                return new InterpreterViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public void Delete(Guid id)
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
-            _interpreterHandler.DeleteAsync(id);
+            try
+            {
+                return await _interpreterHandler.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
         
-        public async Task<InterpreterViewModel> GetAsync(Guid id)
+        public async Task<InterpreterViewResponse> GetAsync(Guid id)
         {
-            return await _interpreterHandler.GetAsync(id);
+            try
+            {
+                return new InterpreterViewResponse()
+                {
+                    Interpreter = await _interpreterHandler.GetAsync(id)
+                };
+            }
+            catch (Exception e)
+            {
+                return new InterpreterViewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<InterpreterPreviewModel>> GetAsync(int takeCount, int skipCount)
+        public async Task<InterpreterPreviewResponse> GetAsync(int takeCount, int skipCount)
         {
-            return await _interpreterHandler.GetAsync(takeCount, skipCount);
+            try
+            {
+                return await _interpreterHandler.GetAsync(takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new InterpreterPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<InterpreterPreviewModel>> SearchByNameAsync(string interpreterName, int takeCount, int skipCount)
+        public async Task<InterpreterPreviewResponse> SearchByNameAsync(string interpreterName, int takeCount, int skipCount)
         {
-            return await _interpreterHandler.SearchByNameAsync(interpreterName, takeCount, skipCount);
+            try
+            {
+                return await _interpreterHandler.SearchByNameAsync(interpreterName, takeCount, skipCount);
+            }
+            catch (Exception e)
+            {
+                return new InterpreterPreviewResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
     }
 }
