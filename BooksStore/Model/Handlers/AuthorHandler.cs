@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Model.Entities;
+using Model.Entities.JoinTables;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +27,28 @@ namespace Model.Handlers
         {
             _contextFactory = new BookContextFactory();
             _mapper = mapper;
+        }
+
+        /// <summary>
+        /// Добавить автора
+        /// </summary>
+        /// <param name="author">Модель автор</param>
+        /// <returns>Модель автор</returns>
+        public async Task<AuthorViewModel> AddAsync(AuthorModifyModel author)
+        {
+            var authorEntity = _mapper.Map<Author>(author);
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var booksEntities = await context.Books
+                    .Where(b => author.BooksIds.Contains(b.Id))
+                    .Select(b => new AuthorBook() { Book = b, Author = authorEntity })
+                    .ToListAsync();
+                authorEntity.AuthorBooks = booksEntities;
+
+                await context.Authors.AddAsync(authorEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(author.Id);
         }
 
         /// <summary>

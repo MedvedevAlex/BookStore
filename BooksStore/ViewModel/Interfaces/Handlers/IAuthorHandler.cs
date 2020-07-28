@@ -7,6 +7,7 @@ namespace ViewModel.Handlers
 {
     public interface IAuthorHandler
     {
+        Task<AuthorViewModel> AddAsync(AuthorModifyModel author);
         Task<AuthorViewModel> GetAsync(Guid id);
         Task<List<AuthorPreviewModel>> GetAsync(int takeCount, int skipCount);
     }

@@ -16,6 +16,11 @@ namespace Service.Services
             _authorHandler = authorHandler;
         }
 
+        public async Task<AuthorViewModel> AddAsync(AuthorModifyModel author)
+        {
+            return await _authorHandler.AddAsync(author);
+        }
+
         public async Task<AuthorViewModel> GetAsync(Guid id)
         {
             return await _authorHandler.GetAsync(id);

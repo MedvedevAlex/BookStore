@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel.Interfaces.Services;
+using ViewModel.Models.Authors;
 
 namespace API.Controllers
 {
@@ -18,6 +19,18 @@ namespace API.Controllers
         public AuthorController(IAuthorService authorService)
         {
             _authorService = authorService;
+        }
+
+        /// <summary>
+        /// Добавить автора
+        /// </summary>
+        /// <param name="author">Модель автор</param>
+        /// <returns>Модель автор</returns>
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] AuthorModifyModel author)
+        {
+            var result = await _authorService.AddAsync(author);
+            return Ok(result);
         }
 
         /// <summary>
