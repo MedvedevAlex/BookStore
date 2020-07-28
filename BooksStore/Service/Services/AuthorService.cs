@@ -26,6 +26,11 @@ namespace Service.Services
             return await _authorHandler.GetAsync(id);
         }
 
+        public async Task<AuthorViewModel> UpdateAsync(AuthorModifyModel author)
+        {
+            return await _authorHandler.UpdateAsync(author);
+        }
+
         public async Task<List<AuthorPreviewModel>> GetAsync(int takeCount, int skipCount)
         {
             return await _authorHandler.GetAsync(takeCount, skipCount);

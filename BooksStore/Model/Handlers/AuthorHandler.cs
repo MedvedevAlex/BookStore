@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using Model.Entities.JoinTables;
+using Model.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,6 +47,39 @@ namespace Model.Handlers
                 authorEntity.AuthorBooks = booksEntities;
 
                 await context.Authors.AddAsync(authorEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(author.Id);
+        }
+
+        /// <summary>
+        /// Обновить автора
+        /// </summary>
+        /// <param name="author">Модель автор</param>
+        /// <returns>Автор модель</returns>
+        public async Task<AuthorViewModel> UpdateAsync(AuthorModifyModel author)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var authorEntity = await context.Authors
+                    .Include(a => a.AuthorBooks)
+                            .ThenInclude(ab => ab.Book)
+                    .FirstOrDefaultAsync(i => i.Id == author.Id);
+                if (authorEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти автора");
+
+                context.Entry(authorEntity).CurrentValues.SetValues(author);
+
+                var newBooksEntities = context.Books
+                        .Where(b => author.BooksIds.Contains(b.Id));
+
+                context.TryUpdateManyToMany(authorEntity.AuthorBooks, newBooksEntities
+                    .Select(s => new AuthorBook
+                    {
+                        AuthorId = authorEntity.Id,
+                        BookId = s.Id
+                    }), s => s.BookId);
+
+                context.Authors.Update(authorEntity);
                 await context.SaveChangesAsync();
             }
             return await GetAsync(author.Id);

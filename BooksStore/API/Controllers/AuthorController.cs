@@ -34,6 +34,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Обновить автора
+        /// </summary>
+        /// <param name="author">Модель автор</param>
+        /// <returns>Модель автор</returns>
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] AuthorModifyModel author)
+        {
+            var result = await _authorService.UpdateAsync(author);
+            return Ok(result);
+        }
+
+        /// <summary>
         /// Получить автора по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>
