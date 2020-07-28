@@ -30,6 +30,10 @@ namespace Service.Services
         {
             return await _authorHandler.UpdateAsync(author);
         }
+        public void Delete(Guid id)
+        {
+            _authorHandler.DeleteAsync(id);
+        }
 
         public async Task<List<AuthorPreviewModel>> GetAsync(int takeCount, int skipCount)
         {

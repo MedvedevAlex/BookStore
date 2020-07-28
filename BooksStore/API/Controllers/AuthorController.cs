@@ -46,6 +46,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Удалить автора
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public IActionResult Delete([FromRoute] Guid id)
+        {
+            _authorService.Delete(id);
+            return Ok();
+        }
+
+        /// <summary>
         /// Получить автора по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор</param>

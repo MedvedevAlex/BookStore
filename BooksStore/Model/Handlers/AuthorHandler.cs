@@ -64,7 +64,7 @@ namespace Model.Handlers
                 var authorEntity = await context.Authors
                     .Include(a => a.AuthorBooks)
                             .ThenInclude(ab => ab.Book)
-                    .FirstOrDefaultAsync(i => i.Id == author.Id);
+                    .FirstOrDefaultAsync(a => a.Id == author.Id);
                 if (authorEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти автора");
 
                 context.Entry(authorEntity).CurrentValues.SetValues(author);
@@ -83,6 +83,19 @@ namespace Model.Handlers
                 await context.SaveChangesAsync();
             }
             return await GetAsync(author.Id);
+        }
+
+        public async void DeleteAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var authorEntity = await context.Authors
+                    .FirstOrDefaultAsync(a => a.Id == id);
+                if (authorEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти автора");
+
+                context.Authors.Remove(authorEntity);
+                await context.SaveChangesAsync();
+            }
         }
 
         /// <summary>

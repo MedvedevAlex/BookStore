@@ -10,6 +10,7 @@ namespace ViewModel.Interfaces.Services
         Task<AuthorViewModel> AddAsync(AuthorModifyModel author);
         Task<AuthorViewModel> UpdateAsync(AuthorModifyModel author);
         Task<AuthorViewModel> GetAsync(Guid id);
+        void Delete(Guid id);
         Task<List<AuthorPreviewModel>> GetAsync(int takeCount, int skipCount);
     }
 }
