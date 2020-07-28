@@ -39,7 +39,6 @@ namespace API
             {
                 config.Filters.Add(typeof(CustomException));
             }).SetCompatibilityVersion(CompatibilityVersion.Latest);
-
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(b =>
@@ -49,7 +48,6 @@ namespace API
                         .AllowAnyMethod();
                    });
             });
-
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -67,21 +65,27 @@ namespace API
             //{
             //    opt.Filters.Add(typeof(ValidatorActionFilter));
             //}).AddFluentValidation(fvc => fvc.RegisterValidatorsFromAssemblyContaining<Startup>());
-
             services
+            #region Обработчики данных(Handlers)
                 .AddScoped<IBookHandler, BookHandler>()
                 .AddScoped<IPainterHandler, PainterHandler>()
                 .AddScoped<IPublisherHandler, PublisherHandler>()
                 .AddScoped<IInterpreterHandler, InterpreterHandler>()
+                .AddScoped<IAuthorHandler, AuthorHandler>()
+            #endregion
+            #region Бизнес слой(Services)
                 .AddScoped<IBookService, BookService>()
                 .AddScoped<IPainterService, PainterService>()
                 .AddScoped<IPublisherService, PublisherService>()
                 .AddScoped<IInterpreterService, InterpreterService>()
-
+                .AddScoped<IAuthorService, AuthorService>()
+            #endregion
+            #region Справочники (Handlers and Services)
                 .AddScoped<ICoverTypeHandler, CoverTypeHandler>()
                 .AddScoped<IPainterStyleHandler, PainterStyleHandler>()
                 .AddScoped<ICoverTypeService, CoverTypeService>()
                 .AddScoped<IPainterStyleService, PainterStyleService>();
+            #endregion
 
             services.AddTransient<IMapper, Mapper>(ctx => new Mapper(new MapperConfiguration(cfg =>
             {
@@ -97,21 +101,14 @@ namespace API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
-            {
                 app.UseDeveloperExceptionPage();
-            }
-
             app.UseHttpsRedirection();
-
             app.UseCors();
-
             app.UseRouting();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
-
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
