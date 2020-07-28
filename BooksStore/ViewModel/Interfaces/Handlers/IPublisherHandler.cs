@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Models.Publishers;
+using ViewModel.Models.Responses;
+using ViewModel.Models.Responses.Publishers;
 
 namespace ViewModel.Interfaces.Handlers
 {
@@ -9,9 +11,9 @@ namespace ViewModel.Interfaces.Handlers
     {
         Task<PublisherViewModel> AddAsync(PublisherModifyModel publisher);
         Task<PublisherViewModel> UpdateAsync(PublisherModifyModel publisher);
-        void DeleteAsync(Guid id);
+        Task<BaseResponse> DeleteAsync(Guid id);
         Task<PublisherViewModel> GetAsync(Guid id);
-        Task<List<PublisherPreviewModel>> GetAsync(int takeCount, int skipCount);
-        Task<List<PublisherPreviewModel>> SearchByNameAsync(string publisherName, int takeCount, int skipCount);
+        Task<PublisherPreviewResponse> GetAsync(int takeCount, int skipCount);
+        Task<PublisherPreviewResponse> SearchByNameAsync(string publisherName, int takeCount, int skipCount);
     }
 }
