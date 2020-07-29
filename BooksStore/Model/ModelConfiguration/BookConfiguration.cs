@@ -12,15 +12,15 @@ namespace Model.ModelConfiguration
             builder.HasKey(b => b.Id);
 
             builder.Property(b => b.Name)
-                .HasColumnType("varchar(50)");
+                .HasColumnType("nvarchar(50)");
             builder.Property(t => t.PublishDate)
                 .HasColumnType("Date");
             builder.Property(b => b.Description)
-                .HasColumnType("varchar(1000)");
+                .HasColumnType("nvarchar(1000)");
             builder.Property(b => b.ISBN_13)
                 .HasColumnType("char(17)");
             builder.Property(b => b.Format)
-                .HasColumnType("varchar(30)");
+                .HasColumnType("nvarchar(30)");
             builder.Property(b => b.CountPage)
                 .HasColumnType("smallint");
             builder.Property(b => b.Price)

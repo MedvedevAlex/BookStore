@@ -11,11 +11,11 @@ namespace Model.ModelConfiguration
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Name)
-                .HasColumnType("varchar(40)");
+                .HasColumnType("nvarchar(40)");
             builder.Property(a => a.Age)
                 .HasColumnType("tinyint");
             builder.Property(a => a.Description)
-                .HasColumnType("varchar(1000)");
+                .HasColumnType("nvarchar(1000)");
 
             builder.HasData(
                 new { Id = Guid.Parse("9dfae902-8fd6-4551-be3a-3b8f5aa53bb8"), Name = "Павел Грушко", Age = (byte)66, Description = "Оригинальный поэт и переводчик разноликой, но всегда пылкой испанской поэзии, как нельзя лучше соответствующей его собственному пылкому темпераменту." },

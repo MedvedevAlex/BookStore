@@ -12,7 +12,7 @@ namespace Model.ModelConfiguration
             builder.HasKey(a => a.Id);
 
             builder.Property(a => a.Name)
-                .HasColumnType("varchar(30)");
+                .HasColumnType("nvarchar(30)");
 
             builder.HasData(
                 new { Id = Guid.Parse("fe0f989d-1eb9-467e-8fbf-c783d70171bc"), Name = "Эксмо" },

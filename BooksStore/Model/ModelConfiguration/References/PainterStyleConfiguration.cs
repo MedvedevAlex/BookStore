@@ -11,7 +11,7 @@ namespace Model.ModelConfiguration.References
         {
             builder.HasKey(a => a.Id);
             builder.Property(a => a.Name)
-                .HasColumnType("varchar(30)");
+                .HasColumnType("nvarchar(30)");
 
             builder.HasData(
                 new { Id = Guid.Parse("018c691d-5f4a-47fe-8fee-19d45877dabd"), Name = "Абстракция" },
