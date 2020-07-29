@@ -17,6 +17,10 @@ namespace ViewModel.Models.Books
         /// </summary>
         public string Name { get; set; }
         /// <summary>
+        /// Картинки
+        /// </summary>
+        public ICollection<ImageModel> Images { get; set; }
+        /// <summary>
         /// Дата публикации
         /// </summary>
         public DateTime PublishDate { get; set; }

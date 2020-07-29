@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
+using ViewModel.Models;
 using ViewModel.Models.Books;
 using ViewModel.Models.Responses;
 using ViewModel.Models.Responses.Books;
@@ -21,6 +22,8 @@ namespace Model.Handlers
     {
         private readonly BookContextFactory _contextFactory;
         private readonly IMapper _mapper;
+        private readonly GoogleDriveApi _googleDriveApi;
+        private readonly string _googleFolderId = "1iam-yQGd3k3Vo9hQ2E8_PtucM6Lt9Qal";
 
         /// <summary>
         /// Конструктор
@@ -29,6 +32,7 @@ namespace Model.Handlers
         public BookHandler(IMapper mapper)
         {
             _contextFactory = new BookContextFactory();
+            _googleDriveApi = new GoogleDriveApi();
             _mapper = mapper;
         }
 
@@ -42,44 +46,39 @@ namespace Model.Handlers
             var bookEntity = _mapper.Map<Book>(book);
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                try
-                {
-                    var coverType = await context.CoverTypes
-                        .FirstOrDefaultAsync(ct => ct.Id == book.CoverTypeId);
-                    var genre = await context.Genres
-                        .FirstOrDefaultAsync(g => g.Id == book.GenreId);
-                    var language = await context.Languages
-                        .FirstOrDefaultAsync(l => l.Id == book.LanguageId);
-                    var publisher = await context.Publishers
-                        .FirstOrDefaultAsync(p => p.Id == book.PublisherId);
-                    bookEntity.CoverType = coverType ?? throw new KeyNotFoundException("Ошибка: не удалось найти тип переплета");
-                    bookEntity.Genre = genre ?? throw new KeyNotFoundException("Ошибка: не удалось найти жанр");
-                    bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: не удалось найти язык");
-                    bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: не удалось найти издателя");
+                var coverType = await context.CoverTypes
+                    .FirstOrDefaultAsync(ct => ct.Id == book.CoverTypeId);
+                var genre = await context.Genres
+                    .FirstOrDefaultAsync(g => g.Id == book.GenreId);
+                var language = await context.Languages
+                    .FirstOrDefaultAsync(l => l.Id == book.LanguageId);
+                var publisher = await context.Publishers
+                    .FirstOrDefaultAsync(p => p.Id == book.PublisherId);
+                bookEntity.CoverType = coverType ?? throw new KeyNotFoundException("Ошибка: не удалось найти тип переплета");
+                bookEntity.Genre = genre ?? throw new KeyNotFoundException("Ошибка: не удалось найти жанр");
+                bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: не удалось найти язык");
+                bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: не удалось найти издателя");
 
-                    var newAuthorsEntities = await context.Authors
-                        .Where(a => book.AuthorsIds.Contains(a.Id))
-                        .Select(a => new AuthorBook() { Book = bookEntity, Author = a })
-                        .ToListAsync();
-                    var newPaintersEntities = await context.Painters
-                        .Where(p => book.PaintersIds.Contains(p.Id))
-                        .Select(p => new PainterBook() { Book = bookEntity, Painter = p })
-                        .ToListAsync();
-                    var newInterpretersEntities = await context.Interpreters
-                        .Where(i => book.InterpretersIds.Contains(i.Id))
-                        .Select(i => new InterpreterBook() { Book = bookEntity, Interpreter = i })
-                        .ToListAsync();
-                    bookEntity.AuthorBooks = newAuthorsEntities;
-                    bookEntity.PainterBooks = newPaintersEntities;
-                    bookEntity.InterpreterBooks = newInterpretersEntities;
+                var newAuthorsEntities = await context.Authors
+                    .Where(a => book.AuthorsIds.Contains(a.Id))
+                    .Select(a => new AuthorBook() { Book = bookEntity, Author = a })
+                    .ToListAsync();
+                var newPaintersEntities = await context.Painters
+                    .Where(p => book.PaintersIds.Contains(p.Id))
+                    .Select(p => new PainterBook() { Book = bookEntity, Painter = p })
+                    .ToListAsync();
+                var newInterpretersEntities = await context.Interpreters
+                    .Where(i => book.InterpretersIds.Contains(i.Id))
+                    .Select(i => new InterpreterBook() { Book = bookEntity, Interpreter = i })
+                    .ToListAsync();
+                bookEntity.AuthorBooks = newAuthorsEntities;
+                bookEntity.PainterBooks = newPaintersEntities;
+                bookEntity.InterpreterBooks = newInterpretersEntities;
+                await InsertOrUpdateImagesAsync(book, context);
 
-                    await context.Books.AddAsync(bookEntity);
-                    await context.SaveChangesAsync();
-                }
-                catch (Exception e)
-                {
-                    throw new KeyNotFoundException("Ошибка при добавлении в базу данных", e);
-                }
+                await context.Books.AddAsync(bookEntity);
+                await context.SaveChangesAsync();
+
             }
             return await GetAsync(book.Id);
         }
@@ -145,6 +144,8 @@ namespace Model.Handlers
                         BookId = bookEntity.Id,
                         InterpreterId = i.Id
                     }), i => i.InterpreterId);
+                
+                await InsertOrUpdateImagesAsync(book, context);
 
                 context.Books.Update(bookEntity);
                 await context.SaveChangesAsync();
@@ -163,6 +164,10 @@ namespace Model.Handlers
             {
                 var bookEntity = await context.Books
                     .FirstOrDefaultAsync(b => b.Id == id);
+                if (bookEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти книгу");
+
+                await DeleteImagesAsync(id, context);
+
                 context.Books.Remove(bookEntity);
                 await context.SaveChangesAsync();
             }
@@ -299,6 +304,81 @@ namespace Model.Handlers
                 result.Count = await query.CountAsync();
             }
             return result;
+        }
+
+        /// <summary>
+        /// Вставить или обновить картинки
+        /// </summary>
+        /// <param name="book">Модель книга</param>
+        /// <param name="context">Подключение к базе данных</param>
+        /// <returns></returns>
+        private async Task InsertOrUpdateImagesAsync(BookModifyModel book, BookContext context)
+        {
+            var resultImages = new List<Image>();
+            var imagesEntities = await context.Images
+                .Where(i => i.BookId == book.Id)
+                .ToListAsync();
+            if (imagesEntities.Count == 0)
+                foreach (var image in book.Images)
+                    resultImages.Add(UploadFileToGoogleDrive(book.Id, image));
+            else
+            {
+                var imagesEntitiesTypes = imagesEntities.Select(i => i.ImageType);
+                foreach (var image in book.Images)
+                    if (imagesEntitiesTypes.Contains(image.ImageType))
+                    {
+                        var imageUpdate = imagesEntities.FirstOrDefault(i => i.ImageType == image.ImageType);
+                        _googleDriveApi.UpdateFile(imageUpdate, image.File, _googleFolderId);
+                    }
+                    else
+                        resultImages.Add(UploadFileToGoogleDrive(book.Id, image));
+            }
+            foreach (var item in resultImages)
+            {
+                item.Id = Guid.NewGuid();
+                item.BookId = book.Id;
+            }
+            await context.Images.AddRangeAsync(resultImages);
+        }
+
+        /// <summary>
+        /// Загрузить файл на гугл диск
+        /// </summary>
+        /// <param name="bookId">Идентификатор книги</param>
+        /// <param name="image">Модель картинка</param>
+        private Image UploadFileToGoogleDrive(Guid bookId, ImageModel image)
+        {
+            var fileName = string.Empty;
+            switch (image.ImageType)
+            {
+                case ViewModel.Enums.ImageType.Preview:
+                    fileName = $"{bookId}-preview.jpg";
+                    break;
+                case ViewModel.Enums.ImageType.View:
+                    fileName = $"{bookId}-view.jpg";
+                    break;
+                default:
+                    break;
+            }
+            var result = _googleDriveApi.UploadFile(image.File, _googleFolderId, fileName);
+            result.ImageType = image.ImageType;
+            return result;
+        }
+
+        /// <summary>
+        /// Удалить картинки
+        /// </summary>
+        /// <param name="bookId">Идентификатор книги</param>
+        /// <param name="context">Подключение к базе данных</param>
+        /// <returns></returns>
+        private async Task DeleteImagesAsync(Guid bookId, BookContext context)
+        {
+            var imagesEntities = await context.Images
+                    .Where(i => i.BookId == bookId)
+                    .ToListAsync();
+
+            _googleDriveApi.DeleteFile(imagesEntities.Select(i => i.GoogleFileId).ToList());
+            await context.Images.AddRangeAsync(imagesEntities);
         }
     }
 }
