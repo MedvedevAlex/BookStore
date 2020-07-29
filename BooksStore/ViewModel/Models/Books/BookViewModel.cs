@@ -25,6 +25,10 @@ namespace ViewModel.Models.Books
         /// </summary>
         public DateTime PublishDate { get; set; }
         /// <summary>
+        /// Ссылка на полную картинку
+        /// </summary>
+        public string Link { get; set; }
+        /// <summary>
         /// Назваименование переплета
         /// </summary>
         public string CoverType { get; set; }

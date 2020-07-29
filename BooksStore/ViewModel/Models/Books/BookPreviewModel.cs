@@ -22,6 +22,10 @@ namespace ViewModel.Models.Books
         /// </summary>
         public decimal Price { get; set; }
         /// <summary>
+        /// Ссылка на превью картинки
+        /// </summary>
+        public string Link { get; set; }
+        /// <summary>
         /// Авторы
         /// </summary>
         public ICollection<AuthorShortModel> Authors { get; set; }

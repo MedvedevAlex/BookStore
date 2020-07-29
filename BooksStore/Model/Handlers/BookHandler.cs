@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ViewModel.Enums;
 using ViewModel.Handlers;
 using ViewModel.Models;
 using ViewModel.Models.Books;
@@ -144,7 +145,7 @@ namespace Model.Handlers
                         BookId = bookEntity.Id,
                         InterpreterId = i.Id
                     }), i => i.InterpreterId);
-                
+
                 await InsertOrUpdateImagesAsync(book, context);
 
                 context.Books.Update(bookEntity);
@@ -195,7 +196,13 @@ namespace Model.Handlers
                     .Include(pb => pb.PainterBooks)
                         .ThenInclude(pr => pr.Painter)
                     .FirstOrDefaultAsync(b => b.Id == id);
-                return _mapper.Map<BookViewModel>(bookEntity);
+
+                var imageEntity = await context.Images
+                    .FirstOrDefaultAsync(i => i.BookId == id 
+                        && i.ImageType == ImageType.View);
+                var book = _mapper.Map<BookViewModel>(bookEntity);
+                book.Link = imageEntity?.Link;
+                return book;
             }
         }
 
@@ -219,6 +226,8 @@ namespace Model.Handlers
                     .Select(s => _mapper.Map<BookPreviewModel>(s))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
+                
+                await SetLinks(result, context);
             }
             return result;
         }
@@ -245,6 +254,8 @@ namespace Model.Handlers
                     .Select(b => _mapper.Map<BookPreviewModel>(b))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
+                
+                await SetLinks(result, context);
             }
             return result;
         }
@@ -272,6 +283,8 @@ namespace Model.Handlers
                     .Select(s => _mapper.Map<BookPreviewModel>(s))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
+
+                await SetLinks(result, context);
             }
             return result;
         }
@@ -302,6 +315,8 @@ namespace Model.Handlers
                     .Select(s => _mapper.Map<BookPreviewModel>(s))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
+                
+                await SetLinks(result, context);
             }
             return result;
         }
@@ -379,6 +394,23 @@ namespace Model.Handlers
 
             _googleDriveApi.DeleteFile(imagesEntities.Select(i => i.GoogleFileId).ToList());
             await context.Images.AddRangeAsync(imagesEntities);
+        }
+
+        /// <summary>
+        /// Установить ссылки для картинок
+        /// </summary>
+        /// <param name="bookResponse">Ответ книга</param>
+        /// <param name="context">Подключение к базе данных</param>
+        /// <returns></returns>
+        private async Task SetLinks(BookPreviewResponse bookResponse, BookContext context)
+        {
+            var imagesEntities = await context.Images
+                                .Where(i => bookResponse.PreviewBooks.Select(b => b.Id).Contains(i.BookId)
+                                    && i.ImageType == ImageType.Preview)
+                                .ToListAsync();
+            foreach (var book in bookResponse.PreviewBooks)
+                book.Link = imagesEntities
+                    .FirstOrDefault(i => i.BookId == book.Id)?.Link;
         }
     }
 }
