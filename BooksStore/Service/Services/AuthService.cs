@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
+using ViewModel.Models.Responses.Users;
 using ViewModel.Models.Users;
 
 namespace Service.Services

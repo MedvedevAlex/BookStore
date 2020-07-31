@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Models.Users
+﻿namespace ViewModel.Models.Responses.Users
 {
     /// <summary>
     /// Модель токен
