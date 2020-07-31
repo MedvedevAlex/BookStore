@@ -1,10 +1,16 @@
-﻿namespace ViewModel.Models.Users
+﻿using System;
+
+namespace Model.Entities
 {
     /// <summary>
-    /// Модель пользователь
+    /// Сущность пользователь
     /// </summary>
     public class User
     {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public Guid Id { get; set; }
         /// <summary>
         /// Логин
         /// </summary>
@@ -13,6 +19,10 @@
         /// Пароль
         /// </summary>
         public string Password { get; set; }
+        /// <summary>
+        /// Соль
+        /// </summary>
+        public string Salt { get; set; }
         /// <summary>
         /// Роль
         /// </summary>

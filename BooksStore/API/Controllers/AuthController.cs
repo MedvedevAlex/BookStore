@@ -19,10 +19,10 @@ namespace API.Controllers
     public class AuthController : ControllerBase
     {
         // тестовые данные вместо использования базы данных
-        private List<User> people = new List<User>
+        private List<UserModel> people = new List<UserModel>
         {
-            new User { Login="admin@gmail.com", Password="12345", Role = "admin" },
-            new User { Login="qwert@gmail.com", Password="55555", Role = "user" }
+            new UserModel { Login="admin@gmail.com", Password="12345", Role = "admin" },
+            new UserModel { Login="qwert@gmail.com", Password="55555", Role = "user" }
         };
 
         [HttpPost("/token")]
@@ -55,7 +55,7 @@ namespace API.Controllers
 
         private ClaimsIdentity GetIdentity(string username, string password)
         {
-            User person = people.FirstOrDefault(x => x.Login == username && x.Password == password);
+            UserModel person = people.FirstOrDefault(x => x.Login == username && x.Password == password);
             if (person != null)
             {
                 var claims = new List<Claim>
