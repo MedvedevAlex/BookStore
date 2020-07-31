@@ -1,5 +1,4 @@
-﻿using API.Authorization;
-using API.Filters;
+﻿using API.Filters;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -11,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Model.Handlers;
+using Serivce;
 using Service;
 using Service.PainterRepos;
 using Service.PublisherRepos;
@@ -94,6 +94,7 @@ namespace API
                 .AddScoped<IPublisherHandler, PublisherHandler>()
                 .AddScoped<IInterpreterHandler, InterpreterHandler>()
                 .AddScoped<IAuthorHandler, AuthorHandler>()
+                .AddSingleton<IUserHandler, UserHandler>()
             #endregion
             #region Бизнес слой(Services)
                 .AddScoped<IBookService, BookService>()
@@ -101,6 +102,7 @@ namespace API
                 .AddScoped<IPublisherService, PublisherService>()
                 .AddScoped<IInterpreterService, InterpreterService>()
                 .AddScoped<IAuthorService, AuthorService>()
+                .AddSingleton<IUserService, UserService>()
             #endregion
             #region Справочники (Handlers and Services)
                 .AddScoped<ICoverTypeHandler, CoverTypeHandler>()
