@@ -11,6 +11,7 @@ using ViewModel.Models.JoinTables;
 using ViewModel.Models.Painters;
 using ViewModel.Models.Publishers;
 using ViewModel.Models.References;
+using ViewModel.Models.Users;
 
 namespace Service
 {
@@ -76,6 +77,15 @@ namespace Service
             #endregion
             #region Карты Магазин
             CreateMap<Shop, ShopModel>().ReverseMap();
+            #region Карты Магазин
+            CreateMap<Shop, ShopModel>().ReverseMap();
+            #endregion
+            #endregion
+            #region Карты Пользователь
+            CreateMap<User, UserModel>().ReverseMap();
+            CreateMap<User, UserModifyModel>().ReverseMap();
+            CreateMap<User, UserShortModel>().ReverseMap();
+            CreateMap<UserShortModel, UserModifyModel>();
             #endregion
         }
     }

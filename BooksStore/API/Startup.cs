@@ -1,11 +1,13 @@
 ﻿using API.Filters;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Model.Handlers;
 using Service;
@@ -35,10 +37,28 @@ namespace API
 
         public void ConfigureServices(IServiceCollection services)
         {
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.RequireHttpsMetadata = false;
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateIssuer = true, // Валидация издателя
+                            ValidIssuer = AuthOptions.ISSUER, // Издатель
+                            ValidateAudience = true, // Валидация потребителя
+                            ValidAudience = AuthOptions.AUDIENCE, // Потребитель
+                            ValidateLifetime = true, // Валидация времени существования
+                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(), // Ключ безапосаности
+                            ValidateIssuerSigningKey = true, // Валидация ключа безопасности
+                        };
+                    });
+
             services.AddMvc(config =>
             {
                 config.Filters.Add(typeof(CustomException));
             }).SetCompatibilityVersion(CompatibilityVersion.Latest);
+
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(b =>
@@ -48,6 +68,7 @@ namespace API
                         .AllowAnyMethod();
                    });
             });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo
@@ -72,6 +93,7 @@ namespace API
                 .AddScoped<IPublisherHandler, PublisherHandler>()
                 .AddScoped<IInterpreterHandler, InterpreterHandler>()
                 .AddScoped<IAuthorHandler, AuthorHandler>()
+                .AddSingleton<IUserHandler, UserHandler>()
             #endregion
             #region Бизнес слой(Services)
                 .AddScoped<IBookService, BookService>()
@@ -79,6 +101,8 @@ namespace API
                 .AddScoped<IPublisherService, PublisherService>()
                 .AddScoped<IInterpreterService, InterpreterService>()
                 .AddScoped<IAuthorService, AuthorService>()
+                .AddSingleton<IAuthService, AuthService>()
+                .AddSingleton<IUserService, UserService>()
             #endregion
             #region Справочники (Handlers and Services)
                 .AddScoped<ICoverTypeHandler, CoverTypeHandler>()
@@ -105,6 +129,8 @@ namespace API
             app.UseHttpsRedirection();
             app.UseCors();
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

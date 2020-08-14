@@ -17,6 +17,7 @@ namespace Model
         public DbSet<Publisher> Publishers { get; set; }
         public DbSet<Interpreter> Interpreters { get; set; }
         public DbSet<Shop> Shops { get; set; }
+        public DbSet<User> Users { get; set; }
         #endregion
         #region Свзящующие таблицы
         public DbSet<AuthorBook> AuthorBooks { get; set; }

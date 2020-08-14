@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ViewModel.Interfaces.Services;
+﻿using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Models.Publishers;
 using System;
