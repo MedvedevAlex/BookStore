@@ -43,23 +43,39 @@ namespace Model.Handlers
                     .FirstOrDefaultAsync(u => u.Login == user.Login);
                 if (userEntity != null) throw new Exception("Ошибка: Пользователь с таким логином уже существует");
 
-                byte[] salt = new byte[128 / 8];
-                using (var rng = RandomNumberGenerator.Create())
-                    rng.GetBytes(salt);
-                
-                var createUser = new User()
-                {
-                    Id = guid,
-                    Login = user.Login,
-                    Password = GenerateHashFromPassword(salt, user.Password),
-                    Salt = Convert.ToBase64String(salt),
-                    Role = user.Role
-                };
+                var salt = GenerateSalt();
+
+                var createUser = _mapper.Map<User>(user);
+                createUser.Password = GenerateHashFromPassword(salt, user.Password);
+                createUser.Salt = Convert.ToBase64String(salt);
 
                 await context.Users.AddAsync(createUser);
                 await context.SaveChangesAsync();
             }
             return await GetAsync(guid);
+        }
+
+        /// <summary>
+        /// Обновить пользователя
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<UserModel> UpdateAsync(UserModifyModel user)
+        {
+            using(var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var userEntity = await context.Users
+                    .FirstOrDefaultAsync(u => u.Login == user.Login);
+                if (userEntity == null) throw new KeyNotFoundException("Ошибка: Пользователь не найден");
+
+                context.Entry(userEntity).CurrentValues.SetValues(user);
+
+                userEntity.Password = GenerateHashFromPassword(Convert.FromBase64String(userEntity.Salt), user.Password);
+
+                context.Users.Update(userEntity);
+                await context.SaveChangesAsync();
+                return await GetAsync(userEntity.Id);
+            }
         }
 
         /// <summary>
@@ -97,7 +113,7 @@ namespace Model.Handlers
         }
 
         /// <summary>
-        /// генерация пароля и соли в хэш 
+        /// Генерация пароля и соли в хэш 
         /// </summary>
         /// <param name="salt"></param>
         /// <param name="password"></param>
@@ -110,6 +126,18 @@ namespace Model.Handlers
                 prf: KeyDerivationPrf.HMACSHA1,
                 iterationCount: 10000,
                 numBytesRequested: 256 / 8));
+        }
+
+        /// <summary>
+        /// Генерация соли
+        /// </summary>
+        /// <returns></returns>
+        private byte[] GenerateSalt()
+        {
+            byte[] salt = new byte[128 / 8];
+            using (var rng = RandomNumberGenerator.Create())
+                rng.GetBytes(salt);
+            return salt;
         }
     }
 }

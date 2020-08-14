@@ -38,6 +38,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Обновить пользователя
+        /// </summary>
+        /// <param name="user">Модель пользователь</param>
+        /// <returns>Модель пользователь</returns>
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UserModifyModel user)
+        {
+            var response = await _userService.UpdateAsync(user);
+            return Ok(response);
+        }
+
+        /// <summary>
         /// Получить пользоавтеля по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
