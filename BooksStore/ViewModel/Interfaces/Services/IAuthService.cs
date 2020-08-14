@@ -5,9 +5,8 @@ using ViewModel.Models.Users;
 
 namespace ViewModel.Interfaces.Services
 {
-    public interface IUserService
+    public interface IAuthService
     {
-        Task<UserResponse> GetAsync(Guid id);
-        Task<UserResponse> GetAsync(UserShortModel user);
+        Task<TokenResponse> GetTokenAsync(UserShortModel userModel);
     }
 }

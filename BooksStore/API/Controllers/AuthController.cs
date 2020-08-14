@@ -13,15 +13,15 @@ namespace API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IAuthService _authService;
 
         /// <summary>
         /// Контроллер
         /// </summary>
-        /// <param name="userService">Сервис пользователь</param>
-        public AuthController(IUserService userService)
+        /// <param name="authService">Сервис авторизации</param>
+        public AuthController(IAuthService authService)
         {
-            _userService = userService;
+            _authService = authService;
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace API.Controllers
         [HttpPost("/token")]
         public async Task<IActionResult> Token([FromBody] UserShortModel user)
         {
-            var response = await _userService.GetTokenAsync(user);
+            var response = await _authService.GetTokenAsync(user);
             return Ok(response);
         }
     }

@@ -102,6 +102,7 @@ namespace API
                 .AddScoped<IPublisherService, PublisherService>()
                 .AddScoped<IInterpreterService, InterpreterService>()
                 .AddScoped<IAuthorService, AuthorService>()
+                .AddSingleton<IAuthService, AuthService>()
                 .AddSingleton<IUserService, UserService>()
             #endregion
             #region Справочники (Handlers and Services)

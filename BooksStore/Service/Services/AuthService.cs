@@ -12,13 +12,28 @@ using ViewModel.Models.Users;
 
 namespace Service.Services
 {
-    public class UserService : IUserService
+    public class AuthService : IAuthService
     {
         private readonly IUserHandler _userHandler;
 
-        public UserService(IUserHandler userHandler)
+        public AuthService(IUserHandler userHandler)
         {
             _userHandler = userHandler;
+        }
+
+        public async Task<UserResponse> GetAsync(Guid id)
+        {
+            try
+            {
+                return new UserResponse
+                {
+                    User = await _userHandler.GetAsync(id)
+                };
+            }
+            catch (Exception e)
+            {
+                return new UserResponse { Success = false, ErrorMessage = e.Message };
+            }
         }
 
         /// <summary>
@@ -28,7 +43,15 @@ namespace Service.Services
         /// <returns>Модель токен</returns>
         public async Task<TokenResponse> GetTokenAsync(UserShortModel userModel)
         {
-            var identity = await GetIdentityAsync(userModel);
+            ClaimsIdentity identity = null;
+            try
+            {
+                identity = await GetIdentityAsync(userModel);
+            }
+            catch (Exception e)
+            {
+                return new TokenResponse { Success = false, ErrorMessage = e.Message };
+            }
 
             var now = DateTime.UtcNow;
             var jwt = new JwtSecurityToken(
@@ -61,7 +84,7 @@ namespace Service.Services
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
             };
             return new ClaimsIdentity(
-                claims, 
+                claims,
                 "Token", ClaimsIdentity.DefaultNameClaimType,
                 ClaimsIdentity.DefaultRoleClaimType);
         }

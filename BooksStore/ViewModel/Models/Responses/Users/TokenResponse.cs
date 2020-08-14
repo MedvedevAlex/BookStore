@@ -3,7 +3,7 @@
     /// <summary>
     /// Модель токен
     /// </summary>
-    public class TokenResponse
+    public class TokenResponse : BaseResponse
     {
         /// <summary>
         /// Токен

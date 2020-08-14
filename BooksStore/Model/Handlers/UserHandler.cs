@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
@@ -23,6 +24,23 @@ namespace Model.Handlers
         {
             _contextFactory = new BookContextFactory();
             _mapper = mapper;
+        }
+
+        /// <summary>
+        /// Получить пользователя по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель пользователь</returns>
+        public async Task<UserModel> GetAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var userEntity = await context.Users
+                    .FirstOrDefaultAsync(u => u.Id == id);
+                if (userEntity == null) throw new KeyNotFoundException("Ошибка: Пользователь не найден");
+
+                return _mapper.Map<UserModel>(userEntity);
+            }
         }
 
         /// <summary>
