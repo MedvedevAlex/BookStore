@@ -10,7 +10,6 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Model.Handlers;
-using Serivce;
 using Service;
 using Service.PainterRepos;
 using Service.PublisherRepos;

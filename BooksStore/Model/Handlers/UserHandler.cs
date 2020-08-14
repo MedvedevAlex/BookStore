@@ -41,12 +41,13 @@ namespace Model.Handlers
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var userEntity = await context.Users
-                    .FirstOrDefaultAsync(u => u.Id == user.Id);
+                    .FirstOrDefaultAsync(u => u.Login == user.Login);
                 if (userEntity != null) throw new Exception("Ошибка: Пользователь с таким логином уже существует");
 
                 var salt = GenerateSalt();
 
                 var createUser = _mapper.Map<User>(user);
+                createUser.Id = guid;
                 createUser.Password = GenerateHashFromPassword(salt, user.Password);
                 createUser.Salt = Convert.ToBase64String(salt);
 

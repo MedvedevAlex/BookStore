@@ -7,7 +7,7 @@ using ViewModel.Models.Users;
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Авторизация
+    /// Контроллер Пользователь
     /// </summary>
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -52,7 +52,7 @@ namespace API.Controllers
         /// <summary>
         /// Удалить пользователя
         /// </summary>
-        /// <param name="user">Модель пользователь</param>
+        /// <param name="id">Идентификатор пользователя</param>
         /// <returns>Модель пользователь</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)

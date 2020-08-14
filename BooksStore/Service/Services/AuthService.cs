@@ -1,5 +1,5 @@
-﻿using Microsoft.IdentityModel.Tokens;
-using Serivce;
+﻿using AutoMapper;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -15,38 +15,46 @@ namespace Service.Services
     public class AuthService : IAuthService
     {
         private readonly IUserHandler _userHandler;
+        private readonly IMapper _mapper;
 
-        public AuthService(IUserHandler userHandler)
+        public AuthService(IUserHandler userHandler, IMapper mapper)
         {
             _userHandler = userHandler;
+            _mapper = mapper;
         }
 
-        public async Task<UserResponse> GetAsync(Guid id)
+        /// <summary>
+        /// Регистрация пользователя
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public async Task<TokenResponse> Register(UserShortModel user)
         {
             try
             {
-                return new UserResponse
-                {
-                    User = await _userHandler.GetAsync(id)
-                };
+                var userModify = _mapper.Map<UserModifyModel>(user);
+                userModify.Role = "Common";
+                var createUser = await _userHandler
+                    .AddAsync(userModify);
+                return await GetTokenAsync(createUser.Login);
             }
             catch (Exception e)
             {
-                return new UserResponse { Success = false, ErrorMessage = e.Message };
+                return new TokenResponse { Success = false, ErrorMessage = e.Message };
             }
         }
 
         /// <summary>
         /// Получить токен
         /// </summary>
-        /// <param name="userModel">Модель пользователь</param>
+        /// <param name="login">Логин</param>
         /// <returns>Модель токен</returns>
-        public async Task<TokenResponse> GetTokenAsync(UserShortModel userModel)
+        public async Task<TokenResponse> GetTokenAsync(string login)
         {
-            ClaimsIdentity identity = null;
+            ClaimsIdentity identity;
             try
             {
-                identity = await GetIdentityAsync(userModel);
+                identity = await GetIdentityAsync(login);
             }
             catch (Exception e)
             {
@@ -73,12 +81,14 @@ namespace Service.Services
         /// <summary>
         /// Получить утверждения (клаймы)
         /// </summary>
-        /// <param name="userModel">Модель пользователь</param>
+        /// <param name="login">Модель пользователь</param>
         /// <returns>Модель утверждения</returns>
-        private async Task<ClaimsIdentity> GetIdentityAsync(UserShortModel userModel)
+        private async Task<ClaimsIdentity> GetIdentityAsync(string login)
         {
-            var user = await _userHandler.GetAsync(userModel.Login);
-            var claims = new List<Claim>
+            var user = await _userHandler.GetAsync(login);
+            if (user.Role == null)
+                user.Role = "Common";
+            var claims = new List<Claim>()
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
                 new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)

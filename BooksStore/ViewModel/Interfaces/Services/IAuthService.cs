@@ -7,6 +7,7 @@ namespace ViewModel.Interfaces.Services
 {
     public interface IAuthService
     {
-        Task<TokenResponse> GetTokenAsync(UserShortModel userModel);
+        Task<TokenResponse> Register(UserShortModel user);
+        Task<TokenResponse> GetTokenAsync(string login);
     }
 }

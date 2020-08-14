@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Users;
@@ -27,12 +28,24 @@ namespace API.Controllers
         /// <summary>
         /// Получить токен
         /// </summary>
+        /// <param name="login">Логин пользователя</param>
+        /// <returns>Модель токен</returns>
+        [HttpGet("{login}")]
+        public async Task<IActionResult> Token([FromRoute] string login)
+        {
+            var response = await _authService.GetTokenAsync(login);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Получить токен
+        /// </summary>
         /// <param name="user">Модель пользователь</param>
         /// <returns>Модель токен</returns>
-        [HttpPost("/token")]
-        public async Task<IActionResult> Token([FromBody] UserShortModel user)
+        [HttpPost("/register")]
+        public async Task<IActionResult> Register([FromBody] UserShortModel user)
         {
-            var response = await _authService.GetTokenAsync(user);
+            var response = await _authService.Register(user);
             return Ok(response);
         }
     }
