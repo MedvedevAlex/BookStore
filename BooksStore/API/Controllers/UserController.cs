@@ -26,6 +26,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Добавить пользователя
+        /// </summary>
+        /// <param name="user">Модель пользователь</param>
+        /// <returns>Модель пользователь</returns>
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] UserModifyModel user)
+        {
+            var response = await _userService.AddAsync(user);
+            return Ok(response);
+        }
+
+        /// <summary>
         /// Получить пользоавтеля по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
@@ -42,11 +54,11 @@ namespace API.Controllers
         /// </summary>
         /// <param name="user"></param>
         /// <returns></returns>
-        [HttpPost]
-        public async Task<IActionResult> Get([FromRoute] UserShortModel user)
-        {
-            var response = await _userService.GetAsync(user);
-            return Ok(response);
-        }
+        //[HttpPost]
+        //public async Task<IActionResult> Get([FromRoute] UserShortModel user)
+        //{
+        //    var response = await _userService.GetAsync(user);
+        //    return Ok(response);
+        //}
     }
 }

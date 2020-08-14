@@ -16,6 +16,21 @@ namespace Service.Services
             _userHandler = userHandler;
         }
 
+        public async Task<UserResponse> AddAsync(UserModifyModel user)
+        {
+            try
+            {
+                return new UserResponse
+                {
+                    User = await _userHandler.AddAsync(user)
+                };
+            }
+            catch (Exception e)
+            {
+                return new UserResponse { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
         public async Task<UserResponse> GetAsync(Guid id)
         {
             try
