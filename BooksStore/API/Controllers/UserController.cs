@@ -50,6 +50,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Удалить пользователя
+        /// </summary>
+        /// <param name="user">Модель пользователь</param>
+        /// <returns>Модель пользователь</returns>
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete([FromRoute] Guid id)
+        {
+            var response = await _userService.DeleteAsync(id);
+            return Ok(response);
+        }
+
+        /// <summary>
         /// Получить пользоавтеля по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
@@ -60,17 +72,17 @@ namespace API.Controllers
             var response = await _userService.GetAsync(id);
             return Ok(response);
         }
-        
+
         /// <summary>
         /// Получить пользователя по логину
         /// </summary>
-        /// <param name="user"></param>
+        /// <param name="login">Логин</param>
         /// <returns></returns>
-        //[HttpPost]
-        //public async Task<IActionResult> Get([FromRoute] UserShortModel user)
-        //{
-        //    var response = await _userService.GetAsync(user);
-        //    return Ok(response);
-        //}
+        [HttpGet("GetByLogin/{login}")]
+        public async Task<IActionResult> Get([FromRoute] string login)
+        {
+            var response = await _userService.GetAsync(login);
+            return Ok(response);
+        }
     }
 }

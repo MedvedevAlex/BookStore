@@ -77,7 +77,7 @@ namespace Service.Services
         /// <returns>Модель утверждения</returns>
         private async Task<ClaimsIdentity> GetIdentityAsync(UserShortModel userModel)
         {
-            var user = await _userHandler.GetAsync(userModel);
+            var user = await _userHandler.GetAsync(userModel.Login);
             var claims = new List<Claim>
             {
                 new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),

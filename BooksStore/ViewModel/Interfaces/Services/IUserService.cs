@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ViewModel.Models.Responses;
 using ViewModel.Models.Responses.Users;
 using ViewModel.Models.Users;
 
@@ -9,7 +10,8 @@ namespace ViewModel.Interfaces.Services
     {
         Task<UserResponse> AddAsync(UserModifyModel user);
         Task<UserResponse> UpdateAsync(UserModifyModel user);
+        Task<BaseResponse> DeleteAsync(Guid id);
         Task<UserResponse> GetAsync(Guid id);
-        Task<UserResponse> GetAsync(UserShortModel user);
+        Task<UserResponse> GetAsync(string login);
     }
 }

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Services;
+using ViewModel.Models.Responses;
 using ViewModel.Models.Responses.Users;
 using ViewModel.Models.Users;
 
@@ -46,6 +47,18 @@ namespace Service.Services
             }
         }
 
+        public async Task<BaseResponse> DeleteAsync(Guid id)
+        {
+            try
+            {
+                return await _userHandler.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
         public async Task<UserResponse> GetAsync(Guid id)
         {
             try
@@ -61,13 +74,13 @@ namespace Service.Services
             }
         }
 
-        public async Task<UserResponse> GetAsync(UserShortModel user)
+        public async Task<UserResponse> GetAsync(string login)
         {
             try
             {
                 return new UserResponse
                 {
-                    User = await _userHandler.GetAsync(user)
+                    User = await _userHandler.GetAsync(login)
                 };
             }
             catch (Exception e)

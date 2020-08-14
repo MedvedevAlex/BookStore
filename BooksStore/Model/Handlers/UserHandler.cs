@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
 using ViewModel.Handlers;
+using ViewModel.Models.Responses;
 using ViewModel.Models.Users;
 
 namespace Model.Handlers
@@ -40,7 +41,7 @@ namespace Model.Handlers
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var userEntity = await context.Users
-                    .FirstOrDefaultAsync(u => u.Login == user.Login);
+                    .FirstOrDefaultAsync(u => u.Id == user.Id);
                 if (userEntity != null) throw new Exception("Ошибка: Пользователь с таким логином уже существует");
 
                 var salt = GenerateSalt();
@@ -58,14 +59,14 @@ namespace Model.Handlers
         /// <summary>
         /// Обновить пользователя
         /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
+        /// <param name="user">Модель пользователь</param>
+        /// <returns>Модель пользователь</returns>
         public async Task<UserModel> UpdateAsync(UserModifyModel user)
         {
-            using(var context = _contextFactory.CreateDbContext(new string[0]))
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var userEntity = await context.Users
-                    .FirstOrDefaultAsync(u => u.Login == user.Login);
+                    .FirstOrDefaultAsync(u => u.Id == user.Id);
                 if (userEntity == null) throw new KeyNotFoundException("Ошибка: Пользователь не найден");
 
                 context.Entry(userEntity).CurrentValues.SetValues(user);
@@ -76,6 +77,25 @@ namespace Model.Handlers
                 await context.SaveChangesAsync();
                 return await GetAsync(userEntity.Id);
             }
+        }
+
+        /// <summary>
+        /// Удалить пользователя
+        /// </summary>
+        /// <param name="id">Идентификатор пользователя</param>
+        /// <returns>Базовый ответ</returns>
+        public async Task<BaseResponse> DeleteAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var userEntity = await context.Users
+                    .FirstOrDefaultAsync(u => u.Id == id);
+                if (userEntity == null) throw new KeyNotFoundException("Ошибка: Пользователь не найден");
+
+                context.Users.Remove(userEntity);
+                await context.SaveChangesAsync();
+            }
+            return new BaseResponse();
         }
 
         /// <summary>
@@ -98,14 +118,14 @@ namespace Model.Handlers
         /// <summary>
         /// Получить пользователя по логину
         /// </summary>
-        /// <param name="user">Модель пользователь</param>
+        /// <param name="login">Логин</param>
         /// <returns>Модель пользователь</returns>
-        public async Task<UserModel> GetAsync(UserShortModel user)
+        public async Task<UserModel> GetAsync(string login)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var userEntity = await context.Users
-                    .FirstOrDefaultAsync(u => u.Login == user.Login);
+                    .FirstOrDefaultAsync(u => u.Login == login);
                 if (userEntity == null) throw new KeyNotFoundException("Ошибка: Пользователя с таким логином не существует");
 
                 return _mapper.Map<UserModel>(userEntity);

@@ -1,10 +1,16 @@
-﻿namespace ViewModel.Models.Users
+﻿using System;
+
+namespace ViewModel.Models.Users
 {
     /// <summary>
     /// Модель пользователь
     /// </summary>
     public class UserModel
     {
+        /// <summary>
+        /// Идентификатор
+        /// </summary>
+        public Guid Id { get; set; }
         /// <summary>
         /// Логин
         /// </summary>
