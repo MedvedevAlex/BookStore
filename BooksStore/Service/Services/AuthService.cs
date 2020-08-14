@@ -24,10 +24,10 @@ namespace Service.Services
         }
 
         /// <summary>
-        /// Регистрация пользователя
+        /// Зарегистрировать пользователя
         /// </summary>
-        /// <param name="user"></param>
-        /// <returns></returns>
+        /// <param name="user">Модель пользователь</param>
+        /// <returns>Модель токен</returns>
         public async Task<TokenResponse> Register(UserShortModel user)
         {
             try
@@ -37,6 +37,24 @@ namespace Service.Services
                 var createUser = await _userHandler
                     .AddAsync(userModify);
                 return await GetTokenAsync(createUser.Login);
+            }
+            catch (Exception e)
+            {
+                return new TokenResponse { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
+        /// <summary>
+        /// Авторизовать пользователя
+        /// </summary>
+        /// <param name="user">Модель пользователь</param>
+        /// <returns>Модель токен</returns>
+        public async Task<TokenResponse> Authorize(UserShortModel user)
+        {
+            try
+            {
+                var userShort = await _userHandler.GetAsync(user);
+                return await GetTokenAsync(userShort.Login);
             }
             catch (Exception e)
             {

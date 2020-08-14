@@ -134,6 +134,27 @@ namespace Model.Handlers
         }
 
         /// <summary>
+        /// Получить пользователя по логину и паролю
+        /// </summary>
+        /// <param name="user">Модель пользователь</param>
+        /// <returns>Модель пользователь</returns>
+        public async Task<UserShortModel> GetAsync(UserShortModel user)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var userEntity = await context.Users
+                    .FirstOrDefaultAsync(u => u.Login == user.Login);
+                if (userEntity == null) throw new KeyNotFoundException("Ошибка: Пользователя с таким логином не существует");
+
+                var passwordHash = GenerateHashFromPassword(Convert.FromBase64String(userEntity.Salt), user.Password);
+                
+                if (userEntity.Password != passwordHash) throw new KeyNotFoundException("Ошибка: Пользователя с таким логином и паролем не существует");
+
+                return _mapper.Map<UserShortModel>(userEntity);
+            }
+        }
+
+        /// <summary>
         /// Генерация пароля и соли в хэш 
         /// </summary>
         /// <param name="salt"></param>

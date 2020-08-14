@@ -84,6 +84,7 @@ namespace Service
             #region Карты Пользователь
             CreateMap<User, UserModel>().ReverseMap();
             CreateMap<User, UserModifyModel>().ReverseMap();
+            CreateMap<User, UserShortModel>().ReverseMap();
             CreateMap<UserShortModel, UserModifyModel>();
             #endregion
         }

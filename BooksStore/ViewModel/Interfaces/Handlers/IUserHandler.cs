@@ -12,5 +12,6 @@ namespace ViewModel.Handlers
         Task<BaseResponse> DeleteAsync(Guid id);
         Task<UserModel> GetAsync(Guid id);
         Task<UserModel> GetAsync(string login);
+        Task<UserShortModel> GetAsync(UserShortModel user);
     }
 }
