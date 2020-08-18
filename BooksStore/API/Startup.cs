@@ -3,6 +3,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,13 +15,16 @@ using Service;
 using Service.PainterRepos;
 using Service.PublisherRepos;
 using Service.References;
+using Service.Repositories;
 using Service.Services;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using ViewModel.Handlers;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Interfaces.Handlers.References;
+using ViewModel.Interfaces.Repositories;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.References;
 
@@ -41,6 +45,7 @@ namespace API
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
+                        options.SaveToken = true;
                         options.RequireHttpsMetadata = false;
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
@@ -77,6 +82,38 @@ namespace API
                     Title = "Test API",
                     Description = "ASP.NET Core Web API"
                 });
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = @"JWT Authorization header using the Bearer scheme. \r\n\r\n 
+                      Enter 'Bearer' [space] and then your token in the text input below.
+                      \r\n\r\nExample: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+                        },
+                        new List<string>()
+                    }
+                });
+
+                services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
@@ -108,8 +145,11 @@ namespace API
                 .AddScoped<ICoverTypeHandler, CoverTypeHandler>()
                 .AddScoped<IPainterStyleHandler, PainterStyleHandler>()
                 .AddScoped<ICoverTypeService, CoverTypeService>()
-                .AddScoped<IPainterStyleService, PainterStyleService>();
+                .AddScoped<IPainterStyleService, PainterStyleService>()
             #endregion
+            .AddSingleton<IUserInfoRepository, UserInfoRepository>()
+            .AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
 
             services.AddTransient<IMapper, Mapper>(ctx => new Mapper(new MapperConfiguration(cfg =>
             {
