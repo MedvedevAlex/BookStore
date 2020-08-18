@@ -18,6 +18,10 @@ namespace Model
         public DbSet<Interpreter> Interpreters { get; set; }
         public DbSet<Shop> Shops { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Delivery> Deliveries { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<GoodsOrder> GoodsOrders { get; set; }
         #endregion
         #region Свзящующие таблицы
         public DbSet<AuthorBook> AuthorBooks { get; set; }
