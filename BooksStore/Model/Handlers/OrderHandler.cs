@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -43,6 +44,8 @@ namespace Model.Handlers
             var orderId = Guid.NewGuid();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
+                var deliveryContextTask = CreateDelivery(context, order.ShopId, orderId, out Delivery deliveryEntity);
+
                 var booksTask = context.Books
                     .Where(b => order.Books.Contains(b.Id))
                     .ToListAsync();
@@ -50,22 +53,8 @@ namespace Model.Handlers
                 var userId = _userInfoRepository.GetUserIdFromToken();
                 var userTask = context.Users.FirstOrDefaultAsync(u => u.Id == userId);
 
-                var shopEntity = await context.Shops.FirstOrDefaultAsync(s => s.Id == order.ShopId);
-                if (shopEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти магазин");
-
-                var deliveryEntity = new Delivery
-                {
-                    Id = Guid.NewGuid(),
-                    OrderId = orderId,
-                    Shop = shopEntity,
-                    DateCreate = DateTime.Now,
-                    DateDelivery = null,
-                    Status = DeliveryStatus.Waiting,
-                };
-                var deliveryContextTask = context.Deliveries.AddAsync(deliveryEntity);
-
                 var booksEntities = await booksTask;
-                if (booksEntities.Count != order.Books.Count) throw new Exception("Ошибка: Не удалось найти все книги при добавлении к заказу");
+                if (booksEntities.Count != order.Books.Count) throw new KeyNotFoundException("Ошибка: Не удалось найти все книги при добавлении к заказу");
 
                 var userEntity = await userTask;
                 if (userEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти пользователя");
@@ -81,24 +70,60 @@ namespace Model.Handlers
                 };
                 var orderContextTask = context.Orders.AddAsync(orderEntity);
 
-                var goods = new List<GoodsOrder>();
-                foreach (var book in booksEntities)
-                {
-                    goods.Add(new GoodsOrder
-                    {
-                        Id = Guid.NewGuid(),
-                        Book = book,
-                        Order = orderEntity,
-                        Amount = book.Price
-                    });
-                }
+                var goodsEntities = CreateGoods(booksEntities, orderEntity);
 
-                await context.AddRangeAsync(goods);
+                await context.AddRangeAsync(goodsEntities);
                 await deliveryContextTask;
                 await orderContextTask;
                 await context.SaveChangesAsync();
             }
             return orderId;
+        }
+
+        /// <summary>
+        /// Создать привязку товаров к заказу
+        /// </summary>
+        /// <param name="booksEntities">Сущности книг</param>
+        /// <param name="orderEntity">Сущность заказ</param>
+        /// <returns>Сущности привязанных товаров</returns>
+        private static List<GoodsOrder> CreateGoods(List<Book> booksEntities, Order orderEntity)
+        {
+            var goodsEntities = new List<GoodsOrder>();
+            foreach (var book in booksEntities)
+            {
+                goodsEntities.Add(new GoodsOrder
+                {
+                    Id = Guid.NewGuid(),
+                    Book = book,
+                    Order = orderEntity,
+                    Amount = book.Price
+                });
+            }
+            return goodsEntities;
+        }
+
+        /// <summary>
+        /// Создать доставку для заказа
+        /// </summary>
+        /// <param name="context">Подключение к </param>
+        /// <param name="shopId">Идентификатор магазина</param>
+        /// <param name="orderId">Идентификатор заказа</param>
+        /// <returns>Информация о изменениях(добавление заказа в таблицу)</returns>
+        private static ValueTask<EntityEntry<Delivery>> CreateDelivery(BookContext context, Guid shopId, Guid orderId, out Delivery deliveryEntity)
+        {
+            var shopEntity = context.Shops.FirstOrDefaultAsync(s => s.Id == shopId).Result;
+            if (shopEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти магазин");
+
+            deliveryEntity = new Delivery
+            {
+                Id = Guid.NewGuid(),
+                OrderId = orderId,
+                Shop = shopEntity,
+                DateCreate = DateTime.Now,
+                DateDelivery = null,
+                Status = DeliveryStatus.Waiting,
+            };
+            return context.Deliveries.AddAsync(deliveryEntity);
         }
     }
 }
