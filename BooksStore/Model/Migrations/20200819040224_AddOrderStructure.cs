@@ -13,19 +13,12 @@ namespace Model.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     UserId = table.Column<Guid>(nullable: true),
-                    BookId = table.Column<Guid>(nullable: true),
                     Status = table.Column<byte>(type: "tinyint", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric(8,2)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Orders_Books_BookId",
-                        column: x => x.BookId,
-                        principalTable: "Books",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Orders_Users_UserId",
                         column: x => x.UserId,
@@ -42,7 +35,7 @@ namespace Model.Migrations
                     ShopId = table.Column<Guid>(nullable: true),
                     OrderId = table.Column<Guid>(nullable: false),
                     DateCreate = table.Column<DateTime>(type: "Date", nullable: false),
-                    DateDelivery = table.Column<DateTime>(type: "Date", nullable: false),
+                    DateDelivery = table.Column<DateTime>(type: "Date", nullable: true),
                     Status = table.Column<byte>(type: "tinyint", nullable: false)
                 },
                 constraints: table =>
@@ -95,7 +88,7 @@ namespace Model.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     OrderId = table.Column<Guid>(nullable: false),
                     DateCreate = table.Column<DateTime>(type: "Date", nullable: false),
-                    DatePayment = table.Column<DateTime>(type: "Date", nullable: false),
+                    DatePayment = table.Column<DateTime>(type: "Date", nullable: true),
                     Status = table.Column<byte>(type: "tinyint", nullable: false),
                     Amount = table.Column<decimal>(type: "numeric(8,2)", nullable: false)
                 },
@@ -130,11 +123,6 @@ namespace Model.Migrations
                 name: "IX_GoodsOrders_OrderId",
                 table: "GoodsOrders",
                 column: "OrderId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Orders_BookId",
-                table: "Orders",
-                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Orders_UserId",

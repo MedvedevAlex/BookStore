@@ -27,7 +27,7 @@ namespace Model.Entities
         /// <summary>
         /// Дата оплаты
         /// </summary>
-        public DateTime DatePayment { get; set; }
+        public DateTime? DatePayment { get; set; }
         /// <summary>
         /// Статус
         /// </summary>

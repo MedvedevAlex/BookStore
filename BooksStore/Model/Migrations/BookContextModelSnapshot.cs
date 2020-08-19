@@ -335,7 +335,7 @@ namespace Model.Migrations
                     b.Property<DateTime>("DateCreate")
                         .HasColumnType("Date");
 
-                    b.Property<DateTime>("DateDelivery")
+                    b.Property<DateTime?>("DateDelivery")
                         .HasColumnType("Date");
 
                     b.Property<Guid>("OrderId")
@@ -678,9 +678,6 @@ namespace Model.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric(8,2)");
 
-                    b.Property<Guid?>("BookId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<byte>("Status")
                         .HasColumnType("tinyint");
 
@@ -688,8 +685,6 @@ namespace Model.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BookId");
 
                     b.HasIndex("UserId");
 
@@ -783,7 +778,7 @@ namespace Model.Migrations
                     b.Property<DateTime>("DateCreate")
                         .HasColumnType("Date");
 
-                    b.Property<DateTime>("DatePayment")
+                    b.Property<DateTime?>("DatePayment")
                         .HasColumnType("Date");
 
                     b.Property<Guid>("OrderId")
@@ -1471,10 +1466,6 @@ namespace Model.Migrations
 
             modelBuilder.Entity("Model.Entities.Order", b =>
                 {
-                    b.HasOne("Model.Entities.Book", "Book")
-                        .WithMany()
-                        .HasForeignKey("BookId");
-
                     b.HasOne("Model.Entities.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId");

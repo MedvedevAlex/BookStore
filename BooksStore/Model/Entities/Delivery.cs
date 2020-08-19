@@ -33,7 +33,7 @@ namespace Model.Entities
         /// <summary>
         /// Дата доставки
         /// </summary>
-        public DateTime DateDelivery { get; set; }
+        public DateTime? DateDelivery { get; set; }
         /// <summary>
         /// Статус
         /// </summary>

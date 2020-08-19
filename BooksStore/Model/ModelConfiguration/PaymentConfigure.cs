@@ -13,7 +13,8 @@ namespace Model.ModelConfiguration
             builder.Property(p => p.DateCreate)
                 .HasColumnType("Date");
             builder.Property(p => p.DatePayment)
-                .HasColumnType("Date");
+                .HasColumnType("Date")
+                .IsRequired(false);
             builder.Property(p => p.Status)
                 .HasColumnType("tinyint");
             builder.Property(p => p.Amount)

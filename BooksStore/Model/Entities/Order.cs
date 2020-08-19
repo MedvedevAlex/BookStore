@@ -17,10 +17,6 @@ namespace Model.Entities
         /// </summary>
         public User User { get; set; }
         /// <summary>
-        /// Идентификатор книги
-        /// </summary>
-        public Book Book { get; set; }
-        /// <summary>
         /// Оплата
         /// </summary>
         public Payment Payment { get; set; }

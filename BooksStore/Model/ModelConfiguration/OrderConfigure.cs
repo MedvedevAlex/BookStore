@@ -24,7 +24,6 @@ namespace Model.ModelConfiguration
                 .WithOne(p => p.Order)
                 .HasForeignKey<Payment>(p => p.OrderId);
             builder.HasOne(o => o.User);
-            builder.HasOne(o => o.Book);
         }
     }
 }
