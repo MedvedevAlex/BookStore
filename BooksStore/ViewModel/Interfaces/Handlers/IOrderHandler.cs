@@ -6,6 +6,7 @@ namespace ViewModel.Interfaces.Handlers
 {
     public interface IOrderHandler
     {
-        Task<Guid> ConfirmAsync(OrderModel order);
+        Task<OrderModel> ConfirmAsync(OrderModifyModel order);
+        Task<OrderModel> GetAsync(Guid id);
     }
 }

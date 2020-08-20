@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using ViewModel.Enums;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Interfaces.Repositories;
+using ViewModel.Models.Books;
 using ViewModel.Models.Orders;
 
 namespace Model.Handlers
@@ -39,12 +40,13 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="order">Модель заказ</param>
         /// <returns>Идентификатор заказа</returns>
-        public async Task<Guid> ConfirmAsync(OrderModel order)
+        public async Task<OrderModel> ConfirmAsync(OrderModifyModel order)
         {
             var orderId = Guid.NewGuid();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var deliveryContextTask = CreateDelivery(context, order.ShopId, orderId, out Delivery deliveryEntity);
+                await deliveryContextTask;
 
                 var booksTask = context.Books
                     .Where(b => order.Books.Contains(b.Id))
@@ -64,7 +66,7 @@ namespace Model.Handlers
                     Id = orderId,
                     User = userEntity,
                     Payment = null,
-                    Delivery = deliveryEntity,
+                    Delivery = null,
                     Status = OrderStatus.NotProcessed,
                     Amount = booksEntities.Sum(s => s.Price)
                 };
@@ -73,11 +75,35 @@ namespace Model.Handlers
                 var goodsEntities = CreateGoods(booksEntities, orderEntity);
 
                 await context.AddRangeAsync(goodsEntities);
-                await deliveryContextTask;
                 await orderContextTask;
                 await context.SaveChangesAsync();
             }
-            return orderId;
+            return await GetAsync(orderId);
+        }
+
+        /// <summary>
+        /// Получить заказ
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель заказ</returns>
+        public async Task<OrderModel> GetAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var booksContextTask = await context.GoodsOrders
+                    .Where(g => g.Order.Id == id)
+                    .Select(g => g.Book)
+                    .ToListAsync();
+                var orderEntity = await context.Orders
+                    .Include(d => d.Delivery)
+                    .FirstOrDefaultAsync(o => o.Id == id);
+                if (orderEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти заказ");
+
+                var order = _mapper.Map<OrderModel>(orderEntity);
+                order.Books = _mapper.Map<List<BookPreviewModel>>(booksContextTask);
+
+                return order;
+            }
         }
 
         /// <summary>

@@ -10,7 +10,7 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20200819040224_AddOrderStructure")]
+    [Migration("20200820055631_AddOrderStructure")]
     partial class AddOrderStructure
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

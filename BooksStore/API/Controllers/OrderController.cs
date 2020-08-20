@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel.Interfaces.Services;
@@ -12,6 +13,7 @@ namespace API.Controllers
     [Produces("application/json")]
     [Route("/api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderService;
@@ -30,11 +32,22 @@ namespace API.Controllers
         /// </summary>
         /// <param name="order">Модель заказ</param>
         /// <returns>Ответ заказ</returns>
-        [Authorize]
-        [HttpPost("/Confirm")]
-        public async Task<IActionResult> Confirm([FromBody] OrderModel order)
+        [HttpPost("Confirm")]
+        public async Task<IActionResult> Confirm([FromBody] OrderModifyModel order)
         {
             var response = await _orderService.ConfirmAsync(order);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Получить заказ по идентификатору
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Ответ заказ</returns>
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get([FromRoute] Guid id)
+        {
+            var response = await _orderService.GetAsync(id);
             return Ok(response);
         }
     }

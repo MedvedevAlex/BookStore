@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Interfaces.Services;
@@ -11,22 +10,34 @@ namespace Service.Services
     public class OrderService : IOrderService
     {
         private readonly IOrderHandler _orderHandler;
-        private readonly IMapper _mapper;
 
-        public OrderService(IMapper mapper, IOrderHandler orderHandler)
+        public OrderService(IOrderHandler orderHandler)
         {
-            _mapper = mapper;
             _orderHandler = orderHandler;
         }
 
-
-        public async Task<OrderResponse> ConfirmAsync(OrderModel order)
+        public async Task<OrderResponse> ConfirmAsync(OrderModifyModel order)
         {
             try
             {
                 return new OrderResponse
                 {
-                    Id = await _orderHandler.ConfirmAsync(order)
+                    Order = await _orderHandler.ConfirmAsync(order)
+                };
+            }
+            catch (Exception e)
+            {
+                return new OrderResponse { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
+        public async Task<OrderResponse> GetAsync(Guid id)
+        {
+            try
+            {
+                return new OrderResponse
+                {
+                    Order = await _orderHandler.GetAsync(id)
                 };
             }
             catch (Exception e)

@@ -19,6 +19,8 @@ namespace Model.ModelConfiguration
                 .HasColumnType("tinyint");
             builder.Property(p => p.Amount)
                 .HasColumnType("numeric(8,2)");
+
+            builder.HasOne(p => p.Order);
         }
     }
 }

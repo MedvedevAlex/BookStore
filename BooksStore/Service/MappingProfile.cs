@@ -8,6 +8,7 @@ using ViewModel.Models.Authors;
 using ViewModel.Models.Books;
 using ViewModel.Models.Interpreters;
 using ViewModel.Models.JoinTables;
+using ViewModel.Models.Orders;
 using ViewModel.Models.Painters;
 using ViewModel.Models.Publishers;
 using ViewModel.Models.References;
@@ -86,6 +87,9 @@ namespace Service
             CreateMap<User, UserModifyModel>().ReverseMap();
             CreateMap<User, UserShortModel>().ReverseMap();
             CreateMap<UserShortModel, UserModifyModel>();
+            #endregion
+            #region Заказ
+            CreateMap<Order, OrderModel>();
             #endregion
         }
     }

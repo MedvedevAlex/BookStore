@@ -1,4 +1,4 @@
-﻿using System;
+﻿using ViewModel.Models.Orders;
 
 namespace ViewModel.Models.Responses.Orders
 {
@@ -8,8 +8,8 @@ namespace ViewModel.Models.Responses.Orders
     public class OrderResponse : BaseResponse
     {
         /// <summary>
-        /// Идентификатор
+        /// Модель заказ
         /// </summary>
-        public Guid Id { get; set; }
+        public OrderModel Order { get; set; }
     }
 }
