@@ -7,7 +7,7 @@ using ViewModel.Models.References;
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Тип переплета
+    /// Контроллер тип переплета
     /// </summary>
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -24,8 +24,8 @@ namespace API.Controllers
         /// <summary>
         /// Добавить тип переплета
         /// </summary>
-        /// <param name="coverType">Тип переплета</param>
-        /// <returns>Тип переплета</returns>
+        /// <param name="coverType">Модель тип переплета</param>
+        /// <returns>Модель тип переплета</returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] CoverTypeModel coverType)
         {
@@ -48,7 +48,7 @@ namespace API.Controllers
         /// <summary>
         /// Удалить тип переплета
         /// </summary>
-        /// <param name="id">Идентификатор</param>
+        /// <param name="id">Идентификатор типа переплета</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete(Guid id)
@@ -60,8 +60,8 @@ namespace API.Controllers
         /// <summary>
         /// Получить тип переплета по идентификатору
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns>Модель книги</returns>
+        /// <param name="id">Идентификатор типа переплета</param>
+        /// <returns>Модель тип переплета</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
@@ -83,7 +83,7 @@ namespace API.Controllers
         /// <summary>
         /// Поиск по наименованию
         /// </summary>
-        /// <param name="coverTypeName">Намиенование переплета</param>
+        /// <param name="coverTypeName">Намиенование типа переплета</param>
         /// <returns>Коллекция типов переплета</returns>
         [HttpGet("SearchByName/{coverTypeName}")]
         public async Task<IActionResult> SearchByName([FromRoute] string coverTypeName)

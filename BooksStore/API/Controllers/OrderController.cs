@@ -54,7 +54,7 @@ namespace API.Controllers
         /// <summary>
         /// Получить заказ по идентификатору
         /// </summary>
-        /// <param name="id">Идентификатор</param>
+        /// <param name="id">Идентификатор заказа</param>
         /// <returns>Ответ заказ</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)

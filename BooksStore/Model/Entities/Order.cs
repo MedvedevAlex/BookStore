@@ -4,7 +4,7 @@ using ViewModel.Enums;
 namespace Model.Entities
 {
     /// <summary>
-    /// Сущность Заказ
+    /// Сущность заказ
     /// </summary>
     public class Order
     {
@@ -13,15 +13,15 @@ namespace Model.Entities
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Идентификатор покупателя
+        /// Сущность пользователь(покупатель)
         /// </summary>
         public User User { get; set; }
         /// <summary>
-        /// Оплата
+        /// Сущность оплата
         /// </summary>
         public Payment Payment { get; set; }
         /// <summary>
-        /// Доставка
+        /// Сущность доставка
         /// </summary>
         public Delivery Delivery { get; set; }
         /// <summary>

@@ -8,15 +8,15 @@ namespace Model.ModelConfiguration
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.HasKey(s => s.Id);
+            builder.HasKey(u => u.Id);
 
-            builder.Property(s => s.Login)
+            builder.Property(u => u.Login)
                 .HasColumnType("nvarchar(40)");
-            builder.Property(s => s.Password)
+            builder.Property(u => u.Password)
                 .HasColumnType("nvarchar(100)");
-            builder.Property(s => s.Salt)
+            builder.Property(u => u.Salt)
                 .HasColumnType("nvarchar(100)");
-            builder.Property(s => s.Role)
+            builder.Property(u => u.Role)
                 .HasColumnType("nvarchar(30)");
         }
     }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Model.Entities
 {
     /// <summary>
-    /// Сущность Издатель
+    /// Сущность издатель
     /// </summary>
     public class Publisher
     {
@@ -17,7 +17,7 @@ namespace Model.Entities
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Выпущенные книг
+        /// Коллекция книг
         /// </summary>
         public virtual ICollection<Book> Books { get; set; }
     }

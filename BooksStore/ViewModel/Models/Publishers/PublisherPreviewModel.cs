@@ -3,7 +3,7 @@
 namespace ViewModel.Models.Publishers
 {
     /// <summary>
-    /// Модель Издатель
+    /// Модель издатель
     /// </summary>
     public class PublisherPreviewModel
     {
@@ -12,7 +12,7 @@ namespace ViewModel.Models.Publishers
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Название
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
     }

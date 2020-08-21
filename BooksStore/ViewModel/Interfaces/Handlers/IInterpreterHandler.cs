@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ViewModel.Models.Interpreters;
-using ViewModel.Models.Responses;
-using ViewModel.Models.Responses.Interpreters;
+using ViewModel.Responses;
+using ViewModel.Responses.Interpreters;
 
-namespace ViewModel.Handlers
+namespace ViewModel.Interfaces.Handlers
 {
     public interface IInterpreterHandler
     {

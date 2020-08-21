@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Model.Entities
 {
     /// <summary>
-    /// Сущность Магазин
+    /// Сущность магазин
     /// </summary>
     public class Shop
     {

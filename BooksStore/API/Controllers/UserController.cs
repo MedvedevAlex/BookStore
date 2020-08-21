@@ -7,7 +7,7 @@ using ViewModel.Models.Users;
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Пользователь
+    /// Контроллер пользователь
     /// </summary>
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -29,7 +29,7 @@ namespace API.Controllers
         /// Добавить пользователя
         /// </summary>
         /// <param name="user">Модель пользователь</param>
-        /// <returns>Модель пользователь</returns>
+        /// <returns>Ответ пользователь</returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] UserModifyModel user)
         {
@@ -41,7 +41,7 @@ namespace API.Controllers
         /// Обновить пользователя
         /// </summary>
         /// <param name="user">Модель пользователь</param>
-        /// <returns>Модель пользователь</returns>
+        /// <returns>Ответ пользователь</returns>
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] UserModifyModel user)
         {
@@ -50,10 +50,10 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Удалить пользователя
+        /// Удалить пользователя по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
-        /// <returns>Модель пользователь</returns>
+        /// <returns>Ответ пользователь</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
@@ -65,7 +65,7 @@ namespace API.Controllers
         /// Получить пользоавтеля по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор пользователя</param>
-        /// <returns>Модель пользователь</returns>
+        /// <returns>Ответ пользователь</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
@@ -76,8 +76,8 @@ namespace API.Controllers
         /// <summary>
         /// Получить пользователя по логину
         /// </summary>
-        /// <param name="login">Логин</param>
-        /// <returns></returns>
+        /// <param name="login">Логин пользователя</param>
+        /// <returns>Ответ пользователь</returns>
         [HttpGet("GetByLogin/{login}")]
         public async Task<IActionResult> Get([FromRoute] string login)
         {

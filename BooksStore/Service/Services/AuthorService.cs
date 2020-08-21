@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ViewModel.Handlers;
+using ViewModel.Interfaces.Handlers;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Authors;
-using ViewModel.Models.Responses;
-using ViewModel.Models.Responses.Authors;
+using ViewModel.Responses;
+using ViewModel.Responses.Authors;
 
 namespace Service.Services
 {

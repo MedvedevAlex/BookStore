@@ -5,7 +5,7 @@ using ViewModel.Models.References;
 namespace ViewModel.Models.Shops
 {
     /// <summary>
-    /// Модель Магазин
+    /// Модель магазин
     /// </summary>
     public class ShopModel
     {

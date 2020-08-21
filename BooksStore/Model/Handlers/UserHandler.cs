@@ -6,9 +6,9 @@ using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Threading.Tasks;
-using ViewModel.Handlers;
-using ViewModel.Models.Responses;
+using ViewModel.Interfaces.Handlers;
 using ViewModel.Models.Users;
+using ViewModel.Responses;
 
 namespace Model.Handlers
 {
@@ -83,7 +83,7 @@ namespace Model.Handlers
         /// <summary>
         /// Удалить пользователя
         /// </summary>
-        /// <param name="id">Идентификатор пользователя</param>
+        /// <param name="id">Идентификатор</param>
         /// <returns>Базовый ответ</returns>
         public async Task<BaseResponse> DeleteAsync(Guid id)
         {
@@ -100,7 +100,7 @@ namespace Model.Handlers
         }
 
         /// <summary>
-        /// Получить пользователя по идентификатору
+        /// Получить пользователя
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Модель пользователь</returns>
@@ -157,9 +157,9 @@ namespace Model.Handlers
         /// <summary>
         /// Генерация пароля и соли в хэш 
         /// </summary>
-        /// <param name="salt"></param>
-        /// <param name="password"></param>
-        /// <returns></returns>
+        /// <param name="salt">Соль</param>
+        /// <param name="password">Пароль</param>
+        /// <returns>Строка хэш</returns>
         private string GenerateHashFromPassword(byte[] salt, string password)
         {
             return Convert.ToBase64String(KeyDerivation.Pbkdf2(
@@ -173,7 +173,7 @@ namespace Model.Handlers
         /// <summary>
         /// Генерация соли
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Соль массивом байт</returns>
         private byte[] GenerateSalt()
         {
             byte[] salt = new byte[128 / 8];

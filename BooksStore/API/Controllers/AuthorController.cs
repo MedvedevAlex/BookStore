@@ -7,7 +7,7 @@ using ViewModel.Models.Authors;
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Автор
+    /// Контроллер автор
     /// </summary>
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -29,48 +29,48 @@ namespace API.Controllers
         /// Добавить автора
         /// </summary>
         /// <param name="author">Модель автор</param>
-        /// <returns>Модель автор</returns>
+        /// <returns>Ответ автор</returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] AuthorModifyModel author)
         {
-            var result = await _authorService.AddAsync(author);
-            return Ok(result);
+            var response = await _authorService.AddAsync(author);
+            return Ok(response);
         }
 
         /// <summary>
         /// Обновить автора
         /// </summary>
         /// <param name="author">Модель автор</param>
-        /// <returns>Модель автор</returns>
+        /// <returns>Ответ автор</returns>
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] AuthorModifyModel author)
         {
-            var result = await _authorService.UpdateAsync(author);
-            return Ok(result);
+            var response = await _authorService.UpdateAsync(author);
+            return Ok(response);
         }
 
         /// <summary>
-        /// Удалить автора
+        /// Удалить автора по идентификатору
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns></returns>
+        /// <param name="id">Идентификатор автора</param>
+        /// <returns>Базовые ответ</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var result = await _authorService.DeleteAsync(id);
-            return Ok(result);
+            var response = await _authorService.DeleteAsync(id);
+            return Ok(response);
         }
 
         /// <summary>
         /// Получить автора по идентификатору
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns>Модель автор</returns>
+        /// <param name="id">Идентификатор автора</param>
+        /// <returns>Ответ автор</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var result = await _authorService.GetAsync(id);
-            return Ok(result);
+            var response = await _authorService.GetAsync(id);
+            return Ok(response);
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace API.Controllers
         [HttpGet("GetAuthors/take/{takeCount}/skip/{skipCount}")]
         public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = await _authorService.GetAsync(takeCount, skipCount);
-            return Ok(result);
+            var response = await _authorService.GetAsync(takeCount, skipCount);
+            return Ok(response);
         }
 
         /// <summary>
@@ -96,8 +96,8 @@ namespace API.Controllers
         [HttpGet("SearchByName/{authorName}/take/{takeCount}/skip/{skipCount}")]
         public async Task<IActionResult> SearchByName([FromRoute] string authorName, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = await _authorService.SearchByNameAsync(authorName, takeCount, skipCount);
-            return Ok(result);
+            var response = await _authorService.SearchByNameAsync(authorName, takeCount, skipCount);
+            return Ok(response);
         }
     }
 }

@@ -14,7 +14,7 @@ using ViewModel.Models.Orders;
 namespace Model.Handlers
 {
     /// <summary>
-    /// Хэндлер заказ
+    /// Обработчик данных заказ
     /// </summary>
     public class OrderHandler : IOrderHandler
     {
@@ -35,19 +35,19 @@ namespace Model.Handlers
         }
 
         /// <summary>
-        /// Подтверждение заказа
+        /// Добавить заказа
         /// </summary>
         /// <param name="order">Модель заказ</param>
-        /// <returns>Идентификатор заказа</returns>
+        /// <returns>Модель заказ</returns>
         public async Task<OrderModel> AddAsync(OrderModifyModel order)
         {
             var orderId = Guid.NewGuid();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var booksEntities = await context.Books
-                    .Where(b => order.Books.Contains(b.Id))
+                    .Where(b => order.BooksIds.Contains(b.Id))
                     .ToListAsync();
-                if (booksEntities.Count != order.Books.Count) throw new KeyNotFoundException("Ошибка: Не удалось найти все книги при добавлении к заказу");
+                if (booksEntities.Count != order.BooksIds.Count) throw new KeyNotFoundException("Ошибка: Не удалось найти все книги при добавлении к заказу");
 
                 var userId = _userInfoRepository.GetUserIdFromToken();
                 var userEntity = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
@@ -60,7 +60,7 @@ namespace Model.Handlers
                     Payment = null,
                     Delivery = null,
                     Status = OrderStatus.NotProcessed,
-                    Amount = booksEntities.Sum(s => s.Price)
+                    Amount = booksEntities.Sum(b => b.Price)
                 };
                 var orderContextTask = context.Orders.AddAsync(orderEntity);
 
@@ -83,11 +83,11 @@ namespace Model.Handlers
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var booksContextTask = await context.GoodsOrders
-                    .Where(g => g.Order.Id == id)
-                    .Select(g => g.Book)
+                    .Where(go => go.Order.Id == id)
+                    .Select(go => go.Book)
                     .ToListAsync();
                 var orderEntity = await context.Orders
-                    .Include(d => d.Delivery)
+                    .Include(o => o.Delivery)
                     .FirstOrDefaultAsync(o => o.Id == id);
                 if (orderEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти заказ");
 

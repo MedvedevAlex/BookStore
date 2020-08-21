@@ -3,7 +3,7 @@
 namespace ViewModel.Models.Interpreters
 {
     /// <summary>
-    /// Модель Переводчик
+    /// Модель переводчик
     /// </summary>
     public class InterpreterShortModel
     {
@@ -12,7 +12,7 @@ namespace ViewModel.Models.Interpreters
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Имя переводчика
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
     }

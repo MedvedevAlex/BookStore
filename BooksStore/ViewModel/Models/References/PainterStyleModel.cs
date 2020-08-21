@@ -3,7 +3,7 @@
 namespace ViewModel.Models.References
 {
     /// <summary>
-    /// Модель Стиль художника
+    /// Модель стиль художника
     /// </summary>
     public class PainterStyleModel
     {

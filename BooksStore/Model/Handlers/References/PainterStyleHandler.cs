@@ -11,7 +11,7 @@ using ViewModel.Models.References;
 namespace Model.Handlers
 {
     /// <summary>
-    /// Хэндлер Стиль художника
+    /// Обработчик данных стиль художника
     /// </summary>
     public class PainterStyleHandler : IPainterStyleHandler
     {
@@ -39,7 +39,7 @@ namespace Model.Handlers
             {
                 var painterStyleEnity = await context.PainterStyles
                     .FirstOrDefaultAsync(ps => ps.Id == painterStyle.Id
-                    || ps.Name.Trim().ToLower() == painterStyle.Name.Trim().ToLower());
+                        || ps.Name.Trim().ToLower() == painterStyle.Name.Trim().ToLower());
                 if (painterStyleEnity != null)
                     if (painterStyleEnity.Id == painterStyle.Id)
                         throw new KeyNotFoundException("Ошибка: Стиль художника с таким идентификатором уже сущетсвует");
@@ -99,7 +99,7 @@ namespace Model.Handlers
         /// Получить стиль художника
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        /// <returns>Стиль художника</returns>
+        /// <returns>Модель стиль художника</returns>
         public async Task<PainterStyleModel> GetAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
@@ -134,8 +134,8 @@ namespace Model.Handlers
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 return await context.PainterStyles
-                    .Where(ct => ct.Name.Contains(painterStyleName))
-                    .Select(ct => _mapper.Map<PainterStyleModel>(ct))
+                    .Where(ps => ps.Name.Contains(painterStyleName))
+                    .Select(ps => _mapper.Map<PainterStyleModel>(ps))
                     .ToListAsync();
             }
         }

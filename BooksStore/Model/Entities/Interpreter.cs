@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Model.Entities
 {
     /// <summary>
-    /// Сущность Переводчик
+    /// Сущность переводчик
     /// </summary>
     public class Interpreter
     {
@@ -14,7 +14,7 @@ namespace Model.Entities
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Имя переводчика
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
         /// <summary>

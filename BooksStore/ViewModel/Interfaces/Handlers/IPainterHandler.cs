@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Models.Painters;
-using ViewModel.Models.Responses;
-using ViewModel.Models.Responses.Painters;
+using ViewModel.Responses;
+using ViewModel.Responses.Painters;
 
 namespace ViewModel.Interfaces.Handlers
 {

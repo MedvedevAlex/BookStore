@@ -4,7 +4,7 @@ using ViewModel.Enums;
 namespace ViewModel.Models.References
 {
     /// <summary>
-    /// Модель График работы магазина
+    /// Модель график работы магазина
     /// </summary>
     public class WorkSheduleModel
     {

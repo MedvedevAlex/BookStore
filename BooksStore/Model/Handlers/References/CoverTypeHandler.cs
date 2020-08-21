@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Model.Entities.References;
 using System;
 using System.Collections.Generic;
@@ -12,7 +11,7 @@ using ViewModel.Models.References;
 namespace Model.Handlers
 {
     /// <summary>
-    /// Хэндлер Тип переплета
+    /// Обработчик данных тип переплета
     /// </summary>
     public class CoverTypeHandler : ICoverTypeHandler
     {
@@ -39,8 +38,8 @@ namespace Model.Handlers
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var coverTypeEntity = await context.CoverTypes
-                    .FirstOrDefaultAsync(ct => ct.Id == coverType.Id
-                    || ct.Name.Trim().ToLower() == coverType.Name.Trim().ToLower());
+                    .FirstOrDefaultAsync(ct => ct.Id == coverType.Id 
+                        || ct.Name.Trim().ToLower() == coverType.Name.Trim().ToLower());
                 if (coverTypeEntity != null)
                     if (coverTypeEntity.Id == coverType.Id)
                         throw new KeyNotFoundException("Ошибка: Тип переплета с таким идентификатором уже сущетсвует");

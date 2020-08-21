@@ -5,7 +5,7 @@ using ViewModel.Models.JoinTables;
 namespace ViewModel.Models.Interpreters
 {
     /// <summary>
-    /// Модель Переводчик
+    /// Модель переводчик
     /// </summary>
     public class InterpreterModel
     {
@@ -14,7 +14,7 @@ namespace ViewModel.Models.Interpreters
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Имя переводчика
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
         /// <summary>

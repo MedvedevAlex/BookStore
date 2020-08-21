@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ViewModel.Models.Responses;
 using ViewModel.Models.Users;
+using ViewModel.Responses;
 
-namespace ViewModel.Handlers
+namespace ViewModel.Interfaces.Handlers
 {
     public interface IUserHandler
     {

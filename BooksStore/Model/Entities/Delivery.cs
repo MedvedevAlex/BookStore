@@ -5,7 +5,7 @@ using ViewModel.Enums;
 namespace Model.Entities
 {
     /// <summary>
-    /// Сущность Доставка
+    /// Сущность доставка
     /// </summary>
     [Table("Deliveries")]
     public class Delivery
@@ -15,7 +15,7 @@ namespace Model.Entities
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Магазин
+        /// Сущность магазин
         /// </summary>
         public Shop Shop { get; set; }
         /// <summary>
@@ -23,7 +23,7 @@ namespace Model.Entities
         /// </summary>
         public Guid OrderId { get; set; }
         /// <summary>
-        /// Заказ
+        /// Сущность заказ
         /// </summary>
         public Order Order { get; set; }
         /// <summary>

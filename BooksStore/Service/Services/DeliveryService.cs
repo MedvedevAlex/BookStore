@@ -1,9 +1,9 @@
 ﻿using ViewModel.Interfaces.Handlers;
 using System.Threading.Tasks;
 using System;
-using ViewModel.Models.Responses.Deliveries;
 using ViewModel.Models.Deliveries;
 using ViewModel.Interfaces.Services;
+using ViewModel.Responses.Deliveries;
 
 namespace Service.Services
 {

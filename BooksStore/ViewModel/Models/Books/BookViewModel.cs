@@ -8,7 +8,7 @@ using ViewModel.Models.Publishers;
 namespace ViewModel.Models.Books
 {
     /// <summary>
-    /// Книга
+    /// Модель книга
     /// </summary>
     public class BookViewModel
     {

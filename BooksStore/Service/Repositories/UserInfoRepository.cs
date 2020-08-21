@@ -12,6 +12,10 @@ namespace Service.Repositories
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="httpContextAccessor"></param>
         public UserInfoRepository(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
@@ -25,8 +29,7 @@ namespace Service.Repositories
         {
             var userId = _httpContextAccessor.HttpContext.User
                 .FindFirst($"{nameof(Model.Entities.User)}{nameof(Model.Entities.User.Id)}")?.Value;
-            Guid guid;
-            if (Guid.TryParse(userId, out guid))
+            if (Guid.TryParse(userId, out Guid guid))
                 return guid;
             else
                 throw new KeyNotFoundException("Не удалось получить идентификатор пользователя из токена");

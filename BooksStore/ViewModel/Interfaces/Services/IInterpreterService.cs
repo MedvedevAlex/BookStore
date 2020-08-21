@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Models.Interpreters;
-using ViewModel.Models.Responses;
-using ViewModel.Models.Responses.Interpreters;
+using ViewModel.Responses;
+using ViewModel.Responses.Interpreters;
 
 namespace ViewModel.Interfaces.Services
 {

@@ -5,7 +5,7 @@ using ViewModel.Models.Authors;
 namespace ViewModel.Models.Books
 {
     /// <summary>
-    /// Книга
+    /// Модель книга
     /// </summary>
     public class BookPreviewModel
     {

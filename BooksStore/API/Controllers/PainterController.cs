@@ -7,7 +7,7 @@ using ViewModel.Models.Painters;
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Художник
+    /// Контроллер художник
     /// </summary>
     [Route("api/[controller]")]
     public class PainterController : Controller
@@ -17,7 +17,7 @@ namespace API.Controllers
         /// <summary>
         /// Конструктор
         /// </summary>
-        /// <param name="painterService">Сервис Художник</param>
+        /// <param name="painterService">Сервис художник</param>
         public PainterController(IPainterService painterService)
         {
             _painterService = painterService;
@@ -26,49 +26,49 @@ namespace API.Controllers
         /// <summary>
         /// Добавить художника
         /// </summary>
-        /// <param name="painter">Модель художника</param>
-        /// <returns>Модель художника</returns>
+        /// <param name="painter">Модель художник</param>
+        /// <returns>Ответ художник</returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] PainterModifyModel painter)
         {
-            var result = await _painterService.AddAsync(painter);
-            return Ok(result);
+            var response = await _painterService.AddAsync(painter);
+            return Ok(response);
         }
 
         /// <summary>
         /// Обновить художника
         /// </summary>
-        /// <param name="painter">Модель художника</param>
-        /// <returns>Модель художника</returns>
+        /// <param name="painter">Модель художник</param>
+        /// <returns>Ответ художник</returns>
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] PainterModifyModel painter)
         {
-            var result = await _painterService.UpdateAsync(painter);
-            return Ok(result);
+            var response = await _painterService.UpdateAsync(painter);
+            return Ok(response);
         }
 
         /// <summary>
-        /// Удалить художника
+        /// Удалить художника по идентификатору
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns></returns>
+        /// <param name="id">Идентификатор художника</param>
+        /// <returns>Базовый ответ</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var result = await _painterService.DeleteAsync(id);
-            return Ok(result);
+            var response = await _painterService.DeleteAsync(id);
+            return Ok(response);
         }
 
         /// <summary>
         /// Получить художника по идентификатору
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns>Модель художника</returns>
+        /// <param name="id">Идентификатор художника</param>
+        /// <returns>Ответ художник</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var result = await _painterService.GetAsync(id);
-            return Ok(result);
+            var response = await _painterService.GetAsync(id);
+            return Ok(response);
         }
 
         /// <summary>
@@ -80,8 +80,8 @@ namespace API.Controllers
         [HttpGet("GetPainters/take/{takeCount}/skip/{skipCount}")]
         public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = await _painterService.GetAsync(takeCount, skipCount);
-            return Ok(result);
+            var response = await _painterService.GetAsync(takeCount, skipCount);
+            return Ok(response);
         }
 
         /// <summary>
@@ -94,8 +94,8 @@ namespace API.Controllers
         [HttpGet("SearchByName/{painterName}/take/{takeCount}/skip/{skipCount}")]
         public async Task<IActionResult> SearchByName([FromRoute] string painterName, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = await _painterService.SearchByNameAsync(painterName, takeCount, skipCount);
-            return Ok(result);
+            var response = await _painterService.SearchByNameAsync(painterName, takeCount, skipCount);
+            return Ok(response);
         }
 
         /// <summary>
@@ -108,8 +108,8 @@ namespace API.Controllers
         [HttpGet("SearchByStyle/{styleName}/take/{takeCount}/skip/{skipCount}")]
         public async Task<IActionResult> SearchByStyle([FromRoute] string styleName, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = await _painterService.SearchBySyleAsync(styleName, takeCount, skipCount);
-            return Ok(result);
+            var response = await _painterService.SearchBySyleAsync(styleName, takeCount, skipCount);
+            return Ok(response);
         }
     }
 }

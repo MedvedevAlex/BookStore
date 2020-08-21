@@ -13,11 +13,11 @@ namespace ViewModel.Models.Publishers
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Название
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Выпущенные книги
+        /// Коллекция идентификаторов книг
         /// </summary>
         public ICollection<Guid> BooksIds { get; set; }
     }

@@ -3,7 +3,7 @@
 namespace Model.Entities.References
 {
     /// <summary>
-    /// Сущность(cправочник) Жанр
+    /// Сущность(cправочник) жанр
     /// </summary>
     public class Genre
     {

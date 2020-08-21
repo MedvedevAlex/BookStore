@@ -6,7 +6,7 @@ using ViewModel.Models.Users;
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Авторизация
+    /// Контроллер авторизация
     /// </summary>
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -28,7 +28,7 @@ namespace API.Controllers
         /// Зарегистрировать пользователя
         /// </summary>
         /// <param name="user">Модель пользователь</param>
-        /// <returns>Модель токен</returns>
+        /// <returns>Ответ токен</returns>
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] UserShortModel user)
         {
@@ -40,7 +40,7 @@ namespace API.Controllers
         /// Авторизовать пользователя
         /// </summary>
         /// <param name="user">Модель пользователь</param>
-        /// <returns>Модель токен</returns>
+        /// <returns>Ответ токен</returns>
         [HttpPost("Authorize")]
         public async Task<IActionResult> Authorize([FromBody] UserShortModel user)
         {
@@ -52,7 +52,7 @@ namespace API.Controllers
         /// Получить токен
         /// </summary>
         /// <param name="login">Логин пользователя</param>
-        /// <returns>Модель токен</returns>
+        /// <returns>Ответ токен</returns>
         [HttpGet("{login}")]
         public async Task<IActionResult> Token([FromRoute] string login)
         {

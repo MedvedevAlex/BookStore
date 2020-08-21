@@ -15,7 +15,6 @@ namespace API.Filters
                 response.StatusCode = 404;
                 response.ContentType = "application/json";
             }
-            
         }
     }
 }
