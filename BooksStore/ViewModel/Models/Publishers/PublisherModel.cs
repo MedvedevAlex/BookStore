@@ -5,7 +5,7 @@ using ViewModel.Models.Books;
 namespace ViewModel.Models.Publishers
 {
     /// <summary>
-    /// Модель Издатель
+    /// Модель издатель
     /// </summary>
     public class PublisherModel
     {
@@ -14,11 +14,11 @@ namespace ViewModel.Models.Publishers
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Название
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Выпущенные книги
+        /// Коллекция книг
         /// </summary>
         public ICollection<BookModel> Books { get; set; }
     }

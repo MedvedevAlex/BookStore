@@ -3,7 +3,7 @@
 namespace ViewModel.Models.Authors
 {
     /// <summary>
-    /// Модель Автор
+    /// Модель автор
     /// </summary>
     public class AuthorShortModel
     {
@@ -12,7 +12,7 @@ namespace ViewModel.Models.Authors
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Имя автора
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
     }

@@ -10,7 +10,7 @@ using ViewModel.Models.Deliveries;
 namespace Model.Handlers
 {
     /// <summary>
-    /// Хэндлер доставка
+    /// Обработчик данных доставка
     /// </summary>
     public class DeliveryHandler : IDeliveryHandler
     {
@@ -65,8 +65,8 @@ namespace Model.Handlers
             {
                 var deliveryEntity = await context.Deliveries
                     .Include(d => d.Shop)
-                        .ThenInclude(ws => ws.WorkShedule)
-                    .FirstOrDefaultAsync(o => o.Id == id);
+                        .ThenInclude(s => s.WorkShedule)
+                    .FirstOrDefaultAsync(d => d.Id == id);
                 if (deliveryEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти доставку");
 
                 return _mapper.Map<DeliveryModel>(deliveryEntity);

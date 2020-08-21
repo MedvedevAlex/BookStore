@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ViewModel.Models.Orders;
-using ViewModel.Models.Responses.Orders;
+using ViewModel.Responses.Orders;
 
 namespace ViewModel.Interfaces.Services
 {

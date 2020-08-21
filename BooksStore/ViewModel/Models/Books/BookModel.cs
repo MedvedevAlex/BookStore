@@ -7,7 +7,7 @@ using ViewModel.Models.References;
 namespace ViewModel.Models.Books
 {
     /// <summary>
-    /// Книга
+    /// Модель книга
     /// </summary>
     public class BookModel
     {

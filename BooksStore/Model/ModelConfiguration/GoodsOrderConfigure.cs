@@ -8,13 +8,13 @@ namespace Model.ModelConfiguration
     {
         public void Configure(EntityTypeBuilder<GoodsOrder> builder)
         {
-            builder.HasKey(g => g.Id);
+            builder.HasKey(go => go.Id);
 
-            builder.Property(g => g.Amount)
+            builder.Property(go => go.Amount)
                 .HasColumnType("numeric(8,2)");
 
-            builder.HasOne(g => g.Order);
-            builder.HasOne(g => g.Book);
+            builder.HasOne(go => go.Order);
+            builder.HasOne(go => go.Book);
         }
     }
 }

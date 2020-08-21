@@ -13,11 +13,11 @@ namespace ViewModel.Models.Authors
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Имя автора
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Возраст автора
+        /// Возраст
         /// </summary>
         public byte Age { get; set; }
         /// <summary>

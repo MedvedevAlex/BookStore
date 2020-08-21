@@ -6,7 +6,7 @@ using ViewModel.Models.References;
 namespace ViewModel.Models.Painters
 {
     /// <summary>
-    /// Модель Художник
+    /// Модель художник
     /// </summary>
     public class PainterModel
     {
@@ -15,7 +15,7 @@ namespace ViewModel.Models.Painters
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Имя художника
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
         /// <summary>

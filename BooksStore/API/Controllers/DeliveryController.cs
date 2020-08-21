@@ -27,24 +27,24 @@ namespace API.Controllers
         /// Добавить доставку
         /// </summary>
         /// <param name="delivery">Модель доставка</param>
-        /// <returns>Модель доставка</returns>
+        /// <returns>Ответ доставка</returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] DeliveryModifyModel delivery)
         {
-            var result = await _deliveryService.AddAsync(delivery);
-            return Ok(result);
+            var response = await _deliveryService.AddAsync(delivery);
+            return Ok(response);
         }
 
         /// <summary>
         /// Получить доставку по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор доставки</param>
-        /// <returns>Модель доставка</returns>
+        /// <returns>Ответ доставка</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var result = await _deliveryService.GetAsync(id);
-            return Ok(result);
+            var response = await _deliveryService.GetAsync(id);
+            return Ok(response);
         }
     }
 }

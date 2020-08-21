@@ -3,7 +3,7 @@
 namespace ViewModel.Models.References
 {
     /// <summary>
-    /// Модель Жанр
+    /// Модель жанр
     /// </summary>
     public class GenreModel
     {

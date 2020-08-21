@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ViewModel.Models.Books;
-using ViewModel.Models.Responses;
-using ViewModel.Models.Responses.Books;
+using ViewModel.Responses;
+using ViewModel.Responses.Books;
 
 namespace ViewModel.Interfaces.Services
 {

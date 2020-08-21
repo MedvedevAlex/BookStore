@@ -7,15 +7,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ViewModel.Handlers;
+using ViewModel.Interfaces.Handlers;
 using ViewModel.Models.Authors;
-using ViewModel.Models.Responses;
-using ViewModel.Models.Responses.Authors;
+using ViewModel.Responses;
+using ViewModel.Responses.Authors;
 
 namespace Model.Handlers
 {
     /// <summary>
-    /// Хэндлер Автор
+    /// Обработчик данных автор
     /// </summary>
     public class AuthorHandler : IAuthorHandler
     {
@@ -58,7 +58,7 @@ namespace Model.Handlers
         /// Обновить автора
         /// </summary>
         /// <param name="author">Модель автор</param>
-        /// <returns>Автор модель</returns>
+        /// <returns>Модель автор</returns>
         public async Task<AuthorViewModel> UpdateAsync(AuthorModifyModel author)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
@@ -75,11 +75,11 @@ namespace Model.Handlers
                         .Where(b => author.BooksIds.Contains(b.Id));
 
                 context.TryUpdateManyToMany(authorEntity.AuthorBooks, newBooksEntities
-                    .Select(s => new AuthorBook
+                    .Select(b => new AuthorBook
                     {
                         AuthorId = authorEntity.Id,
-                        BookId = s.Id
-                    }), s => s.BookId);
+                        BookId = b.Id
+                    }), ab => ab.BookId);
 
                 context.Authors.Update(authorEntity);
                 await context.SaveChangesAsync();
@@ -91,6 +91,7 @@ namespace Model.Handlers
         /// Удалить автора
         /// </summary>
         /// <param name="id">Идентификатор</param>
+        /// <returns>Базовый ответ</returns>
         public async Task<BaseResponse> DeleteAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))

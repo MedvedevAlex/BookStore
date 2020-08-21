@@ -24,14 +24,14 @@ namespace Service
             #region Карты Книга
             CreateMap<Book, BookModel>().ReverseMap();
             CreateMap<Book, BookViewModel>()
-                .ForMember(ct => ct.CoverType, ct => ct.MapFrom(cvt => cvt.CoverType.Name))
-                .ForMember(l => l.Language, l => l.MapFrom(lg => lg.Language.Name))
-                .ForMember(g => g.Genre, g => g.MapFrom(gr => gr.Genre.Name))
-                .ForMember(a => a.Authors, a => a.MapFrom(ar => ar.AuthorBooks.Select(s => s.Author)))
-                .ForMember(p => p.Painters, p => p.MapFrom(pr => pr.PainterBooks.Select(s => s.Painter)))
-                .ForMember(i => i.Interpreters, i => i.MapFrom(ir => ir.InterpreterBooks.Select(s => s.Interpreter)));
+                .ForMember(bvm => bvm.CoverType, e => e.MapFrom(b => b.CoverType.Name))
+                .ForMember(bvm => bvm.Language, e => e.MapFrom(b => b.Language.Name))
+                .ForMember(bvm => bvm.Genre, e => e.MapFrom(b => b.Genre.Name))
+                .ForMember(bvm => bvm.Authors, e => e.MapFrom(b => b.AuthorBooks.Select(ab => ab.Author)))
+                .ForMember(bvm => bvm.Painters, e => e.MapFrom(b => b.PainterBooks.Select(pb => pb.Painter)))
+                .ForMember(bvm => bvm.Interpreters, e => e.MapFrom(b => b.InterpreterBooks.Select(ib => ib.Interpreter)));
             CreateMap<Book, BookPreviewModel>()
-                .ForMember(a => a.Authors, a => a.MapFrom(ar => ar.AuthorBooks.Select(s => s.Author)));
+                .ForMember(bpm => bpm.Authors, e => e.MapFrom(b => b.AuthorBooks.Select(ab => ab.Author)));
             CreateMap<Book, BookModifyModel>().ReverseMap();
             #endregion
             #region Карты Справочники
@@ -44,7 +44,7 @@ namespace Service
             #region Карты Автор
             CreateMap<Author, AuthorModel>().ReverseMap();
             CreateMap<Author, AuthorViewModel>()
-                .ForMember(avm => avm.Books, mce => mce.MapFrom(a => a.AuthorBooks.Select(ab => ab.Book)));
+                .ForMember(avm => avm.Books, e => e.MapFrom(a => a.AuthorBooks.Select(ab => ab.Book)));
             CreateMap<Author, AuthorPreviewModel>();
             CreateMap<Author, AuthorModifyModel>().ReverseMap();
             CreateMap<Author, AuthorShortModel>();
@@ -60,10 +60,10 @@ namespace Service
             #region Карты Художник
             CreateMap<Painter, PainterModel>().ReverseMap();
             CreateMap<Painter, PainterViewModel>()
-                .ForMember(pm => pm.Style, pm => pm.MapFrom(p => p.Style.Name))
-                .ForMember(pm => pm.Books, pm => pm.MapFrom(p => p.PainterBooks.Select(s => s.Book)));
+                .ForMember(pvm => pvm.Style, e => e.MapFrom(p => p.Style.Name))
+                .ForMember(pvm => pvm.Books, e => e.MapFrom(p => p.PainterBooks.Select(pb => pb.Book)));
             CreateMap<Painter, PainterPreviewModel>()
-                .ForMember(pm => pm.Style, pm => pm.MapFrom(p => p.Style.Name));
+                .ForMember(pvm => pvm.Style, e => e.MapFrom(p => p.Style.Name));
             CreateMap<Painter, PainterModifyModel>().ReverseMap();
             CreateMap<Painter, PainterShortModel>();
             CreateMap<PainterBook, PainterBookModel>().ReverseMap();
@@ -71,7 +71,7 @@ namespace Service
             #region Карты Переводчик
             CreateMap<Interpreter, InterpreterModel>().ReverseMap();
             CreateMap<Interpreter, InterpreterViewModel>()
-                .ForMember(im => im.Books, im => im.MapFrom(i => i.InterpreterBooks.Select(s => s.Book)));
+                .ForMember(ivm => ivm.Books, e => e.MapFrom(i => i.InterpreterBooks.Select(ib => ib.Book)));
             CreateMap<Interpreter, InterpreterPreviewModel>();
             CreateMap<Interpreter, InterpreterModifyModel>().ReverseMap();
             CreateMap<Interpreter, InterpreterShortModel>();

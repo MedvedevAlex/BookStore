@@ -7,15 +7,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ViewModel.Handlers;
+using ViewModel.Interfaces.Handlers;
 using ViewModel.Models.Books;
-using ViewModel.Models.Responses;
-using ViewModel.Models.Responses.Books;
+using ViewModel.Responses;
+using ViewModel.Responses.Books;
 
 namespace Model.Handlers
 {
     /// <summary>
-    /// Хэндлер Книги
+    /// Обработчик данных книга
     /// </summary>
     public class BookHandler : IBookHandler
     {
@@ -35,8 +35,8 @@ namespace Model.Handlers
         /// <summary>
         /// Добавить книгу
         /// </summary>
-        /// <param name="book">Модель книги</param>
-        /// <returns>Модель книги</returns>
+        /// <param name="book">Модель книга</param>
+        /// <returns>Модель книга</returns>
         public async Task<BookViewModel> AddAsync(BookModifyModel book)
         {
             var bookEntity = _mapper.Map<Book>(book);
@@ -52,10 +52,10 @@ namespace Model.Handlers
                         .FirstOrDefaultAsync(l => l.Id == book.LanguageId);
                     var publisher = await context.Publishers
                         .FirstOrDefaultAsync(p => p.Id == book.PublisherId);
-                    bookEntity.CoverType = coverType ?? throw new KeyNotFoundException("Ошибка: не удалось найти тип переплета");
-                    bookEntity.Genre = genre ?? throw new KeyNotFoundException("Ошибка: не удалось найти жанр");
-                    bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: не удалось найти язык");
-                    bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: не удалось найти издателя");
+                    bookEntity.CoverType = coverType ?? throw new KeyNotFoundException("Ошибка: Не удалось найти тип переплета");
+                    bookEntity.Genre = genre ?? throw new KeyNotFoundException("Ошибка: Не удалось найти жанр");
+                    bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: Не удалось найти язык");
+                    bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: Не удалось найти издателя");
 
                     var newAuthorsEntities = await context.Authors
                         .Where(a => book.AuthorsIds.Contains(a.Id))
@@ -87,19 +87,19 @@ namespace Model.Handlers
         /// <summary>
         /// Обновить книгу
         /// </summary>
-        /// <param name="book">Модель книги</param>
-        /// <returns></returns>
+        /// <param name="book">Модель книга</param>
+        /// <returns>Модель книга</returns>
         public async Task<BookViewModel> UpdateAsync(BookModifyModel book)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var bookEntity = await context.Books
-                    .Include(ab => ab.AuthorBooks)
-                        .ThenInclude(ar => ar.Author)
-                    .Include(ib => ib.InterpreterBooks)
-                        .ThenInclude(ir => ir.Interpreter)
-                    .Include(pb => pb.PainterBooks)
-                        .ThenInclude(pr => pr.Painter)
+                    .Include(a => a.AuthorBooks)
+                        .ThenInclude(ab => ab.Author)
+                    .Include(b => b.InterpreterBooks)
+                        .ThenInclude(ib => ib.Interpreter)
+                    .Include(b => b.PainterBooks)
+                        .ThenInclude(pb => pb.Painter)
                     .FirstOrDefaultAsync(b => b.Id == book.Id);
                 if (bookEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти книгу");
 
@@ -113,10 +113,10 @@ namespace Model.Handlers
                     .FirstOrDefaultAsync(l => l.Id == book.LanguageId);
                 var publisher = await context.Publishers
                     .FirstOrDefaultAsync(p => p.Id == book.PublisherId);
-                bookEntity.CoverType = coverType ?? throw new KeyNotFoundException("Ошибка: не удалось найти тип переплета");
-                bookEntity.Genre = genre ?? throw new KeyNotFoundException("Ошибка: не удалось найти жанр");
-                bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: не удалось найти язык");
-                bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: не удалось найти издателя");
+                bookEntity.CoverType = coverType ?? throw new KeyNotFoundException("Ошибка: Не удалось найти тип переплета");
+                bookEntity.Genre = genre ?? throw new KeyNotFoundException("Ошибка: Не удалось найти жанр");
+                bookEntity.Language = language ?? throw new KeyNotFoundException("Ошибка: Не удалось найти язык");
+                bookEntity.Publisher = publisher ?? throw new KeyNotFoundException("Ошибка: Не удалось найти издателя");
 
                 var newAuthorsEntities = context.Authors
                     .Where(a => book.AuthorsIds.Contains(a.Id));
@@ -126,25 +126,25 @@ namespace Model.Handlers
                     .Where(i => book.InterpretersIds.Contains(i.Id));
 
                 context.TryUpdateManyToMany(bookEntity.AuthorBooks, newAuthorsEntities
-                    .Select(s => new AuthorBook
+                    .Select(a => new AuthorBook
                     {
                         BookId = bookEntity.Id,
-                        AuthorId = s.Id
-                    }), s => s.AuthorId);
+                        AuthorId = a.Id
+                    }), ab => ab.AuthorId);
 
                 context.TryUpdateManyToMany(bookEntity.PainterBooks, newPaintersEntities
                     .Select(p => new PainterBook
                     {
                         BookId = bookEntity.Id,
                         PainterId = p.Id
-                    }), p => p.PainterId);
+                    }), pb => pb.PainterId);
 
                 context.TryUpdateManyToMany(bookEntity.InterpreterBooks, newInterpretersEntities
                     .Select(i => new InterpreterBook
                     {
                         BookId = bookEntity.Id,
                         InterpreterId = i.Id
-                    }), i => i.InterpreterId);
+                    }), ib => ib.InterpreterId);
 
                 context.Books.Update(bookEntity);
                 await context.SaveChangesAsync();
@@ -156,7 +156,7 @@ namespace Model.Handlers
         /// Удалить книгу
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        /// <returns></returns>
+        /// <returns>Базовый ответ</returns>
         public async Task<BaseResponse> DeleteAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
@@ -170,7 +170,7 @@ namespace Model.Handlers
         }
 
         /// <summary>
-        /// Получить книгу по идентификатору
+        /// Получить книгу
         /// </summary>
         /// <param name="id">Идентификатор</param>
         /// <returns>Модель книги</returns>
@@ -179,27 +179,27 @@ namespace Model.Handlers
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var bookEntity = await context.Books
-                    .Include(c => c.CoverType)
-                    .Include(g => g.Genre)
-                    .Include(l => l.Language)
-                    .Include(p => p.Publisher)
-                    .Include(ab => ab.AuthorBooks)
-                        .ThenInclude(ar => ar.Author)
-                    .Include(ib => ib.InterpreterBooks)
-                        .ThenInclude(ir => ir.Interpreter)
-                    .Include(pb => pb.PainterBooks)
-                        .ThenInclude(pr => pr.Painter)
+                    .Include(b => b.CoverType)
+                    .Include(b => b.Genre)
+                    .Include(b => b.Language)
+                    .Include(b => b.Publisher)
+                    .Include(b => b.AuthorBooks)
+                        .ThenInclude(ab => ab.Author)
+                    .Include(b => b.InterpreterBooks)
+                        .ThenInclude(ib => ib.Interpreter)
+                    .Include(b => b.PainterBooks)
+                        .ThenInclude(pb => pb.Painter)
                     .FirstOrDefaultAsync(b => b.Id == id);
                 return _mapper.Map<BookViewModel>(bookEntity);
             }
         }
 
         /// <summary>
-        /// Пагинация для получения книг
+        /// Пагинация книг
         /// </summary>
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns>Коллекция превью книг</returns>
+        /// <returns>Коллекция книг</returns>
         public async Task<BookPreviewResponse> GetAsync(int takeCount, int skipCount)
         {
             var result = new BookPreviewResponse();
@@ -209,9 +209,9 @@ namespace Model.Handlers
                 result.PreviewBooks = await query
                     .Take(takeCount)
                     .Skip(skipCount)
-                    .Include(ab => ab.AuthorBooks)
-                        .ThenInclude(ar => ar.Author)
-                    .Select(s => _mapper.Map<BookPreviewModel>(s))
+                    .Include(b => b.AuthorBooks)
+                        .ThenInclude(ab => ab.Author)
+                    .Select(b => _mapper.Map<BookPreviewModel>(b))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
             }
@@ -222,7 +222,7 @@ namespace Model.Handlers
         /// Поиск книг по автору
         /// </summary>
         /// <param name="searchString">Имя автора</param>
-        /// <returns>Колекция книг</returns>
+        /// <returns>Ответ с коллекцией книг</returns>
         public async Task<BookPreviewResponse> SearchByAuthorAsync(string searchString, int takeCount, int skipCount)
         {
             var result = new BookPreviewResponse();
@@ -250,7 +250,7 @@ namespace Model.Handlers
         /// <param name="searchString">Название книги</param>
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns></returns>
+        /// <returns>Ответ с коллекцией книг</returns>
         public async Task<BookPreviewResponse> SearchByNameAsync(string searchString, int takeCount, int skipCount)
         {
             var result = new BookPreviewResponse();
@@ -260,11 +260,11 @@ namespace Model.Handlers
                     .Where(b => b.Name.Contains(searchString.Trim()));
 
                 result.PreviewBooks = await query
-                    .Include(ab => ab.AuthorBooks)
-                            .ThenInclude(ar => ar.Author)
+                    .Include(b => b.AuthorBooks)
+                            .ThenInclude(ab => ab.Author)
                     .Take(takeCount)
                     .Skip(skipCount)
-                    .Select(s => _mapper.Map<BookPreviewModel>(s))
+                    .Select(b => _mapper.Map<BookPreviewModel>(b))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
             }
@@ -277,7 +277,7 @@ namespace Model.Handlers
         /// <param name="searchString">Название жанра</param>
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns>Колекция книг</returns>
+        /// <returns>Ответ с коллекцией книг</returns>
         public async Task<BookPreviewResponse> SearchByGenreAsync(string searchString, int takeCount, int skipCount)
         {
             var result = new BookPreviewResponse();
@@ -285,16 +285,16 @@ namespace Model.Handlers
             {
                 var genresEntities = context.Genres
                     .Where(g => g.Name.Contains(searchString.Trim()))
-                    .Select(s => s.Name);
+                    .Select(g => g.Name);
                 var query = context.Books
                     .Where(b => genresEntities.Contains(b.Genre.Name));
 
                 result.PreviewBooks = await query
-                    .Include(ab => ab.AuthorBooks)
-                        .ThenInclude(ar => ar.Author)
+                    .Include(b => b.AuthorBooks)
+                        .ThenInclude(ab => ab.Author)
                     .Take(takeCount)
                     .Skip(skipCount)
-                    .Select(s => _mapper.Map<BookPreviewModel>(s))
+                    .Select(b => _mapper.Map<BookPreviewModel>(b))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
             }

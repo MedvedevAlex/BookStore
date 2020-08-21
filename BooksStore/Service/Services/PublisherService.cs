@@ -3,8 +3,8 @@ using ViewModel.Interfaces.Handlers;
 using ViewModel.Models.Publishers;
 using System;
 using System.Threading.Tasks;
-using ViewModel.Models.Responses.Publishers;
-using ViewModel.Models.Responses;
+using ViewModel.Responses.Publishers;
+using ViewModel.Responses;
 
 namespace Service.Services
 {

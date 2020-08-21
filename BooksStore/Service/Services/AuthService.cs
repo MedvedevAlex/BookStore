@@ -5,10 +5,10 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ViewModel.Handlers;
+using ViewModel.Interfaces.Handlers;
 using ViewModel.Interfaces.Services;
-using ViewModel.Models.Responses.Users;
 using ViewModel.Models.Users;
+using ViewModel.Responses.Users;
 
 namespace Service.Services
 {
@@ -27,7 +27,7 @@ namespace Service.Services
         /// Зарегистрировать пользователя
         /// </summary>
         /// <param name="user">Модель пользователь</param>
-        /// <returns>Модель токен</returns>
+        /// <returns>Ответ токен</returns>
         public async Task<TokenResponse> Register(UserShortModel user)
         {
             try
@@ -48,7 +48,7 @@ namespace Service.Services
         /// Авторизовать пользователя
         /// </summary>
         /// <param name="user">Модель пользователь</param>
-        /// <returns>Модель токен</returns>
+        /// <returns>Ответ токен</returns>
         public async Task<TokenResponse> Authorize(UserShortModel user)
         {
             try
@@ -66,34 +66,33 @@ namespace Service.Services
         /// Получить токен
         /// </summary>
         /// <param name="login">Логин</param>
-        /// <returns>Модель токен</returns>
+        /// <returns>Ответ токен</returns>
         public async Task<TokenResponse> GetTokenAsync(string login)
         {
-            ClaimsIdentity identity;
             try
             {
-                identity = await GetIdentityAsync(login);
+                var identity = await GetIdentityAsync(login);
+
+                var now = DateTime.UtcNow;
+                var jwt = new JwtSecurityToken(
+                        issuer: AuthOptions.ISSUER,
+                        audience: AuthOptions.AUDIENCE,
+                        notBefore: now,
+                        claims: identity.Claims,
+                        expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+                return new TokenResponse
+                {
+                    AccessToken = encodedJwt,
+                    Login = identity.Name
+                };
             }
             catch (Exception e)
             {
                 return new TokenResponse { Success = false, ErrorMessage = e.Message };
             }
-
-            var now = DateTime.UtcNow;
-            var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
-                    notBefore: now,
-                    claims: identity.Claims,
-                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
-
-            return new TokenResponse
-            {
-                AccessToken = encodedJwt,
-                Login = identity.Name
-            };
         }
 
         /// <summary>

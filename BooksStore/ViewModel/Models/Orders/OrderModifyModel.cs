@@ -9,12 +9,8 @@ namespace ViewModel.Models.Orders
     public class OrderModifyModel
     {
         /// <summary>
-        /// Колекция книг
+        /// Колекция идентификаторов книг
         /// </summary>
-        public ICollection<Guid> Books { get; set; }
-        /// <summary>
-        /// Идентификатор магазина для доставки
-        /// </summary>
-        public Guid ShopId { get; set; }
+        public ICollection<Guid> BooksIds { get; set; }
     }
 }

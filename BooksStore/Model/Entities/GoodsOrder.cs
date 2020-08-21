@@ -3,7 +3,7 @@
 namespace Model.Entities
 {
     /// <summary>
-    /// Сущность Товары Заказ
+    /// Сущность товары к заказу
     /// </summary>
     public class GoodsOrder
     {
@@ -12,11 +12,11 @@ namespace Model.Entities
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Идентификатор заказа
+        /// Сущность заказ
         /// </summary>
         public Order Order { get; set; }
         /// <summary>
-        /// Идентификатор книги
+        /// Сущность книга
         /// </summary>
         public Book Book { get; set; }
         /// <summary>

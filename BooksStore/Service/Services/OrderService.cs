@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Orders;
-using ViewModel.Models.Responses.Orders;
+using ViewModel.Responses.Orders;
 
 namespace Service.Services
 {

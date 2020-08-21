@@ -15,7 +15,7 @@ namespace ViewModel.Models.Orders
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Книги
+        /// Коллекция книг
         /// </summary>
         public ICollection<BookPreviewModel> Books { get; set; }
         /// <summary>

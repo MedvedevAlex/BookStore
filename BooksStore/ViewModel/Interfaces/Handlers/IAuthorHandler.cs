@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ViewModel.Models.Authors;
-using ViewModel.Models.Responses;
-using ViewModel.Models.Responses.Authors;
+using ViewModel.Responses;
+using ViewModel.Responses.Authors;
 
-namespace ViewModel.Handlers
+namespace ViewModel.Interfaces.Handlers
 {
     public interface IAuthorHandler
     {

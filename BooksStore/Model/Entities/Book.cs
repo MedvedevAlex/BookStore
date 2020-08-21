@@ -23,15 +23,15 @@ namespace Model.Entities
         /// </summary>
         public DateTime PublishDate { get; set; }
         /// <summary>
-        /// Cущность Тип переплета
+        /// Cущность тип переплета
         /// </summary>
         public CoverType CoverType { get; set; }
         /// <summary>
-        /// Сущность Жанр
+        /// Сущность жанр
         /// </summary>
         public Genre Genre { get; set; }
         /// <summary>
-        /// Сущность Язык
+        /// Сущность язык
         /// </summary>
         public Language Language { get; set; }
         /// <summary>
@@ -67,7 +67,7 @@ namespace Model.Entities
         /// </summary>
         public byte AgeLimit { get; set; }
         /// <summary>
-        /// Издатель
+        /// Сущность издатель
         /// </summary>
         public Publisher Publisher { get; set; }
         /// <summary>

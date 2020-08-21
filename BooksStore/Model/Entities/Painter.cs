@@ -6,7 +6,7 @@ using System.Collections.Generic;
 namespace Model.Entities
 {
     /// <summary>
-    /// Сущность Художник
+    /// Сущность художник
     /// </summary>
     public class Painter
     {
@@ -15,7 +15,7 @@ namespace Model.Entities
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Имя художника
+        /// НАименование
         /// </summary>
         public string Name { get; set; }
         /// <summary>
@@ -27,7 +27,7 @@ namespace Model.Entities
         /// </summary>
         public string Description { get; set; }
         /// <summary>
-        /// Идентификатор художественного стиля
+        /// Сущность художественный стиль
         /// </summary>
         public PainterStyle Style { get; set; }
         /// <summary>

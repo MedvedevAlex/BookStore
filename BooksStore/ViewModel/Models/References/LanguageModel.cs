@@ -3,7 +3,7 @@
 namespace ViewModel.Models.References
 {
     /// <summary>
-    /// Модель Язык
+    /// Модель язык
     /// </summary>
     public class LanguageModel
     {

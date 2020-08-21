@@ -3,7 +3,7 @@
 namespace Model.Entities.References
 {
     /// <summary>
-    /// Сущность(cправочник) Тип переплета
+    /// Сущность(cправочник) тип переплета
     /// </summary>
     public class CoverType
     {

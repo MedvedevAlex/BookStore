@@ -6,17 +6,17 @@ using Microsoft.EntityFrameworkCore;
 using Model.Entities;
 using ViewModel.Models.Interpreters;
 using Model.Entities.JoinTables;
-using ViewModel.Handlers;
 using System;
 using System.Collections.Generic;
 using Model.Extensions;
-using ViewModel.Models.Responses;
-using ViewModel.Models.Responses.Interpreters;
+using ViewModel.Interfaces.Handlers;
+using ViewModel.Responses;
+using ViewModel.Responses.Interpreters;
 
 namespace Service.PublisherRepos
 {
     /// <summary>
-    /// Хэндлер Переводчик
+    /// Обработчик данных переводчик
     /// </summary>
     public class InterpreterHandler : IInterpreterHandler
     {
@@ -130,7 +130,7 @@ namespace Service.PublisherRepos
         /// </summary>
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
-        /// <returns>Коллекция переводчиков</returns>
+        /// <returns>Ответ с коллекцией переводчиков</returns>
         public async Task<InterpreterPreviewResponse> GetAsync(int takeCount, int skipCount)
         {
             var result = new InterpreterPreviewResponse();
@@ -140,7 +140,7 @@ namespace Service.PublisherRepos
                 result.PreviewInterpreters = await query
                     .Take(takeCount)
                     .Skip(skipCount)
-                    .Select(a => _mapper.Map<InterpreterPreviewModel>(a))
+                    .Select(i => _mapper.Map<InterpreterPreviewModel>(i))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
             }
@@ -153,7 +153,7 @@ namespace Service.PublisherRepos
         /// <param name="interpreterName">Имя переводчика</param>
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
-        /// <returns>Коллекция переводчиков</returns>
+        /// <returns>Ответ с коллекцией переводчиков</returns>
         public async Task<InterpreterPreviewResponse> SearchByNameAsync(string interpreterName, int takeCount, int skipCount)
         {
             var result = new InterpreterPreviewResponse();
@@ -164,7 +164,7 @@ namespace Service.PublisherRepos
                 result.PreviewInterpreters = await query
                     .Take(takeCount)
                     .Skip(skipCount)
-                    .Select(a => _mapper.Map<InterpreterPreviewModel>(a))
+                    .Select(i => _mapper.Map<InterpreterPreviewModel>(i))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
             }

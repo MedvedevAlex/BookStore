@@ -3,7 +3,7 @@
 namespace ViewModel.Models.References
 {
     /// <summary>
-    /// Модель Тип переплета
+    /// Модель тип переплета
     /// </summary>
     public class CoverTypeModel
     {

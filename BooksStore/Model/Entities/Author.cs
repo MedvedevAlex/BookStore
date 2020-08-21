@@ -5,7 +5,7 @@ using System.Collections.Generic;
 namespace Model.Entities
 {
     /// <summary>
-    /// Сущность Автор
+    /// Сущность автор
     /// </summary>
     public class Author
     {
@@ -14,11 +14,11 @@ namespace Model.Entities
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Имя автора
+        /// Наименование
         /// </summary>
         public string Name { get; set; }
         /// <summary>
-        /// Возраст автора
+        /// Возраст
         /// </summary>
         public byte Age { get; set; }
         /// <summary>

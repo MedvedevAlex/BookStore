@@ -7,7 +7,7 @@ using ViewModel.Models.References;
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Стиль художника
+    /// Контроллер стиль художника
     /// </summary>
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -48,7 +48,7 @@ namespace API.Controllers
         /// <summary>
         /// Удалить стиль художника
         /// </summary>
-        /// <param name="id">Идентификатор</param>
+        /// <param name="id">Идентификатор стиля художника</param>
         /// <returns></returns>
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] Guid id)
@@ -60,7 +60,7 @@ namespace API.Controllers
         /// <summary>
         /// Получить стиль художника по идентификатору
         /// </summary>
-        /// <param name="id">Идентификатор</param>
+        /// <param name="id">Идентификатор стиля художника</param>
         /// <returns>Модель стиль художника</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)

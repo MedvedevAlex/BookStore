@@ -3,7 +3,7 @@
 namespace Model.Entities.References
 {
     /// <summary>
-    /// Сущность(cправочник) Язык
+    /// Сущность(cправочник) язык
     /// </summary>
     public class Language
     {

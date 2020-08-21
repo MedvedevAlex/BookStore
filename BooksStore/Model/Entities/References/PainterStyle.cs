@@ -3,7 +3,7 @@
 namespace Model.Entities.References
 {
     /// <summary>
-    /// Сущность(cправочник) Стиль художника
+    /// Сущность(cправочник) стиль художника
     /// </summary>
     public class PainterStyle
     {

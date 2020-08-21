@@ -7,7 +7,7 @@ using ViewModel.Models.Books;
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Книга
+    /// Контроллер книга
     /// </summary>
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -19,7 +19,7 @@ namespace API.Controllers
         /// <summary>
         /// Конструктор
         /// </summary>
-        /// <param name="bookService">Сервис Книга</param>
+        /// <param name="bookService">Сервис книга</param>
         public BookController(IBookService bookService)
         {
             _bookService = bookService;
@@ -28,49 +28,49 @@ namespace API.Controllers
         /// <summary>
         /// Добавить книгу
         /// </summary>
-        /// <param name="book">Модель книги</param>
-        /// <returns>Модель книги</returns>
+        /// <param name="book">Модель книга</param>
+        /// <returns>Ответ книга</returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] BookModifyModel book)
         {
-            var result = await _bookService.AddAsync(book);
-            return Ok(result);
+            var response = await _bookService.AddAsync(book);
+            return Ok(response);
         }
 
         /// <summary>
         /// Обновить книгу
         /// </summary>
-        /// <param name="book">Модель книги</param>
-        /// <returns></returns>
+        /// <param name="book">Модель книга</param>
+        /// <returns>Ответ книга</returns>
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] BookModifyModel book)
         {
-            var result = await _bookService.UpdateAsync(book);
-            return Ok(result);
+            var response = await _bookService.UpdateAsync(book);
+            return Ok(response);
         }
 
         /// <summary>
-        /// Удалить книгу
+        /// Удалить книгу по идентификатору
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns></returns>
+        /// <param name="id">Идентификатор книги</param>
+        /// <returns>Базовый ответ</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            var result = await _bookService.DeleteAsync(id);
-            return Ok(result);
+            var response = await _bookService.DeleteAsync(id);
+            return Ok(response);
         }
 
         /// <summary>
         /// Получить книгу по идентификатору
         /// </summary>
-        /// <param name="id">Идентификатор</param>
-        /// <returns>Модель книги</returns>
+        /// <param name="id">Идентификатор книги</param>
+        /// <returns>Ответ книга</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var result = await _bookService.GetAsync(id);
-            return Ok(result);
+            var response = await _bookService.GetAsync(id);
+            return Ok(response);
         }
 
         /// <summary>
@@ -82,8 +82,8 @@ namespace API.Controllers
         [HttpGet("GetBooks/take/{takeCount}/skip/{skipCount}")]
         public async Task<IActionResult> Get([FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = await _bookService.GetAsync(takeCount, skipCount);
-            return Ok(result);
+            var response = await _bookService.GetAsync(takeCount, skipCount);
+            return Ok(response);
         }
 
         /// <summary>
@@ -92,12 +92,12 @@ namespace API.Controllers
         /// <param name="searchString">Имя автора</param>
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns>Колекция книг</returns>
+        /// <returns>Коллекция книг</returns>
         [HttpGet("SearchByAuthor/{searchString}")]
         public async Task<IActionResult> SearchByAuthor([FromRoute] string searchString, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = await _bookService.SearchByAuthorAsync(searchString, takeCount, skipCount);
-            return Ok(result);
+            var response = await _bookService.SearchByAuthorAsync(searchString, takeCount, skipCount);
+            return Ok(response);
         }
 
         /// <summary>
@@ -106,12 +106,12 @@ namespace API.Controllers
         /// <param name="searchString">Название книги</param>
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns></returns>
+        /// <returns>Коллекция книг</returns>
         [HttpGet("SearchByName/{searchString}/take/{takeCount}/skip/{skipCount}")]
         public async Task<IActionResult> SearchByName([FromRoute] string searchString, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = await _bookService.SearchByNameAsync(searchString, takeCount, skipCount);
-            return Ok(result);
+            var response = await _bookService.SearchByNameAsync(searchString, takeCount, skipCount);
+            return Ok(response);
         }
 
         /// <summary>
@@ -120,12 +120,12 @@ namespace API.Controllers
         /// <param name="searchString">Название жанра</param>
         /// <param name="takeCount">Количество получаемых</param>
         /// <param name="skipCount">Количество пропущенных</param>
-        /// <returns>Колекция книг</returns>
+        /// <returns>Коллекция книг</returns>
         [HttpGet("SearchByGenre/{searchString}/take/{takeCount}/skip/{skipCount}")]
         public async Task<IActionResult> SearchByGenre([FromRoute] string searchString, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var result = await _bookService.SearchByGenreAsync(searchString, takeCount, skipCount);
-            return Ok(result);
+            var response = await _bookService.SearchByGenreAsync(searchString, takeCount, skipCount);
+            return Ok(response);
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using ViewModel.Models.Deliveries;
-using ViewModel.Models.Responses.Deliveries;
+using ViewModel.Responses.Deliveries;
 
 namespace ViewModel.Interfaces.Services
 {
