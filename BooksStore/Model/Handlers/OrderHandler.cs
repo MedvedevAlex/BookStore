@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Model.Entities;
 using System;
 using System.Collections.Generic;
@@ -15,7 +14,7 @@ using ViewModel.Models.Orders;
 namespace Model.Handlers
 {
     /// <summary>
-    /// Хэндлер Заказ
+    /// Хэндлер заказ
     /// </summary>
     public class OrderHandler : IOrderHandler
     {
@@ -40,25 +39,18 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="order">Модель заказ</param>
         /// <returns>Идентификатор заказа</returns>
-        public async Task<OrderModel> ConfirmAsync(OrderModifyModel order)
+        public async Task<OrderModel> AddAsync(OrderModifyModel order)
         {
             var orderId = Guid.NewGuid();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                var deliveryContextTask = CreateDelivery(context, order.ShopId, orderId, out Delivery deliveryEntity);
-                await deliveryContextTask;
-
-                var booksTask = context.Books
+                var booksEntities = await context.Books
                     .Where(b => order.Books.Contains(b.Id))
                     .ToListAsync();
-
-                var userId = _userInfoRepository.GetUserIdFromToken();
-                var userTask = context.Users.FirstOrDefaultAsync(u => u.Id == userId);
-
-                var booksEntities = await booksTask;
                 if (booksEntities.Count != order.Books.Count) throw new KeyNotFoundException("Ошибка: Не удалось найти все книги при добавлении к заказу");
 
-                var userEntity = await userTask;
+                var userId = _userInfoRepository.GetUserIdFromToken();
+                var userEntity = await context.Users.FirstOrDefaultAsync(u => u.Id == userId);
                 if (userEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти пользователя");
 
                 var orderEntity = new Order
@@ -126,30 +118,6 @@ namespace Model.Handlers
                 });
             }
             return goodsEntities;
-        }
-
-        /// <summary>
-        /// Создать доставку для заказа
-        /// </summary>
-        /// <param name="context">Подключение к </param>
-        /// <param name="shopId">Идентификатор магазина</param>
-        /// <param name="orderId">Идентификатор заказа</param>
-        /// <returns>Информация о изменениях(добавление заказа в таблицу)</returns>
-        private static ValueTask<EntityEntry<Delivery>> CreateDelivery(BookContext context, Guid shopId, Guid orderId, out Delivery deliveryEntity)
-        {
-            var shopEntity = context.Shops.FirstOrDefaultAsync(s => s.Id == shopId).Result;
-            if (shopEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти магазин");
-
-            deliveryEntity = new Delivery
-            {
-                Id = Guid.NewGuid(),
-                OrderId = orderId,
-                Shop = shopEntity,
-                DateCreate = DateTime.Now,
-                DateDelivery = null,
-                Status = DeliveryStatus.Waiting,
-            };
-            return context.Deliveries.AddAsync(deliveryEntity);
         }
     }
 }

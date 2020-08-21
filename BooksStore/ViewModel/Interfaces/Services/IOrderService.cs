@@ -7,7 +7,7 @@ namespace ViewModel.Interfaces.Services
 {
     public interface IOrderService
     {
-        Task<OrderResponse> ConfirmAsync(OrderModifyModel order);
+        Task<OrderResponse> AddAsync(OrderModifyModel order);
         Task<OrderResponse> GetAsync(Guid id);
     }
 }

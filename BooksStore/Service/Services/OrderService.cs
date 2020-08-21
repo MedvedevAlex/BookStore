@@ -16,13 +16,13 @@ namespace Service.Services
             _orderHandler = orderHandler;
         }
 
-        public async Task<OrderResponse> ConfirmAsync(OrderModifyModel order)
+        public async Task<OrderResponse> AddAsync(OrderModifyModel order)
         {
             try
             {
                 return new OrderResponse
                 {
-                    Order = await _orderHandler.ConfirmAsync(order)
+                    Order = await _orderHandler.AddAsync(order)
                 };
             }
             catch (Exception e)

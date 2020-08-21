@@ -28,14 +28,14 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Подтверждение заказа
+        /// Создать заказ
         /// </summary>
         /// <param name="order">Модель заказ</param>
         /// <returns>Ответ заказ</returns>
         [HttpPost("Confirm")]
-        public async Task<IActionResult> Confirm([FromBody] OrderModifyModel order)
+        public async Task<IActionResult> AddAsync([FromBody] OrderModifyModel order)
         {
-            var response = await _orderService.ConfirmAsync(order);
+            var response = await _orderService.AddAsync(order);
             return Ok(response);
         }
 
