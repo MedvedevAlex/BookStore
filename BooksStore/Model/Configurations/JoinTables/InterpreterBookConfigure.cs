@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Model.Entities.JoinTables;
 using System;
 
-namespace Model.ModelConfiguration.References
+namespace Model.Configurations.References
 {
     class InterpreterBookConfigure : IEntityTypeConfiguration<InterpreterBook>
     {
