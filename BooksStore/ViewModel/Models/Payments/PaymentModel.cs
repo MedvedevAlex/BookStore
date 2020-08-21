@@ -1,35 +1,36 @@
 ﻿using System;
 using ViewModel.Enums;
+using ViewModel.Models.Orders;
 
-namespace Model.Entities
+namespace ViewModel.Models.Publishers
 {
     /// <summary>
-    /// Сущность заказ
+    /// Модель платеж
     /// </summary>
-    public class Order
+    public class PaymentModel
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Сущность пользователь(покупатель)
+        /// Сущность заказ
         /// </summary>
-        public User User { get; set; }
+        public OrderModel Order { get; set; }
         /// <summary>
-        /// Сущность платеж
+        /// Дата создания
         /// </summary>
-        public Payment Payment { get; set; }
+        public DateTime DateCreate { get; set; }
         /// <summary>
-        /// Сущность доставка
+        /// Дата оплаты
         /// </summary>
-        public Delivery Delivery { get; set; }
+        public DateTime? DatePayment { get; set; }
         /// <summary>
         /// Статус
         /// </summary>
-        public OrderStatus Status { get; set; }
+        public PaymentStatus Status { get; set; }
         /// <summary>
-        /// Цена
+        /// Сумма
         /// </summary>
         public decimal Amount { get; set; }
     }

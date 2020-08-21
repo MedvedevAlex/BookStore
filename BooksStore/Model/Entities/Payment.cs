@@ -4,7 +4,7 @@ using ViewModel.Enums;
 namespace Model.Entities
 {
     /// <summary>
-    /// Сущность оплата
+    /// Сущность платеж
     /// </summary>
     public class Payment
     {
@@ -25,7 +25,7 @@ namespace Model.Entities
         /// </summary>
         public DateTime DateCreate { get; set; }
         /// <summary>
-        /// Дата оплаты
+        /// Дата платежа
         /// </summary>
         public DateTime? DatePayment { get; set; }
         /// <summary>
