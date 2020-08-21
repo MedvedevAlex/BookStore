@@ -9,14 +9,6 @@ namespace ViewModel.Models.References
     public class WorkSheduleModel
     {
         /// <summary>
-        /// Идентификатор
-        /// </summary>
-        public Guid Id { get; set; }
-        /// <summary>
-        /// Магазин
-        /// </summary>
-        public ShopModel Shop { get; set; }
-        /// <summary>
         /// Начало работы
         /// </summary>
         public TimeSpan StartTime { get; set; }

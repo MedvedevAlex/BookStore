@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using ViewModel.Models.References;
 
-namespace ViewModel.Models
+namespace ViewModel.Models.Shops
 {
     /// <summary>
     /// Модель Магазин

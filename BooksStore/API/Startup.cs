@@ -131,7 +131,8 @@ namespace API
                 .AddScoped<IInterpreterHandler, InterpreterHandler>()
                 .AddScoped<IAuthorHandler, AuthorHandler>()
                 .AddSingleton<IUserHandler, UserHandler>()
-                .AddSingleton<IOrderHandler, OrderHandler>()
+                .AddTransient<IOrderHandler, OrderHandler>()
+                .AddTransient<IDeliveryHandler, DeliveryHandler>()
             #endregion
             #region Бизнес слой(Services)
                 .AddScoped<IBookService, BookService>()
@@ -141,7 +142,8 @@ namespace API
                 .AddScoped<IAuthorService, AuthorService>()
                 .AddSingleton<IAuthService, AuthService>()
                 .AddSingleton<IUserService, UserService>()
-                .AddSingleton<IOrderService, OrderService>()
+                .AddTransient<IOrderService, OrderService>()
+                .AddTransient<IDeliveryService, DeliveryService>()
             #endregion
             #region Справочники (Handlers and Services)
                 .AddScoped<ICoverTypeHandler, CoverTypeHandler>()
