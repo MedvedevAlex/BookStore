@@ -2,6 +2,7 @@
 using System;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Services;
+using ViewModel.Models.Payments;
 
 namespace API.Controllers
 {
@@ -22,6 +23,18 @@ namespace API.Controllers
         public PaymentController(IPaymentService paymentService)
         {
             _paymentService = paymentService;
+        }
+
+        /// <summary>
+        /// Добавить платеж
+        /// </summary>
+        /// <param name="payment">Модель создание платежа</param>
+        /// <returns>Ответ плажет</returns>
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] PaymentCreateModel payment)
+        {
+            var response = await _paymentService.AddAsync(payment);
+            return Ok(response);
         }
 
         /// <summary>

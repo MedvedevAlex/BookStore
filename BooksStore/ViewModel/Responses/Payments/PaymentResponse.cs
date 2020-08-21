@@ -1,4 +1,4 @@
-﻿using ViewModel.Models.Publishers;
+﻿using ViewModel.Models.Payments;
 
 namespace ViewModel.Responses.Payments
 {

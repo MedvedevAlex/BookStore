@@ -2,7 +2,7 @@
 using ViewModel.Enums;
 using ViewModel.Models.Orders;
 
-namespace ViewModel.Models.Publishers
+namespace ViewModel.Models.Payments
 {
     /// <summary>
     /// Модель платеж
