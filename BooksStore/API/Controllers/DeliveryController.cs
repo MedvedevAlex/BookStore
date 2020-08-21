@@ -9,7 +9,9 @@ namespace API.Controllers
     /// <summary>
     /// Контроллер доставка
     /// </summary>
-    [Route("api/[controller]")]
+    [Produces("application/json")]
+    [Route("/api/[controller]")]
+    [ApiController]
     public class DeliveryController : Controller
     {
         private readonly IDeliveryService _deliveryService;

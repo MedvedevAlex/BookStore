@@ -44,7 +44,7 @@ namespace API.Controllers
         /// </summary>
         /// <param name="order">Модель заказ</param>
         /// <returns>Ответ заказ</returns>
-        [HttpPost]
+        [HttpPut("UpdateStatus")]
         public async Task<IActionResult> UpdateStatus([FromBody] OrderUpdateModel order)
         {
             var response = await _orderService.UpdateStatusAsync(order);
