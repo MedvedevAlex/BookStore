@@ -31,6 +31,21 @@ namespace Service.Services
             }
         }
 
+        public async Task<OrderResponse> UpdateStatusAsync(OrderUpdateModel order)
+        {
+            try
+            {
+                return new OrderResponse
+                {
+                    Order = await _orderHandler.UpdateStatusAsync(order)
+                };
+            }
+            catch (Exception e)
+            {
+                return new OrderResponse { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
         public async Task<OrderResponse> GetAsync(Guid id)
         {
             try

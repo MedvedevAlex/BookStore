@@ -8,7 +8,7 @@ using ViewModel.Models.Orders;
 namespace API.Controllers
 {
     /// <summary>
-    /// Контроллер Заказ
+    /// Контроллер заказ
     /// </summary>
     [Produces("application/json")]
     [Route("/api/[controller]")]
@@ -32,10 +32,22 @@ namespace API.Controllers
         /// </summary>
         /// <param name="order">Модель заказ</param>
         /// <returns>Ответ заказ</returns>
-        [HttpPost("Confirm")]
-        public async Task<IActionResult> AddAsync([FromBody] OrderModifyModel order)
+        [HttpPost]
+        public async Task<IActionResult> Add([FromBody] OrderModifyModel order)
         {
             var response = await _orderService.AddAsync(order);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Обновить статус заказа
+        /// </summary>
+        /// <param name="order">Модель заказ</param>
+        /// <returns>Ответ заказ</returns>
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatus([FromBody] OrderUpdateModel order)
+        {
+            var response = await _orderService.UpdateStatusAsync(order);
             return Ok(response);
         }
 

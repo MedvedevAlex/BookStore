@@ -99,6 +99,27 @@ namespace Model.Handlers
         }
 
         /// <summary>
+        /// Обновить статус заказа
+        /// </summary>
+        /// <param name="order">Модель заказ</param>
+        /// <returns>Модель заказ</returns>
+        public async Task<OrderModel> UpdateStatusAsync(OrderUpdateModel order)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var orderEntity = await context.Orders
+                    .FirstOrDefaultAsync(o => o.Id == order.Id);
+                if (orderEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти заказ");
+
+                orderEntity.Status = order.Status;
+
+                context.Orders.Update(orderEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(order.Id);
+        }
+
+        /// <summary>
         /// Создать привязку товаров к заказу
         /// </summary>
         /// <param name="booksEntities">Сущности книг</param>
