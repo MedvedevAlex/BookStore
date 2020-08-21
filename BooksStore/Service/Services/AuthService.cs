@@ -108,8 +108,9 @@ namespace Service.Services
                 user.Role = "Common";
             var claims = new List<Claim>()
             {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Login),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role)
+                new Claim($"{nameof(Model.Entities.User)}{nameof(Model.Entities.User.Id)}", $"{user.Id}"),
+                new Claim(nameof(Model.Entities.User.Login), user.Login),
+                new Claim(nameof(Model.Entities.User.Role), user.Role)
             };
             return new ClaimsIdentity(
                 claims,

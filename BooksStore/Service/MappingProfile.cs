@@ -3,14 +3,16 @@ using Model.Entities;
 using Model.Entities.JoinTables;
 using Model.Entities.References;
 using System.Linq;
-using ViewModel.Models;
 using ViewModel.Models.Authors;
 using ViewModel.Models.Books;
+using ViewModel.Models.Deliveries;
 using ViewModel.Models.Interpreters;
 using ViewModel.Models.JoinTables;
+using ViewModel.Models.Orders;
 using ViewModel.Models.Painters;
 using ViewModel.Models.Publishers;
 using ViewModel.Models.References;
+using ViewModel.Models.Shops;
 using ViewModel.Models.Users;
 
 namespace Service
@@ -86,6 +88,13 @@ namespace Service
             CreateMap<User, UserModifyModel>().ReverseMap();
             CreateMap<User, UserShortModel>().ReverseMap();
             CreateMap<UserShortModel, UserModifyModel>();
+            #endregion
+            #region Карты Заказ
+            CreateMap<Order, OrderModel>();
+            #endregion
+            #region Карты Доставка
+            CreateMap<Delivery, DeliveryModifyModel>().ReverseMap();
+            CreateMap<Delivery, DeliveryModel>();
             #endregion
         }
     }
