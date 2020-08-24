@@ -21,7 +21,7 @@ namespace ViewModel.Models.Payments
         /// </summary>
         public DateTime DateCreate { get; set; }
         /// <summary>
-        /// Дата оплаты
+        /// Дата платежа
         /// </summary>
         public DateTime? DatePayment { get; set; }
         /// <summary>

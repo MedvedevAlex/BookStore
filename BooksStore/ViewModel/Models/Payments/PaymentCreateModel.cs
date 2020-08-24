@@ -13,7 +13,7 @@ namespace ViewModel.Models.Payments
         /// </summary>
         public Guid OrderId { get; set; }
         /// <summary>
-        /// Дата оплаты
+        /// Дата платежа
         /// </summary>
         public DateTime? DatePayment { get; set; }
         /// <summary>

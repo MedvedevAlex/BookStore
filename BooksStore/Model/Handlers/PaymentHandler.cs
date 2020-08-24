@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers;
 using System.Linq;
 using ViewModel.Models.Payments;
-using ViewModel.Models.Orders;
 using ViewModel.Models.Books;
 
 namespace Model.Handlers

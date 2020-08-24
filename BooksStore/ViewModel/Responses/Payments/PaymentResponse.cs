@@ -8,7 +8,7 @@ namespace ViewModel.Responses.Payments
     public class PaymentResponse : BaseResponse
     {
         /// <summary>
-        /// Модель оплата
+        /// Модель платеж
         /// </summary>
         public PaymentModel Payment { get; set; }
     }
