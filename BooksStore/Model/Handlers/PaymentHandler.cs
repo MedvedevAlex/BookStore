@@ -5,7 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers;
+using System.Linq;
 using ViewModel.Models.Payments;
+using ViewModel.Models.Orders;
+using ViewModel.Models.Books;
 
 namespace Model.Handlers
 {
@@ -84,11 +87,34 @@ namespace Model.Handlers
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var paymentEntity = await context.Payments
-                    .Include(p => p.Order)
                     .FirstOrDefaultAsync(p => p.Id == id);
                 if (paymentEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти платеж");
 
                 return _mapper.Map<PaymentModel>(paymentEntity);
+            }
+        }
+
+        /// <summary>
+        /// Получить платеж с информацией о заказе
+        /// </summary>
+        /// <param name="id">Идентификатор</param>
+        /// <returns>Модель платеж с информацией о заказе</returns>
+        public async Task<PaymentDetailModel> GetWithOrderAsync(Guid id)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var paymentEntity = await context.Payments
+                    .Include(p => p.Order)
+                    .FirstOrDefaultAsync(p => p.Id == id);
+                if (paymentEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти платеж");
+
+                var payment = _mapper.Map<PaymentDetailModel>(paymentEntity);
+                payment.Order.Books = await context.GoodsOrders
+                    .Where(go => go.Order.Id == paymentEntity.OrderId)
+                    .Select(go => _mapper.Map<BookPreviewModel>(go.Book))
+                    .ToListAsync();
+
+                return payment;
             }
         }
     }

@@ -60,5 +60,17 @@ namespace API.Controllers
             var response = await _paymentService.GetAsync(id);
             return Ok(response);
         }
+
+        /// <summary>
+        /// Получить платеж по идентификатору c информацией о заказе
+        /// </summary>
+        /// <param name="id">Идентификатор платежа</param>
+        /// <returns>Ответ платеж</returns>
+        [HttpGet("GetWithOrder/{id}")]
+        public async Task<IActionResult> GetWithOrder([FromRoute] Guid id)
+        {
+            var response = await _paymentService.GetWithOrderAsync(id);
+            return Ok(response);
+        }
     }
 }

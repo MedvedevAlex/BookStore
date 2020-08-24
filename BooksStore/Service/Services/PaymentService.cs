@@ -60,5 +60,20 @@ namespace Service.Services
                 return new PaymentResponse() { Success = false, ErrorMessage = e.Message };
             }
         }
+
+        public async Task<PaymentDetailResponse> GetWithOrderAsync(Guid id)
+        {
+            try
+            {
+                return new PaymentDetailResponse()
+                {
+                    Payment = await _paymentHandler.GetWithOrderAsync(id)
+                };
+            }
+            catch (Exception e)
+            {
+                return new PaymentDetailResponse() { Success = false, ErrorMessage = e.Message };
+            }
+        }
     }
 }

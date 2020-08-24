@@ -100,6 +100,7 @@ namespace Service
             #region Карты Платеж
             CreateMap<Payment, PaymentModel>();
             CreateMap<PaymentCreateModel, Payment>();
+            CreateMap<Payment, PaymentDetailModel>();
             #endregion
         }
     }

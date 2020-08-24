@@ -10,5 +10,6 @@ namespace ViewModel.Interfaces.Services
         Task<PaymentResponse> AddAsync(PaymentCreateModel payment);
         Task<PaymentResponse> UpdateStatusAsync(PaymentUpdateModel payment);
         Task<PaymentResponse> GetAsync(Guid id);
+        Task<PaymentDetailResponse> GetWithOrderAsync(Guid id);
     }
 }
