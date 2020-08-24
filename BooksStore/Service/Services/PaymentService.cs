@@ -31,6 +31,21 @@ namespace Service.Services
             }
         }
 
+        public async Task<PaymentResponse> UpdateStatusAsync(PaymentUpdateModel payment)
+        {
+            try
+            {
+                return new PaymentResponse()
+                {
+                    Payment = await _paymentHandler.UpdateStatusAsync(payment)
+                };
+            }
+            catch (Exception e)
+            {
+                return new PaymentResponse() { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
         public async Task<PaymentResponse> GetAsync(Guid id)
         {
             try

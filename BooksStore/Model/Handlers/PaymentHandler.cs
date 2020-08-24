@@ -53,6 +53,28 @@ namespace Model.Handlers
         }
 
         /// <summary>
+        /// Обновить платеж
+        /// </summary>
+        /// <param name="payment">Модель обновления платежа</param>
+        /// <returns>Модель платеж</returns>
+        public async Task<PaymentModel> UpdateStatusAsync(PaymentUpdateModel payment)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var paymentEntity = await context.Payments
+                    .FirstOrDefaultAsync(p => p.Id == payment.Id);
+                if (paymentEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти платеж");
+                paymentEntity.DatePayment = payment.DatePayment;
+                paymentEntity.Status = payment.Status;
+
+                context.Payments.Update(paymentEntity);
+                await context.SaveChangesAsync();
+
+                return await GetAsync(payment.Id);
+            }
+        }
+
+        /// <summary>
         /// Получить платеж
         /// </summary>
         /// <param name="id">Идентификатор</param>

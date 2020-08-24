@@ -38,6 +38,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Обновить платеж
+        /// </summary>
+        /// <param name="payment">Модель обновления платежа</param>
+        /// <returns>Ответ платеж</returns>
+        [HttpPut("UpdateStatus")]
+        public async Task<IActionResult> UpdateStatus([FromBody] PaymentUpdateModel payment)
+        {
+            var response = await _paymentService.UpdateStatusAsync(payment);
+            return Ok(response);
+        }
+
+        /// <summary>
         /// Получить платеж по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор платежа</param>
