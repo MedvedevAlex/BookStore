@@ -72,9 +72,7 @@ namespace Model.Handlers
                 {
                     var shopEntity = await context.Shops
                         .FirstOrDefaultAsync(s => s.Id == delivery.ShopId);
-                    if (shopEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти магазин");
-
-                    deliveryEntity.Shop = shopEntity;
+                    deliveryEntity.Shop = shopEntity ?? throw new KeyNotFoundException("Ошибка: Не удалось найти магазин");
                 }
                 deliveryEntity.DateDelivery = delivery.DateDelivery;
                 deliveryEntity.Status = delivery.Status;
