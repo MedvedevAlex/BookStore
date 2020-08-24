@@ -38,6 +38,18 @@ namespace API.Controllers
         }
 
         /// <summary>
+        /// Обновить доставку
+        /// </summary>
+        /// <param name="delivery">Модель доставка</param>
+        /// <returns>Ответ доставка</returns>
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] DeliveryModifyModel delivery)
+        {
+            var response = await _deliveryService.UpdateAsync(delivery);
+            return Ok(response);
+        }
+
+        /// <summary>
         /// Получить доставку по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор доставки</param>

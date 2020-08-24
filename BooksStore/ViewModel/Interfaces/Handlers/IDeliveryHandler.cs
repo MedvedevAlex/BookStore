@@ -7,6 +7,7 @@ namespace ViewModel.Interfaces.Handlers
     public interface IDeliveryHandler
     {
         Task<DeliveryModel> AddAsync(DeliveryModifyModel delivery);
+        Task<DeliveryModel> UpdateAsync(DeliveryModifyModel delivery);
         Task<DeliveryModel> GetAsync(Guid id);
     }
 }

@@ -55,6 +55,37 @@ namespace Model.Handlers
         }
 
         /// <summary>
+        /// Обновить доставку
+        /// </summary>
+        /// <param name="delivery">Модель доставка</param>
+        /// <returns>Модель доставка</returns>
+        public async Task<DeliveryModel> UpdateAsync(DeliveryModifyModel delivery)
+        {
+            using(var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var deliveryEntity = await context.Deliveries
+                    .Include(d => d.Shop)
+                    .FirstOrDefaultAsync(d => d.Id == delivery.Id);
+                if (deliveryEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти доставку");
+
+                if (deliveryEntity.Shop?.Id != delivery.ShopId)
+                {
+                    var shopEntity = await context.Shops
+                        .FirstOrDefaultAsync(s => s.Id == delivery.ShopId);
+                    if (shopEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти магазин");
+
+                    deliveryEntity.Shop = shopEntity;
+                }
+                deliveryEntity.DateDelivery = delivery.DateDelivery;
+                deliveryEntity.Status = delivery.Status;
+
+                context.Deliveries.Update(deliveryEntity);
+                await context.SaveChangesAsync();
+            }
+            return await GetAsync(delivery.Id);
+        }
+
+        /// <summary>
         /// Получить доставку
         /// </summary>
         /// <param name="id">Идентификатор</param>

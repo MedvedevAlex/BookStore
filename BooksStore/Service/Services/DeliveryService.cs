@@ -31,6 +31,21 @@ namespace Service.Services
             }
         }
 
+        public async Task<DeliveryResponse> UpdateAsync(DeliveryModifyModel delivery)
+        {
+            try
+            {
+                return new DeliveryResponse()
+                {
+                    Delivery = await _deliveryHandler.UpdateAsync(delivery)
+                };
+            }
+            catch (Exception e)
+            {
+                return new DeliveryResponse() { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
         public async Task<DeliveryResponse> GetAsync(Guid id)
         {
             try
