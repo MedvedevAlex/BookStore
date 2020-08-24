@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Model.Entities;
 
-namespace Model.ModelConfiguration
+namespace Model.Configurations
 {
     class UserConfigure : IEntityTypeConfiguration<User>
     {

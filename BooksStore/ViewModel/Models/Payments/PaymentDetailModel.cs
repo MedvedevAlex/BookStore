@@ -1,25 +1,22 @@
 ﻿using System;
 using ViewModel.Enums;
+using ViewModel.Models.Orders;
 
-namespace Model.Entities
+namespace ViewModel.Models.Payments
 {
     /// <summary>
-    /// Сущность платеж
+    /// Модель платеж c информацией о заказе
     /// </summary>
-    public class Payment
+    public class PaymentDetailModel
     {
         /// <summary>
         /// Идентификатор
         /// </summary>
         public Guid Id { get; set; }
         /// <summary>
-        /// Идентификатор заказа
-        /// </summary>
-        public Guid OrderId { get; set; }
-        /// <summary>
         /// Сущность заказ
         /// </summary>
-        public Order Order { get; set; }
+        public OrderModel Order { get; set; }
         /// <summary>
         /// Дата создания
         /// </summary>

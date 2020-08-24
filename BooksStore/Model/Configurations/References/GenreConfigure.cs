@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Model.Entities.References;
 using System;
 
-namespace Model.ModelConfiguration.References
+namespace Model.Configurations.References
 {
     class GenreConfigure : IEntityTypeConfiguration<Genre>
     {

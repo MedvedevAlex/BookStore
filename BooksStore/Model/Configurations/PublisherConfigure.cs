@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Model.Entities;
 using System;
 
-namespace Model.ModelConfiguration
+namespace Model.Configurations
 {
     class PublisherConfigure : IEntityTypeConfiguration<Publisher>
     {

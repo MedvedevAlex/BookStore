@@ -132,6 +132,7 @@ namespace API
                 .AddSingleton<IUserHandler, UserHandler>()
                 .AddTransient<IOrderHandler, OrderHandler>()
                 .AddTransient<IDeliveryHandler, DeliveryHandler>()
+                .AddTransient<IPaymentHandler, PaymentHandler>()
             #endregion
             #region Бизнес слой(Services)
                 .AddScoped<IBookService, BookService>()
@@ -143,6 +144,7 @@ namespace API
                 .AddSingleton<IUserService, UserService>()
                 .AddTransient<IOrderService, OrderService>()
                 .AddTransient<IDeliveryService, DeliveryService>()
+                .AddTransient<IPaymentService, PaymentService>()
             #endregion
             #region Справочники (Handlers and Services)
                 .AddScoped<ICoverTypeHandler, CoverTypeHandler>()

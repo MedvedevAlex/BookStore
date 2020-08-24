@@ -10,6 +10,7 @@ using ViewModel.Models.Interpreters;
 using ViewModel.Models.JoinTables;
 using ViewModel.Models.Orders;
 using ViewModel.Models.Painters;
+using ViewModel.Models.Payments;
 using ViewModel.Models.Publishers;
 using ViewModel.Models.References;
 using ViewModel.Models.Shops;
@@ -95,6 +96,11 @@ namespace Service
             #region Карты Доставка
             CreateMap<Delivery, DeliveryModifyModel>().ReverseMap();
             CreateMap<Delivery, DeliveryModel>();
+            #endregion
+            #region Карты Платеж
+            CreateMap<Payment, PaymentModel>();
+            CreateMap<PaymentCreateModel, Payment>();
+            CreateMap<Payment, PaymentDetailModel>();
             #endregion
         }
     }
