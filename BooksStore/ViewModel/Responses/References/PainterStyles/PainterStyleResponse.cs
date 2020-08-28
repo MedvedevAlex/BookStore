@@ -3,7 +3,7 @@
 namespace ViewModel.Responses.References.PainterStyles
 {
     /// <summary>
-    /// Ответ художественный стиль художника
+    /// Ответ художественный стиль
     /// </summary>
     public class PainterStyleResponse : BaseResponse
     {

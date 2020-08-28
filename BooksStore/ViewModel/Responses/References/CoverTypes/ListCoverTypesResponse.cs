@@ -4,12 +4,12 @@ using ViewModel.Models.References;
 namespace ViewModel.Responses.References.CoverTypes
 {
     /// <summary>
-    /// Ответ тип переплета
+    /// Ответ коллекция типов переплета
     /// </summary>
     public class ListCoverTypesResponse : BaseResponse
     {
         /// <summary>
-        /// Коллекция типы переплета
+        /// Коллекция типов переплета
         /// </summary>
         public List<CoverTypeModel> CoverTypes { get; set; }
         /// <summary>

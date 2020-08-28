@@ -4,7 +4,7 @@ using ViewModel.Models.References;
 namespace ViewModel.Responses.References.PainterStyles
 {
     /// <summary>
-    /// Ответ художественный стили художника
+    /// Ответ коллекция художественных стилей
     /// </summary>
     public class ListPainterStylesResponse : BaseResponse
     {
