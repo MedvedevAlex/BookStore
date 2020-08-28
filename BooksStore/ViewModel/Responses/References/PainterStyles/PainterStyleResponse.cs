@@ -1,6 +1,6 @@
 ﻿using ViewModel.Models.References;
 
-namespace ViewModel.Responses.References
+namespace ViewModel.Responses.References.PainterStyles
 {
     /// <summary>
     /// Ответ художественный стиль художника

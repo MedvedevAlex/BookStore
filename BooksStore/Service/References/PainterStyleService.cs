@@ -4,7 +4,7 @@ using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Interfaces.Services.References;
 using ViewModel.Models.References;
 using ViewModel.Responses;
-using ViewModel.Responses.References;
+using ViewModel.Responses.References.PainterStyles;
 
 namespace Service.References
 {

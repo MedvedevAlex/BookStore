@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using ViewModel.Models.References;
 using ViewModel.Responses;
-using ViewModel.Responses.References;
+using ViewModel.Responses.References.PainterStyles;
 
 namespace ViewModel.Interfaces.Services.References
 {

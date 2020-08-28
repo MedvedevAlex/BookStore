@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Models.References;
 using ViewModel.Responses;
-using ViewModel.Responses.References;
+using ViewModel.Responses.References.PainterStyles;
 
 namespace Model.Handlers
 {
