@@ -7,6 +7,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Models.References;
+using ViewModel.Responses;
+using ViewModel.Responses.References.CoverTypes;
 
 namespace Model.Handlers
 {
@@ -82,7 +84,8 @@ namespace Model.Handlers
         /// Удалить тип переплета
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        public async void DeleteAsync(Guid id)
+        /// <returns>Базовый ответ</returns>
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -90,9 +93,14 @@ namespace Model.Handlers
                     .FirstOrDefaultAsync(ct => ct.Id == id);
                 if (coverTypeEntity == null) throw new KeyNotFoundException("Ошибка: Тип переплета не найден");
 
+                var bookEntity = await context.Books
+                    .FirstOrDefaultAsync(b => b.CoverType == coverTypeEntity);
+                if (bookEntity != null) throw new KeyNotFoundException("Ошибка: Удаление невозможно так как существуют книги которые используют этот тип переплета");
+
                 context.CoverTypes.Remove(coverTypeEntity);
                 await context.SaveChangesAsync();
             }
+            return new BaseResponse();
         }
 
         /// <summary>
@@ -113,14 +121,15 @@ namespace Model.Handlers
         /// <summary>
         /// Получить типы переплета
         /// </summary>
-        /// <returns>Коллекция типов переплета</returns>
-        public async Task<List<CoverTypeModel>> GetAsync()
+        /// <returns>Ответ с коллекцией типов переплета</returns>
+        public async Task<ListCoverTypesResponse> GetAsync()
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.CoverTypes
+                var coverTypes = await context.CoverTypes
                     .Select(ct => _mapper.Map<CoverTypeModel>(ct))
                     .ToListAsync();
+                return new ListCoverTypesResponse { CoverTypes = coverTypes, Count = coverTypes.Count };
             }
         }
 
@@ -128,16 +137,19 @@ namespace Model.Handlers
         /// Поиск по наименованию 
         /// </summary>
         /// <param name="coverTypeName">Наименование типа переплета</param>
-        /// <returns>Коллекция типов переплета</returns>
-        public async Task<List<CoverTypeModel>> SearchByNameAsync(string coverTypeName)
+        /// <returns>Ответ с коллекцией типов переплета</returns>
+        public async Task<ListCoverTypesResponse> SearchByNameAsync(string coverTypeName)
         {
+            var response = new ListCoverTypesResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.CoverTypes
+                response.CoverTypes = await context.CoverTypes
                     .Where(ct => ct.Name.Contains(coverTypeName))
                     .Select(ct => _mapper.Map<CoverTypeModel>(ct))
                     .ToListAsync();
+                response.Count = await context.CoverTypes.CountAsync();
             }
+            return response;
         }
     }
 }

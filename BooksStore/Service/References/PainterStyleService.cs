@@ -57,7 +57,6 @@ namespace Service.References
             {
                 return new BaseResponse() { Success = false, ErrorMessage = e.Message };
             }
-
         }
 
         public async Task<PainterStyleResponse> GetAsync(Guid id)

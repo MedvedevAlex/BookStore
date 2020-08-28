@@ -93,9 +93,9 @@ namespace Model.Handlers
                     .FirstOrDefaultAsync(ps => ps.Id == id);
                 if (painterStyleEnity == null) throw new KeyNotFoundException("Ошибка: Стиль художника не найден");
 
-                var paintersEntities = await context.Painters
+                var painterEntity = await context.Painters
                     .FirstOrDefaultAsync(p => p.Style == painterStyleEnity);
-                if (paintersEntities != null) throw new Exception("Ошибка: Удаление невозможно так как существуют художники которые используют этот стиль");
+                if (painterEntity != null) throw new Exception("Ошибка: Удаление невозможно так как существуют художники которые используют этот стиль");
 
                 context.PainterStyles.Remove(painterStyleEnity);
                 await context.SaveChangesAsync();
@@ -121,7 +121,7 @@ namespace Model.Handlers
         /// <summary>
         /// Получить стили художника
         /// </summary>
-        /// <returns>Коллекция стилей художника</returns>
+        /// <returns>Ответ с коллекцией стилей художника</returns>
         public async Task<ListPainterStylesResponse> GetAsync()
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
@@ -137,7 +137,7 @@ namespace Model.Handlers
         /// Поиск по наименованию 
         /// </summary>
         /// <param name="painterStyleName">Наименование стиля художника</param>
-        /// <returns>Коллекция стилей художника</returns>
+        /// <returns>Ответ с коллекцией стилей художника</returns>
         public async Task<ListPainterStylesResponse> SearchByNameAsync(string painterStyleName)
         {
             var response = new ListPainterStylesResponse();

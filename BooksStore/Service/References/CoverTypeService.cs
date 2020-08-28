@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Interfaces.Services.References;
 using ViewModel.Models.References;
+using ViewModel.Responses;
+using ViewModel.Responses.References.CoverTypes;
 
 namespace Service.References
 {
@@ -16,34 +17,85 @@ namespace Service.References
             _coverTypeHandler = coverTypeHandler;
         }
 
-        public async Task<CoverTypeModel> AddAsync(CoverTypeModel coverType)
+        public async Task<CoverTypeResponse> AddAsync(CoverTypeModel coverType)
         {
-            return await _coverTypeHandler.AddAsync(coverType);
+            try
+            {
+                return new CoverTypeResponse
+                {
+                    CoverType = await _coverTypeHandler.AddAsync(coverType)
+                };
+            }
+            catch (Exception e)
+            {
+                return new CoverTypeResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<CoverTypeModel> UpdateAsync(CoverTypeModel coverType)
+        public async Task<CoverTypeResponse> UpdateAsync(CoverTypeModel coverType)
         {
-            return await _coverTypeHandler.UpdateAsync(coverType);
+            try
+            {
+                return new CoverTypeResponse
+                {
+                    CoverType = await _coverTypeHandler.UpdateAsync(coverType)
+                };
+            }
+            catch (Exception e)
+            {
+                return new CoverTypeResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public void Delete(Guid id)
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
-            _coverTypeHandler.DeleteAsync(id);
+            try
+            {
+                return await _coverTypeHandler.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<CoverTypeModel> GetAsync(Guid id)
+        public async Task<CoverTypeResponse> GetAsync(Guid id)
         {
-            return await _coverTypeHandler.GetAsync(id);
+            try
+            {
+                return new CoverTypeResponse
+                {
+                    CoverType = await _coverTypeHandler.GetAsync(id)
+                };
+            }
+            catch (Exception e)
+            {
+                return new CoverTypeResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<CoverTypeModel>> GetAsync()
+        public async Task<ListCoverTypesResponse> GetAsync()
         {
-            return await _coverTypeHandler.GetAsync();
+            try
+            {
+                return await _coverTypeHandler.GetAsync();
+            }
+            catch (Exception e)
+            {
+                return new ListCoverTypesResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<CoverTypeModel>> SearchByNameAsync(string coverTypeName)
+        public async Task<ListCoverTypesResponse> SearchByNameAsync(string coverTypeName)
         {
-            return await _coverTypeHandler.SearchByNameAsync(coverTypeName);
+            try
+            {
+                return await _coverTypeHandler.SearchByNameAsync(coverTypeName);
+            }
+            catch (Exception e)
+            {
+                return new ListCoverTypesResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
     }
 }
