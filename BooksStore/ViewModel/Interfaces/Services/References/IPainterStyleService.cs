@@ -1,17 +1,18 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Models.References;
+using ViewModel.Responses;
+using ViewModel.Responses.References;
 
 namespace ViewModel.Interfaces.Services.References
 {
     public interface IPainterStyleService
     {
-        Task<PainterStyleModel> AddAsync(PainterStyleModel painterStyle);
-        Task<PainterStyleModel> UpdateAsync(PainterStyleModel painterStyle);
-        void Delete(Guid id);
-        Task<PainterStyleModel> GetAsync(Guid id);
-        Task<List<PainterStyleModel>> GetAsync();
-        Task<List<PainterStyleModel>> SearchByNameAsync(string painterStyleName);
+        Task<PainterStyleResponse> AddAsync(PainterStyleModel painterStyle);
+        Task<PainterStyleResponse> UpdateAsync(PainterStyleModel painterStyle);
+        Task<BaseResponse> DeleteAsync(Guid id);
+        Task<PainterStyleResponse> GetAsync(Guid id);
+        Task<ListPainterStylesResponse> GetAsync();
+        Task<ListPainterStylesResponse> SearchByNameAsync(string painterStyleName);
     }
 }

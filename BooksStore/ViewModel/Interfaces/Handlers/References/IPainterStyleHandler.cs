@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Models.References;
+using ViewModel.Responses;
 
 namespace ViewModel.Interfaces.Handlers.References
 {
@@ -9,7 +10,7 @@ namespace ViewModel.Interfaces.Handlers.References
     {
         Task<PainterStyleModel> AddAsync(PainterStyleModel painterStyle);
         Task<PainterStyleModel> UpdateAsync(PainterStyleModel painterStyle);
-        void DeleteAsync(Guid id);
+        Task<BaseResponse> DeleteAsync(Guid id);
         Task<PainterStyleModel> GetAsync(Guid id);
         Task<List<PainterStyleModel>> GetAsync();
         Task<List<PainterStyleModel>> SearchByNameAsync(string painterStyleName);

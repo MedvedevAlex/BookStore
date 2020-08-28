@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Interfaces.Services.References;
 using ViewModel.Models.References;
+using ViewModel.Responses;
+using ViewModel.Responses.References;
 
 namespace Service.References
 {
@@ -16,33 +17,92 @@ namespace Service.References
             _painterStyleHandler = painterStyleHandler;
         }
 
-        public async Task<PainterStyleModel> AddAsync(PainterStyleModel painterStyle)
+        public async Task<PainterStyleResponse> AddAsync(PainterStyleModel painterStyle)
         {
-            return await _painterStyleHandler.AddAsync(painterStyle);
+            try
+            {
+                return new PainterStyleResponse
+                {
+                    Style = await _painterStyleHandler.AddAsync(painterStyle)
+                };
+            }
+            catch (Exception e)
+            {
+                return new PainterStyleResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<PainterStyleModel> UpdateAsync(PainterStyleModel painterStyle)
+        public async Task<PainterStyleResponse> UpdateAsync(PainterStyleModel painterStyle)
         {
-            return await _painterStyleHandler.UpdateAsync(painterStyle);
-        }
-        public void Delete(Guid id)
-        {
-            _painterStyleHandler.DeleteAsync(id);
-        }
-
-        public async Task<PainterStyleModel> GetAsync(Guid id)
-        {
-            return await _painterStyleHandler.GetAsync(id);
-        }
-
-        public async Task<List<PainterStyleModel>> GetAsync()
-        {
-            return await _painterStyleHandler.GetAsync();
+            try
+            {
+                return new PainterStyleResponse
+                {
+                    Style = await _painterStyleHandler.UpdateAsync(painterStyle)
+                };
+            }
+            catch (Exception e)
+            {
+                return new PainterStyleResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
 
-        public async Task<List<PainterStyleModel>> SearchByNameAsync(string painterStyleName)
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
-            return await _painterStyleHandler.SearchByNameAsync(painterStyleName);
+            try
+            {
+                return await _painterStyleHandler.DeleteAsync(id);
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse() { Success = false, ErrorMessage = e.Message };
+            }
+
+        }
+
+        public async Task<PainterStyleResponse> GetAsync(Guid id)
+        {
+            try
+            {
+                return new PainterStyleResponse
+                {
+                    Style = await _painterStyleHandler.GetAsync(id)
+                };
+            }
+            catch (Exception e)
+            {
+                return new PainterStyleResponse() { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
+        public async Task<ListPainterStylesResponse> GetAsync()
+        {
+            try
+            {
+                return new ListPainterStylesResponse
+                {
+                    Style = await _painterStyleHandler.GetAsync()
+                };
+            }
+            catch (Exception e)
+            {
+                return new ListPainterStylesResponse() { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
+        public async Task<ListPainterStylesResponse> SearchByNameAsync(string painterStyleName)
+        {
+            try
+            {
+                return new ListPainterStylesResponse
+                {
+                    Style = await _painterStyleHandler.SearchByNameAsync(painterStyleName)
+                };
+            }
+            catch (Exception e)
+            {
+                return new ListPainterStylesResponse() { Success = false, ErrorMessage = e.Message };
+            }
         }
     }
 }

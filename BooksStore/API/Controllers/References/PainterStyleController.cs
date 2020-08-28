@@ -29,8 +29,8 @@ namespace API.Controllers
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] PainterStyleModel painterStyle)
         {
-            var result = await _painterStyleService.AddAsync(painterStyle);
-            return Ok(result);
+            var response = await _painterStyleService.AddAsync(painterStyle);
+            return Ok(response);
         }
 
         /// <summary>
@@ -41,8 +41,8 @@ namespace API.Controllers
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] PainterStyleModel painterStyle)
         {
-            var result = await _painterStyleService.UpdateAsync(painterStyle);
-            return Ok(result);
+            var response = await _painterStyleService.UpdateAsync(painterStyle);
+            return Ok(response);
         }
 
         /// <summary>
@@ -53,8 +53,8 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] Guid id)
         {
-            _painterStyleService.Delete(id);
-            return Ok();
+            var response = _painterStyleService.DeleteAsync(id);
+            return Ok(response);
         }
 
         /// <summary>
@@ -65,8 +65,8 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var result = await _painterStyleService.GetAsync(id);
-            return Ok(result);
+            var response = await _painterStyleService.GetAsync(id);
+            return Ok(response);
         }
 
         /// <summary>
@@ -76,8 +76,8 @@ namespace API.Controllers
         [HttpGet("GetPainterStyles")]
         public async Task<IActionResult> Get()
         {
-            var result = await _painterStyleService.GetAsync();
-            return Ok(result);
+            var response = await _painterStyleService.GetAsync();
+            return Ok(response);
         }
 
         /// <summary>
@@ -88,8 +88,8 @@ namespace API.Controllers
         [HttpGet("SearchByName/{painterStyleName}")]
         public async Task<IActionResult> SearchByName([FromRoute] string painterStyleName)
         {
-            var result = await _painterStyleService.SearchByNameAsync(painterStyleName);
-            return Ok(result);
+            var response = await _painterStyleService.SearchByNameAsync(painterStyleName);
+            return Ok(response);
         }
     }
 }

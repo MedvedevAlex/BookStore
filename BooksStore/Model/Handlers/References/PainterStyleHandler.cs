@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Models.References;
+using ViewModel.Responses;
 
 namespace Model.Handlers
 {
@@ -82,7 +83,8 @@ namespace Model.Handlers
         /// Удалить стиль художника
         /// </summary>
         /// <param name="id">Идентификатор</param>
-        public async void DeleteAsync(Guid id)
+        /// <returns>Базовый ответ</returns>
+        public async Task<BaseResponse> DeleteAsync(Guid id)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -90,9 +92,14 @@ namespace Model.Handlers
                     .FirstOrDefaultAsync(ps => ps.Id == id);
                 if (painterStyleEnity == null) throw new KeyNotFoundException("Ошибка: Стиль художника не найден");
 
+                var paintersEntities = await context.Painters
+                    .FirstOrDefaultAsync(p => p.Style == painterStyleEnity);
+                if (paintersEntities != null) throw new Exception("Ошибка: Удаление невозможно так как существуют художники которые используют этот стиль");
+
                 context.PainterStyles.Remove(painterStyleEnity);
                 await context.SaveChangesAsync();
             }
+            return new BaseResponse();
         }
 
         /// <summary>
