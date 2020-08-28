@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Models.References;
 using ViewModel.Responses;
+using ViewModel.Responses.References;
 
 namespace Model.Handlers
 {
@@ -121,13 +122,14 @@ namespace Model.Handlers
         /// Получить стили художника
         /// </summary>
         /// <returns>Коллекция стилей художника</returns>
-        public async Task<List<PainterStyleModel>> GetAsync()
+        public async Task<ListPainterStylesResponse> GetAsync()
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.PainterStyles
+                var styles = await context.PainterStyles
                     .Select(ps => _mapper.Map<PainterStyleModel>(ps))
                     .ToListAsync();
+                return new ListPainterStylesResponse { Styles = styles, Count = styles.Count };
             }
         }
 
@@ -136,15 +138,18 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="painterStyleName">Наименование стиля художника</param>
         /// <returns>Коллекция стилей художника</returns>
-        public async Task<List<PainterStyleModel>> SearchByNameAsync(string painterStyleName)
+        public async Task<ListPainterStylesResponse> SearchByNameAsync(string painterStyleName)
         {
+            var response = new ListPainterStylesResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                return await context.PainterStyles
+                response.Styles = await context.PainterStyles
                     .Where(ps => ps.Name.Contains(painterStyleName))
                     .Select(ps => _mapper.Map<PainterStyleModel>(ps))
                     .ToListAsync();
+                response.Count = await context.PainterStyles.CountAsync();
             }
+            return response;
         }
     }
 }

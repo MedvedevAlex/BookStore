@@ -11,7 +11,7 @@ namespace ViewModel.Responses.References
         /// <summary>
         /// Коллекция художественных стилей
         /// </summary>
-        public List<PainterStyleModel> Style { get; set; }
+        public List<PainterStyleModel> Styles { get; set; }
         /// <summary>
         /// Общее количество
         /// </summary>

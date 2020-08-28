@@ -79,10 +79,7 @@ namespace Service.References
         {
             try
             {
-                return new ListPainterStylesResponse
-                {
-                    Style = await _painterStyleHandler.GetAsync()
-                };
+                return await _painterStyleHandler.GetAsync();
             }
             catch (Exception e)
             {
@@ -94,10 +91,7 @@ namespace Service.References
         {
             try
             {
-                return new ListPainterStylesResponse
-                {
-                    Style = await _painterStyleHandler.SearchByNameAsync(painterStyleName)
-                };
+                return await _painterStyleHandler.SearchByNameAsync(painterStyleName);
             }
             catch (Exception e)
             {
