@@ -25,71 +25,71 @@ namespace API.Controllers
         /// Добавить стиль художника
         /// </summary>
         /// <param name="painterStyle">Модель стиль художника</param>
-        /// <returns>Модель стиль художника</returns>
+        /// <returns>Ответ стиль художника</returns>
         [HttpPost]
         public async Task<IActionResult> Add([FromBody] PainterStyleModel painterStyle)
         {
-            var result = await _painterStyleService.AddAsync(painterStyle);
-            return Ok(result);
+            var response = await _painterStyleService.AddAsync(painterStyle);
+            return Ok(response);
         }
 
         /// <summary>
         /// Обновить стиль художника
         /// </summary>
         /// <param name="painterStyle">Модель стиль художника</param>
-        /// <returns>Модель стиль художника</returns>
+        /// <returns>Ответ стиль художника</returns>
         [HttpPut]
         public async Task<IActionResult> Update([FromBody] PainterStyleModel painterStyle)
         {
-            var result = await _painterStyleService.UpdateAsync(painterStyle);
-            return Ok(result);
+            var response = await _painterStyleService.UpdateAsync(painterStyle);
+            return Ok(response);
         }
 
         /// <summary>
         /// Удалить стиль художника
         /// </summary>
         /// <param name="id">Идентификатор стиля художника</param>
-        /// <returns></returns>
+        /// <returns>Базовый ответ</returns>
         [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] Guid id)
         {
-            _painterStyleService.Delete(id);
-            return Ok();
+            var response = _painterStyleService.DeleteAsync(id);
+            return Ok(response);
         }
 
         /// <summary>
         /// Получить стиль художника по идентификатору
         /// </summary>
         /// <param name="id">Идентификатор стиля художника</param>
-        /// <returns>Модель стиль художника</returns>
+        /// <returns>Ответ стиль художника</returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get([FromRoute] Guid id)
         {
-            var result = await _painterStyleService.GetAsync(id);
-            return Ok(result);
+            var response = await _painterStyleService.GetAsync(id);
+            return Ok(response);
         }
 
         /// <summary>
         /// Получить стили художника
         /// </summary>
-        /// <returns>Коллекция стилей художника</returns>
+        /// <returns>Ответ с коллекцией стилей художника</returns>
         [HttpGet("GetPainterStyles")]
         public async Task<IActionResult> Get()
         {
-            var result = await _painterStyleService.GetAsync();
-            return Ok(result);
+            var response = await _painterStyleService.GetAsync();
+            return Ok(response);
         }
 
         /// <summary>
         /// Поиск по наименованию
         /// </summary>
         /// <param name="painterStyleName">Намиенование стиля художника</param>
-        /// <returns>Коллекция стилей художника</returns>
+        /// <returns>Ответ с коллекцией стилей художника</returns>
         [HttpGet("SearchByName/{painterStyleName}")]
         public async Task<IActionResult> SearchByName([FromRoute] string painterStyleName)
         {
-            var result = await _painterStyleService.SearchByNameAsync(painterStyleName);
-            return Ok(result);
+            var response = await _painterStyleService.SearchByNameAsync(painterStyleName);
+            return Ok(response);
         }
     }
 }
