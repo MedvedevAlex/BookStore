@@ -13,5 +13,9 @@
         /// Логин пользователя
         /// </summary>
         public string Login { get; set; }
+        /// <summary>
+        /// Обновление токена
+        /// </summary>
+        public string RefreshToken { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers;
+using ViewModel.Interfaces.Repositories;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Users;
 using ViewModel.Responses.Users;
@@ -16,11 +17,19 @@ namespace Service.Services
     {
         private readonly IUserHandler _userHandler;
         private readonly IMapper _mapper;
+        private readonly ISecurityTokenValidator _securityTokenValidator;
+        private readonly IUserInfoRepository _userInfoRepository;
 
-        public AuthService(IUserHandler userHandler, IMapper mapper)
+        public AuthService(
+            IUserHandler userHandler,
+            IMapper mapper,
+            ISecurityTokenValidator securityTokenValidator,
+            IUserInfoRepository userInfoRepository)
         {
             _userHandler = userHandler;
             _mapper = mapper;
+            _securityTokenValidator = securityTokenValidator;
+            _userInfoRepository = userInfoRepository;
         }
 
         /// <summary>
@@ -28,7 +37,7 @@ namespace Service.Services
         /// </summary>
         /// <param name="user">Модель пользователь</param>
         /// <returns>Ответ токен</returns>
-        public async Task<TokenResponse> Register(UserShortModel user)
+        public async Task<TokenResponse> RegisterAsync(UserShortModel user)
         {
             try
             {
@@ -49,7 +58,7 @@ namespace Service.Services
         /// </summary>
         /// <param name="user">Модель пользователь</param>
         /// <returns>Ответ токен</returns>
-        public async Task<TokenResponse> Authorize(UserShortModel user)
+        public async Task<TokenResponse> AuthorizeAsync(UserShortModel user)
         {
             try
             {
@@ -63,31 +72,22 @@ namespace Service.Services
         }
 
         /// <summary>
-        /// Получить токен
+        /// Обновить токен
         /// </summary>
-        /// <param name="login">Логин</param>
+        /// <param name="refreshToken">Обновление токена</param>
         /// <returns>Ответ токен</returns>
-        public async Task<TokenResponse> GetTokenAsync(string login)
+        public async Task<TokenResponse> RefreshTokenAsync(string refreshToken)
         {
             try
             {
-                var identity = await GetIdentityAsync(login);
+                var userId = _userInfoRepository.GetUserIdFromToken();
+                var user = await _userHandler.GetAsync(userId);
 
-                var now = DateTime.UtcNow;
-                var jwt = new JwtSecurityToken(
-                        issuer: AuthOptions.ISSUER,
-                        audience: AuthOptions.AUDIENCE,
-                        notBefore: now,
-                        claims: identity.Claims,
-                        expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
-                        signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
-                var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+                if (user.RefreshToken != refreshToken)
+                    throw new Exception("Ошибка: Обновленные токены не совпадают");
 
-                return new TokenResponse
-                {
-                    AccessToken = encodedJwt,
-                    Login = identity.Name
-                };
+                var updatedUser = await _userHandler.UpdateRefreshTokenAsync(userId, refreshToken);
+                return AssembleToken(updatedUser);
             }
             catch (Exception e)
             {
@@ -96,13 +96,67 @@ namespace Service.Services
         }
 
         /// <summary>
+        /// Получить токен
+        /// </summary>
+        /// <param name="login">Логин</param>
+        /// <returns>Ответ токен</returns>
+        private async Task<TokenResponse> GetTokenAsync(string login)
+        {
+            try
+            {
+                var user = await _userHandler.GetAsync(login);
+                return AssembleToken(user);
+            }
+            catch (Exception e)
+            {
+                return new TokenResponse { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
+        /// <summary>
+        /// Собрать токен
+        /// </summary>
+        /// <param name="user">Модель пользователь</param>
+        /// <returns>Ответ токен</returns>
+        private TokenResponse AssembleToken(UserModel user)
+        {
+            var identity = GetIdentityAsync(user);
+            var encodedJwt = GenerateToken(identity);
+
+            return new TokenResponse
+            {
+                AccessToken = encodedJwt,
+                Login = identity.Name,
+                RefreshToken = user.RefreshToken
+            };
+        }
+
+        /// <summary>
+        /// Сгенерировать токен
+        /// </summary>
+        /// <param name="identity">Утверждения</param>
+        /// <param name="lifeTime">Время жизни токена</param>
+        /// <returns>Токен</returns>
+        private static string GenerateToken(ClaimsIdentity identity, int lifeTime = AuthOptions.LIFETIME)
+        {
+            var now = DateTime.UtcNow;
+            var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.ISSUER,
+                    audience: AuthOptions.AUDIENCE,
+                    notBefore: now,
+                    claims: identity.Claims,
+                    expires: now.Add(TimeSpan.FromMinutes(lifeTime)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            return new JwtSecurityTokenHandler().WriteToken(jwt);
+        }
+
+        /// <summary>
         /// Получить утверждения (клаймы)
         /// </summary>
         /// <param name="login">Модель пользователь</param>
         /// <returns>Модель утверждения</returns>
-        private async Task<ClaimsIdentity> GetIdentityAsync(string login)
+        private ClaimsIdentity GetIdentityAsync(UserModel user)
         {
-            var user = await _userHandler.GetAsync(login);
             if (user.Role == null)
                 user.Role = "Common";
             var claims = new List<Claim>()

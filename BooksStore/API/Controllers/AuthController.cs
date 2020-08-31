@@ -32,7 +32,7 @@ namespace API.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register([FromBody] UserShortModel user)
         {
-            var response = await _authService.Register(user);
+            var response = await _authService.RegisterAsync(user);
             return Ok(response);
         }
 
@@ -44,19 +44,19 @@ namespace API.Controllers
         [HttpPost("Authorize")]
         public async Task<IActionResult> Authorize([FromBody] UserShortModel user)
         {
-            var response = await _authService.Authorize(user);
+            var response = await _authService.AuthorizeAsync(user);
             return Ok(response);
         }
 
         /// <summary>
-        /// Получить токен
+        /// Обновление токена
         /// </summary>
-        /// <param name="login">Логин пользователя</param>
+        /// <param name="refreshToken">Обновление токена</param>
         /// <returns>Ответ токен</returns>
-        [HttpGet("{login}")]
-        public async Task<IActionResult> Token([FromRoute] string login)
+        [HttpGet("{refreshToken}")]
+        public async Task<IActionResult> Refresh(string refreshToken)
         {
-            var response = await _authService.GetTokenAsync(login);
+            var response = await _authService.RefreshTokenAsync(refreshToken);
             return Ok(response);
         }
     }

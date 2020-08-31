@@ -9,6 +9,7 @@ namespace ViewModel.Interfaces.Handlers
     {
         Task<UserModel> AddAsync(UserModifyModel user);
         Task<UserModel> UpdateAsync(UserModifyModel user);
+        Task<UserModel> UpdateRefreshTokenAsync(Guid id, string refreshToken);
         Task<BaseResponse> DeleteAsync(Guid id);
         Task<UserModel> GetAsync(Guid id);
         Task<UserModel> GetAsync(string login);

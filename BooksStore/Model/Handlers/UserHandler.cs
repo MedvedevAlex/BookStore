@@ -81,6 +81,27 @@ namespace Model.Handlers
         }
 
         /// <summary>
+        /// Обновить обновление токена
+        /// </summary>
+        /// <param name="refreshToken">Строка обновление токена</param>
+        /// <returns>Модель пользователь</returns>
+        public async Task<UserModel> UpdateRefreshTokenAsync(Guid id, string refreshToken)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                var userEntity = await context.Users
+                    .FirstOrDefaultAsync(u => u.Id == id);
+                if (userEntity == null) throw new KeyNotFoundException("Ошибка: Пользователь не найден");
+
+                userEntity.RefreshToken = refreshToken;
+
+                context.Users.Update(userEntity);
+                await context.SaveChangesAsync();
+                return await GetAsync(userEntity.Id);
+            }
+        }
+
+        /// <summary>
         /// Удалить пользователя
         /// </summary>
         /// <param name="id">Идентификатор</param>
@@ -155,7 +176,7 @@ namespace Model.Handlers
         }
 
         /// <summary>
-        /// Генерация пароля и соли в хэш 
+        /// Сгенерировать пароль и соль в хэш 
         /// </summary>
         /// <param name="salt">Соль</param>
         /// <param name="password">Пароль</param>
@@ -171,15 +192,27 @@ namespace Model.Handlers
         }
 
         /// <summary>
-        /// Генерация соли
+        /// Сгенерировать соль
         /// </summary>
         /// <returns>Соль массивом байт</returns>
         private byte[] GenerateSalt()
         {
-            byte[] salt = new byte[128 / 8];
+            byte[] salt = new byte[16];
             using (var rng = RandomNumberGenerator.Create())
                 rng.GetBytes(salt);
             return salt;
+        }
+
+        /// <summary>
+        /// Сгенерировать строку для обновление токена
+        /// </summary>
+        /// <returns></returns>
+        private string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+                rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
         }
     }
 }

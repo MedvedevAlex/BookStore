@@ -23,5 +23,9 @@ namespace ViewModel.Models.Users
         /// Роль
         /// </summary>
         public string Role { get; set; }
+        /// <summary>
+        /// Обновление токена
+        /// </summary>
+        public string RefreshToken { get; set; }
     }
 }
