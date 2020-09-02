@@ -7,7 +7,7 @@
         /// </summary>
         public string Issuer { get; set; }
         /// <summary>
-        /// Получать токена
+        /// Получатель токена
         /// </summary>
         public string Audience { get; set; }
         /// <summary>

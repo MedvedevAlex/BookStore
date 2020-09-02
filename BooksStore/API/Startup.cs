@@ -27,7 +27,6 @@ using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Interfaces.Repositories;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.References;
-using ViewModel.Models;
 
 namespace API
 {
