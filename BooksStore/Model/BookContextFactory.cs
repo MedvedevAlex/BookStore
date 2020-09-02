@@ -19,7 +19,7 @@ namespace Model
                 .AddJsonFile($"appsettings.{environmentName}.json", true, true)
                 .Build();
 
-            optionsBuilder.UseSqlServer(args.Length == 0 || string.IsNullOrEmpty(args[0]) ? config.GetConnectionString("MainDB") : args[0], b => b.MigrationsAssembly("Model"));
+            optionsBuilder.UseSqlServer(args.Length == 0 || string.IsNullOrEmpty(args[0]) ? config.GetConnectionString("BookStoreDatabase") : args[0], b => b.MigrationsAssembly("Model"));
 
             return new BookContext(optionsBuilder.Options);
         }

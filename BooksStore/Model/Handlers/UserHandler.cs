@@ -50,6 +50,7 @@ namespace Model.Handlers
                 createUser.Id = guid;
                 createUser.Password = GenerateHashFromPassword(salt, user.Password);
                 createUser.Salt = Convert.ToBase64String(salt);
+                createUser.RefreshToken = GenerateRefreshToken();
 
                 await context.Users.AddAsync(createUser);
                 await context.SaveChangesAsync();
@@ -77,6 +78,23 @@ namespace Model.Handlers
                 context.Users.Update(userEntity);
                 await context.SaveChangesAsync();
                 return await GetAsync(userEntity.Id);
+            }
+        }
+
+        /// <summary>
+        /// Обновить обновление токена
+        /// </summary>
+        /// <param name="refreshToken">Строка обновление токена</param>
+        /// <returns>Модель пользователь</returns>
+        public async Task<UserModel> UpdateRefreshTokenAsync(UserModel user)
+        {
+            using (var context = _contextFactory.CreateDbContext(new string[0]))
+            {
+                user.RefreshToken = GenerateRefreshToken();
+
+                context.Users.Update(_mapper.Map<User>(user));
+                await context.SaveChangesAsync();
+                return await GetAsync(user.Id);
             }
         }
 
@@ -138,7 +156,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="user">Модель пользователь</param>
         /// <returns>Модель пользователь</returns>
-        public async Task<UserShortModel> GetAsync(UserShortModel user)
+        public async Task<UserModel> GetAsync(UserShortModel user)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -148,14 +166,14 @@ namespace Model.Handlers
 
                 var passwordHash = GenerateHashFromPassword(Convert.FromBase64String(userEntity.Salt), user.Password);
                 
-                if (userEntity.Password != passwordHash) throw new KeyNotFoundException("Ошибка: Пользователя с таким логином и паролем не существует");
+                if (userEntity.Password != passwordHash) throw new KeyNotFoundException("Ошибка: Неверно введен пароль");
 
-                return _mapper.Map<UserShortModel>(userEntity);
+                return _mapper.Map<UserModel>(userEntity);
             }
         }
 
         /// <summary>
-        /// Генерация пароля и соли в хэш 
+        /// Сгенерировать пароль и соль в хэш 
         /// </summary>
         /// <param name="salt">Соль</param>
         /// <param name="password">Пароль</param>
@@ -171,15 +189,27 @@ namespace Model.Handlers
         }
 
         /// <summary>
-        /// Генерация соли
+        /// Сгенерировать соль
         /// </summary>
         /// <returns>Соль массивом байт</returns>
         private byte[] GenerateSalt()
         {
-            byte[] salt = new byte[128 / 8];
+            byte[] salt = new byte[16];
             using (var rng = RandomNumberGenerator.Create())
                 rng.GetBytes(salt);
             return salt;
+        }
+
+        /// <summary>
+        /// Сгенерировать строку для обновление токена
+        /// </summary>
+        /// <returns></returns>
+        private string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using (var rng = RandomNumberGenerator.Create())
+                rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
         }
     }
 }

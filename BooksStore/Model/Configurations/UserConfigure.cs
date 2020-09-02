@@ -15,9 +15,11 @@ namespace Model.Configurations
             builder.Property(u => u.Password)
                 .HasColumnType("nvarchar(100)");
             builder.Property(u => u.Salt)
-                .HasColumnType("nvarchar(100)");
+                .HasColumnType("nvarchar(24)");
             builder.Property(u => u.Role)
                 .HasColumnType("nvarchar(30)");
+            builder.Property(u => u.RefreshToken)
+                .HasColumnType("nvarchar(48)");
         }
     }
 }
