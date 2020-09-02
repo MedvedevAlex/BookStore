@@ -1,4 +1,4 @@
-﻿namespace ViewModel.Models
+﻿namespace Service
 {
     public class TokenSettings
     {
