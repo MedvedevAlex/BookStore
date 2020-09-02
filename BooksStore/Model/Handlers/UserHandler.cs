@@ -166,7 +166,7 @@ namespace Model.Handlers
 
                 var passwordHash = GenerateHashFromPassword(Convert.FromBase64String(userEntity.Salt), user.Password);
                 
-                if (userEntity.Password != passwordHash) throw new KeyNotFoundException("Ошибка: Неверное введен пароль");
+                if (userEntity.Password != passwordHash) throw new KeyNotFoundException("Ошибка: Неверно введен пароль");
 
                 return _mapper.Map<UserModel>(userEntity);
             }
