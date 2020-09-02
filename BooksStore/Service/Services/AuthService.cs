@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Interfaces.Repositories;
 using ViewModel.Interfaces.Services;
+using ViewModel.Models;
 using ViewModel.Models.Users;
+using ViewModel.Responses;
 using ViewModel.Responses.Users;
 
 namespace Service.Services
@@ -17,19 +21,19 @@ namespace Service.Services
     {
         private readonly IUserHandler _userHandler;
         private readonly IMapper _mapper;
-        private readonly ISecurityTokenValidator _securityTokenValidator;
         private readonly IUserInfoRepository _userInfoRepository;
+        private readonly IOptionsMonitor<TokenSettings> _tokenSettings;
 
         public AuthService(
             IUserHandler userHandler,
             IMapper mapper,
-            ISecurityTokenValidator securityTokenValidator,
-            IUserInfoRepository userInfoRepository)
+            IUserInfoRepository userInfoRepository, 
+            IOptionsMonitor<TokenSettings> tokenSettings)
         {
             _userHandler = userHandler;
             _mapper = mapper;
-            _securityTokenValidator = securityTokenValidator;
             _userInfoRepository = userInfoRepository;
+            _tokenSettings = tokenSettings;
         }
 
         /// <summary>
@@ -45,7 +49,7 @@ namespace Service.Services
                 userModify.Role = "Common";
                 var createUser = await _userHandler
                     .AddAsync(userModify);
-                return await GetTokenAsync(createUser.Login);
+                return GetToken(createUser);
             }
             catch (Exception e)
             {
@@ -62,8 +66,8 @@ namespace Service.Services
         {
             try
             {
-                var userShort = await _userHandler.GetAsync(user);
-                return await GetTokenAsync(userShort.Login);
+                var userModel = await _userHandler.GetAsync(user);
+                return GetToken(userModel);
             }
             catch (Exception e)
             {
@@ -74,20 +78,19 @@ namespace Service.Services
         /// <summary>
         /// Обновить токен
         /// </summary>
-        /// <param name="refreshToken">Обновление токена</param>
+        /// <param name="model">Модель обновление токена</param>
         /// <returns>Ответ токен</returns>
-        public async Task<TokenResponse> RefreshTokenAsync(string refreshToken)
+        public async Task<TokenResponse> RefreshTokenAsync(RefreshTokenModel model)
         {
             try
             {
-                var userId = _userInfoRepository.GetUserIdFromToken();
-                var user = await _userHandler.GetAsync(userId);
+                var user = await _userHandler.GetAsync(model.Login);
 
-                if (user.RefreshToken != refreshToken)
+                if (user.RefreshToken != model.RefreshToken)
                     throw new Exception("Ошибка: Обновленные токены не совпадают");
 
-                var updatedUser = await _userHandler.UpdateRefreshTokenAsync(userId, refreshToken);
-                return AssembleToken(updatedUser);
+                var updatedUser = await _userHandler.UpdateRefreshTokenAsync(user);
+                return AssembleToken(updatedUser, _tokenSettings.CurrentValue.LifeTime);
             }
             catch (Exception e)
             {
@@ -96,16 +99,34 @@ namespace Service.Services
         }
 
         /// <summary>
-        /// Получить токен
+        /// Отозвать токен
         /// </summary>
-        /// <param name="login">Логин</param>
-        /// <returns>Ответ токен</returns>
-        private async Task<TokenResponse> GetTokenAsync(string login)
+        /// <returns>Базовый ответ</returns>
+        public async Task<BaseResponse> RevokeTokenAsync()
         {
             try
             {
-                var user = await _userHandler.GetAsync(login);
-                return AssembleToken(user);
+                var userId = _userInfoRepository.GetUserIdFromToken();
+                var user = await _userHandler.GetAsync(userId);
+                AssembleToken(user, -1);
+                return new BaseResponse();
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse { Success = false, ErrorMessage = e.Message };
+            }
+        }
+
+        /// <summary>
+        /// Получить токен
+        /// </summary>
+        /// <param name="user">Модель пользователь</param>
+        /// <returns>Ответ токен</returns>
+        private TokenResponse GetToken(UserModel user)
+        {
+            try
+            {
+                return AssembleToken(user, _tokenSettings.CurrentValue.LifeTime);
             }
             catch (Exception e)
             {
@@ -118,15 +139,15 @@ namespace Service.Services
         /// </summary>
         /// <param name="user">Модель пользователь</param>
         /// <returns>Ответ токен</returns>
-        private TokenResponse AssembleToken(UserModel user)
+        private TokenResponse AssembleToken(UserModel user, int lifeTime)
         {
             var identity = GetIdentityAsync(user);
-            var encodedJwt = GenerateToken(identity);
+            var encodedJwt = GenerateToken(identity, lifeTime);
 
             return new TokenResponse
             {
                 AccessToken = encodedJwt,
-                Login = identity.Name,
+                Login = user.Login,
                 RefreshToken = user.RefreshToken
             };
         }
@@ -137,23 +158,24 @@ namespace Service.Services
         /// <param name="identity">Утверждения</param>
         /// <param name="lifeTime">Время жизни токена</param>
         /// <returns>Токен</returns>
-        private static string GenerateToken(ClaimsIdentity identity, int lifeTime = AuthOptions.LIFETIME)
+        private string GenerateToken(ClaimsIdentity identity, int lifeTime)
         {
+            var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_tokenSettings.CurrentValue.Key));
             var now = DateTime.UtcNow;
             var jwt = new JwtSecurityToken(
-                    issuer: AuthOptions.ISSUER,
-                    audience: AuthOptions.AUDIENCE,
+                    issuer: _tokenSettings.CurrentValue.Issuer,
+                    audience: _tokenSettings.CurrentValue.Audience,
                     notBefore: now,
                     claims: identity.Claims,
                     expires: now.Add(TimeSpan.FromMinutes(lifeTime)),
-                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+                    signingCredentials: new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256));
             return new JwtSecurityTokenHandler().WriteToken(jwt);
         }
 
         /// <summary>
         /// Получить утверждения (клаймы)
         /// </summary>
-        /// <param name="login">Модель пользователь</param>
+        /// <param name="user">Модель пользователь</param>
         /// <returns>Модель утверждения</returns>
         private ClaimsIdentity GetIdentityAsync(UserModel user)
         {

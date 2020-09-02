@@ -21,11 +21,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Text;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Interfaces.Handlers.References;
 using ViewModel.Interfaces.Repositories;
 using ViewModel.Interfaces.Services;
 using ViewModel.Interfaces.Services.References;
+using ViewModel.Models;
 
 namespace API
 {
@@ -40,6 +42,7 @@ namespace API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<TokenSettings>(Configuration.GetSection("TokenSettings"));
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
@@ -49,11 +52,13 @@ namespace API
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             ValidateIssuer = true, // Валидация издателя
-                            ValidIssuer = AuthOptions.ISSUER, // Издатель
+                            ValidIssuer = Configuration.GetSection("TokenSettings").GetSection("Issuer").Value, // Издатель
                             ValidateAudience = true, // Валидация потребителя
-                            ValidAudience = AuthOptions.AUDIENCE, // Потребитель
+                            ValidAudience = Configuration.GetSection("TokenSettings").GetSection("Audience").Value, // Потребитель
                             ValidateLifetime = true, // Валидация времени существования
-                            IssuerSigningKey = AuthOptions.GetSymmetricSecurityKey(), // Ключ безапосаности
+                            IssuerSigningKey = new SymmetricSecurityKey(
+                                Encoding.ASCII.GetBytes(Configuration.GetSection("TokenSettings").GetSection("Audience").Value)
+                                ), // Ключ безапосаности
                             ValidateIssuerSigningKey = true, // Валидация ключа безопасности
                         };
                     });
@@ -140,7 +145,7 @@ namespace API
                 .AddScoped<IPublisherService, PublisherService>()
                 .AddScoped<IInterpreterService, InterpreterService>()
                 .AddScoped<IAuthorService, AuthorService>()
-                .AddSingleton<IAuthService, AuthService>()
+                .AddTransient<IAuthService, AuthService>()
                 .AddSingleton<IUserService, UserService>()
                 .AddTransient<IOrderService, OrderService>()
                 .AddTransient<IDeliveryService, DeliveryService>()

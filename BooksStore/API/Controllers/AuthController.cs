@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ViewModel.Interfaces.Services;
 using ViewModel.Models.Users;
@@ -49,14 +50,26 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Обновление токена
+        /// Обновить токен
         /// </summary>
-        /// <param name="refreshToken">Обновление токена</param>
+        /// <param name="model">Модель обновление токена</param>
         /// <returns>Ответ токен</returns>
-        [HttpGet("{refreshToken}")]
-        public async Task<IActionResult> Refresh(string refreshToken)
+        [HttpPost("Refresh")]
+        public async Task<IActionResult> Refresh([FromBody] RefreshTokenModel model)
         {
-            var response = await _authService.RefreshTokenAsync(refreshToken);
+            var response = await _authService.RefreshTokenAsync(model);
+            return Ok(response);
+        }
+
+        /// <summary>
+        /// Выход из системы
+        /// </summary>
+        /// <returns>Ответ токен</returns>
+        [HttpGet("Logout")]
+        [Authorize]
+        public async Task<IActionResult> Logout()
+        {
+            var response = await _authService.RevokeTokenAsync();
             return Ok(response);
         }
     }

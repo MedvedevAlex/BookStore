@@ -50,6 +50,7 @@ namespace Model.Handlers
                 createUser.Id = guid;
                 createUser.Password = GenerateHashFromPassword(salt, user.Password);
                 createUser.Salt = Convert.ToBase64String(salt);
+                createUser.RefreshToken = GenerateRefreshToken();
 
                 await context.Users.AddAsync(createUser);
                 await context.SaveChangesAsync();
@@ -85,19 +86,15 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="refreshToken">Строка обновление токена</param>
         /// <returns>Модель пользователь</returns>
-        public async Task<UserModel> UpdateRefreshTokenAsync(Guid id, string refreshToken)
+        public async Task<UserModel> UpdateRefreshTokenAsync(UserModel user)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                var userEntity = await context.Users
-                    .FirstOrDefaultAsync(u => u.Id == id);
-                if (userEntity == null) throw new KeyNotFoundException("Ошибка: Пользователь не найден");
+                user.RefreshToken = GenerateRefreshToken();
 
-                userEntity.RefreshToken = refreshToken;
-
-                context.Users.Update(userEntity);
+                context.Users.Update(_mapper.Map<User>(user));
                 await context.SaveChangesAsync();
-                return await GetAsync(userEntity.Id);
+                return await GetAsync(user.Id);
             }
         }
 
@@ -159,7 +156,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="user">Модель пользователь</param>
         /// <returns>Модель пользователь</returns>
-        public async Task<UserShortModel> GetAsync(UserShortModel user)
+        public async Task<UserModel> GetAsync(UserShortModel user)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -169,9 +166,9 @@ namespace Model.Handlers
 
                 var passwordHash = GenerateHashFromPassword(Convert.FromBase64String(userEntity.Salt), user.Password);
                 
-                if (userEntity.Password != passwordHash) throw new KeyNotFoundException("Ошибка: Пользователя с таким логином и паролем не существует");
+                if (userEntity.Password != passwordHash) throw new KeyNotFoundException("Ошибка: Неверное введен пароль");
 
-                return _mapper.Map<UserShortModel>(userEntity);
+                return _mapper.Map<UserModel>(userEntity);
             }
         }
 
