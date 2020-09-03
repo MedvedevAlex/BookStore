@@ -18,7 +18,7 @@ namespace Model
                 .AddJsonFile("appsettings.json", false, true)
                 .AddJsonFile($"appsettings.{environmentName}.json", true, true)
                 .Build();
-            var connectionString = config.GetConnectionString("BookStoreConnection");
+            var connectionString = config.GetConnectionString("BookStoreDatabase");
             optionsBuilder.UseSqlServer(args.Length == 0 ? connectionString : args[0], b => b.MigrationsAssembly("Model"));
 
             return new BookContext(optionsBuilder.Options);
