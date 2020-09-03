@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using ViewModel.Models.References;
+using ViewModel.Responses;
+using ViewModel.Responses.References.CoverTypes;
 
 namespace ViewModel.Interfaces.Handlers.References
 {
@@ -9,9 +11,9 @@ namespace ViewModel.Interfaces.Handlers.References
     {
         Task<CoverTypeModel> AddAsync(CoverTypeModel coverType);
         Task<CoverTypeModel> UpdateAsync(CoverTypeModel coverType);
-        void DeleteAsync(Guid id);
+        Task<BaseResponse> DeleteAsync(Guid id);
         Task<CoverTypeModel> GetAsync(Guid id);
-        Task<List<CoverTypeModel>> GetAsync();
-        Task<List<CoverTypeModel>> SearchByNameAsync(string coverTypeName);
+        Task<ListCoverTypesResponse> GetAsync();
+        Task<ListCoverTypesResponse> SearchByNameAsync(string coverTypeName);
     }
 }
