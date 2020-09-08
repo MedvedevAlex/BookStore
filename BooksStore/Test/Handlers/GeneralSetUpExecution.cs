@@ -1,7 +1,7 @@
 ﻿using Model;
 using NUnit.Framework;
 
-namespace Test.Handler
+namespace Test.Handlers
 {
     /// <summary>
     /// Класс отвечающий за настройку тестов перед и после выполнения

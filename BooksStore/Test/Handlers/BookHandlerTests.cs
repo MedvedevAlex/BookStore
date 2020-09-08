@@ -10,8 +10,9 @@ using ViewModel.Models.Books;
 using ViewModel.Models.Interpreters;
 using ViewModel.Models.Painters;
 using ViewModel.Models.Publishers;
+using ViewModel.Responses;
 
-namespace Test.Handler
+namespace Test.Handlers
 {
     /// <summary>
     /// Набор тестов для тестирования обработчика данных книга
@@ -19,12 +20,11 @@ namespace Test.Handler
     [TestFixture]
     public class BookHandlerTests
     {
-        private readonly IServiceProvider _services;
         private readonly IBookHandler _bookHandler;
 
         public BookHandlerTests()
         {
-            _services = ConfigDI.GetServiceProvider();
+            var _services = ConfigDI.GetServiceProvider();
             _bookHandler = _services.GetService<IBookHandler>();
         }
 
@@ -33,6 +33,7 @@ namespace Test.Handler
         /// </summary>
         /// <returns></returns>
         [Test]
+        [Order(1)]
         public async Task ShouldGetBook()
         {
             // Arrange
@@ -95,6 +96,7 @@ namespace Test.Handler
         /// </summary>
         /// <returns></returns>
         [Test]
+        [Order(2)]
         public async Task ShouldUpdateBook()
         {
             // Arrange
@@ -171,6 +173,23 @@ namespace Test.Handler
             var result = await _bookHandler.UpdateAsync(modifiedBook);
             // Assert
             result.Should().BeEquivalentTo(book);
+        }
+
+        /// <summary>
+        /// Должен удалить книгу
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        [Order(3)]
+        public async Task ShouldDeleteBook()
+        {
+            // Arrange
+            var guid = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6");
+            var baseResponse = new BaseResponse();
+            // Act
+            var result = await _bookHandler.DeleteAsync(guid);
+            // Assert
+            result.Should().BeEquivalentTo(baseResponse);
         }
     }
 }
