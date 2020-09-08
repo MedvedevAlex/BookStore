@@ -26,7 +26,7 @@ namespace Model.Configurations
             builder.Property(b => b.Price)
                 .HasColumnType("numeric(8,2)");
             builder.Property(b => b.Duplicate)
-                .HasColumnType("smallint");
+                .HasColumnType("int");
             builder.Property(b => b.AgeLimit)
                 .HasColumnType("tinyint");
             builder.Property(b => b.Weight)
