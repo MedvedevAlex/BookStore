@@ -6,7 +6,6 @@ namespace Test.Handlers
     /// <summary>
     /// Класс отвечающий за настройку тестов перед и после выполнения
     /// </summary>
-    [SetUpFixture]
     public class GeneralSetUpExecution
     {
         /// <summary>

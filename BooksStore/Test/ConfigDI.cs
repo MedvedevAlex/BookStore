@@ -22,7 +22,9 @@ namespace Test
             {
                 cfg.AddMaps(Assembly.GetAssembly(typeof(MappingProfile)));
             })));
-            services.AddScoped<IBookHandler, BookHandler>();
+            services
+                .AddScoped<IBookHandler, BookHandler>()
+                .AddScoped<IAuthorHandler, AuthorHandler>();
             return services;
         }
     }

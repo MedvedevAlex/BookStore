@@ -136,8 +136,8 @@ namespace Model.Handlers
             {
                 var query = context.Authors;
                 result.PreviewAuthors = await query
-                    .Take(takeCount)
                     .Skip(skipCount)
+                    .Take(takeCount)
                     .Select(a => _mapper.Map<AuthorPreviewModel>(a))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
@@ -160,8 +160,8 @@ namespace Model.Handlers
                 var query = context.Authors
                     .Where(a => a.Name.Contains(authorName));
                 result.PreviewAuthors = await query
-                    .Take(takeCount)
                     .Skip(skipCount)
+                    .Take(takeCount)
                     .Select(a => _mapper.Map<AuthorPreviewModel>(a))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
