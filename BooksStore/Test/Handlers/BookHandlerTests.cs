@@ -191,5 +191,70 @@ namespace Test.Handlers
             // Assert
             result.Should().BeEquivalentTo(baseResponse);
         }
+
+        /// <summary>
+        /// Должен получить пагинацией 3 книги
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task ShouldGetAsyncAndSkipBooks()
+        {
+            // Act
+            var resultWithTaked = await _bookHandler.GetAsync(3, 0);
+            var resultWithSkipped = await _bookHandler.GetAsync(3, 3);
+            // Assert
+            resultWithTaked.PreviewBooks.Should().NotBeNull();
+            resultWithTaked.PreviewBooks.Count.Should().Be(3);
+
+            resultWithSkipped.PreviewBooks.Should().NotBeNull();
+            resultWithSkipped.PreviewBooks.Count.Should().Be(3);
+
+            resultWithTaked.PreviewBooks.Should().NotBeEquivalentTo(resultWithSkipped.PreviewBooks);
+        }
+
+        /// <summary>
+        /// Должен найти книги по автору
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task ShouldSearchByAuthor()
+        {
+            // Act
+            var result = await _bookHandler.SearchByAuthorAsync("Антуан", 3, 0);
+            // Assert
+            result.PreviewBooks.Should().NotBeNull();
+            result.PreviewBooks.Count.Should().Be(3);
+            result.Count.Should().Be(4);
+        }
+
+        /// <summary>
+        /// Должен найти книги по названию
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task ShouldSearchByName()
+        {
+            // Act
+            var result = await _bookHandler.SearchByNameAsync("ди", 2, 1);
+            // Assert
+            result.PreviewBooks.Should().NotBeNull();
+            result.PreviewBooks.Count.Should().Be(2);
+            result.Count.Should().Be(3);
+        }
+
+        /// <summary>
+        /// Должен найти книги по жанру
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task ShouldSearchByGenre()
+        {
+            // Act
+            var result = await _bookHandler.SearchByGenreAsync("Антиутопия", 1, 1);
+            // Assert
+            result.PreviewBooks.Should().NotBeNull();
+            result.PreviewBooks.Count.Should().Be(1);
+            result.Count.Should().Be(2);
+        }
     }
 }
