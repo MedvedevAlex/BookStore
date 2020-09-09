@@ -12,11 +12,11 @@ namespace Model.Configurations
             builder.HasKey(a => a.Id);
 
             builder.Property(a => a.Name)
-                .HasColumnType("varchar(40)");
+                .HasColumnType("nvarchar(40)");
             builder.Property(a => a.Age)
                 .HasColumnType("tinyint");
             builder.Property(a => a.Description)
-                .HasColumnType("varchar(1000)");
+                .HasColumnType("nvarchar(1000)");
 
             builder.HasData(
                 new { Id = Guid.Parse("6be1a08c-550c-447f-bb67-d1e1f5275dbf"), Name = "Рэй Дуглас Брэдбери", Age = (byte)91, Description = "В 1937 году Брэдбери вступил в лос-анджелесскую «Лигу научных фантастов», которая была одним из многих объединений молодых писателей, активно возникавших в возрождающейся после Великой Депрессии Америке." },

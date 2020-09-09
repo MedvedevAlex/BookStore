@@ -12,11 +12,11 @@ namespace Model.Configurations
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Name)
-                .HasColumnType("varchar(40)");
+                .HasColumnType("nvarchar(40)");
             builder.Property(p => p.Age)
                 .HasColumnType("tinyint");
             builder.Property(p => p.Description)
-                .HasColumnType("varchar(1000)");
+                .HasColumnType("nvarchar(1000)");
 
             builder.HasOne(p => p.Style);
 
