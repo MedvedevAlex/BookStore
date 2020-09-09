@@ -25,6 +25,10 @@ namespace Model.Entities
         /// </summary>
         public Delivery Delivery { get; set; }
         /// <summary>
+        /// Дата создания
+        /// </summary>
+        public DateTime DateCreate { get; set; }
+        /// <summary>
         /// Статус
         /// </summary>
         public OrderStatus Status { get; set; }
@@ -32,5 +36,9 @@ namespace Model.Entities
         /// Цена
         /// </summary>
         public decimal Amount { get; set; }
+        /// <summary>
+        /// Комментарий к заказу
+        /// </summary>
+        public string Description { get; set; }
     }
 }
