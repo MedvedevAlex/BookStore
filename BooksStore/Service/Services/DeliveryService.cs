@@ -16,7 +16,7 @@ namespace Service.Services
             _deliveryHandler = deliveryHandler;
         }
 
-        public async Task<DeliveryResponse> AddAsync(DeliveryModifyModel delivery)
+        public async Task<DeliveryResponse> AddAsync(DeliveryCreatedModel delivery)
         {
             try
             {

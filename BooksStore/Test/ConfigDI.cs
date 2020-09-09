@@ -24,7 +24,8 @@ namespace Test
             })));
             services
                 .AddScoped<IBookHandler, BookHandler>()
-                .AddScoped<IAuthorHandler, AuthorHandler>();
+                .AddScoped<IAuthorHandler, AuthorHandler>()
+                .AddScoped<IDeliveryHandler, DeliveryHandler>();
             return services;
         }
     }

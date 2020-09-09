@@ -7,7 +7,7 @@ namespace ViewModel.Interfaces.Services
 {
     public interface IDeliveryService
     {
-        Task<DeliveryResponse> AddAsync(DeliveryModifyModel delivery);
+        Task<DeliveryResponse> AddAsync(DeliveryCreatedModel delivery);
         Task<DeliveryResponse> UpdateAsync(DeliveryModifyModel delivery);
         Task<DeliveryResponse> GetAsync(Guid id);
     }

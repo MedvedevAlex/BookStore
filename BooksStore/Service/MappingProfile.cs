@@ -94,7 +94,7 @@ namespace Service
             CreateMap<Order, OrderModel>();
             #endregion
             #region Карты Доставка
-            CreateMap<Delivery, DeliveryModifyModel>().ReverseMap();
+            CreateMap<DeliveryCreatedModel, Delivery>();
             CreateMap<Delivery, DeliveryModel>();
             #endregion
             #region Карты Платеж

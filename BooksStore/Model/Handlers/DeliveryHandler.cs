@@ -4,6 +4,7 @@ using Model.Entities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using ViewModel.Enums;
 using ViewModel.Interfaces.Handlers;
 using ViewModel.Models.Deliveries;
 
@@ -32,7 +33,7 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="delivery">Модель доставка</param>
         /// <returns>Модель доставка</returns>
-        public async Task<DeliveryModel> AddAsync(DeliveryModifyModel delivery)
+        public async Task<DeliveryModel> AddAsync(DeliveryCreatedModel delivery)
         {
             var guidDelivery = Guid.NewGuid();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
@@ -42,6 +43,7 @@ namespace Model.Handlers
                 var deliveryEntity = _mapper.Map<Delivery>(delivery);
                 deliveryEntity.Id = guidDelivery;
                 deliveryEntity.DateCreate = DateTime.Now;
+                deliveryEntity.Status = DeliveryStatus.Waiting;
 
                 deliveryEntity.Shop = await shopTask ?? throw new KeyNotFoundException("Ошибка: Не удалось найти магазин");
                 var orderTask = context.Orders.FirstOrDefaultAsync(o => o.Id == delivery.OrderId);
