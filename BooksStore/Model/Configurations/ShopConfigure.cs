@@ -12,9 +12,9 @@ namespace Model.Configurations
             builder.HasKey(s => s.Id);
 
             builder.Property(s => s.Name)
-                .HasColumnType("varchar(30)");
+                .HasColumnType("nvarchar(30)");
             builder.Property(s => s.Address)
-                .HasColumnType("varchar(40)");
+                .HasColumnType("nvarchar(40)");
 
             builder
                 .HasMany(s => s.WorkShedule)
