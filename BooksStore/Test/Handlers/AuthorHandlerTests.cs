@@ -15,7 +15,7 @@ namespace Test.Handlers
     /// Набор тестов для тестирования обработчика данных автор
     /// </summary>
     [TestFixture]
-    public class AuthorHandlerTests : GeneralSetUpExecution
+    public class AuthorHandlerTests
     {
         private readonly IAuthorHandler _authorHandler;
 

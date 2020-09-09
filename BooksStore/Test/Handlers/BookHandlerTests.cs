@@ -29,74 +29,11 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить книгу
-        /// </summary>
-        /// <returns></returns>
-        [Test]
-        [Order(1)]
-        public async Task ShouldGetBook()
-        {
-            // Arrange
-            var book = new BookViewModel
-            {
-                Id = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"),
-                Name = "Вторая жизнь Уве",
-                PublishDate = DateTime.Parse("2017-11-01"),
-                CoverType = "Твердая стеклянная",
-                Genre = "Мемуары",
-                Language = "Бразильский",
-                Description = "На первый взгляд Уве — самый угрюмый человек на свете. Он, как и многие из нас, " +
-                "полагает, что его окружают преимущественно идиоты — соседи, которые неправильно паркуют свои " +
-                "машины; продавцы в магазине, говорящие на птичьем языке; бюрократы, портящие жизнь нормальным людям.",
-                ISBN_13 = "978-5-905891-97-7",
-                Format = "20.5 x 13 x 2.4",
-                CountPage = 384,
-                Price = 406.00M,
-                Weight = 400,
-                Duplicate = 5000,
-                AgeLimit = 14,
-                Publisher = new PublisherShortModel
-                {
-                    Id = Guid.Parse("3F755440-89BF-4335-99A7-DB1D9226D666"),
-                    Name = "Амфора"
-                },
-                Authors = new List<AuthorShortModel>
-                {
-                    new AuthorShortModel
-                    {
-                        Id = Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C"),
-                        Name = "Эрих Мария Ремарк"
-                    }
-                },
-                Painters = new List<PainterShortModel>
-                {
-                    new PainterShortModel
-                    {
-                        Id = Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9"),
-                        Name = "Рембрандт Ха?рменс ван Рейн"
-                    }
-                },
-                Interpreters = new List<InterpreterShortModel>
-                {
-                    new InterpreterShortModel
-                    {
-                        Id = Guid.Parse("9A46E40F-57DC-465C-8D2B-67EDF3CF5B4E"),
-                        Name = "Рита Райт-Ковалева"
-                    }
-                }
-            };
-            // Act
-            var result = await _bookHandler.GetAsync(book.Id);
-            // Assert
-            result.Should().BeEquivalentTo(book);
-        }
-
-        /// <summary>
         /// Должен обновить книгу
         /// </summary>
         /// <returns></returns>
         [Test]
-        [Order(2)]
+        [Order(1)]
         public async Task ShouldUpdateBook()
         {
             // Arrange
@@ -172,6 +109,7 @@ namespace Test.Handlers
             // Act
             var result = await _bookHandler.UpdateAsync(modifiedBook);
             // Assert
+            result.Should().NotBeNull();
             result.Should().BeEquivalentTo(book);
         }
 
@@ -180,7 +118,7 @@ namespace Test.Handlers
         /// </summary>
         /// <returns></returns>
         [Test]
-        [Order(3)]
+        [Order(2)]
         public async Task ShouldDeleteBook()
         {
             // Arrange
@@ -189,7 +127,158 @@ namespace Test.Handlers
             // Act
             var result = await _bookHandler.DeleteAsync(guid);
             // Assert
+            result.Should().NotBeNull();
             result.Should().BeEquivalentTo(baseResponse);
+        }
+
+        /// <summary>
+        /// Должен добавить книгу
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        [Order(3)]
+        public async Task ShouldAddBook()
+        {
+            // Arrange
+            var modifiedBook = new BookModifyModel
+            {
+                Id = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"),
+                Name = "Вторая жизнь Уве",
+                PublishDate = DateTime.Parse("2017-11-01"),
+                CoverTypeId = Guid.Parse("33AA3511-8C70-4E19-9719-321D4B79F588"),
+                GenreId = Guid.Parse("7BB337B5-6B47-4613-8657-6F78506FE117"),
+                LanguageId = Guid.Parse("90B9DF3B-581F-4F92-ADEE-251630A72A9E"),
+                Description = "На первый взгляд Уве — самый угрюмый человек на свете. Он, как и многие из нас, " +
+                "полагает, что его окружают преимущественно идиоты — соседи, которые неправильно паркуют свои " +
+                "машины; продавцы в магазине, говорящие на птичьем языке; бюрократы, портящие жизнь нормальным людям.",
+                ISBN_13 = "978-5-905891-97-7",
+                Format = "20.5 x 13 x 2.4",
+                CountPage = 384,
+                Price = 406.00M,
+                Weight = 400,
+                Duplicate = 5000,
+                AgeLimit = 14,
+                PublisherId = Guid.Parse("3F755440-89BF-4335-99A7-DB1D9226D666"),
+                AuthorsIds = new List<Guid>() { Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C") },
+                PaintersIds = new List<Guid>() { Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9") },
+                InterpretersIds = new List<Guid>() { Guid.Parse("9A46E40F-57DC-465C-8D2B-67EDF3CF5B4E") },
+            };
+            var book = new BookViewModel
+            {
+                Id = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"),
+                Name = "Вторая жизнь Уве",
+                PublishDate = DateTime.Parse("2017-11-01"),
+                CoverType = "Твердая стеклянная",
+                Genre = "Мемуары",
+                Language = "Бразильский",
+                Description = "На первый взгляд Уве — самый угрюмый человек на свете. Он, как и многие из нас, " +
+                "полагает, что его окружают преимущественно идиоты — соседи, которые неправильно паркуют свои " +
+                "машины; продавцы в магазине, говорящие на птичьем языке; бюрократы, портящие жизнь нормальным людям.",
+                ISBN_13 = "978-5-905891-97-7",
+                Format = "20.5 x 13 x 2.4",
+                CountPage = 384,
+                Price = 406.00M,
+                Weight = 400,
+                Duplicate = 5000,
+                AgeLimit = 14,
+                Publisher = new PublisherShortModel
+                {
+                    Id = Guid.Parse("3F755440-89BF-4335-99A7-DB1D9226D666"),
+                    Name = "Амфора"
+                },
+                Authors = new List<AuthorShortModel>
+                {
+                    new AuthorShortModel
+                    {
+                        Id = Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C"),
+                        Name = "Эрих Мария Ремарк"
+                    }
+                },
+                Painters = new List<PainterShortModel>
+                {
+                    new PainterShortModel
+                    {
+                        Id = Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9"),
+                        Name = "Рембрандт Ха?рменс ван Рейн"
+                    }
+                },
+                Interpreters = new List<InterpreterShortModel>
+                {
+                    new InterpreterShortModel
+                    {
+                        Id = Guid.Parse("9A46E40F-57DC-465C-8D2B-67EDF3CF5B4E"),
+                        Name = "Рита Райт-Ковалева"
+                    }
+                }
+            };
+            // Act
+            var result = await _bookHandler.AddAsync(modifiedBook);
+            // Assert
+            result.Should().NotBeNull();
+            result.Should().BeEquivalentTo(book);
+        }
+
+        /// <summary>
+        /// Должен получить книгу
+        /// </summary>
+        /// <returns></returns>
+        [Test]
+        public async Task ShouldGetBook()
+        {
+            // Arrange
+            var book = new BookViewModel
+            {
+                Id = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"),
+                Name = "Вторая жизнь Уве",
+                PublishDate = DateTime.Parse("2017-11-01"),
+                CoverType = "Твердая стеклянная",
+                Genre = "Мемуары",
+                Language = "Бразильский",
+                Description = "На первый взгляд Уве — самый угрюмый человек на свете. Он, как и многие из нас, " +
+                "полагает, что его окружают преимущественно идиоты — соседи, которые неправильно паркуют свои " +
+                "машины; продавцы в магазине, говорящие на птичьем языке; бюрократы, портящие жизнь нормальным людям.",
+                ISBN_13 = "978-5-905891-97-7",
+                Format = "20.5 x 13 x 2.4",
+                CountPage = 384,
+                Price = 406.00M,
+                Weight = 400,
+                Duplicate = 5000,
+                AgeLimit = 14,
+                Publisher = new PublisherShortModel
+                {
+                    Id = Guid.Parse("3F755440-89BF-4335-99A7-DB1D9226D666"),
+                    Name = "Амфора"
+                },
+                Authors = new List<AuthorShortModel>
+                {
+                    new AuthorShortModel
+                    {
+                        Id = Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C"),
+                        Name = "Эрих Мария Ремарк"
+                    }
+                },
+                Painters = new List<PainterShortModel>
+                {
+                    new PainterShortModel
+                    {
+                        Id = Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9"),
+                        Name = "Рембрандт Ха?рменс ван Рейн"
+                    }
+                },
+                Interpreters = new List<InterpreterShortModel>
+                {
+                    new InterpreterShortModel
+                    {
+                        Id = Guid.Parse("9A46E40F-57DC-465C-8D2B-67EDF3CF5B4E"),
+                        Name = "Рита Райт-Ковалева"
+                    }
+                }
+            };
+            // Act
+            var result = await _bookHandler.GetAsync(book.Id);
+            // Assert
+            result.Should().NotBeNull();
+            result.Should().BeEquivalentTo(book);
         }
 
         /// <summary>
@@ -197,7 +286,7 @@ namespace Test.Handlers
         /// </summary>
         /// <returns></returns>
         [Test]
-        public async Task ShouldGetAsyncAndSkipBooks()
+        public async Task ShouldGetBooksAsyncAndSkipBooks()
         {
             // Act
             var resultWithTaked = await _bookHandler.GetAsync(3, 0);
@@ -217,14 +306,14 @@ namespace Test.Handlers
         /// </summary>
         /// <returns></returns>
         [Test]
-        public async Task ShouldSearchByAuthor()
+        public async Task ShouldSearchBooksByAuthor()
         {
             // Act
-            var result = await _bookHandler.SearchByAuthorAsync("Антуан", 3, 0);
+            var result = await _bookHandler.SearchByAuthorAsync("Эрих", 2, 1);
             // Assert
             result.PreviewBooks.Should().NotBeNull();
-            result.PreviewBooks.Count.Should().Be(3);
-            result.Count.Should().Be(4);
+            result.PreviewBooks.Count.Should().Be(2);
+            result.Count.Should().Be(3);
         }
 
         /// <summary>
@@ -232,7 +321,7 @@ namespace Test.Handlers
         /// </summary>
         /// <returns></returns>
         [Test]
-        public async Task ShouldSearchByName()
+        public async Task ShouldSearchBooksByName()
         {
             // Act
             var result = await _bookHandler.SearchByNameAsync("ди", 2, 1);
@@ -247,7 +336,7 @@ namespace Test.Handlers
         /// </summary>
         /// <returns></returns>
         [Test]
-        public async Task ShouldSearchByGenre()
+        public async Task ShouldSearchBooksByGenre()
         {
             // Act
             var result = await _bookHandler.SearchByGenreAsync("Антиутопия", 1, 1);
