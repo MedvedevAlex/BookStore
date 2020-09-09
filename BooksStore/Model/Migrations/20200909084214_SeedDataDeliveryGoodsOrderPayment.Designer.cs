@@ -10,7 +10,7 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20200909081245_SeedDataDeliveryGoodsOrderPayment")]
+    [Migration("20200909084214_SeedDataDeliveryGoodsOrderPayment")]
     partial class SeedDataDeliveryGoodsOrderPayment
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1067,6 +1067,7 @@ namespace Model.Migrations
                             Id = new Guid("5efb4e85-c71e-4c68-ad5e-8af4cd2148f8"),
                             Amount = 212.00m,
                             DateCreate = new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DatePayment = new DateTime(2020, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderId = new Guid("a3de7602-4018-4718-90a9-e7d0a299f315"),
                             Status = (byte)2
                         },
@@ -1075,6 +1076,7 @@ namespace Model.Migrations
                             Id = new Guid("62a2d8b3-144b-49b8-8285-2c07e1d52456"),
                             Amount = 550.00m,
                             DateCreate = new DateTime(2020, 8, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DatePayment = new DateTime(2020, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderId = new Guid("5f98d03e-b6dc-41a7-9f3d-86fdda264f26"),
                             Status = (byte)2
                         });
