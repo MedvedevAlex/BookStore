@@ -1,14 +1,10 @@
-﻿namespace ViewModel.Responses.Users
+﻿namespace ViewModel.Models.Users
 {
     /// <summary>
-    /// Ответ токен
+    /// Модель обновление токена
     /// </summary>
-    public class TokenResponse : BaseResponse
+    public class RefreshTokenModel
     {
-        /// <summary>
-        /// Токен
-        /// </summary>
-        public string AccessToken { get; set; }
         /// <summary>
         /// Логин пользователя
         /// </summary>

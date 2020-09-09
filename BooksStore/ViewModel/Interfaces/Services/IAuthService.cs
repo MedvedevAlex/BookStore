@@ -1,14 +1,15 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using ViewModel.Models.Users;
+using ViewModel.Responses;
 using ViewModel.Responses.Users;
 
 namespace ViewModel.Interfaces.Services
 {
     public interface IAuthService
     {
-        Task<TokenResponse> Register(UserShortModel user);
-        Task<TokenResponse> Authorize(UserShortModel user);
-        Task<TokenResponse> GetTokenAsync(string login);
+        Task<TokenResponse> RegisterAsync(UserShortModel user);
+        Task<TokenResponse> AuthorizeAsync(UserShortModel user);
+        Task<TokenResponse> RefreshTokenAsync(RefreshTokenModel model);
+        Task<BaseResponse> RevokeTokenAsync();
     }
 }
