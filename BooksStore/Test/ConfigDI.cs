@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Model.Handlers;
 using Service;
+using Service.PublisherRepos;
 using System;
 using System.Reflection;
 using ViewModel.Interfaces.Handlers;
@@ -25,7 +26,8 @@ namespace Test
             services
                 .AddScoped<IBookHandler, BookHandler>()
                 .AddScoped<IAuthorHandler, AuthorHandler>()
-                .AddScoped<IDeliveryHandler, DeliveryHandler>();
+                .AddScoped<IDeliveryHandler, DeliveryHandler>()
+                .AddScoped<IInterpreterHandler, InterpreterHandler>();
             return services;
         }
     }

@@ -20,7 +20,7 @@ namespace Test.Handlers
     {
         private readonly IDeliveryHandler _deliveryHandler;
         private readonly DateTime _defaultDate = DateTime.Parse("01.01.0001");
-        private Guid _createDelivery;
+        private Guid _createDeliveryId;
 
         public DeliveryHandlerTests()
         {
@@ -58,7 +58,7 @@ namespace Test.Handlers
             result.DateCreate.Should().NotBe(_defaultDate);
             result.Shop.Should().BeEquivalentTo(shop);
             result.Status.Should().Be(DeliveryStatus.Waiting);
-            _createDelivery = result.Id;
+            _createDeliveryId = result.Id;
         }
 
         /// <summary>
@@ -72,14 +72,14 @@ namespace Test.Handlers
             // Arrange
             var modifiedDelivery = new DeliveryModifyModel
             {
-                Id = _createDelivery,
+                Id = _createDeliveryId,
                 DateDelivery = DateTime.Parse("14.09.2020"),
                 ShopId = Guid.Parse("905D9ED8-0BD5-402A-BE16-73C021176C78"),
                 Status = DeliveryStatus.Completed
             };
             var delivery = new DeliveryModel
             {
-                Id = _createDelivery,
+                Id = _createDeliveryId,
                 DateDelivery = DateTime.Parse("14.09.2020"),
                 Shop = new ShopModel
                 {
