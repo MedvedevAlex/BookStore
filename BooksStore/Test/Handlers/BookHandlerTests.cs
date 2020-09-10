@@ -39,14 +39,14 @@ namespace Test.Handlers
             // Arrange
             var modifiedBook = new BookModifyModel
             {
-                Id = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"),
-                Name = "Третья жизнь Уве",
+                Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
+                Name = "Дом, в котором… ничего не происходит",
                 PublishDate = DateTime.Parse("2018-12-01"),
                 CoverTypeId = Guid.Parse("FC4519DF-A67D-4686-904B-4EE105F37D22"),
                 GenreId = Guid.Parse("7CF21233-4CAF-4902-BCC1-85A677BF1C59"),
                 LanguageId = Guid.Parse("AE0CF116-C244-4997-93CD-F7760A93FE0F"),
-                Description = "Кто же он такой, этот самый Уве? Пожилой въедливый ворчун, достающий соседей вечными " +
-                "придирками. Он впадает в ярость при виде брошенного не туда мусора или неправильно припаркованной машины.",
+                Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом," +
+                " в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
                 ISBN_13 = "978-5-999999-97-7",
                 Format = "22.5 x 14 x 2.4",
                 CountPage = 532,
@@ -61,14 +61,14 @@ namespace Test.Handlers
             };
             var book = new BookViewModel
             {
-                Id = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"),
-                Name = "Третья жизнь Уве",
+                Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
+                Name = "Дом, в котором… ничего не происходит",
                 PublishDate = DateTime.Parse("2018-12-01"),
                 CoverType = "Мягкая картонная",
                 Genre = "Ужасы",
                 Language = "Японский",
-                Description = "Кто же он такой, этот самый Уве? Пожилой въедливый ворчун, достающий соседей вечными " +
-                "придирками. Он впадает в ярость при виде брошенного не туда мусора или неправильно припаркованной машины.",
+                Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом," +
+                " в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
                 ISBN_13 = "978-5-999999-97-7",
                 Format = "22.5 x 14 x 2.4",
                 CountPage = 532,
@@ -94,7 +94,7 @@ namespace Test.Handlers
                     new PainterShortModel
                     {
                         Id = Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9"),
-                        Name = "Рембрандт Ха?рменс ван Рейн"
+                        Name = "Рембрандт Харменс ван Рейн"
                     }
                 },
                 Interpreters = new List<InterpreterShortModel>
@@ -122,7 +122,7 @@ namespace Test.Handlers
         public async Task ShouldDeleteBook()
         {
             // Arrange
-            var guid = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6");
+            var guid = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC");
             var baseResponse = new BaseResponse();
             // Act
             var result = await _bookHandler.DeleteAsync(guid);
@@ -142,45 +142,43 @@ namespace Test.Handlers
             // Arrange
             var modifiedBook = new BookModifyModel
             {
-                Id = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"),
-                Name = "Вторая жизнь Уве",
-                PublishDate = DateTime.Parse("2017-11-01"),
-                CoverTypeId = Guid.Parse("33AA3511-8C70-4E19-9719-321D4B79F588"),
-                GenreId = Guid.Parse("7BB337B5-6B47-4613-8657-6F78506FE117"),
-                LanguageId = Guid.Parse("90B9DF3B-581F-4F92-ADEE-251630A72A9E"),
-                Description = "На первый взгляд Уве — самый угрюмый человек на свете. Он, как и многие из нас, " +
-                "полагает, что его окружают преимущественно идиоты — соседи, которые неправильно паркуют свои " +
-                "машины; продавцы в магазине, говорящие на птичьем языке; бюрократы, портящие жизнь нормальным людям.",
-                ISBN_13 = "978-5-905891-97-7",
-                Format = "20.5 x 13 x 2.4",
-                CountPage = 384,
-                Price = 406.00M,
-                Weight = 400,
-                Duplicate = 5000,
-                AgeLimit = 14,
+                Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
+                Name = "Дом, в котором…",
+                PublishDate = DateTime.Parse("22.09.2016"),
+                CoverTypeId = Guid.Parse("56D180CA-F9BD-4DAD-87EF-AF334F636BE1"),
+                GenreId = Guid.Parse("7CF21233-4CAF-4902-BCC1-85A677BF1C59"),
+                LanguageId = Guid.Parse("8D13A346-389B-48B3-9299-A565BF2A6658"),
+                Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом, " +
+                "в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
+                ISBN_13 = "978-5-904584-69-6",
+                Format = "22 x 15 x 5",
+                CountPage = 960,
+                Price = 605.00M,
+                Weight = 1050,
+                Duplicate = 15000,
+                AgeLimit = 12,
                 PublisherId = Guid.Parse("3F755440-89BF-4335-99A7-DB1D9226D666"),
-                AuthorsIds = new List<Guid>() { Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C") },
+                AuthorsIds = new List<Guid>() { Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7") },
                 PaintersIds = new List<Guid>() { Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9") },
                 InterpretersIds = new List<Guid>() { Guid.Parse("9A46E40F-57DC-465C-8D2B-67EDF3CF5B4E") },
             };
             var book = new BookViewModel
             {
-                Id = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"),
-                Name = "Вторая жизнь Уве",
-                PublishDate = DateTime.Parse("2017-11-01"),
-                CoverType = "Твердая стеклянная",
-                Genre = "Мемуары",
-                Language = "Бразильский",
-                Description = "На первый взгляд Уве — самый угрюмый человек на свете. Он, как и многие из нас, " +
-                "полагает, что его окружают преимущественно идиоты — соседи, которые неправильно паркуют свои " +
-                "машины; продавцы в магазине, говорящие на птичьем языке; бюрократы, портящие жизнь нормальным людям.",
-                ISBN_13 = "978-5-905891-97-7",
-                Format = "20.5 x 13 x 2.4",
-                CountPage = 384,
-                Price = 406.00M,
-                Weight = 400,
-                Duplicate = 5000,
-                AgeLimit = 14,
+                Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
+                Name = "Дом, в котором…",
+                PublishDate = DateTime.Parse("22.09.2016"),
+                CoverType = "Твердая бумажная",
+                Genre = "Ужасы",
+                Language = "Французский",
+                Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом, " +
+                "в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
+                ISBN_13 = "978-5-904584-69-6",
+                Format = "22 x 15 x 5",
+                CountPage = 960,
+                Price = 605.00M,
+                Weight = 1050,
+                Duplicate = 15000,
+                AgeLimit = 12,
                 Publisher = new PublisherShortModel
                 {
                     Id = Guid.Parse("3F755440-89BF-4335-99A7-DB1D9226D666"),
@@ -190,8 +188,8 @@ namespace Test.Handlers
                 {
                     new AuthorShortModel
                     {
-                        Id = Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C"),
-                        Name = "Эрих Мария Ремарк"
+                        Id = Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7"),
+                        Name = "Антуан де Сент-Экзюпери"
                     }
                 },
                 Painters = new List<PainterShortModel>
@@ -199,7 +197,7 @@ namespace Test.Handlers
                     new PainterShortModel
                     {
                         Id = Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9"),
-                        Name = "Рембрандт Ха?рменс ван Рейн"
+                        Name = "Рембрандт Харменс ван Рейн"
                     }
                 },
                 Interpreters = new List<InterpreterShortModel>
@@ -228,22 +226,21 @@ namespace Test.Handlers
             // Arrange
             var book = new BookViewModel
             {
-                Id = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"),
-                Name = "Вторая жизнь Уве",
-                PublishDate = DateTime.Parse("2017-11-01"),
-                CoverType = "Твердая стеклянная",
-                Genre = "Мемуары",
-                Language = "Бразильский",
-                Description = "На первый взгляд Уве — самый угрюмый человек на свете. Он, как и многие из нас, " +
-                "полагает, что его окружают преимущественно идиоты — соседи, которые неправильно паркуют свои " +
-                "машины; продавцы в магазине, говорящие на птичьем языке; бюрократы, портящие жизнь нормальным людям.",
-                ISBN_13 = "978-5-905891-97-7",
-                Format = "20.5 x 13 x 2.4",
-                CountPage = 384,
-                Price = 406.00M,
-                Weight = 400,
-                Duplicate = 5000,
-                AgeLimit = 14,
+                Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
+                Name = "Дом, в котором…",
+                PublishDate = DateTime.Parse("22.09.2016"),
+                CoverType = "Твердая бумажная",
+                Genre = "Ужасы",
+                Language = "Французский",
+                Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом, " +
+                "в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
+                ISBN_13 = "978-5-904584-69-6",
+                Format = "22 x 15 x 5",
+                CountPage = 960,
+                Price = 605.00M,
+                Weight = 1050,
+                Duplicate = 15000,
+                AgeLimit = 12,
                 Publisher = new PublisherShortModel
                 {
                     Id = Guid.Parse("3F755440-89BF-4335-99A7-DB1D9226D666"),
@@ -253,8 +250,8 @@ namespace Test.Handlers
                 {
                     new AuthorShortModel
                     {
-                        Id = Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C"),
-                        Name = "Эрих Мария Ремарк"
+                        Id = Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7"),
+                        Name = "Антуан де Сент-Экзюпери"
                     }
                 },
                 Painters = new List<PainterShortModel>
@@ -262,7 +259,7 @@ namespace Test.Handlers
                     new PainterShortModel
                     {
                         Id = Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9"),
-                        Name = "Рембрандт Ха?рменс ван Рейн"
+                        Name = "Рембрандт Харменс ван Рейн"
                     }
                 },
                 Interpreters = new List<InterpreterShortModel>

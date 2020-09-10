@@ -3,10 +3,25 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Model.Migrations
 {
-    public partial class SeedDataDeliveryGoodsOrderPayment : Migration
+    public partial class SeedData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AlterColumn<string>(
+                name: "Salt",
+                table: "Users",
+                type: "nvarchar(24)",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(100)",
+                oldNullable: true);
+
+            migrationBuilder.AddColumn<string>(
+                name: "RefreshToken",
+                table: "Users",
+                type: "nvarchar(48)",
+                nullable: true);
+
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
                 table: "Shops",
@@ -101,6 +116,14 @@ namespace Model.Migrations
                 oldType: "varchar(30)",
                 oldNullable: true);
 
+            migrationBuilder.AlterColumn<int>(
+                name: "Duplicate",
+                table: "Books",
+                type: "int",
+                nullable: false,
+                oldClrType: typeof(short),
+                oldType: "smallint");
+
             migrationBuilder.AlterColumn<string>(
                 name: "Description",
                 table: "Books",
@@ -127,6 +150,83 @@ namespace Model.Migrations
                 oldClrType: typeof(string),
                 oldType: "varchar(1000)",
                 oldNullable: true);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("1ffa9b7c-e021-4084-a14b-35839b9cc9d2"),
+                column: "Duplicate",
+                value: 7000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("4b9c14fd-7788-4c89-b778-459ee7a4415b"),
+                column: "Duplicate",
+                value: 17000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("5628b2d6-4ed2-4b3e-b71f-6764a2489b25"),
+                column: "Duplicate",
+                value: 10000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("7c7ef3fc-b918-41d5-9e9d-e0549b0f42bc"),
+                column: "Duplicate",
+                value: 50000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("7d1e69bc-f0b2-4bbd-8d87-e2fc2bca53ac"),
+                column: "Duplicate",
+                value: 15000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("7db924d8-00a7-4b46-9e31-73d95c38eb31"),
+                column: "Duplicate",
+                value: 2000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("8c038acd-17db-4554-a741-de98ca121256"),
+                column: "Duplicate",
+                value: 15000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("aa585855-0feb-418c-acc5-6e98e20b972a"),
+                column: "Duplicate",
+                value: 5000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("d22d44a7-e987-4f8f-8cb2-0768cc6199c6"),
+                column: "Duplicate",
+                value: 5000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("f0317cfb-e110-4b92-97b9-a52595cefccd"),
+                column: "Duplicate",
+                value: 3000);
+
+            migrationBuilder.UpdateData(
+                table: "Painters",
+                keyColumn: "Id",
+                keyValue: new Guid("549903f5-66ab-48e8-b126-8610c4bb08b9"),
+                column: "Name",
+                value: "Рембрандт Харменс ван Рейн");
 
             migrationBuilder.InsertData(
                 table: "Users",
@@ -169,7 +269,6 @@ namespace Model.Migrations
                 columns: new[] { "Id", "Amount", "BookId", "OrderId" },
                 values: new object[,]
                 {
-                    { new Guid("eb63dc41-101e-4b92-bdf9-6de2f9543539"), 363.00m, new Guid("8c038acd-17db-4554-a741-de98ca121256"), new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e") },
                     { new Guid("c4d4bfc7-7eec-4cf9-b28b-c71b54bbb870"), 220.00m, new Guid("f0317cfb-e110-4b92-97b9-a52595cefccd"), new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e") },
                     { new Guid("438dccf5-8d67-4041-a986-507260de9fc9"), 330.00m, new Guid("7db924d8-00a7-4b46-9e31-73d95c38eb31"), new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e") },
                     { new Guid("fb2da9fc-a79e-4ad2-a774-f60e4b4d7019"), 212.00m, new Guid("aa585855-0feb-418c-acc5-6e98e20b972a"), new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e") },
@@ -178,18 +277,17 @@ namespace Model.Migrations
                     { new Guid("f84c5095-e697-4d9d-9353-55c173e5d9fe"), 203.00m, new Guid("1ffa9b7c-e021-4084-a14b-35839b9cc9d2"), new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e") },
                     { new Guid("cf24dab5-2cb5-48d5-b48a-aab6311bba73"), 406.00m, new Guid("d22d44a7-e987-4f8f-8cb2-0768cc6199c6"), new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e") },
                     { new Guid("08d4459e-53b6-4f53-820b-83f0a0feacfe"), 350.00m, new Guid("d22d44a7-e987-4f8f-8cb2-0768cc6199c6"), new Guid("f59e96be-73a2-40fa-95b1-c931b9df6c57") },
-                    { new Guid("f79cd55b-4f2a-45f4-b6a5-c39f0f30e6e5"), 605.00m, new Guid("7d1e69bc-f0b2-4bbd-8d87-e2fc2bca53ac"), new Guid("7faa8f3d-8557-43b3-9ace-69259a5ac75e") },
                     { new Guid("a2cd5cd8-cba4-466c-b10c-357a26e9953e"), 377.00m, new Guid("7c7ef3fc-b918-41d5-9e9d-e0549b0f42bc"), new Guid("7faa8f3d-8557-43b3-9ace-69259a5ac75e") },
-                    { new Guid("c2d2d8c8-0a7b-4b9d-a252-3b0a1fb93621"), 605.00m, new Guid("7d1e69bc-f0b2-4bbd-8d87-e2fc2bca53ac"), new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e") },
-                    { new Guid("0b91f2ad-fe56-4a46-940a-da24d573e3fe"), 377.00m, new Guid("7c7ef3fc-b918-41d5-9e9d-e0549b0f42bc"), new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e") },
+                    { new Guid("aa2c7025-9f16-46eb-8767-4bdb03e8db73"), 363.00m, new Guid("8c038acd-17db-4554-a741-de98ca121256"), new Guid("7faa8f3d-8557-43b3-9ace-69259a5ac75e") },
                     { new Guid("e74e7c9b-ca11-4a15-9a3c-cd1bca6c106a"), 220.00m, new Guid("f0317cfb-e110-4b92-97b9-a52595cefccd"), new Guid("5f98d03e-b6dc-41a7-9f3d-86fdda264f26") },
+                    { new Guid("eb63dc41-101e-4b92-bdf9-6de2f9543539"), 363.00m, new Guid("8c038acd-17db-4554-a741-de98ca121256"), new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e") },
                     { new Guid("d47f8265-234e-4768-93ab-becfa12d30e1"), 330.00m, new Guid("7db924d8-00a7-4b46-9e31-73d95c38eb31"), new Guid("5f98d03e-b6dc-41a7-9f3d-86fdda264f26") },
                     { new Guid("1ac0af9e-9ce5-44c1-b137-0d1ec1dde4cc"), 212.00m, new Guid("aa585855-0feb-418c-acc5-6e98e20b972a"), new Guid("a3de7602-4018-4718-90a9-e7d0a299f315") },
                     { new Guid("ee70a5b5-0c57-4f3c-ac52-4ea0c55ee72f"), 250.00m, new Guid("5628b2d6-4ed2-4b3e-b71f-6764a2489b25"), new Guid("daa03cd1-33a0-4d97-88b5-408cbacfc456") },
                     { new Guid("b4fb0847-3b64-4165-b7db-856722f97a29"), 792.00m, new Guid("4b9c14fd-7788-4c89-b778-459ee7a4415b"), new Guid("daa03cd1-33a0-4d97-88b5-408cbacfc456") },
                     { new Guid("5b49a70f-96ea-4daa-b0ee-8ba0607fd244"), 203.00m, new Guid("1ffa9b7c-e021-4084-a14b-35839b9cc9d2"), new Guid("d8607511-c1d8-4526-8f9f-52791d4158d4") },
                     { new Guid("f9a4622b-50ce-4de6-b980-d39579057724"), 406.00m, new Guid("d22d44a7-e987-4f8f-8cb2-0768cc6199c6"), new Guid("d8607511-c1d8-4526-8f9f-52791d4158d4") },
-                    { new Guid("aa2c7025-9f16-46eb-8767-4bdb03e8db73"), 363.00m, new Guid("8c038acd-17db-4554-a741-de98ca121256"), new Guid("7faa8f3d-8557-43b3-9ace-69259a5ac75e") }
+                    { new Guid("0b91f2ad-fe56-4a46-940a-da24d573e3fe"), 377.00m, new Guid("7c7ef3fc-b918-41d5-9e9d-e0549b0f42bc"), new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e") }
                 });
 
             migrationBuilder.InsertData(
@@ -274,11 +372,6 @@ namespace Model.Migrations
             migrationBuilder.DeleteData(
                 table: "GoodsOrders",
                 keyColumn: "Id",
-                keyValue: new Guid("c2d2d8c8-0a7b-4b9d-a252-3b0a1fb93621"));
-
-            migrationBuilder.DeleteData(
-                table: "GoodsOrders",
-                keyColumn: "Id",
                 keyValue: new Guid("c4d4bfc7-7eec-4cf9-b28b-c71b54bbb870"));
 
             migrationBuilder.DeleteData(
@@ -305,11 +398,6 @@ namespace Model.Migrations
                 table: "GoodsOrders",
                 keyColumn: "Id",
                 keyValue: new Guid("ee70a5b5-0c57-4f3c-ac52-4ea0c55ee72f"));
-
-            migrationBuilder.DeleteData(
-                table: "GoodsOrders",
-                keyColumn: "Id",
-                keyValue: new Guid("f79cd55b-4f2a-45f4-b6a5-c39f0f30e6e5"));
 
             migrationBuilder.DeleteData(
                 table: "GoodsOrders",
@@ -407,12 +495,25 @@ namespace Model.Migrations
                 keyValue: new Guid("54b6722e-1e29-4cc6-ada7-8d4edd5a13e4"));
 
             migrationBuilder.DropColumn(
+                name: "RefreshToken",
+                table: "Users");
+
+            migrationBuilder.DropColumn(
                 name: "DateCreate",
                 table: "Orders");
 
             migrationBuilder.DropColumn(
                 name: "Description",
                 table: "Orders");
+
+            migrationBuilder.AlterColumn<string>(
+                name: "Salt",
+                table: "Users",
+                type: "nvarchar(100)",
+                nullable: true,
+                oldClrType: typeof(string),
+                oldType: "nvarchar(24)",
+                oldNullable: true);
 
             migrationBuilder.AlterColumn<string>(
                 name: "Name",
@@ -495,6 +596,14 @@ namespace Model.Migrations
                 oldType: "nvarchar(30)",
                 oldNullable: true);
 
+            migrationBuilder.AlterColumn<short>(
+                name: "Duplicate",
+                table: "Books",
+                type: "smallint",
+                nullable: false,
+                oldClrType: typeof(int),
+                oldType: "int");
+
             migrationBuilder.AlterColumn<string>(
                 name: "Description",
                 table: "Books",
@@ -521,6 +630,83 @@ namespace Model.Migrations
                 oldClrType: typeof(string),
                 oldType: "nvarchar(1000)",
                 oldNullable: true);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("1ffa9b7c-e021-4084-a14b-35839b9cc9d2"),
+                column: "Duplicate",
+                value: (short)7000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("4b9c14fd-7788-4c89-b778-459ee7a4415b"),
+                column: "Duplicate",
+                value: (short)17000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("5628b2d6-4ed2-4b3e-b71f-6764a2489b25"),
+                column: "Duplicate",
+                value: (short)10000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("7c7ef3fc-b918-41d5-9e9d-e0549b0f42bc"),
+                column: "Duplicate",
+                value: (short)-15536);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("7d1e69bc-f0b2-4bbd-8d87-e2fc2bca53ac"),
+                column: "Duplicate",
+                value: (short)15000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("7db924d8-00a7-4b46-9e31-73d95c38eb31"),
+                column: "Duplicate",
+                value: (short)2000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("8c038acd-17db-4554-a741-de98ca121256"),
+                column: "Duplicate",
+                value: (short)15000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("aa585855-0feb-418c-acc5-6e98e20b972a"),
+                column: "Duplicate",
+                value: (short)5000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("d22d44a7-e987-4f8f-8cb2-0768cc6199c6"),
+                column: "Duplicate",
+                value: (short)5000);
+
+            migrationBuilder.UpdateData(
+                table: "Books",
+                keyColumn: "Id",
+                keyValue: new Guid("f0317cfb-e110-4b92-97b9-a52595cefccd"),
+                column: "Duplicate",
+                value: (short)3000);
+
+            migrationBuilder.UpdateData(
+                table: "Painters",
+                keyColumn: "Id",
+                keyValue: new Guid("549903f5-66ab-48e8-b126-8610c4bb08b9"),
+                column: "Name",
+                value: "Рембрандт Ха́рменс ван Рейн");
         }
     }
 }

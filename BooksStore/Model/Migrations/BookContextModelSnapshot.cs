@@ -482,13 +482,6 @@ namespace Model.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f79cd55b-4f2a-45f4-b6a5-c39f0f30e6e5"),
-                            Amount = 605.00m,
-                            BookId = new Guid("7d1e69bc-f0b2-4bbd-8d87-e2fc2bca53ac"),
-                            OrderId = new Guid("7faa8f3d-8557-43b3-9ace-69259a5ac75e")
-                        },
-                        new
-                        {
                             Id = new Guid("08d4459e-53b6-4f53-820b-83f0a0feacfe"),
                             Amount = 350.00m,
                             BookId = new Guid("d22d44a7-e987-4f8f-8cb2-0768cc6199c6"),
@@ -555,13 +548,6 @@ namespace Model.Migrations
                             Id = new Guid("0b91f2ad-fe56-4a46-940a-da24d573e3fe"),
                             Amount = 377.00m,
                             BookId = new Guid("7c7ef3fc-b918-41d5-9e9d-e0549b0f42bc"),
-                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
-                        },
-                        new
-                        {
-                            Id = new Guid("c2d2d8c8-0a7b-4b9d-a252-3b0a1fb93621"),
-                            Amount = 605.00m,
-                            BookId = new Guid("7d1e69bc-f0b2-4bbd-8d87-e2fc2bca53ac"),
                             OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
                         });
                 });
@@ -994,7 +980,7 @@ namespace Model.Migrations
                             Id = new Guid("549903f5-66ab-48e8-b126-8610c4bb08b9"),
                             Age = (byte)63,
                             Description = "Рембрандт изображал мир таким, какой он был. Без прикрас и лакировок. Но получалось у него это очень душевно.",
-                            Name = "Рембрандт Ха́рменс ван Рейн",
+                            Name = "Рембрандт Харменс ван Рейн",
                             StyleId = new Guid("6801a5c4-fc35-468d-884f-75af47a288d6")
                         },
                         new
