@@ -19,6 +19,10 @@ namespace ViewModel.Models.Orders
         /// </summary>
         public ICollection<BookPreviewModel> Books { get; set; }
         /// <summary>
+        /// Дата создания
+        /// </summary>
+        public DateTime DateCreate { get; set; }
+        /// <summary>
         /// Статус
         /// </summary>
         public OrderStatus Status { get; set; }
@@ -26,5 +30,9 @@ namespace ViewModel.Models.Orders
         /// Цена
         /// </summary>
         public decimal Amount { get; set; }
+        /// <summary>
+        /// Комментарий к заказу
+        /// </summary>
+        public string Description { get; set; }
     }
 }
