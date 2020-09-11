@@ -5,7 +5,9 @@ using Service;
 using Service.PublisherRepos;
 using System;
 using System.Reflection;
+using Test.ReplaceMethods;
 using ViewModel.Interfaces.Handlers;
+using ViewModel.Interfaces.Repositories;
 
 namespace Test
 {
@@ -27,7 +29,9 @@ namespace Test
                 .AddScoped<IBookHandler, BookHandler>()
                 .AddScoped<IAuthorHandler, AuthorHandler>()
                 .AddScoped<IDeliveryHandler, DeliveryHandler>()
-                .AddScoped<IInterpreterHandler, InterpreterHandler>();
+                .AddScoped<IInterpreterHandler, InterpreterHandler>()
+                .AddScoped<IUserInfoRepository, UserInfoRepositoryReplace>()
+                .AddScoped<IOrderHandler, OrderHandler>();
             return services;
         }
     }
