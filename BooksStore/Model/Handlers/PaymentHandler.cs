@@ -59,14 +59,15 @@ namespace Model.Handlers
         /// </summary>
         /// <param name="payment">Модель обновления платежа</param>
         /// <returns>Модель платеж</returns>
-        public async Task<PaymentModel> UpdateStatusAsync(PaymentUpdateModel payment)
+        public async Task<PaymentModel> UpdateAsync(PaymentUpdateModel payment)
         {
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var paymentEntity = await context.Payments
                     .FirstOrDefaultAsync(p => p.Id == payment.Id);
                 if (paymentEntity == null) throw new KeyNotFoundException("Ошибка: Не удалось найти платеж");
-                paymentEntity.DatePayment = payment.DatePayment;
+                if (payment.DatePayment != null) 
+                    paymentEntity.DatePayment = payment.DatePayment;
                 paymentEntity.Status = payment.Status;
 
                 context.Payments.Update(paymentEntity);

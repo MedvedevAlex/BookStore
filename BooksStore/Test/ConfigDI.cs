@@ -31,7 +31,8 @@ namespace Test
                 .AddScoped<IDeliveryHandler, DeliveryHandler>()
                 .AddScoped<IInterpreterHandler, InterpreterHandler>()
                 .AddScoped<IUserInfoRepository, UserInfoRepositoryReplace>()
-                .AddScoped<IOrderHandler, OrderHandler>();
+                .AddScoped<IOrderHandler, OrderHandler>()
+                .AddScoped<IPaymentHandler, PaymentHandler>();
             return services;
         }
     }

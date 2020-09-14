@@ -37,7 +37,7 @@ namespace Service.Services
             {
                 return new PaymentResponse()
                 {
-                    Payment = await _paymentHandler.UpdateStatusAsync(payment)
+                    Payment = await _paymentHandler.UpdateAsync(payment)
                 };
             }
             catch (Exception e)
