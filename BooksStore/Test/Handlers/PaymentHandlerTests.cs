@@ -14,7 +14,7 @@ using ViewModel.Models.Payments;
 namespace Test.Handlers
 {
     /// <summary>
-    /// Набор тестов для тестирования обработчика данных заказ
+    /// Набор тестов для тестирования обработчика данных платеж
     /// </summary>
     [TestFixture]
     public class PaymentHandlerTests

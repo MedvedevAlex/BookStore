@@ -283,7 +283,7 @@ namespace Test.Handlers
         /// </summary>
         /// <returns></returns>
         [Test]
-        public async Task ShouldGetBooksAsyncAndSkipBooks()
+        public async Task ShouldGetAndSkipBooks()
         {
             // Act
             var resultWithTaked = await _bookHandler.GetAsync(3, 0);

@@ -38,6 +38,7 @@ namespace Service.PublisherRepos
         /// <returns>Модель издатель</returns>
         public async Task<PublisherViewModel> AddAsync(PublisherModifyModel publisher)
         {
+            publisher.Id = Guid.NewGuid();
             var publisherEntity = _mapper.Map<Publisher>(publisher);
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -131,8 +132,8 @@ namespace Service.PublisherRepos
             {
                 var query = context.Publishers;
                 result.PreviewPublishers = await query
-                    .Take(takeCount)
                     .Skip(skipCount)
+                    .Take(takeCount)
                     .Select(p => _mapper.Map<PublisherPreviewModel>(p))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
@@ -155,8 +156,8 @@ namespace Service.PublisherRepos
                 var query = context.Publishers
                     .Where(p => p.Name.Contains(publisherName));
                 result.PreviewPublishers = await query
-                    .Take(takeCount)
                     .Skip(skipCount)
+                    .Take(takeCount)
                     .Select(p => _mapper.Map<PublisherPreviewModel>(p))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
