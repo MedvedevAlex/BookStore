@@ -13,7 +13,7 @@ using ViewModel.Responses;
 namespace Test.Handlers
 {
     /// <summary>
-    /// Набор тестов для тестирования обработчика данных переводчик
+    /// РќР°Р±РѕСЂ С‚РµСЃС‚РѕРІ РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РѕР±СЂР°Р±РѕС‚С‡РёРєР° РґР°РЅРЅС‹С… РїРµСЂРµРІРѕРґС‡РёРє
     /// </summary>
     [TestFixture]
     public class InterpreterHandlerTests
@@ -28,7 +28,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен добавить переводчика
+        /// Р”РѕР»Р¶РµРЅ РґРѕР±Р°РІРёС‚СЊ РїРµСЂРµРІРѕРґС‡РёРєР°
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -38,9 +38,9 @@ namespace Test.Handlers
             // Arrange
             var modifiedInterpreter = new InterpreterModifyModel
             {
-                Name = "Роман Владимирович",
+                Name = "Р РѕРјР°РЅ Р’Р»Р°РґРёРјРёСЂРѕРІРёС‡",
                 Age = 22,
-                Description = "Вы спросите почему Роман Владимирович? ПОТОМУ ЧТО",
+                Description = "Р’С‹ СЃРїСЂРѕСЃРёС‚Рµ РїРѕС‡РµРјСѓ Р РѕРјР°РЅ Р’Р»Р°РґРёРјРёСЂРѕРІРёС‡? РџРћРўРћРњРЈ Р§РўРћ",
                 BooksIds = new List<Guid> 
                 {
                     Guid.Parse("1FFA9B7C-E021-4084-A14B-35839B9CC9D2"),
@@ -49,9 +49,9 @@ namespace Test.Handlers
             };
             var interpreter = new InterpreterViewModel
             {
-                Name = "Роман Владимирович",
+                Name = "Р РѕРјР°РЅ Р’Р»Р°РґРёРјРёСЂРѕРІРёС‡",
                 Age = 22,
-                Description = "Вы спросите почему Роман Владимирович? ПОТОМУ ЧТО",
+                Description = "Р’С‹ СЃРїСЂРѕСЃРёС‚Рµ РїРѕС‡РµРјСѓ Р РѕРјР°РЅ Р’Р»Р°РґРёРјРёСЂРѕРІРёС‡? РџРћРўРћРњРЈ Р§РўРћ",
                 Books = new List<BookPreviewModel>
                 {
                     new BookPreviewModel
@@ -64,21 +64,21 @@ namespace Test.Handlers
                             new AuthorShortModel
                             {
                                 Id = Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C"),
-                                Name = "Эрих Мария Ремарк",
+                                Name = "Р­СЂРёС… РњР°СЂРёСЏ Р РµРјР°СЂРє",
                             }
                         }
                     },
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("4B9C14FD-7788-4C89-B778-459EE7A4415B"),
-                        Name = "Атлант расправил плечи (комплект из 3 книг)",
+                        Name = "РђС‚Р»Р°РЅС‚ СЂР°СЃРїСЂР°РІРёР» РїР»РµС‡Рё (РєРѕРјРїР»РµРєС‚ РёР· 3 РєРЅРёРі)",
                         Price = 792.00M,
                         Authors = new List<AuthorShortModel>
                         {
                             new AuthorShortModel
                             {
                                 Id = Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7"),
-                                Name = "Антуан де Сент-Экзюпери",
+                                Name = "РђРЅС‚СѓР°РЅ РґРµ РЎРµРЅС‚-Р­РєР·СЋРїРµСЂРё",
                             }
                         }
                     }
@@ -94,7 +94,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен обновить переводчика
+        /// Р”РѕР»Р¶РµРЅ РѕР±РЅРѕРІРёС‚СЊ РїРµСЂРµРІРѕРґС‡РёРєР°
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -105,30 +105,30 @@ namespace Test.Handlers
             var modifiedInterpreter = new InterpreterModifyModel
             {
                 Id = _createIntepreterId,
-                Name = "Роман Александрович",
+                Name = "Р РѕРјР°РЅ РђР»РµРєСЃР°РЅРґСЂРѕРІРёС‡",
                 Age = 32,
-                Description = "Вы спросите почему Роман Александрович? ПОТОМУ ЧТО Роман Владимирович заболел",
+                Description = "Р’С‹ СЃРїСЂРѕСЃРёС‚Рµ РїРѕС‡РµРјСѓ Р РѕРјР°РЅ РђР»РµРєСЃР°РЅРґСЂРѕРІРёС‡? РџРћРўРћРњРЈ Р§РўРћ Р РѕРјР°РЅ Р’Р»Р°РґРёРјРёСЂРѕРІРёС‡ Р·Р°Р±РѕР»РµР»",
                 BooksIds = new List<Guid> { Guid.Parse("5628B2D6-4ED2-4B3E-B71F-6764A2489B25") }
             };
             var interpreter = new InterpreterViewModel
             {
                 Id = _createIntepreterId,
-                Name = "Роман Александрович",
+                Name = "Р РѕРјР°РЅ РђР»РµРєСЃР°РЅРґСЂРѕРІРёС‡",
                 Age = 32,
-                Description = "Вы спросите почему Роман Александрович? ПОТОМУ ЧТО Роман Владимирович заболел",
+                Description = "Р’С‹ СЃРїСЂРѕСЃРёС‚Рµ РїРѕС‡РµРјСѓ Р РѕРјР°РЅ РђР»РµРєСЃР°РЅРґСЂРѕРІРёС‡? РџРћРўРћРњРЈ Р§РўРћ Р РѕРјР°РЅ Р’Р»Р°РґРёРјРёСЂРѕРІРёС‡ Р·Р°Р±РѕР»РµР»",
                 Books = new List<BookPreviewModel>
                 {
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("5628B2D6-4ED2-4B3E-B71F-6764A2489B25"),
-                        Name = "Алхимик",
+                        Name = "РђР»С…РёРјРёРє",
                         Price = 250.00M,
                         Authors = new List<AuthorShortModel>
                         {
                             new AuthorShortModel
                             {
                                 Id = Guid.Parse("6BE1A08C-550C-447F-BB67-D1E1F5275DBF"),
-                                Name = "Рэй Дуглас Брэдбери",
+                                Name = "Р СЌР№ Р”СѓРіР»Р°СЃ Р‘СЂСЌРґР±РµСЂРё",
                             }
                         }
                     }
@@ -142,7 +142,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен удалить переводчика
+        /// Р”РѕР»Р¶РµРЅ СѓРґР°Р»РёС‚СЊ РїРµСЂРµРІРѕРґС‡РёРєР°
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -159,7 +159,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить переводчика
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РїРµСЂРµРІРѕРґС‡РёРєР°
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -170,52 +170,52 @@ namespace Test.Handlers
             var interpreter = new InterpreterViewModel
             {
                 Id = guid,
-                Name = "Василий Аксёнов",
+                Name = "Р’Р°СЃРёР»РёР№ РђРєСЃС‘РЅРѕРІ",
                 Age = 75,
-                Description = "Известный писатель уверял, что взялся за перевод «Рэгтайма»" +
-                " Доктороу (вышел в 1976 году) только для того, чтобы подтянуть свой" +
-                " английский; но, кажется, всё-таки несколько лукавил.",
+                Description = "РР·РІРµСЃС‚РЅС‹Р№ РїРёСЃР°С‚РµР»СЊ СѓРІРµСЂСЏР», С‡С‚Рѕ РІР·СЏР»СЃСЏ Р·Р° РїРµСЂРµРІРѕРґ В«Р СЌРіС‚Р°Р№РјР°В»" +
+                " Р”РѕРєС‚РѕСЂРѕСѓ (РІС‹С€РµР» РІ 1976 РіРѕРґСѓ) С‚РѕР»СЊРєРѕ РґР»СЏ С‚РѕРіРѕ, С‡С‚РѕР±С‹ РїРѕРґС‚СЏРЅСѓС‚СЊ СЃРІРѕР№" +
+                " Р°РЅРіР»РёР№СЃРєРёР№; РЅРѕ, РєР°Р¶РµС‚СЃСЏ, РІСЃС‘-С‚Р°РєРё РЅРµСЃРєРѕР»СЊРєРѕ Р»СѓРєР°РІРёР».",
                 Books = new List<BookPreviewModel> 
                 { 
                       new BookPreviewModel
                       {
                           Id = Guid.Parse("4B9C14FD-7788-4C89-B778-459EE7A4415B"),
-                          Name = "Атлант расправил плечи (комплект из 3 книг)",
+                          Name = "РђС‚Р»Р°РЅС‚ СЂР°СЃРїСЂР°РІРёР» РїР»РµС‡Рё (РєРѕРјРїР»РµРєС‚ РёР· 3 РєРЅРёРі)",
                           Price = 792.00M,
                           Authors = new List<AuthorShortModel>
                           {
                               new AuthorShortModel
                               {
                                   Id = Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7"),
-                                  Name = "Антуан де Сент-Экзюпери"
+                                  Name = "РђРЅС‚СѓР°РЅ РґРµ РЎРµРЅС‚-Р­РєР·СЋРїРµСЂРё"
                               }
                           }
                       },
                       new BookPreviewModel
                       {
                           Id = Guid.Parse("F0317CFB-E110-4B92-97B9-A52595CEFCCD"),
-                          Name = "Цветы для Элджернона",
+                          Name = "Р¦РІРµС‚С‹ РґР»СЏ Р­Р»РґР¶РµСЂРЅРѕРЅР°",
                           Price = 220.00M,
                           Authors = new List<AuthorShortModel>
                           {
                               new AuthorShortModel
                               {
                                   Id = Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7"),
-                                  Name = "Антуан де Сент-Экзюпери"
+                                  Name = "РђРЅС‚СѓР°РЅ РґРµ РЎРµРЅС‚-Р­РєР·СЋРїРµСЂРё"
                               }
                           }
                       },
                       new BookPreviewModel
                       {
                           Id = Guid.Parse("7C7EF3FC-B918-41D5-9E9D-E0549B0F42BC"),
-                          Name = "Сто лет одиночества",
+                          Name = "РЎС‚Рѕ Р»РµС‚ РѕРґРёРЅРѕС‡РµСЃС‚РІР°",
                           Price = 377.00M,
                           Authors = new List<AuthorShortModel>
                           {
                               new AuthorShortModel
                               {
                                   Id = Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7"),
-                                  Name = "Антуан де Сент-Экзюпери"
+                                  Name = "РђРЅС‚СѓР°РЅ РґРµ РЎРµРЅС‚-Р­РєР·СЋРїРµСЂРё"
                               }
                           }
                       }

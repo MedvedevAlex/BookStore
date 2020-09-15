@@ -13,7 +13,7 @@ using ViewModel.Models.Shops;
 namespace Test.Handlers
 {
     /// <summary>
-    /// Набор тестов для тестирования обработчика данных доставка
+    /// РќР°Р±РѕСЂ С‚РµСЃС‚РѕРІ РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РѕР±СЂР°Р±РѕС‚С‡РёРєР° РґР°РЅРЅС‹С… РґРѕСЃС‚Р°РІРєР°
     /// </summary>
     [TestFixture]
     public class DeliveryHandlerTests
@@ -29,7 +29,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен добавить доставку
+        /// Р”РѕР»Р¶РµРЅ РґРѕР±Р°РІРёС‚СЊ РґРѕСЃС‚Р°РІРєСѓ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -46,8 +46,8 @@ namespace Test.Handlers
             var shop = new ShopModel
             {
                 Id = Guid.Parse("27CF46B3-A2AA-4351-AF82-E33F36F1C553"),
-                Name = "Глубокий кошелек",
-                Address = "Заельцовская 123",
+                Name = "Р“Р»СѓР±РѕРєРёР№ РєРѕС€РµР»РµРє",
+                Address = "Р—Р°РµР»СЊС†РѕРІСЃРєР°СЏ 123",
                 WorkShedule = new List<WorkSheduleModel>()
             };
 
@@ -62,7 +62,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен обновить доставку
+        /// Р”РѕР»Р¶РµРЅ РѕР±РЅРѕРІРёС‚СЊ РґРѕСЃС‚Р°РІРєСѓ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -84,8 +84,8 @@ namespace Test.Handlers
                 Shop = new ShopModel
                 {
                     Id = Guid.Parse("905D9ED8-0BD5-402A-BE16-73C021176C78"),
-                    Name = "Теплый носок",
-                    Address = "Революции 89",
+                    Name = "РўРµРїР»С‹Р№ РЅРѕСЃРѕРє",
+                    Address = "Р РµРІРѕР»СЋС†РёРё 89",
                     WorkShedule = new List<WorkSheduleModel>()
                 },
                 DateCreate = _defaultDate,
@@ -101,7 +101,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить книгу
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РєРЅРёРіСѓ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -117,8 +117,8 @@ namespace Test.Handlers
                 Shop = new ShopModel
                 {
                     Id = Guid.Parse("06C5D83E-AC7F-4C4C-8AD5-79BB9E914EF8"),
-                    Name = "Звенящий брелок",
-                    Address = "Красный проспект 234",
+                    Name = "Р—РІРµРЅСЏС‰РёР№ Р±СЂРµР»РѕРє",
+                    Address = "РљСЂР°СЃРЅС‹Р№ РїСЂРѕСЃРїРµРєС‚ 234",
                     WorkShedule = new List<WorkSheduleModel>()
                 },
                 Status = DeliveryStatus.Delivery

@@ -1,4 +1,4 @@
-﻿using Model;
+using Model;
 using NUnit.Framework;
 
 namespace Test.Handlers

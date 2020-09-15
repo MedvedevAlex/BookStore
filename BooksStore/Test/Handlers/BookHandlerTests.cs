@@ -15,7 +15,7 @@ using ViewModel.Responses;
 namespace Test.Handlers
 {
     /// <summary>
-    /// Набор тестов для тестирования обработчика данных книга
+    /// РќР°Р±РѕСЂ С‚РµСЃС‚РѕРІ РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РѕР±СЂР°Р±РѕС‚С‡РёРєР° РґР°РЅРЅС‹С… РєРЅРёРіР°
     /// </summary>
     [TestFixture]
     public class BookHandlerTests
@@ -29,7 +29,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен обновить книгу
+        /// Р”РѕР»Р¶РµРЅ РѕР±РЅРѕРІРёС‚СЊ РєРЅРёРіСѓ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -40,13 +40,13 @@ namespace Test.Handlers
             var modifiedBook = new BookModifyModel
             {
                 Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
-                Name = "Дом, в котором… ничего не происходит",
+                Name = "Р”РѕРј, РІ РєРѕС‚РѕСЂРѕРјвЂ¦ РЅРёС‡РµРіРѕ РЅРµ РїСЂРѕРёСЃС…РѕРґРёС‚",
                 PublishDate = DateTime.Parse("2018-12-01"),
                 CoverTypeId = Guid.Parse("FC4519DF-A67D-4686-904B-4EE105F37D22"),
                 GenreId = Guid.Parse("7CF21233-4CAF-4902-BCC1-85A677BF1C59"),
                 LanguageId = Guid.Parse("AE0CF116-C244-4997-93CD-F7760A93FE0F"),
-                Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом," +
-                " в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
+                Description = "РќР° РѕРєСЂР°РёРЅРµ РіРѕСЂРѕРґР°, СЃСЂРµРґРё СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… РЅРѕРІРѕСЃС‚СЂРѕРµРє, СЃС‚РѕРёС‚ РЎРµСЂС‹Р№ Р”РѕРј," +
+                " РІ РєРѕС‚РѕСЂРѕРј Р¶РёРІСѓС‚ РЎС„РёРЅРєСЃ, РЎР»РµРїРѕР№, Р›РѕСЂРґ, РўР°Р±Р°РєРё, РњР°РєРµРґРѕРЅСЃРєРёР№, Р§РµСЂРЅС‹Р№ Рё РјРЅРѕРіРёРµ РґСЂСѓРіРёРµ.",
                 ISBN_13 = "978-5-999999-97-7",
                 Format = "22.5 x 14 x 2.4",
                 CountPage = 532,
@@ -62,13 +62,13 @@ namespace Test.Handlers
             var book = new BookViewModel
             {
                 Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
-                Name = "Дом, в котором… ничего не происходит",
+                Name = "Р”РѕРј, РІ РєРѕС‚РѕСЂРѕРјвЂ¦ РЅРёС‡РµРіРѕ РЅРµ РїСЂРѕРёСЃС…РѕРґРёС‚",
                 PublishDate = DateTime.Parse("2018-12-01"),
-                CoverType = "Мягкая картонная",
-                Genre = "Ужасы",
-                Language = "Японский",
-                Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом," +
-                " в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
+                CoverType = "РњСЏРіРєР°СЏ РєР°СЂС‚РѕРЅРЅР°СЏ",
+                Genre = "РЈР¶Р°СЃС‹",
+                Language = "РЇРїРѕРЅСЃРєРёР№",
+                Description = "РќР° РѕРєСЂР°РёРЅРµ РіРѕСЂРѕРґР°, СЃСЂРµРґРё СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… РЅРѕРІРѕСЃС‚СЂРѕРµРє, СЃС‚РѕРёС‚ РЎРµСЂС‹Р№ Р”РѕРј," +
+                " РІ РєРѕС‚РѕСЂРѕРј Р¶РёРІСѓС‚ РЎС„РёРЅРєСЃ, РЎР»РµРїРѕР№, Р›РѕСЂРґ, РўР°Р±Р°РєРё, РњР°РєРµРґРѕРЅСЃРєРёР№, Р§РµСЂРЅС‹Р№ Рё РјРЅРѕРіРёРµ РґСЂСѓРіРёРµ.",
                 ISBN_13 = "978-5-999999-97-7",
                 Format = "22.5 x 14 x 2.4",
                 CountPage = 532,
@@ -79,14 +79,14 @@ namespace Test.Handlers
                 Publisher = new PublisherShortModel
                 {
                     Id = Guid.Parse("B9AF4688-E273-4676-A92A-656023A2D216"),
-                    Name = "Рипол Классик"
+                    Name = "Р РёРїРѕР» РљР»Р°СЃСЃРёРє"
                 },
                 Authors = new List<AuthorShortModel>
                 {
                     new AuthorShortModel
                     {
                         Id = Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C"),
-                        Name = "Эрих Мария Ремарк"
+                        Name = "Р­СЂРёС… РњР°СЂРёСЏ Р РµРјР°СЂРє"
                     }
                 },
                 Painters = new List<PainterShortModel>
@@ -94,7 +94,7 @@ namespace Test.Handlers
                     new PainterShortModel
                     {
                         Id = Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9"),
-                        Name = "Рембрандт Харменс ван Рейн"
+                        Name = "Р РµРјР±СЂР°РЅРґС‚ РҐР°СЂРјРµРЅСЃ РІР°РЅ Р РµР№РЅ"
                     }
                 },
                 Interpreters = new List<InterpreterShortModel>
@@ -102,7 +102,7 @@ namespace Test.Handlers
                     new InterpreterShortModel
                     {
                         Id = Guid.Parse("9A46E40F-57DC-465C-8D2B-67EDF3CF5B4E"),
-                        Name = "Рита Райт-Ковалева"
+                        Name = "Р РёС‚Р° Р Р°Р№С‚-РљРѕРІР°Р»РµРІР°"
                     }
                 }
             };
@@ -114,7 +114,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен удалить книгу
+        /// Р”РѕР»Р¶РµРЅ СѓРґР°Р»РёС‚СЊ РєРЅРёРіСѓ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -132,7 +132,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен добавить книгу
+        /// Р”РѕР»Р¶РµРЅ РґРѕР±Р°РІРёС‚СЊ РєРЅРёРіСѓ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -143,13 +143,13 @@ namespace Test.Handlers
             var modifiedBook = new BookModifyModel
             {
                 Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
-                Name = "Дом, в котором…",
+                Name = "Р”РѕРј, РІ РєРѕС‚РѕСЂРѕРјвЂ¦",
                 PublishDate = DateTime.Parse("22.09.2016"),
                 CoverTypeId = Guid.Parse("56D180CA-F9BD-4DAD-87EF-AF334F636BE1"),
                 GenreId = Guid.Parse("7CF21233-4CAF-4902-BCC1-85A677BF1C59"),
                 LanguageId = Guid.Parse("8D13A346-389B-48B3-9299-A565BF2A6658"),
-                Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом, " +
-                "в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
+                Description = "РќР° РѕРєСЂР°РёРЅРµ РіРѕСЂРѕРґР°, СЃСЂРµРґРё СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… РЅРѕРІРѕСЃС‚СЂРѕРµРє, СЃС‚РѕРёС‚ РЎРµСЂС‹Р№ Р”РѕРј, " +
+                "РІ РєРѕС‚РѕСЂРѕРј Р¶РёРІСѓС‚ РЎС„РёРЅРєСЃ, РЎР»РµРїРѕР№, Р›РѕСЂРґ, РўР°Р±Р°РєРё, РњР°РєРµРґРѕРЅСЃРєРёР№, Р§РµСЂРЅС‹Р№ Рё РјРЅРѕРіРёРµ РґСЂСѓРіРёРµ.",
                 ISBN_13 = "978-5-904584-69-6",
                 Format = "22 x 15 x 5",
                 CountPage = 960,
@@ -165,13 +165,13 @@ namespace Test.Handlers
             var book = new BookViewModel
             {
                 Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
-                Name = "Дом, в котором…",
+                Name = "Р”РѕРј, РІ РєРѕС‚РѕСЂРѕРјвЂ¦",
                 PublishDate = DateTime.Parse("22.09.2016"),
-                CoverType = "Твердая бумажная",
-                Genre = "Ужасы",
-                Language = "Французский",
-                Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом, " +
-                "в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
+                CoverType = "РўРІРµСЂРґР°СЏ Р±СѓРјР°Р¶РЅР°СЏ",
+                Genre = "РЈР¶Р°СЃС‹",
+                Language = "Р¤СЂР°РЅС†СѓР·СЃРєРёР№",
+                Description = "РќР° РѕРєСЂР°РёРЅРµ РіРѕСЂРѕРґР°, СЃСЂРµРґРё СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… РЅРѕРІРѕСЃС‚СЂРѕРµРє, СЃС‚РѕРёС‚ РЎРµСЂС‹Р№ Р”РѕРј, " +
+                "РІ РєРѕС‚РѕСЂРѕРј Р¶РёРІСѓС‚ РЎС„РёРЅРєСЃ, РЎР»РµРїРѕР№, Р›РѕСЂРґ, РўР°Р±Р°РєРё, РњР°РєРµРґРѕРЅСЃРєРёР№, Р§РµСЂРЅС‹Р№ Рё РјРЅРѕРіРёРµ РґСЂСѓРіРёРµ.",
                 ISBN_13 = "978-5-904584-69-6",
                 Format = "22 x 15 x 5",
                 CountPage = 960,
@@ -182,14 +182,14 @@ namespace Test.Handlers
                 Publisher = new PublisherShortModel
                 {
                     Id = Guid.Parse("3F755440-89BF-4335-99A7-DB1D9226D666"),
-                    Name = "Амфора"
+                    Name = "РђРјС„РѕСЂР°"
                 },
                 Authors = new List<AuthorShortModel>
                 {
                     new AuthorShortModel
                     {
                         Id = Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7"),
-                        Name = "Антуан де Сент-Экзюпери"
+                        Name = "РђРЅС‚СѓР°РЅ РґРµ РЎРµРЅС‚-Р­РєР·СЋРїРµСЂРё"
                     }
                 },
                 Painters = new List<PainterShortModel>
@@ -197,7 +197,7 @@ namespace Test.Handlers
                     new PainterShortModel
                     {
                         Id = Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9"),
-                        Name = "Рембрандт Харменс ван Рейн"
+                        Name = "Р РµРјР±СЂР°РЅРґС‚ РҐР°СЂРјРµРЅСЃ РІР°РЅ Р РµР№РЅ"
                     }
                 },
                 Interpreters = new List<InterpreterShortModel>
@@ -205,7 +205,7 @@ namespace Test.Handlers
                     new InterpreterShortModel
                     {
                         Id = Guid.Parse("9A46E40F-57DC-465C-8D2B-67EDF3CF5B4E"),
-                        Name = "Рита Райт-Ковалева"
+                        Name = "Р РёС‚Р° Р Р°Р№С‚-РљРѕРІР°Р»РµРІР°"
                     }
                 }
             };
@@ -217,7 +217,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить книгу
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РєРЅРёРіСѓ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -227,13 +227,13 @@ namespace Test.Handlers
             var book = new BookViewModel
             {
                 Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
-                Name = "Дом, в котором…",
+                Name = "Р”РѕРј, РІ РєРѕС‚РѕСЂРѕРјвЂ¦",
                 PublishDate = DateTime.Parse("22.09.2016"),
-                CoverType = "Твердая бумажная",
-                Genre = "Ужасы",
-                Language = "Французский",
-                Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом, " +
-                "в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
+                CoverType = "РўРІРµСЂРґР°СЏ Р±СѓРјР°Р¶РЅР°СЏ",
+                Genre = "РЈР¶Р°СЃС‹",
+                Language = "Р¤СЂР°РЅС†СѓР·СЃРєРёР№",
+                Description = "РќР° РѕРєСЂР°РёРЅРµ РіРѕСЂРѕРґР°, СЃСЂРµРґРё СЃС‚Р°РЅРґР°СЂС‚РЅС‹С… РЅРѕРІРѕСЃС‚СЂРѕРµРє, СЃС‚РѕРёС‚ РЎРµСЂС‹Р№ Р”РѕРј, " +
+                "РІ РєРѕС‚РѕСЂРѕРј Р¶РёРІСѓС‚ РЎС„РёРЅРєСЃ, РЎР»РµРїРѕР№, Р›РѕСЂРґ, РўР°Р±Р°РєРё, РњР°РєРµРґРѕРЅСЃРєРёР№, Р§РµСЂРЅС‹Р№ Рё РјРЅРѕРіРёРµ РґСЂСѓРіРёРµ.",
                 ISBN_13 = "978-5-904584-69-6",
                 Format = "22 x 15 x 5",
                 CountPage = 960,
@@ -244,14 +244,14 @@ namespace Test.Handlers
                 Publisher = new PublisherShortModel
                 {
                     Id = Guid.Parse("3F755440-89BF-4335-99A7-DB1D9226D666"),
-                    Name = "Амфора"
+                    Name = "РђРјС„РѕСЂР°"
                 },
                 Authors = new List<AuthorShortModel>
                 {
                     new AuthorShortModel
                     {
                         Id = Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7"),
-                        Name = "Антуан де Сент-Экзюпери"
+                        Name = "РђРЅС‚СѓР°РЅ РґРµ РЎРµРЅС‚-Р­РєР·СЋРїРµСЂРё"
                     }
                 },
                 Painters = new List<PainterShortModel>
@@ -259,7 +259,7 @@ namespace Test.Handlers
                     new PainterShortModel
                     {
                         Id = Guid.Parse("549903F5-66AB-48E8-B126-8610C4BB08B9"),
-                        Name = "Рембрандт Харменс ван Рейн"
+                        Name = "Р РµРјР±СЂР°РЅРґС‚ РҐР°СЂРјРµРЅСЃ РІР°РЅ Р РµР№РЅ"
                     }
                 },
                 Interpreters = new List<InterpreterShortModel>
@@ -267,7 +267,7 @@ namespace Test.Handlers
                     new InterpreterShortModel
                     {
                         Id = Guid.Parse("9A46E40F-57DC-465C-8D2B-67EDF3CF5B4E"),
-                        Name = "Рита Райт-Ковалева"
+                        Name = "Р РёС‚Р° Р Р°Р№С‚-РљРѕРІР°Р»РµРІР°"
                     }
                 }
             };
@@ -279,7 +279,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить пагинацией 3 книги
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РїР°РіРёРЅР°С†РёРµР№ 3 РєРЅРёРіРё
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -299,14 +299,14 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен найти книги по автору
+        /// Р”РѕР»Р¶РµРЅ РЅР°Р№С‚Рё РєРЅРёРіРё РїРѕ Р°РІС‚РѕСЂСѓ
         /// </summary>
         /// <returns></returns>
         [Test]
         public async Task ShouldSearchBooksByAuthor()
         {
             // Act
-            var result = await _bookHandler.SearchByAuthorAsync("Эрих", 2, 1);
+            var result = await _bookHandler.SearchByAuthorAsync("Р­СЂРёС…", 2, 1);
             // Assert
             result.PreviewBooks.Should().NotBeNull();
             result.PreviewBooks.Count.Should().Be(2);
@@ -314,14 +314,14 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен найти книги по названию
+        /// Р”РѕР»Р¶РµРЅ РЅР°Р№С‚Рё РєРЅРёРіРё РїРѕ РЅР°Р·РІР°РЅРёСЋ
         /// </summary>
         /// <returns></returns>
         [Test]
         public async Task ShouldSearchBooksByName()
         {
             // Act
-            var result = await _bookHandler.SearchByNameAsync("ди", 2, 1);
+            var result = await _bookHandler.SearchByNameAsync("РґРё", 2, 1);
             // Assert
             result.PreviewBooks.Should().NotBeNull();
             result.PreviewBooks.Count.Should().Be(2);
@@ -329,14 +329,14 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен найти книги по жанру
+        /// Р”РѕР»Р¶РµРЅ РЅР°Р№С‚Рё РєРЅРёРіРё РїРѕ Р¶Р°РЅСЂСѓ
         /// </summary>
         /// <returns></returns>
         [Test]
         public async Task ShouldSearchBooksByGenre()
         {
             // Act
-            var result = await _bookHandler.SearchByGenreAsync("Антиутопия", 1, 1);
+            var result = await _bookHandler.SearchByGenreAsync("РђРЅС‚РёСѓС‚РѕРїРёСЏ", 1, 1);
             // Assert
             result.PreviewBooks.Should().NotBeNull();
             result.PreviewBooks.Count.Should().Be(1);

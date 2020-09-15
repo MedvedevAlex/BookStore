@@ -14,7 +14,7 @@ using ViewModel.Models.Payments;
 namespace Test.Handlers
 {
     /// <summary>
-    /// Набор тестов для тестирования обработчика данных платеж
+    /// РќР°Р±РѕСЂ С‚РµСЃС‚РѕРІ РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РѕР±СЂР°Р±РѕС‚С‡РёРєР° РґР°РЅРЅС‹С… РїР»Р°С‚РµР¶
     /// </summary>
     [TestFixture]
     public class PaymentHandlerTests
@@ -30,7 +30,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен добавить платеж
+        /// Р”РѕР»Р¶РµРЅ РґРѕР±Р°РІРёС‚СЊ РїР»Р°С‚РµР¶
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -63,7 +63,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен обновить платеж
+        /// Р”РѕР»Р¶РµРЅ РѕР±РЅРѕРІРёС‚СЊ РїР»Р°С‚РµР¶
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -95,7 +95,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить платеж
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РїР»Р°С‚РµР¶
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -120,7 +120,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить платеж с заказом
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РїР»Р°С‚РµР¶ СЃ Р·Р°РєР°Р·РѕРј
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -150,7 +150,7 @@ namespace Test.Handlers
                         new BookPreviewModel
                         {
                             Id = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"),
-                            Name = "Вторая жизнь Уве",
+                            Name = "Р’С‚РѕСЂР°СЏ Р¶РёР·РЅСЊ РЈРІРµ",
                             Price = 406.00M,
                             Authors = new List<AuthorShortModel>()
                         }

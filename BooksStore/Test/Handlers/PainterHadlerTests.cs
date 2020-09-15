@@ -13,7 +13,7 @@ using ViewModel.Responses;
 namespace Test.Handlers
 {
     /// <summary>
-    /// Набор тестов для тестирования обработчика данных художник
+    /// РќР°Р±РѕСЂ С‚РµСЃС‚РѕРІ РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РѕР±СЂР°Р±РѕС‚С‡РёРєР° РґР°РЅРЅС‹С… С…СѓРґРѕР¶РЅРёРє
     /// </summary>
     [TestFixture]
     public class PainterHadlerTests
@@ -28,7 +28,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен добавить художника
+        /// Р”РѕР»Р¶РµРЅ РґРѕР±Р°РІРёС‚СЊ С…СѓРґРѕР¶РЅРёРєР°
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -38,10 +38,10 @@ namespace Test.Handlers
             // Arrange
             var modifiedPainter = new PainterModifyModel
             {
-                Name = "Антон Брусикин",
+                Name = "РђРЅС‚РѕРЅ Р‘СЂСѓСЃРёРєРёРЅ",
                 Age = 13,
-                Description = "Антоша стал выдающимся художником " +
-                "после случая в метро, Омского метро, которого не существует",
+                Description = "РђРЅС‚РѕС€Р° СЃС‚Р°Р» РІС‹РґР°СЋС‰РёРјСЃСЏ С…СѓРґРѕР¶РЅРёРєРѕРј " +
+                "РїРѕСЃР»Рµ СЃР»СѓС‡Р°СЏ РІ РјРµС‚СЂРѕ, РћРјСЃРєРѕРіРѕ РјРµС‚СЂРѕ, РєРѕС‚РѕСЂРѕРіРѕ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚",
                 StyleId = Guid.Parse("B08F1F01-D09C-42C7-9A6D-4E355C3FB599"),
                 BooksIds = new List<Guid>
                 {
@@ -51,24 +51,24 @@ namespace Test.Handlers
             };
             var painter = new PainterViewModel
             {
-                Name = "Антон Брусикин",
+                Name = "РђРЅС‚РѕРЅ Р‘СЂСѓСЃРёРєРёРЅ",
                 Age = 13,
-                Description = "Антоша стал выдающимся художником " +
-                "после случая в метро, Омского метро, которого не существует",
-                Style = "Бедное искусство",
+                Description = "РђРЅС‚РѕС€Р° СЃС‚Р°Р» РІС‹РґР°СЋС‰РёРјСЃСЏ С…СѓРґРѕР¶РЅРёРєРѕРј " +
+                "РїРѕСЃР»Рµ СЃР»СѓС‡Р°СЏ РІ РјРµС‚СЂРѕ, РћРјСЃРєРѕРіРѕ РјРµС‚СЂРѕ, РєРѕС‚РѕСЂРѕРіРѕ РЅРµ СЃСѓС‰РµСЃС‚РІСѓРµС‚",
+                Style = "Р‘РµРґРЅРѕРµ РёСЃРєСѓСЃСЃС‚РІРѕ",
                 Books = new List<BookPreviewModel>
                 {
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("5628B2D6-4ED2-4B3E-B71F-6764A2489B25"),
-                        Name = "Алхимик",
+                        Name = "РђР»С…РёРјРёРє",
                         Price = 250.00M,
                         Authors = new List<AuthorShortModel>()
                     },
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("8C038ACD-17DB-4554-A741-DE98CA121256"),
-                        Name = "Найди меня",
+                        Name = "РќР°Р№РґРё РјРµРЅСЏ",
                         Price = 363.00M,
                         Authors = new List<AuthorShortModel>()
                     }
@@ -84,7 +84,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен обновить художника
+        /// Р”РѕР»Р¶РµРЅ РѕР±РЅРѕРІРёС‚СЊ С…СѓРґРѕР¶РЅРёРєР°
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -95,9 +95,9 @@ namespace Test.Handlers
             var modifiedPainter = new PainterModifyModel
             {
                 Id = _createPainterId,
-                Name = "Антон Барбаросса",
+                Name = "РђРЅС‚РѕРЅ Р‘Р°СЂР±Р°СЂРѕСЃСЃР°",
                 Age = 18,
-                Description = "Антон подрос и уже может гулять во дворе",
+                Description = "РђРЅС‚РѕРЅ РїРѕРґСЂРѕСЃ Рё СѓР¶Рµ РјРѕР¶РµС‚ РіСѓР»СЏС‚СЊ РІРѕ РґРІРѕСЂРµ",
                 StyleId = Guid.Parse("AF18C5DC-800C-485B-AB1A-16B15DCDED18"),
                 BooksIds = new List<Guid>
                 {
@@ -107,16 +107,16 @@ namespace Test.Handlers
             var painter = new PainterViewModel
             {
                 Id = _createPainterId,
-                Name = "Антон Барбаросса",
+                Name = "РђРЅС‚РѕРЅ Р‘Р°СЂР±Р°СЂРѕСЃСЃР°",
                 Age = 18,
-                Description = "Антон подрос и уже может гулять во дворе",
-                Style = "Подземный",
+                Description = "РђРЅС‚РѕРЅ РїРѕРґСЂРѕСЃ Рё СѓР¶Рµ РјРѕР¶РµС‚ РіСѓР»СЏС‚СЊ РІРѕ РґРІРѕСЂРµ",
+                Style = "РџРѕРґР·РµРјРЅС‹Р№",
                 Books = new List<BookPreviewModel>
                 {
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("7DB924D8-00A7-4B46-9E31-73D95C38EB31"),
-                        Name = "Дни нашей жизни",
+                        Name = "Р”РЅРё РЅР°С€РµР№ Р¶РёР·РЅРё",
                         Price = 330.00M,
                         Authors = new List<AuthorShortModel>()
                     }
@@ -130,7 +130,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен удалить художника
+        /// Р”РѕР»Р¶РµРЅ СѓРґР°Р»РёС‚СЊ С…СѓРґРѕР¶РЅРёРєР°
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -147,7 +147,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить художника
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ С…СѓРґРѕР¶РЅРёРєР°
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -158,11 +158,11 @@ namespace Test.Handlers
             var painter = new PainterViewModel
             {
                 Id = painterId,
-                Name = "Рафаэль Санти",
+                Name = "Р Р°С„Р°СЌР»СЊ РЎР°РЅС‚Рё",
                 Age = 37,
-                Description = "Самый знаменитый представитель Эпохи " +
-                "Возрождения поражает гармоничными композициями и лиризмом.",
-                Style = "Абстракция Импрессионизм",
+                Description = "РЎР°РјС‹Р№ Р·РЅР°РјРµРЅРёС‚С‹Р№ РїСЂРµРґСЃС‚Р°РІРёС‚РµР»СЊ Р­РїРѕС…Рё " +
+                "Р’РѕР·СЂРѕР¶РґРµРЅРёСЏ РїРѕСЂР°Р¶Р°РµС‚ РіР°СЂРјРѕРЅРёС‡РЅС‹РјРё РєРѕРјРїРѕР·РёС†РёСЏРјРё Рё Р»РёСЂРёР·РјРѕРј.",
+                Style = "РђР±СЃС‚СЂР°РєС†РёСЏ РРјРїСЂРµСЃСЃРёРѕРЅРёР·Рј",
                 Books = new List<BookPreviewModel>
                 {
                     new BookPreviewModel
@@ -175,14 +175,14 @@ namespace Test.Handlers
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("7DB924D8-00A7-4B46-9E31-73D95C38EB31"),
-                        Name = "Дни нашей жизни",
+                        Name = "Р”РЅРё РЅР°С€РµР№ Р¶РёР·РЅРё",
                         Price = 330.00M,
                         Authors = new List<AuthorShortModel>()
                     },
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("8C038ACD-17DB-4554-A741-DE98CA121256"),
-                        Name = "Найди меня",
+                        Name = "РќР°Р№РґРё РјРµРЅСЏ",
                         Price = 363.00M,
                         Authors = new List<AuthorShortModel>()
                     }
@@ -196,7 +196,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить пагинацией 3 художников
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РїР°РіРёРЅР°С†РёРµР№ 3 С…СѓРґРѕР¶РЅРёРєРѕРІ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -217,14 +217,14 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен найти художников по наименованию
+        /// Р”РѕР»Р¶РµРЅ РЅР°Р№С‚Рё С…СѓРґРѕР¶РЅРёРєРѕРІ РїРѕ РЅР°РёРјРµРЅРѕРІР°РЅРёСЋ
         /// </summary>
         /// <returns></returns>
         [Test]
         public async Task ShouldSearchPaintersByName()
         {
             // Act
-            var result = await _painterHandler.SearchByNameAsync("ра", 2, 1);
+            var result = await _painterHandler.SearchByNameAsync("СЂР°", 2, 1);
             // Assert
             result.PreviewPainters.Should().NotBeNull();
             result.PreviewPainters.Count.Should().Be(2);
@@ -232,14 +232,14 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен найти художников по стилю
+        /// Р”РѕР»Р¶РµРЅ РЅР°Р№С‚Рё С…СѓРґРѕР¶РЅРёРєРѕРІ РїРѕ СЃС‚РёР»СЋ
         /// </summary>
         /// <returns></returns>
         [Test]
         public async Task ShouldSearchPaintersByStyle()
         {
             // Act
-            var result = await _painterHandler.SearchByStyleAsync("а", 4, 1);
+            var result = await _painterHandler.SearchByStyleAsync("Р°", 4, 1);
             // Assert
             result.PreviewPainters.Should().NotBeNull();
             result.PreviewPainters.Count.Should().Be(4);

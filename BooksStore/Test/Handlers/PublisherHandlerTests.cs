@@ -13,7 +13,7 @@ using ViewModel.Responses;
 namespace Test.Handlers
 {
     /// <summary>
-    /// Набор тестов для тестирования обработчика данных издатель
+    /// РќР°Р±РѕСЂ С‚РµСЃС‚РѕРІ РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РѕР±СЂР°Р±РѕС‚С‡РёРєР° РґР°РЅРЅС‹С… РёР·РґР°С‚РµР»СЊ
     /// </summary>
     [TestFixture]
     public class PublisherHandlerTests
@@ -28,7 +28,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен добавить издателя
+        /// Р”РѕР»Р¶РµРЅ РґРѕР±Р°РІРёС‚СЊ РёР·РґР°С‚РµР»СЏ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -38,7 +38,7 @@ namespace Test.Handlers
             // Arrange
             var modifiedPublisher = new PublisherModifyModel
             {
-                Name = "Зачетная банда",
+                Name = "Р—Р°С‡РµС‚РЅР°СЏ Р±Р°РЅРґР°",
                 BooksIds = new List<Guid>
                 {
                     Guid.Parse("7DB924D8-00A7-4B46-9E31-73D95C38EB31"),
@@ -47,34 +47,34 @@ namespace Test.Handlers
             };
             var publisher = new PublisherViewModel
             {
-                Name = "Зачетная банда",
+                Name = "Р—Р°С‡РµС‚РЅР°СЏ Р±Р°РЅРґР°",
                 Books = new List<BookPreviewModel>
                 {
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("7DB924D8-00A7-4B46-9E31-73D95C38EB31"),
-                        Name = "Дни нашей жизни",
+                        Name = "Р”РЅРё РЅР°С€РµР№ Р¶РёР·РЅРё",
                         Price = 330.00M,
                         Authors = new List<AuthorShortModel>
                         {
                             new AuthorShortModel
                             {
                                 Id = Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C"),
-                                Name = "Эрих Мария Ремарк"
+                                Name = "Р­СЂРёС… РњР°СЂРёСЏ Р РµРјР°СЂРє"
                             }
                         }
                     },
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"),
-                        Name = "Дом, в котором…",
+                        Name = "Р”РѕРј, РІ РєРѕС‚РѕСЂРѕРјвЂ¦",
                         Price = 605.00M,
                         Authors = new List<AuthorShortModel>
                         {
                             new AuthorShortModel
                             {
                                 Id = Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7"),
-                                Name = "Антуан де Сент-Экзюпери"
+                                Name = "РђРЅС‚СѓР°РЅ РґРµ РЎРµРЅС‚-Р­РєР·СЋРїРµСЂРё"
                             }
                         }
                     },
@@ -90,7 +90,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен обновить издателя
+        /// Р”РѕР»Р¶РµРЅ РѕР±РЅРѕРІРёС‚СЊ РёР·РґР°С‚РµР»СЏ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -101,7 +101,7 @@ namespace Test.Handlers
             var modifiedPublisher = new PublisherModifyModel
             {
                 Id = _createPublisherId,
-                Name = "Зачетная бандана",
+                Name = "Р—Р°С‡РµС‚РЅР°СЏ Р±Р°РЅРґР°РЅР°",
                 BooksIds = new List<Guid>
                 {
                     Guid.Parse("F0317CFB-E110-4B92-97B9-A52595CEFCCD")
@@ -110,20 +110,20 @@ namespace Test.Handlers
             var publisher = new PublisherViewModel
             {
                 Id = _createPublisherId,
-                Name = "Зачетная бандана",
+                Name = "Р—Р°С‡РµС‚РЅР°СЏ Р±Р°РЅРґР°РЅР°",
                 Books = new List<BookPreviewModel>
                 {
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("F0317CFB-E110-4B92-97B9-A52595CEFCCD"),
-                        Name = "Цветы для Элджернона",
+                        Name = "Р¦РІРµС‚С‹ РґР»СЏ Р­Р»РґР¶РµСЂРЅРѕРЅР°",
                         Price = 220.00M,
                         Authors = new List<AuthorShortModel>
                         {
                             new AuthorShortModel
                             {
                                 Id = Guid.Parse("BC72FAF4-F5EA-41B4-B85B-835731BDB0F7"),
-                                Name = "Антуан де Сент-Экзюпери"
+                                Name = "РђРЅС‚СѓР°РЅ РґРµ РЎРµРЅС‚-Р­РєР·СЋРїРµСЂРё"
                             }
                         }
                     }
@@ -137,7 +137,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен удалить издателя
+        /// Р”РѕР»Р¶РµРЅ СѓРґР°Р»РёС‚СЊ РёР·РґР°С‚РµР»СЏ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -154,7 +154,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить издателя
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РёР·РґР°С‚РµР»СЏ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -165,7 +165,7 @@ namespace Test.Handlers
             var publisher = new PublisherViewModel
             {
                 Id = publisherId,
-                Name = "Рипол Классик",
+                Name = "Р РёРїРѕР» РљР»Р°СЃСЃРёРє",
                 Books = new List<BookPreviewModel>
                 {
                     new BookPreviewModel
@@ -178,7 +178,7 @@ namespace Test.Handlers
                             new AuthorShortModel
                             {
                                 Id = Guid.Parse("6B6F819C-2A9D-4EF9-92DD-55F69097F36C"),
-                                Name = "Эрих Мария Ремарк"
+                                Name = "Р­СЂРёС… РњР°СЂРёСЏ Р РµРјР°СЂРє"
                             }
                         }
                     }
@@ -192,7 +192,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить пагинацией 3 издателя
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ РїР°РіРёРЅР°С†РёРµР№ 3 РёР·РґР°С‚РµР»СЏ
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -213,14 +213,14 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен найти издателей по наименованию
+        /// Р”РѕР»Р¶РµРЅ РЅР°Р№С‚Рё РёР·РґР°С‚РµР»РµР№ РїРѕ РЅР°РёРјРµРЅРѕРІР°РЅРёСЋ
         /// </summary>
         /// <returns></returns>
         [Test]
         public async Task ShouldSearchPublishersByName()
         {
             // Act
-            var result = await _publisherHandler.SearchByNameAsync("ра", 1, 1);
+            var result = await _publisherHandler.SearchByNameAsync("СЂР°", 1, 1);
             // Assert
             result.PreviewPublishers.Should().NotBeNull();
             result.PreviewPublishers.Count.Should().Be(1);

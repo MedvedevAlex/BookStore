@@ -13,7 +13,7 @@ using ViewModel.Models.Orders;
 namespace Test.Handlers
 {
     /// <summary>
-    /// Набор тестов для тестирования обработчика данных заказ
+    /// РќР°Р±РѕСЂ С‚РµСЃС‚РѕРІ РґР»СЏ С‚РµСЃС‚РёСЂРѕРІР°РЅРёСЏ РѕР±СЂР°Р±РѕС‚С‡РёРєР° РґР°РЅРЅС‹С… Р·Р°РєР°Р·
     /// </summary>
     [TestFixture]
     public class OrderHandlerTests
@@ -29,7 +29,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен добавить заказ
+        /// Р”РѕР»Р¶РµРЅ РґРѕР±Р°РІРёС‚СЊ Р·Р°РєР°Р·
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -44,7 +44,7 @@ namespace Test.Handlers
                     Guid.Parse("1FFA9B7C-E021-4084-A14B-35839B9CC9D2"),
                     Guid.Parse("AA585855-0FEB-418C-ACC5-6E98E20B972A")
                 },
-                Description = "Положите пожалуйста книги шнуровкой наружу"
+                Description = "РџРѕР»РѕР¶РёС‚Рµ РїРѕР¶Р°Р»СѓР№СЃС‚Р° РєРЅРёРіРё С€РЅСѓСЂРѕРІРєРѕР№ РЅР°СЂСѓР¶Сѓ"
             };
             var order = new OrderModel
             {
@@ -61,14 +61,14 @@ namespace Test.Handlers
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("AA585855-0FEB-418C-ACC5-6E98E20B972A"),
-                        Name = "О дивный новый мир",
+                        Name = "Рћ РґРёРІРЅС‹Р№ РЅРѕРІС‹Р№ РјРёСЂ",
                         Price = 212.00M,
                         Authors = new List<AuthorShortModel>()
                     }
                 },
                 Status = OrderStatus.NotProcessed,
                 Amount = 415.00M,
-                Description = "Положите пожалуйста книги шнуровкой наружу"
+                Description = "РџРѕР»РѕР¶РёС‚Рµ РїРѕР¶Р°Р»СѓР№СЃС‚Р° РєРЅРёРіРё С€РЅСѓСЂРѕРІРєРѕР№ РЅР°СЂСѓР¶Сѓ"
             };
             // Act
             var result = await _orderHandler.AddAsync(modifiedOrder);
@@ -82,7 +82,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен обновить статус заказа
+        /// Р”РѕР»Р¶РµРЅ РѕР±РЅРѕРІРёС‚СЊ СЃС‚Р°С‚СѓСЃ Р·Р°РєР°Р·Р°
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -110,7 +110,7 @@ namespace Test.Handlers
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("AA585855-0FEB-418C-ACC5-6E98E20B972A"),
-                        Name = "О дивный новый мир",
+                        Name = "Рћ РґРёРІРЅС‹Р№ РЅРѕРІС‹Р№ РјРёСЂ",
                         Price = 212.00M,
                         Authors = new List<AuthorShortModel>()
                     }
@@ -118,7 +118,7 @@ namespace Test.Handlers
                 Status = OrderStatus.PartiallyCompleted,
                 Amount = 415.00M,
                 DateCreate = _defaultDate,
-                Description = "Положите пожалуйста книги шнуровкой наружу"
+                Description = "РџРѕР»РѕР¶РёС‚Рµ РїРѕР¶Р°Р»СѓР№СЃС‚Р° РєРЅРёРіРё С€РЅСѓСЂРѕРІРєРѕР№ РЅР°СЂСѓР¶Сѓ"
             };
             // Act
             var result = await _orderHandler.UpdateStatusAsync(modifyOrder);
@@ -130,7 +130,7 @@ namespace Test.Handlers
         }
 
         /// <summary>
-        /// Должен получить заказ
+        /// Р”РѕР»Р¶РµРЅ РїРѕР»СѓС‡РёС‚СЊ Р·Р°РєР°Р·
         /// </summary>
         /// <returns></returns>
         [Test]
@@ -149,14 +149,14 @@ namespace Test.Handlers
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("5628B2D6-4ED2-4B3E-B71F-6764A2489B25"),
-                        Name = "Алхимик",
+                        Name = "РђР»С…РёРјРёРє",
                         Price = 250.00M,
                         Authors = new List<AuthorShortModel>()
                     },
                     new BookPreviewModel
                     {
                         Id = Guid.Parse("4B9C14FD-7788-4C89-B778-459EE7A4415B"),
-                        Name = "Атлант расправил плечи (комплект из 3 книг)",
+                        Name = "РђС‚Р»Р°РЅС‚ СЂР°СЃРїСЂР°РІРёР» РїР»РµС‡Рё (РєРѕРјРїР»РµРєС‚ РёР· 3 РєРЅРёРі)",
                         Price = 792.00M,
                         Authors = new List<AuthorShortModel>()
                     }
