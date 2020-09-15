@@ -10,8 +10,8 @@ using Model;
 namespace Model.Migrations
 {
     [DbContext(typeof(BookContext))]
-    [Migration("20200831070055_AddRefreshTokenUser")]
-    partial class AddRefreshTokenUser
+    [Migration("20200910020705_SeedData")]
+    partial class SeedData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -31,10 +31,10 @@ namespace Model.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(40)");
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("Id");
 
@@ -101,13 +101,13 @@ namespace Model.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
-                    b.Property<short>("Duplicate")
-                        .HasColumnType("smallint");
+                    b.Property<int>("Duplicate")
+                        .HasColumnType("int");
 
                     b.Property<string>("Format")
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<Guid?>("GenreId")
                         .HasColumnType("uniqueidentifier");
@@ -119,7 +119,7 @@ namespace Model.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(50)");
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal>("Price")
                         .HasColumnType("numeric(8,2)");
@@ -153,7 +153,7 @@ namespace Model.Migrations
                             CountPage = (short)350,
                             CoverTypeId = new Guid("f3ff3c04-893a-40bc-9854-1c2ba98c8265"),
                             Description = "О дивный новый мир - изысканная и остроумная антиутопия о генетически программируемом обществе потребления, в котором разворачивается трагическая история Дикаря - Гамлета этого мира.",
-                            Duplicate = (short)5000,
+                            Duplicate = 5000,
                             Format = "18 x 11.6 x 1.9",
                             GenreId = new Guid("cfb89ffe-f0c9-4821-a499-2fcaf38fca16"),
                             ISBN_13 = "978-5-17-080085-8",
@@ -171,7 +171,7 @@ namespace Model.Migrations
                             CountPage = (short)220,
                             CoverTypeId = new Guid("56d180ca-f9bd-4dad-87ef-af334f636be1"),
                             Description = "Алхимик» – самый известный роман бразильского писателя Пауло Коэльо, любимая книга миллионов людей во всем мире.",
-                            Duplicate = (short)10000,
+                            Duplicate = 10000,
                             Format = "18 x 11.5 x 1.3",
                             GenreId = new Guid("e8e4d3c5-1bd3-44f2-9120-5c39e44c553f"),
                             ISBN_13 = "978-5-17-087921-2",
@@ -189,7 +189,7 @@ namespace Model.Migrations
                             CountPage = (short)320,
                             CoverTypeId = new Guid("fc4519df-a67d-4686-904b-4ee105f37d22"),
                             Description = "Андре Асимана называют одним из важнейших романистов современности. «Найди меня» — долгожданное продолжение его бестселлера «Назови меня своим именем», покорившего миллионы читателей во всем мире.",
-                            Duplicate = (short)15000,
+                            Duplicate = 15000,
                             Format = "21 x 14 x 1.9",
                             GenreId = new Guid("e36af307-b334-4074-91b4-c2e14d043743"),
                             ISBN_13 = "978-5-6042628-9-4",
@@ -207,7 +207,7 @@ namespace Model.Migrations
                             CountPage = (short)400,
                             CoverTypeId = new Guid("47b06aac-5e4a-4541-b1b6-dcb5ec8f69dc"),
                             Description = "В детстве маленького Мики было всё, как у обычных детей: любимые герои, каши по утрам, дни рождения, скучные линейки в школе и сочинения на заданные темы.",
-                            Duplicate = (short)2000,
+                            Duplicate = 2000,
                             Format = "21 x 14 x 3.2",
                             GenreId = new Guid("29c1b4ad-05e6-4752-ba67-47dc45a0fe46"),
                             ISBN_13 = "978-5-6043606-3-7",
@@ -225,7 +225,7 @@ namespace Model.Migrations
                             CountPage = (short)318,
                             CoverTypeId = new Guid("07b46856-7089-4d71-a07a-40068f79ff2d"),
                             Description = "Своеобразный антипод второй великой антиутопии XX века - О дивный новый мир Олдоса Хаксли. Что, в сущности, страшнее: доведенное до абсурда общество потребления - или доведенное до абсолюта общество идеи? По Оруэллу, нет и не может быть ничего ужаснее тотальной несвободы...",
-                            Duplicate = (short)7000,
+                            Duplicate = 7000,
                             Format = "18.1 x 11.7 x 2",
                             GenreId = new Guid("cfb89ffe-f0c9-4821-a499-2fcaf38fca16"),
                             ISBN_13 = "978-5-17-080115-2",
@@ -243,7 +243,7 @@ namespace Model.Migrations
                             CountPage = (short)384,
                             CoverTypeId = new Guid("33aa3511-8c70-4e19-9719-321d4b79f588"),
                             Description = "На первый взгляд Уве — самый угрюмый человек на свете. Он, как и многие из нас, полагает, что его окружают преимущественно идиоты — соседи, которые неправильно паркуют свои машины; продавцы в магазине, говорящие на птичьем языке; бюрократы, портящие жизнь нормальным людям.",
-                            Duplicate = (short)5000,
+                            Duplicate = 5000,
                             Format = "20.5 x 13 x 2.4",
                             GenreId = new Guid("7bb337b5-6b47-4613-8657-6f78506fe117"),
                             ISBN_13 = "978-5-905891-97-7",
@@ -261,7 +261,7 @@ namespace Model.Migrations
                             CountPage = (short)960,
                             CoverTypeId = new Guid("56d180ca-f9bd-4dad-87ef-af334f636be1"),
                             Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом, в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
-                            Duplicate = (short)15000,
+                            Duplicate = 15000,
                             Format = "22 x 15 x 5",
                             GenreId = new Guid("7cf21233-4caf-4902-bcc1-85a677bf1c59"),
                             ISBN_13 = "978-5-904584-69-6",
@@ -279,7 +279,7 @@ namespace Model.Migrations
                             CountPage = (short)544,
                             CoverTypeId = new Guid("56d180ca-f9bd-4dad-87ef-af334f636be1"),
                             Description = "Одна из величайших книг ХХ века. Странная, поэтичная, причудливая история города Макондо, затерянного где-то в джунглях, – от сотворения до упадка. История рода Буэндиа – семьи, в которой чудеса столь повседневны, что на них даже не обращают внимания.",
-                            Duplicate = (short)-15536,
+                            Duplicate = 50000,
                             Format = "18 x 11.5 x 2.6",
                             GenreId = new Guid("7fb2db94-ebb6-4235-a3e5-182e735b8bf8"),
                             ISBN_13 = "978-5-17-090831-8",
@@ -297,7 +297,7 @@ namespace Model.Migrations
                             CountPage = (short)320,
                             CoverTypeId = new Guid("fc4519df-a67d-4686-904b-4ee105f37d22"),
                             Description = "Сорок лет назад это считалось фантастикой. Сорок лет назад это читалось как фантастика. Исследующая и расширяющая границы жанра, жадно впитывающая всевозможные новейшие веяния, примеряющая общечеловеческое лицо, отважно игнорирующая каинову печать жанрового гетто.",
-                            Duplicate = (short)3000,
+                            Duplicate = 3000,
                             Format = "18 x 11.5 x 1.4",
                             GenreId = new Guid("7fb2db94-ebb6-4235-a3e5-182e735b8bf8"),
                             ISBN_13 = "978-5-699-41332-4",
@@ -315,7 +315,7 @@ namespace Model.Migrations
                             CountPage = (short)436,
                             CoverTypeId = new Guid("f586ce45-08d0-46a5-931a-7a10fdab654d"),
                             Description = "В первой части читатели знакомятся с главными героями, гениальными предпринимателями, которым противостоят их антиподы - бездарные государственные чиновники. Повествование начинается с вопроса: кто такой Джон Голт? И на этот вопрос будут искать ответ герои романа и его читатели.",
-                            Duplicate = (short)17000,
+                            Duplicate = 17000,
                             Format = "21.7 x 14.8 x 2",
                             GenreId = new Guid("6aed17e9-b4f9-4997-b115-6da1dfdcca80"),
                             ISBN_13 = "978-5-9614-6742-0",
@@ -357,6 +357,42 @@ namespace Model.Migrations
                     b.HasIndex("ShopId");
 
                     b.ToTable("Deliveries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("0fd51bef-3c0e-4cd4-946a-d1f2982d0eab"),
+                            DateCreate = new DateTime(2020, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderId = new Guid("d8607511-c1d8-4526-8f9f-52791d4158d4"),
+                            ShopId = new Guid("c99eca84-3aa1-4a38-abe2-6b551571246d"),
+                            Status = (byte)0
+                        },
+                        new
+                        {
+                            Id = new Guid("9370693c-5d3d-4bd1-9077-9d4cc9c3a23b"),
+                            DateCreate = new DateTime(2020, 9, 6, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderId = new Guid("daa03cd1-33a0-4d97-88b5-408cbacfc456"),
+                            ShopId = new Guid("905d9ed8-0bd5-402a-be16-73c021176c78"),
+                            Status = (byte)1
+                        },
+                        new
+                        {
+                            Id = new Guid("97680b55-e371-4653-b017-ce128ab423d9"),
+                            DateCreate = new DateTime(2020, 9, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateDelivery = new DateTime(2021, 9, 21, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderId = new Guid("a3de7602-4018-4718-90a9-e7d0a299f315"),
+                            ShopId = new Guid("06c5d83e-ac7f-4c4c-8ad5-79bb9e914ef8"),
+                            Status = (byte)2
+                        },
+                        new
+                        {
+                            Id = new Guid("8c7a2ffb-36a4-4e48-af52-b2dc4e7b810b"),
+                            DateCreate = new DateTime(2020, 8, 25, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateDelivery = new DateTime(2021, 9, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderId = new Guid("5f98d03e-b6dc-41a7-9f3d-86fdda264f26"),
+                            ShopId = new Guid("bd0f8083-8072-4a25-8d13-90a85f2caeca"),
+                            Status = (byte)3
+                        });
                 });
 
             modelBuilder.Entity("Model.Entities.GoodsOrder", b =>
@@ -381,6 +417,141 @@ namespace Model.Migrations
                     b.HasIndex("OrderId");
 
                     b.ToTable("GoodsOrders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("f9a4622b-50ce-4de6-b980-d39579057724"),
+                            Amount = 406.00m,
+                            BookId = new Guid("d22d44a7-e987-4f8f-8cb2-0768cc6199c6"),
+                            OrderId = new Guid("d8607511-c1d8-4526-8f9f-52791d4158d4")
+                        },
+                        new
+                        {
+                            Id = new Guid("5b49a70f-96ea-4daa-b0ee-8ba0607fd244"),
+                            Amount = 203.00m,
+                            BookId = new Guid("1ffa9b7c-e021-4084-a14b-35839b9cc9d2"),
+                            OrderId = new Guid("d8607511-c1d8-4526-8f9f-52791d4158d4")
+                        },
+                        new
+                        {
+                            Id = new Guid("b4fb0847-3b64-4165-b7db-856722f97a29"),
+                            Amount = 792.00m,
+                            BookId = new Guid("4b9c14fd-7788-4c89-b778-459ee7a4415b"),
+                            OrderId = new Guid("daa03cd1-33a0-4d97-88b5-408cbacfc456")
+                        },
+                        new
+                        {
+                            Id = new Guid("ee70a5b5-0c57-4f3c-ac52-4ea0c55ee72f"),
+                            Amount = 250.00m,
+                            BookId = new Guid("5628b2d6-4ed2-4b3e-b71f-6764a2489b25"),
+                            OrderId = new Guid("daa03cd1-33a0-4d97-88b5-408cbacfc456")
+                        },
+                        new
+                        {
+                            Id = new Guid("1ac0af9e-9ce5-44c1-b137-0d1ec1dde4cc"),
+                            Amount = 212.00m,
+                            BookId = new Guid("aa585855-0feb-418c-acc5-6e98e20b972a"),
+                            OrderId = new Guid("a3de7602-4018-4718-90a9-e7d0a299f315")
+                        },
+                        new
+                        {
+                            Id = new Guid("d47f8265-234e-4768-93ab-becfa12d30e1"),
+                            Amount = 330.00m,
+                            BookId = new Guid("7db924d8-00a7-4b46-9e31-73d95c38eb31"),
+                            OrderId = new Guid("5f98d03e-b6dc-41a7-9f3d-86fdda264f26")
+                        },
+                        new
+                        {
+                            Id = new Guid("e74e7c9b-ca11-4a15-9a3c-cd1bca6c106a"),
+                            Amount = 220.00m,
+                            BookId = new Guid("f0317cfb-e110-4b92-97b9-a52595cefccd"),
+                            OrderId = new Guid("5f98d03e-b6dc-41a7-9f3d-86fdda264f26")
+                        },
+                        new
+                        {
+                            Id = new Guid("aa2c7025-9f16-46eb-8767-4bdb03e8db73"),
+                            Amount = 363.00m,
+                            BookId = new Guid("8c038acd-17db-4554-a741-de98ca121256"),
+                            OrderId = new Guid("7faa8f3d-8557-43b3-9ace-69259a5ac75e")
+                        },
+                        new
+                        {
+                            Id = new Guid("a2cd5cd8-cba4-466c-b10c-357a26e9953e"),
+                            Amount = 377.00m,
+                            BookId = new Guid("7c7ef3fc-b918-41d5-9e9d-e0549b0f42bc"),
+                            OrderId = new Guid("7faa8f3d-8557-43b3-9ace-69259a5ac75e")
+                        },
+                        new
+                        {
+                            Id = new Guid("08d4459e-53b6-4f53-820b-83f0a0feacfe"),
+                            Amount = 350.00m,
+                            BookId = new Guid("d22d44a7-e987-4f8f-8cb2-0768cc6199c6"),
+                            OrderId = new Guid("f59e96be-73a2-40fa-95b1-c931b9df6c57")
+                        },
+                        new
+                        {
+                            Id = new Guid("cf24dab5-2cb5-48d5-b48a-aab6311bba73"),
+                            Amount = 406.00m,
+                            BookId = new Guid("d22d44a7-e987-4f8f-8cb2-0768cc6199c6"),
+                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
+                        },
+                        new
+                        {
+                            Id = new Guid("f84c5095-e697-4d9d-9353-55c173e5d9fe"),
+                            Amount = 203.00m,
+                            BookId = new Guid("1ffa9b7c-e021-4084-a14b-35839b9cc9d2"),
+                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
+                        },
+                        new
+                        {
+                            Id = new Guid("f81172a1-c56a-4132-b079-d140bbbf9e09"),
+                            Amount = 792.00m,
+                            BookId = new Guid("4b9c14fd-7788-4c89-b778-459ee7a4415b"),
+                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
+                        },
+                        new
+                        {
+                            Id = new Guid("24528302-a0f6-4336-a619-ba214f7b541d"),
+                            Amount = 250.00m,
+                            BookId = new Guid("5628b2d6-4ed2-4b3e-b71f-6764a2489b25"),
+                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
+                        },
+                        new
+                        {
+                            Id = new Guid("fb2da9fc-a79e-4ad2-a774-f60e4b4d7019"),
+                            Amount = 212.00m,
+                            BookId = new Guid("aa585855-0feb-418c-acc5-6e98e20b972a"),
+                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
+                        },
+                        new
+                        {
+                            Id = new Guid("438dccf5-8d67-4041-a986-507260de9fc9"),
+                            Amount = 330.00m,
+                            BookId = new Guid("7db924d8-00a7-4b46-9e31-73d95c38eb31"),
+                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
+                        },
+                        new
+                        {
+                            Id = new Guid("c4d4bfc7-7eec-4cf9-b28b-c71b54bbb870"),
+                            Amount = 220.00m,
+                            BookId = new Guid("f0317cfb-e110-4b92-97b9-a52595cefccd"),
+                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
+                        },
+                        new
+                        {
+                            Id = new Guid("eb63dc41-101e-4b92-bdf9-6de2f9543539"),
+                            Amount = 363.00m,
+                            BookId = new Guid("8c038acd-17db-4554-a741-de98ca121256"),
+                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
+                        },
+                        new
+                        {
+                            Id = new Guid("0b91f2ad-fe56-4a46-940a-da24d573e3fe"),
+                            Amount = 377.00m,
+                            BookId = new Guid("7c7ef3fc-b918-41d5-9e9d-e0549b0f42bc"),
+                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
+                        });
                 });
 
             modelBuilder.Entity("Model.Entities.Interpreter", b =>
@@ -393,10 +564,10 @@ namespace Model.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(40)");
+                        .HasColumnType("nvarchar(40)");
 
                     b.HasKey("Id");
 
@@ -680,6 +851,12 @@ namespace Model.Migrations
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric(8,2)");
 
+                    b.Property<DateTime>("DateCreate")
+                        .HasColumnType("Date");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(255)");
+
                     b.Property<byte>("Status")
                         .HasColumnType("tinyint");
 
@@ -691,6 +868,64 @@ namespace Model.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d8607511-c1d8-4526-8f9f-52791d4158d4"),
+                            Amount = 609.00m,
+                            DateCreate = new DateTime(2020, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = (byte)0,
+                            UserId = new Guid("30be92d8-e0db-4386-9131-93d6cc4b7c47")
+                        },
+                        new
+                        {
+                            Id = new Guid("daa03cd1-33a0-4d97-88b5-408cbacfc456"),
+                            Amount = 1042.00m,
+                            DateCreate = new DateTime(2020, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = (byte)1,
+                            UserId = new Guid("30be92d8-e0db-4386-9131-93d6cc4b7c47")
+                        },
+                        new
+                        {
+                            Id = new Guid("a3de7602-4018-4718-90a9-e7d0a299f315"),
+                            Amount = 212.00m,
+                            DateCreate = new DateTime(2020, 4, 22, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = (byte)2,
+                            UserId = new Guid("54b6722e-1e29-4cc6-ada7-8d4edd5a13e4")
+                        },
+                        new
+                        {
+                            Id = new Guid("5f98d03e-b6dc-41a7-9f3d-86fdda264f26"),
+                            Amount = 550.00m,
+                            DateCreate = new DateTime(2020, 8, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = (byte)3,
+                            UserId = new Guid("54b6722e-1e29-4cc6-ada7-8d4edd5a13e4")
+                        },
+                        new
+                        {
+                            Id = new Guid("7faa8f3d-8557-43b3-9ace-69259a5ac75e"),
+                            Amount = 1345.00m,
+                            DateCreate = new DateTime(2020, 2, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = (byte)4,
+                            UserId = new Guid("108c5883-e2b7-4937-a04d-f7c059b8acd3")
+                        },
+                        new
+                        {
+                            Id = new Guid("f59e96be-73a2-40fa-95b1-c931b9df6c57"),
+                            Amount = 305.00m,
+                            DateCreate = new DateTime(2020, 8, 8, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = (byte)5,
+                            UserId = new Guid("108c5883-e2b7-4937-a04d-f7c059b8acd3")
+                        },
+                        new
+                        {
+                            Id = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e"),
+                            Amount = 3758.00m,
+                            DateCreate = new DateTime(2020, 6, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Status = (byte)6,
+                            UserId = new Guid("367c6b4e-8650-481c-80d5-6db6bf583095")
+                        });
                 });
 
             modelBuilder.Entity("Model.Entities.Painter", b =>
@@ -703,10 +938,10 @@ namespace Model.Migrations
                         .HasColumnType("tinyint");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(1000)");
+                        .HasColumnType("nvarchar(1000)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(40)");
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<Guid?>("StyleId")
                         .HasColumnType("uniqueidentifier");
@@ -747,7 +982,7 @@ namespace Model.Migrations
                             Id = new Guid("549903f5-66ab-48e8-b126-8610c4bb08b9"),
                             Age = (byte)63,
                             Description = "Рембрандт изображал мир таким, какой он был. Без прикрас и лакировок. Но получалось у него это очень душевно.",
-                            Name = "Рембрандт Ха́рменс ван Рейн",
+                            Name = "Рембрандт Харменс ван Рейн",
                             StyleId = new Guid("6801a5c4-fc35-468d-884f-75af47a288d6")
                         },
                         new
@@ -795,6 +1030,42 @@ namespace Model.Migrations
                         .IsUnique();
 
                     b.ToTable("Payments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("230c4b58-5f99-4279-a2d4-4af5c3af28db"),
+                            Amount = 303.00m,
+                            DateCreate = new DateTime(2020, 4, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderId = new Guid("d8607511-c1d8-4526-8f9f-52791d4158d4"),
+                            Status = (byte)0
+                        },
+                        new
+                        {
+                            Id = new Guid("3d9d3cbc-8494-4e01-9228-e686ac5658fa"),
+                            Amount = 1042.00m,
+                            DateCreate = new DateTime(2020, 8, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderId = new Guid("daa03cd1-33a0-4d97-88b5-408cbacfc456"),
+                            Status = (byte)1
+                        },
+                        new
+                        {
+                            Id = new Guid("5efb4e85-c71e-4c68-ad5e-8af4cd2148f8"),
+                            Amount = 212.00m,
+                            DateCreate = new DateTime(2020, 4, 23, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DatePayment = new DateTime(2020, 5, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderId = new Guid("a3de7602-4018-4718-90a9-e7d0a299f315"),
+                            Status = (byte)2
+                        },
+                        new
+                        {
+                            Id = new Guid("62a2d8b3-144b-49b8-8285-2c07e1d52456"),
+                            Amount = 550.00m,
+                            DateCreate = new DateTime(2020, 8, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DatePayment = new DateTime(2020, 8, 24, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderId = new Guid("5f98d03e-b6dc-41a7-9f3d-86fdda264f26"),
+                            Status = (byte)2
+                        });
                 });
 
             modelBuilder.Entity("Model.Entities.Publisher", b =>
@@ -804,7 +1075,7 @@ namespace Model.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -1307,10 +1578,10 @@ namespace Model.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Address")
-                        .HasColumnType("varchar(40)");
+                        .HasColumnType("nvarchar(40)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(30)");
+                        .HasColumnType("nvarchar(30)");
 
                     b.HasKey("Id");
 
@@ -1379,6 +1650,44 @@ namespace Model.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("30be92d8-e0db-4386-9131-93d6cc4b7c47"),
+                            Login = "Admin",
+                            Password = "zkf+O+PEIGXDH1e3QH4VxzSZ+KmyTRdEAMcdTTZG2Us=",
+                            RefreshToken = "6tSd7w8IIfn/hjALkg956tmNv9B4D6Hln55ex5eeaqM=",
+                            Role = "Admin",
+                            Salt = "TZWr5bFhm/4Q9aBMIcoWHg=="
+                        },
+                        new
+                        {
+                            Id = new Guid("54b6722e-1e29-4cc6-ada7-8d4edd5a13e4"),
+                            Login = "User",
+                            Password = "Vw1VEVsmrCT7Tatr3BjWm6AJ6qNQuDXQRy5g37Yn5G0=",
+                            RefreshToken = "deVLGazeUzcekUIV3z35EDt6pV83KJT6bQvBPshdb9c=",
+                            Role = "Common",
+                            Salt = "/bcwNvLg4NREg8EO13xenw=="
+                        },
+                        new
+                        {
+                            Id = new Guid("108c5883-e2b7-4937-a04d-f7c059b8acd3"),
+                            Login = "Granula",
+                            Password = "T/e1VM+cbVU1QVb/NrU7u22Ozs985MqQxlXY0vsgLqU=",
+                            RefreshToken = "0FV7lKM5tM0tGfxe37/Ka4xOnaYgdjU5/T8VPPpJBfA=",
+                            Role = "Common",
+                            Salt = "Ln6EgB8gS3TyirdJ537Z4g=="
+                        },
+                        new
+                        {
+                            Id = new Guid("367c6b4e-8650-481c-80d5-6db6bf583095"),
+                            Login = "1",
+                            Password = "joGTNbiLAhq6eGZC/IuVZ6vBOVyWNpxtusxSuK0CFX0=",
+                            RefreshToken = "2kYrPG5rPVJwzi6skdwjXtngll0So2C14EvA4JIoq3U=",
+                            Role = "Common",
+                            Salt = "ZbG5fC/42FHLxbnUY3UhPQ=="
+                        });
                 });
 
             modelBuilder.Entity("Model.Entities.Book", b =>

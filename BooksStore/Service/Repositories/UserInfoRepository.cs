@@ -27,7 +27,7 @@ namespace Service.Repositories
         /// <returns>Идентификатор пользователя</returns>
         public Guid GetUserIdFromToken()
         {
-            var userId = _httpContextAccessor.HttpContext.User
+            var userId = _httpContextAccessor.HttpContext?.User?
                 .FindFirst($"{nameof(Model.Entities.User)}{nameof(Model.Entities.User.Id)}")?.Value;
             if (Guid.TryParse(userId, out Guid guid))
                 return guid;

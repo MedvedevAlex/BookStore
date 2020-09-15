@@ -27,6 +27,6 @@ namespace ViewModel.Models.Interpreters
         /// <summary>
         /// Коллекция книг
         /// </summary>
-        public virtual ICollection<Guid> BooksIds { get; set; }
+        public ICollection<Guid> BooksIds { get; set; }
     }
 }

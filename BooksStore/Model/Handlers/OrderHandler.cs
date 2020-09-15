@@ -57,10 +57,12 @@ namespace Model.Handlers
                 {
                     Id = orderId,
                     User = userEntity,
+                    DateCreate = DateTime.Now,
                     Payment = null,
                     Delivery = null,
                     Status = OrderStatus.NotProcessed,
-                    Amount = booksEntities.Sum(b => b.Price)
+                    Amount = booksEntities.Sum(b => b.Price),
+                    Description = order.Description
                 };
                 var orderContextTask = context.Orders.AddAsync(orderEntity);
 

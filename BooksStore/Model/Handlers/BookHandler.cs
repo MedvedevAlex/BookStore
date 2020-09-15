@@ -207,8 +207,8 @@ namespace Model.Handlers
             {
                 var query = context.Books;
                 result.PreviewBooks = await query
-                    .Take(takeCount)
                     .Skip(skipCount)
+                    .Take(takeCount)
                     .Include(b => b.AuthorBooks)
                         .ThenInclude(ab => ab.Author)
                     .Select(b => _mapper.Map<BookPreviewModel>(b))
@@ -235,8 +235,8 @@ namespace Model.Handlers
                             select book;
 
                 result.PreviewBooks = await query
-                    .Take(takeCount)
                     .Skip(skipCount)
+                    .Take(takeCount)
                     .Select(b => _mapper.Map<BookPreviewModel>(b))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
@@ -260,10 +260,11 @@ namespace Model.Handlers
                     .Where(b => b.Name.Contains(searchString.Trim()));
 
                 result.PreviewBooks = await query
+                    .Skip(skipCount)
+                    .Take(takeCount)
                     .Include(b => b.AuthorBooks)
                             .ThenInclude(ab => ab.Author)
-                    .Take(takeCount)
-                    .Skip(skipCount)
+                    
                     .Select(b => _mapper.Map<BookPreviewModel>(b))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
@@ -290,10 +291,11 @@ namespace Model.Handlers
                     .Where(b => genresEntities.Contains(b.Genre.Name));
 
                 result.PreviewBooks = await query
+                    .Skip(skipCount)
+                    .Take(takeCount)
                     .Include(b => b.AuthorBooks)
                         .ThenInclude(ab => ab.Author)
-                    .Take(takeCount)
-                    .Skip(skipCount)
+                    
                     .Select(b => _mapper.Map<BookPreviewModel>(b))
                     .ToListAsync();
                 result.Count = await query.CountAsync();

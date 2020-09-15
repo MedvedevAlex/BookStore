@@ -31,7 +31,6 @@ namespace Model.Configurations
               
                 new { Id = Guid.Parse("aa2c7025-9f16-46eb-8767-4bdb03e8db73"), OrderId = Guid.Parse("7faa8f3d-8557-43b3-9ace-69259a5ac75e"), BookId = Guid.Parse("8C038ACD-17DB-4554-A741-DE98CA121256"), Amount = 363.00M },
                 new { Id = Guid.Parse("a2cd5cd8-cba4-466c-b10c-357a26e9953e"), OrderId = Guid.Parse("7faa8f3d-8557-43b3-9ace-69259a5ac75e"), BookId = Guid.Parse("7C7EF3FC-B918-41D5-9E9D-E0549B0F42BC"), Amount = 377.00M },
-                new { Id = Guid.Parse("f79cd55b-4f2a-45f4-b6a5-c39f0f30e6e5"), OrderId = Guid.Parse("7faa8f3d-8557-43b3-9ace-69259a5ac75e"), BookId = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"), Amount = 605.00M },
               
                 new { Id = Guid.Parse("08d4459e-53b6-4f53-820b-83f0a0feacfe"), OrderId = Guid.Parse("f59e96be-73a2-40fa-95b1-c931b9df6c57"), BookId = Guid.Parse("D22D44A7-E987-4F8F-8CB2-0768CC6199C6"), Amount = 350.00M },
 
@@ -43,8 +42,7 @@ namespace Model.Configurations
                 new { Id = Guid.Parse("438dccf5-8d67-4041-a986-507260de9fc9"), OrderId = Guid.Parse("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e"), BookId = Guid.Parse("7DB924D8-00A7-4B46-9E31-73D95C38EB31"), Amount = 330.00M },
                 new { Id = Guid.Parse("c4d4bfc7-7eec-4cf9-b28b-c71b54bbb870"), OrderId = Guid.Parse("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e"), BookId = Guid.Parse("F0317CFB-E110-4B92-97B9-A52595CEFCCD"), Amount = 220.00M },
                 new { Id = Guid.Parse("eb63dc41-101e-4b92-bdf9-6de2f9543539"), OrderId = Guid.Parse("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e"), BookId = Guid.Parse("8C038ACD-17DB-4554-A741-DE98CA121256"), Amount = 363.00M },
-                new { Id = Guid.Parse("0b91f2ad-fe56-4a46-940a-da24d573e3fe"), OrderId = Guid.Parse("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e"), BookId = Guid.Parse("7C7EF3FC-B918-41D5-9E9D-E0549B0F42BC"), Amount = 377.00M },
-                new { Id = Guid.Parse("c2d2d8c8-0a7b-4b9d-a252-3b0a1fb93621"), OrderId = Guid.Parse("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e"), BookId = Guid.Parse("7D1E69BC-F0B2-4BBD-8D87-E2FC2BCA53AC"), Amount = 605.00M }
+                new { Id = Guid.Parse("0b91f2ad-fe56-4a46-940a-da24d573e3fe"), OrderId = Guid.Parse("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e"), BookId = Guid.Parse("7C7EF3FC-B918-41D5-9E9D-E0549B0F42BC"), Amount = 377.00M }
 
             );
         }

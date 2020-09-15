@@ -12,5 +12,9 @@ namespace ViewModel.Models.Orders
         /// Колекция идентификаторов книг
         /// </summary>
         public ICollection<Guid> BooksIds { get; set; }
+        /// <summary>
+        /// Комментарии к заказу
+        /// </summary>
+        public string Description { get; set; }
     }
 }

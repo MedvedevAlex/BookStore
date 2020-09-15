@@ -31,7 +31,7 @@ namespace API.Controllers
         /// <param name="delivery">Модель доставка</param>
         /// <returns>Ответ доставка</returns>
         [HttpPost]
-        public async Task<IActionResult> Add([FromBody] DeliveryModifyModel delivery)
+        public async Task<IActionResult> Add([FromBody] DeliveryCreatedModel delivery)
         {
             var response = await _deliveryService.AddAsync(delivery);
             return Ok(response);

@@ -11,6 +11,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "API", "API\API.csproj", "{8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewModel", "ViewModel\ViewModel.csproj", "{DC0BBD28-44CD-4696-BC7B-C86B9AA3C063}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{DAA9180E-1160-45E0-A36C-FB6947D96699}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,6 +44,12 @@ Global
 		{DC0BBD28-44CD-4696-BC7B-C86B9AA3C063}.package|Any CPU.Build.0 = Debug|Any CPU
 		{DC0BBD28-44CD-4696-BC7B-C86B9AA3C063}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC0BBD28-44CD-4696-BC7B-C86B9AA3C063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DAA9180E-1160-45E0-A36C-FB6947D96699}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAA9180E-1160-45E0-A36C-FB6947D96699}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DAA9180E-1160-45E0-A36C-FB6947D96699}.package|Any CPU.ActiveCfg = Debug|Any CPU
+		{DAA9180E-1160-45E0-A36C-FB6947D96699}.package|Any CPU.Build.0 = Debug|Any CPU
+		{DAA9180E-1160-45E0-A36C-FB6947D96699}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DAA9180E-1160-45E0-A36C-FB6947D96699}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

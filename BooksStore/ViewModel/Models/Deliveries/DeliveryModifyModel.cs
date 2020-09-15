@@ -4,7 +4,7 @@ using ViewModel.Enums;
 namespace ViewModel.Models.Deliveries
 {
     /// <summary>
-    /// Модель для создания или обновления доставки
+    /// Модель обновления доставки
     /// </summary>
     public class DeliveryModifyModel
     {
@@ -16,10 +16,6 @@ namespace ViewModel.Models.Deliveries
         /// Идетнификатор магазина
         /// </summary>
         public Guid ShopId { get; set; }
-        /// <summary>
-        /// Идентификатор заказа
-        /// </summary>
-        public Guid OrderId { get; set; }
         /// <summary>
         /// Дата доставки
         /// </summary>

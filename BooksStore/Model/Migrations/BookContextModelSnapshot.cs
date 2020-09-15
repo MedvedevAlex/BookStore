@@ -101,8 +101,8 @@ namespace Model.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(1000)");
 
-                    b.Property<short>("Duplicate")
-                        .HasColumnType("smallint");
+                    b.Property<int>("Duplicate")
+                        .HasColumnType("int");
 
                     b.Property<string>("Format")
                         .HasColumnType("nvarchar(30)");
@@ -151,7 +151,7 @@ namespace Model.Migrations
                             CountPage = (short)350,
                             CoverTypeId = new Guid("f3ff3c04-893a-40bc-9854-1c2ba98c8265"),
                             Description = "О дивный новый мир - изысканная и остроумная антиутопия о генетически программируемом обществе потребления, в котором разворачивается трагическая история Дикаря - Гамлета этого мира.",
-                            Duplicate = (short)5000,
+                            Duplicate = 5000,
                             Format = "18 x 11.6 x 1.9",
                             GenreId = new Guid("cfb89ffe-f0c9-4821-a499-2fcaf38fca16"),
                             ISBN_13 = "978-5-17-080085-8",
@@ -169,7 +169,7 @@ namespace Model.Migrations
                             CountPage = (short)220,
                             CoverTypeId = new Guid("56d180ca-f9bd-4dad-87ef-af334f636be1"),
                             Description = "Алхимик» – самый известный роман бразильского писателя Пауло Коэльо, любимая книга миллионов людей во всем мире.",
-                            Duplicate = (short)10000,
+                            Duplicate = 10000,
                             Format = "18 x 11.5 x 1.3",
                             GenreId = new Guid("e8e4d3c5-1bd3-44f2-9120-5c39e44c553f"),
                             ISBN_13 = "978-5-17-087921-2",
@@ -187,7 +187,7 @@ namespace Model.Migrations
                             CountPage = (short)320,
                             CoverTypeId = new Guid("fc4519df-a67d-4686-904b-4ee105f37d22"),
                             Description = "Андре Асимана называют одним из важнейших романистов современности. «Найди меня» — долгожданное продолжение его бестселлера «Назови меня своим именем», покорившего миллионы читателей во всем мире.",
-                            Duplicate = (short)15000,
+                            Duplicate = 15000,
                             Format = "21 x 14 x 1.9",
                             GenreId = new Guid("e36af307-b334-4074-91b4-c2e14d043743"),
                             ISBN_13 = "978-5-6042628-9-4",
@@ -205,7 +205,7 @@ namespace Model.Migrations
                             CountPage = (short)400,
                             CoverTypeId = new Guid("47b06aac-5e4a-4541-b1b6-dcb5ec8f69dc"),
                             Description = "В детстве маленького Мики было всё, как у обычных детей: любимые герои, каши по утрам, дни рождения, скучные линейки в школе и сочинения на заданные темы.",
-                            Duplicate = (short)2000,
+                            Duplicate = 2000,
                             Format = "21 x 14 x 3.2",
                             GenreId = new Guid("29c1b4ad-05e6-4752-ba67-47dc45a0fe46"),
                             ISBN_13 = "978-5-6043606-3-7",
@@ -223,7 +223,7 @@ namespace Model.Migrations
                             CountPage = (short)318,
                             CoverTypeId = new Guid("07b46856-7089-4d71-a07a-40068f79ff2d"),
                             Description = "Своеобразный антипод второй великой антиутопии XX века - О дивный новый мир Олдоса Хаксли. Что, в сущности, страшнее: доведенное до абсурда общество потребления - или доведенное до абсолюта общество идеи? По Оруэллу, нет и не может быть ничего ужаснее тотальной несвободы...",
-                            Duplicate = (short)7000,
+                            Duplicate = 7000,
                             Format = "18.1 x 11.7 x 2",
                             GenreId = new Guid("cfb89ffe-f0c9-4821-a499-2fcaf38fca16"),
                             ISBN_13 = "978-5-17-080115-2",
@@ -241,7 +241,7 @@ namespace Model.Migrations
                             CountPage = (short)384,
                             CoverTypeId = new Guid("33aa3511-8c70-4e19-9719-321d4b79f588"),
                             Description = "На первый взгляд Уве — самый угрюмый человек на свете. Он, как и многие из нас, полагает, что его окружают преимущественно идиоты — соседи, которые неправильно паркуют свои машины; продавцы в магазине, говорящие на птичьем языке; бюрократы, портящие жизнь нормальным людям.",
-                            Duplicate = (short)5000,
+                            Duplicate = 5000,
                             Format = "20.5 x 13 x 2.4",
                             GenreId = new Guid("7bb337b5-6b47-4613-8657-6f78506fe117"),
                             ISBN_13 = "978-5-905891-97-7",
@@ -259,7 +259,7 @@ namespace Model.Migrations
                             CountPage = (short)960,
                             CoverTypeId = new Guid("56d180ca-f9bd-4dad-87ef-af334f636be1"),
                             Description = "На окраине города, среди стандартных новостроек, стоит Серый Дом, в котором живут Сфинкс, Слепой, Лорд, Табаки, Македонский, Черный и многие другие.",
-                            Duplicate = (short)15000,
+                            Duplicate = 15000,
                             Format = "22 x 15 x 5",
                             GenreId = new Guid("7cf21233-4caf-4902-bcc1-85a677bf1c59"),
                             ISBN_13 = "978-5-904584-69-6",
@@ -277,7 +277,7 @@ namespace Model.Migrations
                             CountPage = (short)544,
                             CoverTypeId = new Guid("56d180ca-f9bd-4dad-87ef-af334f636be1"),
                             Description = "Одна из величайших книг ХХ века. Странная, поэтичная, причудливая история города Макондо, затерянного где-то в джунглях, – от сотворения до упадка. История рода Буэндиа – семьи, в которой чудеса столь повседневны, что на них даже не обращают внимания.",
-                            Duplicate = (short)-15536,
+                            Duplicate = 50000,
                             Format = "18 x 11.5 x 2.6",
                             GenreId = new Guid("7fb2db94-ebb6-4235-a3e5-182e735b8bf8"),
                             ISBN_13 = "978-5-17-090831-8",
@@ -295,7 +295,7 @@ namespace Model.Migrations
                             CountPage = (short)320,
                             CoverTypeId = new Guid("fc4519df-a67d-4686-904b-4ee105f37d22"),
                             Description = "Сорок лет назад это считалось фантастикой. Сорок лет назад это читалось как фантастика. Исследующая и расширяющая границы жанра, жадно впитывающая всевозможные новейшие веяния, примеряющая общечеловеческое лицо, отважно игнорирующая каинову печать жанрового гетто.",
-                            Duplicate = (short)3000,
+                            Duplicate = 3000,
                             Format = "18 x 11.5 x 1.4",
                             GenreId = new Guid("7fb2db94-ebb6-4235-a3e5-182e735b8bf8"),
                             ISBN_13 = "978-5-699-41332-4",
@@ -313,7 +313,7 @@ namespace Model.Migrations
                             CountPage = (short)436,
                             CoverTypeId = new Guid("f586ce45-08d0-46a5-931a-7a10fdab654d"),
                             Description = "В первой части читатели знакомятся с главными героями, гениальными предпринимателями, которым противостоят их антиподы - бездарные государственные чиновники. Повествование начинается с вопроса: кто такой Джон Голт? И на этот вопрос будут искать ответ герои романа и его читатели.",
-                            Duplicate = (short)17000,
+                            Duplicate = 17000,
                             Format = "21.7 x 14.8 x 2",
                             GenreId = new Guid("6aed17e9-b4f9-4997-b115-6da1dfdcca80"),
                             ISBN_13 = "978-5-9614-6742-0",
@@ -482,13 +482,6 @@ namespace Model.Migrations
                         },
                         new
                         {
-                            Id = new Guid("f79cd55b-4f2a-45f4-b6a5-c39f0f30e6e5"),
-                            Amount = 605.00m,
-                            BookId = new Guid("7d1e69bc-f0b2-4bbd-8d87-e2fc2bca53ac"),
-                            OrderId = new Guid("7faa8f3d-8557-43b3-9ace-69259a5ac75e")
-                        },
-                        new
-                        {
                             Id = new Guid("08d4459e-53b6-4f53-820b-83f0a0feacfe"),
                             Amount = 350.00m,
                             BookId = new Guid("d22d44a7-e987-4f8f-8cb2-0768cc6199c6"),
@@ -555,13 +548,6 @@ namespace Model.Migrations
                             Id = new Guid("0b91f2ad-fe56-4a46-940a-da24d573e3fe"),
                             Amount = 377.00m,
                             BookId = new Guid("7c7ef3fc-b918-41d5-9e9d-e0549b0f42bc"),
-                            OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
-                        },
-                        new
-                        {
-                            Id = new Guid("c2d2d8c8-0a7b-4b9d-a252-3b0a1fb93621"),
-                            Amount = 605.00m,
-                            BookId = new Guid("7d1e69bc-f0b2-4bbd-8d87-e2fc2bca53ac"),
                             OrderId = new Guid("102b2a76-87cd-41b5-ab47-7a6d78e2bf9e")
                         });
                 });
@@ -994,7 +980,7 @@ namespace Model.Migrations
                             Id = new Guid("549903f5-66ab-48e8-b126-8610c4bb08b9"),
                             Age = (byte)63,
                             Description = "Рембрандт изображал мир таким, какой он был. Без прикрас и лакировок. Но получалось у него это очень душевно.",
-                            Name = "Рембрандт Ха́рменс ван Рейн",
+                            Name = "Рембрандт Харменс ван Рейн",
                             StyleId = new Guid("6801a5c4-fc35-468d-884f-75af47a288d6")
                         },
                         new

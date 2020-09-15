@@ -40,7 +40,9 @@ namespace Service.PublisherRepos
         /// <returns>Модель переводчик</returns>
         public async Task<InterpreterViewModel> AddAsync(InterpreterModifyModel interpreter)
         {
+            var guid = Guid.NewGuid();
             var interpreterEntity = _mapper.Map<Interpreter>(interpreter);
+            interpreterEntity.Id = guid;
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
                 var newBooksEntitites = await context.Books
@@ -52,7 +54,7 @@ namespace Service.PublisherRepos
                 await context.Interpreters.AddAsync(interpreterEntity);
                 await context.SaveChangesAsync();
             }
-            return await GetAsync(interpreter.Id);
+            return await GetAsync(guid);
         }
 
         /// <summary>

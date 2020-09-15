@@ -108,7 +108,7 @@ namespace API.Controllers
         [HttpGet("SearchByStyle/{styleName}/take/{takeCount}/skip/{skipCount}")]
         public async Task<IActionResult> SearchByStyle([FromRoute] string styleName, [FromRoute] int takeCount, [FromRoute] int skipCount)
         {
-            var response = await _painterService.SearchBySyleAsync(styleName, takeCount, skipCount);
+            var response = await _painterService.SearchByStyleAsync(styleName, takeCount, skipCount);
             return Ok(response);
         }
     }
