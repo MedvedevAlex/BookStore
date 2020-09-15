@@ -15,6 +15,6 @@ namespace ViewModel.Interfaces.Handlers
         Task<PainterViewModel> GetAsync(Guid id);
         Task<PainterPreviewResponse> GetAsync(int takeCount, int skipCount);
         Task<PainterPreviewResponse> SearchByNameAsync(string painterName, int takeCount, int skipCount);
-        Task<PainterPreviewResponse> SearchBySyleAsync(string styleName, int takeCount, int skipCount);
+        Task<PainterPreviewResponse> SearchByStyleAsync(string styleName, int takeCount, int skipCount);
     }
 }

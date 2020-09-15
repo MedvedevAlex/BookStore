@@ -40,6 +40,7 @@ namespace Service.PainterRepos
         /// <returns>Модель художник</returns>
         public async Task<PainterViewModel> AddAsync(PainterModifyModel painter)
         {
+            painter.Id = Guid.NewGuid();
             var painterEntity = _mapper.Map<Painter>(painter);
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
@@ -146,9 +147,9 @@ namespace Service.PainterRepos
             {
                 var query = context.Painters;
                 result.PreviewPainters = await query
-                    .Include(p => p.Style)
-                    .Take(takeCount)
                     .Skip(skipCount)
+                    .Take(takeCount)
+                    .Include(p => p.Style)
                     .Select(p => _mapper.Map<PainterPreviewModel>(p))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
@@ -172,9 +173,9 @@ namespace Service.PainterRepos
                     .Where(p => p.Name.Contains(painterName.Trim()));
 
                 result.PreviewPainters = await query
-                    .Include(p => p.Style)
-                    .Take(takeCount)
                     .Skip(skipCount)
+                    .Take(takeCount)
+                    .Include(p => p.Style)
                     .Select(p => _mapper.Map<PainterPreviewModel>(p))
                     .ToListAsync();
                 result.Count = await query.CountAsync();
@@ -189,7 +190,7 @@ namespace Service.PainterRepos
         /// <param name="takeCount">Количество получаемых записей</param>
         /// <param name="skipCount">Количество пропущенных записей</param>
         /// <returns>Ответ с коллекцией художников</returns>
-        public async Task<PainterPreviewResponse> SearchBySyleAsync(string styleName, int takeCount, int skipCount)
+        public async Task<PainterPreviewResponse> SearchByStyleAsync(string styleName, int takeCount, int skipCount)
         {
             var result = new PainterPreviewResponse();
             using (var context = _contextFactory.CreateDbContext(new string[0]))
@@ -201,9 +202,9 @@ namespace Service.PainterRepos
                     .Where(p => stylesEntities.Contains(p.Style.Name));
 
                 result.PreviewPainters = await query
-                    .Include(p => p.Style)
-                    .Take(takeCount)
                     .Skip(skipCount)
+                    .Take(takeCount)
+                    .Include(p => p.Style)
                     .Select(p => _mapper.Map<PainterPreviewModel>(p))
                     .ToListAsync();
                 result.Count = await query.CountAsync();

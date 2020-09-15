@@ -98,11 +98,11 @@ namespace Service.Services
             }
         }
 
-        public async Task<PainterPreviewResponse> SearchBySyleAsync(string styleName, int takeCount, int skipCount)
+        public async Task<PainterPreviewResponse> SearchByStyleAsync(string styleName, int takeCount, int skipCount)
         {
             try
             {
-                return await _painterHandler.SearchBySyleAsync(styleName, takeCount, skipCount);
+                return await _painterHandler.SearchByStyleAsync(styleName, takeCount, skipCount);
             }
             catch (Exception e)
             {
