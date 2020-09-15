@@ -3,12 +3,12 @@
 namespace ViewModel.Models.Deliveries
 {
     /// <summary>
-    /// Модель для создания
+    /// Модель для создания доставки
     /// </summary>
     public class DeliveryCreatedModel
     {
         /// <summary>
-        /// Идетнификатор магазина
+        /// Идентификатор магазина
         /// </summary>
         public Guid ShopId { get; set; }
         /// <summary>
