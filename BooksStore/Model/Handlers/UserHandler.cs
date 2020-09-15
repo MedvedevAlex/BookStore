@@ -84,18 +84,18 @@ namespace Model.Handlers
         /// <summary>
         /// Обновить обновление токена
         /// </summary>
-        /// <param name="refreshToken">Строка обновление токена</param>
+        /// <param name="user">Модель пользователь</param>
         /// <returns>Модель пользователь</returns>
         public async Task<UserModel> UpdateRefreshTokenAsync(UserModel user)
         {
+            user.RefreshToken = GenerateRefreshToken();
+
             using (var context = _contextFactory.CreateDbContext(new string[0]))
             {
-                user.RefreshToken = GenerateRefreshToken();
-
                 context.Users.Update(_mapper.Map<User>(user));
                 await context.SaveChangesAsync();
-                return await GetAsync(user.Id);
             }
+            return await GetAsync(user.Id);
         }
 
         /// <summary>
